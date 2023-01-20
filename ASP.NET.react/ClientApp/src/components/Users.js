@@ -1,5 +1,4 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { Button } from '../../node_modules/reactstrap/types/index';
 
 
 const Users = () => {
@@ -23,11 +22,10 @@ const Users = () => {
 
 
     return (
-        (users != null) ?
+        (users.length !== 0) ?
             <main>
             {
                     users.map((user) => <h3 key={`user-${user.id}`}>{user.name}</h3>)
-                    <button></button>
             }
             </main>
             : <main><h3>Loading...</h3></main>
