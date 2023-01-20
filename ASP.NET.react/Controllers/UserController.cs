@@ -32,5 +32,12 @@ namespace ASP.NET.react.Controllers
 			Thread.Sleep(1000);
 			return userModels.Where((user) => user.UserName == username).ToArray();
 		}
+		[Route("/Login")]
+		[HttpPost("{username, password}")]
+		public UserModel[] Login(string username)
+		{
+			Thread.Sleep(1000);
+			return userModels.Where((user) => user.UserName == username).ToArray();
+		}
 	}
 }
