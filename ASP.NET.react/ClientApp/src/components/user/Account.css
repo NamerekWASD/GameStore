@@ -35,6 +35,9 @@ button {
     text-align: center;
     margin: 24px 0 12px 0;
 }
+.imgcontainer img{
+    width: 300px;
+}
 
 img.avatar {
     width: 40%;
@@ -48,6 +51,11 @@ img.avatar {
 span.psw {
     float: right;
     padding-top: 16px;
+}
+#responseMessage{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
 }
 
 /* Change styles for span and cancel button on extra small screens */
