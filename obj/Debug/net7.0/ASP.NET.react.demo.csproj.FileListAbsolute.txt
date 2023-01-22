@@ -1,0 +1,5 @@
+C:\Users\Nykolai\source\repos\ASP.NET.react.demo\obj\Debug\net7.0\ASP.NET.react.demo.csproj.AssemblyReference.cache
+C:\Users\Nykolai\source\repos\ASP.NET.react.demo\obj\Debug\net7.0\ASP.NET.react.demo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nykolai\source\repos\ASP.NET.react.demo\obj\Debug\net7.0\ASP.NET.react.demo.AssemblyInfoInputs.cache
+C:\Users\Nykolai\source\repos\ASP.NET.react.demo\obj\Debug\net7.0\ASP.NET.react.demo.AssemblyInfo.cs
+C:\Users\Nykolai\source\repos\ASP.NET.react.demo\obj\Debug\net7.0\ASP.NET.react.demo.csproj.CoreCompileInputs.cache
