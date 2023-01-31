@@ -775,11 +775,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nykolai\\source\\repos\\ASP.NET.react.demo\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\Nykolai\\Source\\Repos\\ReactApplication\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\Users\\Nykolai\\source\\repos\\ASP.NET.react.demo\\DAL\\DAL.csproj",
+      "projectPath": "C:\\Users\\Nykolai\\Source\\Repos\\ReactApplication\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\Nykolai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nykolai\\source\\repos\\ASP.NET.react.demo\\DAL\\obj\\",
+      "outputPath": "C:\\Users\\Nykolai\\Source\\Repos\\ReactApplication\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
