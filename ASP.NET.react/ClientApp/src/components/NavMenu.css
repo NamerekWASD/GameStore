@@ -4,6 +4,10 @@
   word-break: break-all;
 }
 
+.navbar-toggler{
+  max-width: 50px;
+}
+
 html {
   font-size: 14px;
 }
@@ -16,3 +20,19 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+ 
+.header{
+  z-index: 5;
+  background: white;
+  border-bottom: inset 1px black;
+  transition: 1s;
+}
+
+.sticky{
+  transform: scale(0.8);
+  background: rgb(255, 255, 255, .8);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
