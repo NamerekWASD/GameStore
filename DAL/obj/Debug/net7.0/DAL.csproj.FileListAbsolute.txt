@@ -22,3 +22,15 @@ C:\Users\Nykolai\Source\Repos\ReactApplication\DAL\obj\Debug\net7.0\DAL.dll
 C:\Users\Nykolai\Source\Repos\ReactApplication\DAL\obj\Debug\net7.0\refint\DAL.dll
 C:\Users\Nykolai\Source\Repos\ReactApplication\DAL\obj\Debug\net7.0\DAL.pdb
 C:\Users\Nykolai\Source\Repos\ReactApplication\DAL\obj\Debug\net7.0\ref\DAL.dll
+C:\Users\Nykolai\source\repos\gameStore\DAL\bin\Debug\net7.0\DAL.deps.json
+C:\Users\Nykolai\source\repos\gameStore\DAL\bin\Debug\net7.0\DAL.dll
+C:\Users\Nykolai\source\repos\gameStore\DAL\bin\Debug\net7.0\DAL.pdb
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.csproj.AssemblyReference.cache
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.AssemblyInfoInputs.cache
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.AssemblyInfo.cs
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.dll
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\refint\DAL.dll
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\DAL.pdb
+C:\Users\Nykolai\source\repos\gameStore\DAL\obj\Debug\net7.0\ref\DAL.dll
