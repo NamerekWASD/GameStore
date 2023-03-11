@@ -1,12 +1,11 @@
-
+using DAL.Entity.Cheques;
 using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Entity
 {
-	public class User : IdentityUser<int>
+    public class User : IdentityUser<int>
 	{
-		public string Name { get; set; } = string.Empty;
-		public string Lastname { get; set; } = string.Empty;
-		public int CompanyId { get; set; }
+		public string ImageURL { get; set; } = string.Empty;
+		public virtual List<Cheque>? Cheques { get; set; }
 	}
 }
