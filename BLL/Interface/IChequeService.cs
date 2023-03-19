@@ -1,17 +1,12 @@
-﻿using BLL.DTO;
-using BLL.DTO.Cheques;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BLL.DTO.Orders;
 
 namespace BLL.Interface
 {
-    public interface IChequeService
+    public interface IOrderService
 	{
-		IAsyncEnumerable<ChequeDTO> GetCheques(int userId);
-		Task<ChequeDTO> GetCheque(int userId, int chequeId);
-		Task<ChequeDTO> CreateCheque(ChequeLightDTO data);
+		IAsyncEnumerable<OrderDTO> GetOrders(int userId);
+		Task<OrderDTO?> GetOrder(int userId, int orderId);
+		Task<int> CreateOrder(OrderLightDTO data);
+		Task CalculateTotalPrice(OrderLightDTO data);
 	}
 }

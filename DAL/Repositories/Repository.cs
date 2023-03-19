@@ -63,14 +63,6 @@ namespace DAL.Repositories
 				yield return entity;
 			}
 		}
-		public void AddNoSave(TEntity entity)
-		{
-			DbSet.Add(entity);
-		}
-		public void Attach(TEntity existItem)
-		{
-			DbSet.Attach(existItem);
-		}
 		public void Dispose()
 		{
 			GC.SuppressFinalize(this);

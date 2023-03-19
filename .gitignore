@@ -3,3 +3,5 @@
 ################################################################################
 
 /API/ClientApp/.env.development
+/.vs/GameStore/config
+/.vs/GameStore/DesignTimeBuild
