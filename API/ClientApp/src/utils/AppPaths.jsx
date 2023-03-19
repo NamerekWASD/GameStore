@@ -1,12 +1,13 @@
 export const AppPaths = {
-    login: '/account/login',
-    register: '/account/register',
+    authorization: '/account/authorize',
     profile: '/account/profile',
     gameDetails: '/game/details',
     shoppingCart: '/cart',
     gameSearch: '/game/search',
+    gameCatalog: '/game/catalog',
     payment: '/payment',
-    paymentSuccess: '/payment/success',
-    paymentError: '/payment/error',
-    order: '/orders/order',
+    orderDetails: '/orders/order-details',
+    manager: '/manager',
+    editGame: '/manager/edit',
+    createGame: '/manager/create',
 }

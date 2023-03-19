@@ -5,7 +5,13 @@ import plus from './../../../static/plus.svg';
 import remove from './../../../static/close-cross.svg'
 import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
-import { loadUserData } from "../../../utils/ApiRequests";
+import { loadUserData, SendLoginData, subscribeOnGame } from "../../../utils/ApiRequests";
+import EmailConfirmation from "../user/Auth/EmailConfirmation";
+import { toast } from "react-toastify";
+import ModalSubscribe from "../../../utils/ModalSubscribe";
+import { navigateToDetails } from "../../../utils/Navigation";
+import { setItemsCount } from "../../NavMenu";
+import Price from "./parts/Price";
 
 
 export const paymentType = {
@@ -14,15 +20,19 @@ export const paymentType = {
     crypto: 'BitCoin'
 }
 
-const ShoppingCart = () => {
+const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
 
     const [games, setGames] = useState([]);
-    const total = useRef(null);
-
-    const email = useRef(null);
     const [payment, setPayment] = useState("Visa/Mastercard");
+    const [gameToSubscibe, setGameToSubscibe] = useState();
+    const total = useRef(null);
+    const email = useRef(null);
     const AdditionInfo = useRef(null);
+
+    const modal = useRef(null);
+    const modalConfirm = useRef(null);
+    const modalSubscribe = useRef(null);
 
 
     const countRefs = useRef([]);
@@ -30,7 +40,7 @@ const ShoppingCart = () => {
     const priceRefs = useRef([]);
     priceRefs.current = games.map((_, index) => priceRefs.current[index] ?? createRef());
 
-    const renderGames = useMemo(() => renderCards(), [games])
+    const memoRenderGames = useMemo(() => renderGames(), [games])
 
     useEffect(() => {
         if (localStorage.games && localStorage.games.length !== 0 && games.length === 0) {
@@ -38,17 +48,20 @@ const ShoppingCart = () => {
         }
         if (games.length !== 0) {
             localStorage.games = JSON.stringify(games);
-            recalculateValue();
+            recalculateTotalPrice();
         } else {
             localStorage.games = [];
         }
-    })
+    }, [games])
+
     useEffect(() => {
-        loadUserData(navigate, false, true).then(result => {
-            if(result.email)
-                email.current.value = result.email;
-        })
-    })
+        loadUserData(false, navigate)
+            .then(response => response.json())
+            .then(result => {
+                if (result.email)
+                    email.current.value = result.email;
+            })
+    }, [isAuthenticated])
 
     async function loadSpecifiedtGames(storageGames) {
         let games = [];
@@ -74,130 +87,180 @@ const ShoppingCart = () => {
         });
         return games;
     }
-    function renderCards() {
+
+    function renderGames() {
         return (
             games.length !== 0 ? games.map((game, index) => {
                 return (
                     <div key={game.id} className="mb-3 my-card bg-white">
-                        <img src={game.imageURL} style={{ width: '100px', height: '130px' }} alt={game.title} />
-                        <div className="card-body flex-fill d-flex flex-row gap-4">
-                            <div className="flex-fill my-auto px-3">
+                        <div className="overflow-hidden" style={{ width: '150px' }}>
+                            <img src={game.image.path} alt={game.title} className="pointer width-inherit" onClick={() => navigateToDetails(game, navigate)} />
+                        </div>
+                        <div className="card-body flex-fill d-flex flex-row flex-wrap justify-content-center">
+                            <div className="flex-fill my-auto px-3 pointer" onClick={() => navigateToDetails(game, navigate)}>
                                 <h5 className="card-title text-center">{game.title}</h5>
                             </div>
 
-                            <div className="my-auto">
-                                <div className="text-center">
-                                    <div className="border border-2 d-flex flex-row align-items-center">
-                                        <button className="p-0 btn btn-crement text-center"
-                                            onClick={() => changeValue(game.id, index, -1)}>
-                                            <img src={minus} alt="minus" />
-                                        </button>
-                                        <input ref={countRefs.current[index]} className="count-input fs-4 text-center border-end border-start bg-transparent p-0 " type='text'
-                                            value={game.count} min="1" max={game.copyCount} disabled></input>
-                                        <button className="p-0 btn btn-crement text-center"
-                                            onClick={() => changeValue(game.id, index, 1)}>
-                                            <img src={plus} alt="plus" />
-                                        </button>
+                            {
+                                game.copyCount !== 0 ?
+                                    <div className="d-flex flex-row gap-4">
+                                        <Price item={game} />
+                                        <div className="text-center my-auto border-bottom border-success border-2">
+                                            <div className="d-flex flex-row align-items-center px-2">
+                                                <button className="p-0 btn btn-crement text-center"
+                                                    onClick={() => changeCopiesCount(game, index, -1)}>
+                                                    <img src={minus} alt="minus" />
+                                                </button>
+                                                <input ref={countRefs.current[index]} className="count-input fs-4 text-center border-0 bg-white" type='text'
+                                                    value={game.count} min="1" max={game.copyCount <= 5 ? game.copyCount : 5} disabled></input>
+                                                <button className="p-0 btn btn-crement text-center"
+                                                    onClick={() => changeCopiesCount(game, index, 1)}>
+                                                    <img src={plus} alt="plus" />
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="card-text text-xxl-center fs-5 fw-bold text-center my-auto">
-                                <span ref={priceRefs.current[index]} className="game-price">{+(game.price * game.count).toFixed(2)}</span><sup>$</sup>
-                            </div>
-                            <img className="my-auto pe-2 pointer" src={remove} onClick={() => removeItem(game.id)} alt="cross" />
+                                    :
+                                    <div className="text-center my-auto">
+                                        <h5>Нажаль копій цієї гри не залишилось</h5>
+                                        <button className="btn btn-outline-dark responsive-btn rounded-0" onClick={() => subscribe(game)}>Повідомити мене коли з'явиться гра</button>
+                                    </div>
+                            }
                         </div>
+                        <img className="pe-2 pointer ms-2" src={remove} onClick={() => removeGameFromShoppingBasket(game.id)} alt="remove" />
                     </div>
 
                 )
             }
             )
                 :
-                <h4 className="text-muted">Ви ще нічого не додали до кошику!</h4>
+                <>
+                    <h4 className="text-muted">Ви ще нічого не додали до кошику!</h4>
+                    <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>Продовжити покупки</button>
+                </>
 
         )
     }
 
-    function removeItem(id) {
+    function subscribe(game) {
+        setGameToSubscibe(game)
+        if (isAuthenticated) {
+            subscribeOnGame(game.id, email.current.value);
+        }
+        else {
+            modalSubscribe.current.style.display = 'block';
+            window.addEventListener('click', () => {
+                modalSubscribe.current.style.display = 'none';
+            })
+        }
+        removeGameFromShoppingBasket(game.id);
+    }
+
+    function removeGameFromShoppingBasket(id) {
         const newList = games.filter((item) => item.id !== id);
         localStorage.games = JSON.stringify(newList);
         setGames(newList);
-        document.getElementById('shopping-cart-counter').textContent = newList.length;
+        setItemsCount(newList.length);
     }
 
-    function changeValue(id, index, input) {
+    function changeCopiesCount(game, index, input) {
         const element = countRefs.current[index];
         var value = parseInt(element.current.value) + input;
         value = isNaN(value) ? 1 : value;
         if (value > element.current.max || value < 1) return;
         element.current.value = value;
-        recalculateValue(id, element.current.value, index);
+        games.find(item => item.id === game.id).count = value;
+        recalculateTotalPrice()
     }
 
-    function recalculateValue(id, count, index) {
-        games.some((game) => {
-            if (game.id === id) {
-                game.count = count;
-                priceRefs.current[index].current.textContent = +(game.price * count).toFixed(2);
-                return true;
-            }
-            return false;
-        });
+    function recalculateTotalPrice() {
         let sum = 0;
-        var prices = document.getElementsByClassName("game-price")
-        for (let index = 0; index < prices.length; index++) {
-            const element = prices[index];
-            sum += +parseFloat(element.textContent);
-        };
+        games.forEach(game => {
+            sum += (game.discountPrice ?? game.price) * game.count 
+        });
         total.current.textContent = +sum.toFixed(2);
     }
 
-    const handlePayment = (e) => {
-        setPayment(e.target.value);
-    }
 
-    function submit(e) {
+    async function submitForm(e) {
         e.preventDefault();
+
         if (games.length === 0) {
-            var modal = document.getElementById("myModal");
-            var span = document.getElementById("close-modal");
-            modal.style.display = "block";
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
+            modal.current.style.display = "block";
             window.onclick = function (event) {
                 if (event.target == modal) {
-                    modal.style.display = "none";
+                    modal.current.style.display = "none";
                 }
             }
             return;
         }
+
+        if (!isAuthenticated) {
+            await sendConfirmation()
+            modalConfirm.current.style.display = 'block';
+            return;
+        }
+        boxData();
+    }
+
+    function boxData() {
         const gamesModel = [];
         games.forEach((game, index) => {
-            const newGameModel = {
-                id: game.id,
-                count: game.count,
-                price: game.price,
+            if (game.copyCount !== 0) {
+                const newGameModel = {
+                    id: game.id,
+                    count: game.count,
+                    price: game.discountPrice ?? game.price,
+                }
+                gamesModel[index] = newGameModel;
             }
-            gamesModel[index] = newGameModel;
         });
+
         const bill = {
             userEmail: email.current.value,
             games: gamesModel,
             payment: payment,
             additionInfo: AdditionInfo.current.value,
         }
-        const password = document.getElementById('password');
-        if(password){
-            bill.password = password.value;
-        }
+
         localStorage.sCartData = JSON.stringify(bill);
         navigate(AppPaths.payment)
     }
+
+    const sendConfirmation = async () => {
+        const LoginModel = {
+            email: email.current.value,
+        };
+
+        const response = await SendLoginData(LoginModel);
+
+        if (processResponse(response, true)) {
+            modalConfirm.current.style.display = "block";
+        }
+    }
+    const processResponse = async (response) => {
+        if (!response.ok) {
+            toast.error(await response.text());
+            return false;
+        }
+        return true;
+    }
+    const emailConfirmationAfter = async (response) => {
+        if (!response.ok) {
+            toast.error(await response.text());
+            return false;
+        }
+        toast.success("Пошту підтвердженно");
+        refreshAuth();
+        modalConfirm.current.style.display = 'none'
+        boxData();
+    }
+
     return (
-        <div className="d-flex flex-wrap-reverse gap-3 shopping-cart-container">
+        <div className="d-flex flex-wrap-reverse gap-3 shopping-cart-container" style={{ maxWidth: "1200px" }}>
             <div className="card-container col mx-auto">
                 <h3><b>Ваш кошик</b></h3>
-                {renderGames}
+                {memoRenderGames}
                 {
                     games.length !== 0 ?
                         <>
@@ -210,10 +273,11 @@ const ShoppingCart = () => {
             <div className="order-container">
                 <h3><b>Оформлення замовлення</b></h3>
                 <div className="order-form bg-white">
-                    <form onSubmit={(e) => submit(e)}>
+                    <form onSubmit={(e) => submitForm(e)}>
                         <div className="form-group required">
                             <label htmlFor="email" className="control-label">Електронна пошта</label>
-                            <input ref={email} id="email" className="form-control rounded-0" type="email" placeholder="Електронна пошта" required />
+                            <input ref={email} id="email" className="form-control rounded-0" type="email"
+                                placeholder="Електронна пошта" onChange={(e) => e.target.value} required />
                         </div>
                         <fieldset className="form-group required">
                             <div className="row">
@@ -221,21 +285,21 @@ const ShoppingCart = () => {
                                 <div className="col-sm-10">
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="payment" id="gridRadios1"
-                                            value={paymentType.card} defaultChecked onChange={handlePayment} />
+                                            value={paymentType.card} defaultChecked onChange={(e) => setPayment(e.target.value)} />
                                         <label className="form-check-label" htmlFor="gridRadios1">
                                             Visa/Mastercard
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="payment" id="gridRadios2"
-                                            value={paymentType.paypal} onChange={handlePayment} />
+                                            value={paymentType.paypal} onChange={(e) => setPayment(e.target.value)} />
                                         <label className="form-check-label" htmlFor="gridRadios2">
                                             PayPal
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="payment" id="gridRadios3"
-                                            value={payment.crypto} onChange={handlePayment} />
+                                            value={paymentType.crypto} onChange={(e) => setPayment(e.target.value)} />
                                         <label className="form-check-label" htmlFor="gridRadios3">
                                             BitCoin
                                         </label>
@@ -255,17 +319,19 @@ const ShoppingCart = () => {
                     </form>
                 </div>
             </div>
-            <div id="myModal" className="modal">
+            <div ref={modal} className="modal">
                 <div className="modal-content rounded-0">
                     <div className="modal-header rounded-0 d-block p-3">
                         <h3 className="text-center">У вашому кошику жодної гри!
-                            <span id="close-modal" className="close-modal float-end">&times;</span></h3>
+                            <span id="close-modal" className="close-modal float-end" onClick={() => modal.current.style.display = 'none'}>&times;</span></h3>
                     </div>
                     <div className="modal-body p-2 text-center m-3">
-                        <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameSearch)}>Продовжити покупки</button>
+                        <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>Продовжити покупки</button>
                     </div>
                 </div>
             </div>
+            <EmailConfirmation refModal={modalConfirm} refEmail={email} after={emailConfirmationAfter} />
+            <ModalSubscribe refModal={modalSubscribe} game={gameToSubscibe} />
         </div>
     )
 }
