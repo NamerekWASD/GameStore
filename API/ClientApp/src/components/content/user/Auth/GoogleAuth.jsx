@@ -43,6 +43,8 @@ const GoogleAuth = ({ sendToServer }) => {
         var user = {
             email: responseBody.email,
             userName: responseBody.email,
+            firstName: responseBody.given_name,
+            lastName: responseBody.family_name,
             ImageURL: responseBody.picture,
         }
         sendToServer("Google", user, responseBody.sub)

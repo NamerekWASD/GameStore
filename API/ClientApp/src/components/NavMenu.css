@@ -14,15 +14,14 @@
 }
 
 .header {
-    z-index: 5;
+    z-index: 99;
     background: white;
     border-bottom: inset 1px black;
     transition: 1s;
 }
 
 .sticky {
-    transform: scale(.95);
-    background: rgb(255, 255, 255, .8);
+    background: rgb(255, 255, 255, .95  );
     position: fixed;
     top: 0;
     width: 100%;

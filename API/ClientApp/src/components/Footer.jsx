@@ -1,32 +1,32 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faGithub, faGoogle, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faBox, faEnvelope, faGamepad, faGem, faHome, faKey, faLink, faLock, faPercent, faPhone, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { AppPaths } from "../utils/AppPaths";
+import { MANAGER } from "../utils/Constants";
+import { useNavigate } from "react-router-dom";
+import { navigateToManager } from "../utils/Navigation";
 
 const Footer = () => {
+    const navigate = useNavigate();
+
+    
+
     return (
         <footer className="text-center text-lg-start text-muted footer">
             <section className="d-flex justify-content-center p-4 border-bottom">
-                <div className="me-5 d-none d-lg-block">
-                    <span>Get connected with us on social networks:</span>
+                <div className="me-3 d-none d-lg-block">
+                    <span>Приєднуйтесь до наших соціальних мереж:</span>
                 </div>
                 <div>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faFacebook}/>
+                    <a href="" target="_blank" className="me-4 text-reset">
+                        <FontAwesomeIcon icon={faInstagram} />
                     </a>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faTwitter}/>
+                    <a href="" target="_blank" className="me-4 text-reset">
+                        <FontAwesomeIcon icon={faLinkedin} />
                     </a>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faGoogle}/>
-                    </a>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faInstagram}/>
-                    </a>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faLinkedin}/>
-                    </a>
-                    <a href="" className="me-4 text-reset">
-                        <FontAwesomeIcon icon={faGithub}/>
+                    <a href="https://github.com/NamerekWASD/GameStore" target="_blank" className="me-4 text-reset">
+                        <FontAwesomeIcon icon={faGithub} />
                     </a>
                 </div>
             </section>
@@ -35,63 +35,71 @@ const Footer = () => {
                     <div className="row mt-3">
                         <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <h6 className="text-uppercase fw-bold mb-4">
-                                <i className="fas fa-gem me-3"></i>Company name
+                                <FontAwesomeIcon icon={faGem} /> Namerek
                             </h6>
-                            <p>
-                                Here you can use rows and columns to organize your footer content. Lorem ipsum
-                                dolor sit amet, consectetur adipisicing elit.
-                            </p>
+                            <strong>Ми гарантуємо:</strong>
+                            <div className="d-flex flex-column gap-2">
+                                <div className="d-flex flex-row align-items-center">
+                                    <div className="me-2">
+                                        <FontAwesomeIcon icon={faKey} className=" d-inline-block" />
+                                    </div>
+                                    <span className="line-height-normal">Ліцензійні ключі від офіційних видавців</span>
+                                </div>
+                                <div className="d-flex flex-row align-items-center">
+                                    <div className="me-2">
+                                        <FontAwesomeIcon icon={faLock} />
+                                    </div>
+                                    <span className="line-height-normal">Робочі аккаунти</span>
+                                </div>
+                                <div className="d-flex flex-row align-items-center">
+                                    <div className="me-2">
+                                        <FontAwesomeIcon icon={faRocket} />
+                                    </div>
+                                    <span className="line-height-normal">Гарантована техпідтримка вашої покупки</span>
+                                </div>
+                                <div className="d-flex flex-row align-items-center">
+                                    <div className="me-2">
+                                        <FontAwesomeIcon icon={faPercent} />
+                                    </div>
+                                    <span className="line-height-normal">Регулярні акції, знижки та бонуси</span>
+                                </div>
+                            </div>
                         </div>
                         <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 className="text-uppercase fw-bold mb-4">
-                                Products
+                                <FontAwesomeIcon icon={faBox} /> Продукти
                             </h6>
                             <p>
-                                <a href="#!" className="text-reset">Angular</a>
-                            </p>
-                            <p>
-                                <a href="#!" className="text-reset">React</a>
-                            </p>
-                            <p>
-                                <a href="#!" className="text-reset">Vue</a>
-                            </p>
-                            <p>
-                                <a href="#!" className="text-reset">Laravel</a>
+                                <a href={AppPaths.gameCatalog} className="text-dark nav-link"><FontAwesomeIcon icon={faGamepad} /> Ігри</a>
                             </p>
                         </div>
                         <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <h6 className="text-uppercase fw-bold mb-4">
-                                Useful links
+                                <FontAwesomeIcon icon={faLink} /> Корисні посилання
                             </h6>
                             <p>
-                                <a href="#!" className="text-reset">Pricing</a>
+                                <a href="#" className="text-dark nav-link">FAQ</a>
                             </p>
                             <p>
-                                <a href="#!" className="text-reset">Settings</a>
-                            </p>
-                            <p>
-                                <a href="#!" className="text-reset">Orders</a>
-                            </p>
-                            <p>
-                                <a href="#!" className="text-reset">Help</a>
+                                <button className="btn text-dark nav-link" onClick={() => navigateToManager(navigate)}>Менеджеру</button>
                             </p>
                         </div>
                         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-                            <p><i className="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                            <h6 className="text-uppercase fw-bold mb-4">Контакти</h6>
+                            <p><FontAwesomeIcon icon={faHome} /><span className="ms-1"> вул. Ярославська, 56А, Київ, 04071</span></p>
                             <p>
-                                <i className="fas fa-envelope me-3"></i>
-                                info@example.com
+                                <a href="mailto:namerek.inc@gmail.com" className="text-dark nav-link"><FontAwesomeIcon icon={faEnvelope} /><span className="ms-1"> namerek.inc@gmail.com</span></a>
                             </p>
-                            <p><i className="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                            <p><i className="fas fa-print me-3"></i> + 01 234 567 89</p>
+                            <p>
+                                <a href="tel:+380639737449" className="text-dark nav-link"><FontAwesomeIcon icon={faPhone} /><span className="ms-1">+38(063)973-74-49</span></a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </section>
             <div className="text-center p-4 copyright">
-                © 2021 Copyright:
-                <a className="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                © 2023 Copyright:
+                <a className="text-reset fw-bold ms-1" href="https://GameStore.gg/">GameStore.gg</a>
             </div>
         </footer>
     )
