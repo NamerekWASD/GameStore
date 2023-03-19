@@ -1,7 +1,10 @@
 using API.Data;
 using API.Tools;
+using BLL.DTO.Mails;
+using BLL.DTO.Payment;
 using BLL.Interface;
 using BLL.Service;
+using BLL.Tools;
 using DAL.Context;
 using DAL.Entity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,8 +20,6 @@ builder.Services.AddDbContext<GameContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Default"),
 				providerOptions => { providerOptions.EnableRetryOnFailure(); }).UseLazyLoadingProxies());
 
-builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<IMailService, BLL.Service.MailService>();
 
 builder.Services.AddIdentity<User, IdentityRole<int>>()
 	.AddEntityFrameworkStores<GameContext>()
@@ -28,13 +29,6 @@ builder.Services.AddControllers();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-	// Password settings.
-	options.Password.RequireDigit = true;
-	options.Password.RequireLowercase = true;
-	options.Password.RequireNonAlphanumeric = true;
-	options.Password.RequireUppercase = true;
-	options.Password.RequiredLength = 6;
-	options.Password.RequiredUniqueChars = 1;
 
 	// Lockout settings.
 	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -42,10 +36,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 	options.Lockout.AllowedForNewUsers = true;
 
 	// User settings.
-	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 	options.User.RequireUniqueEmail = true;
 
-	options.SignIn.RequireConfirmedEmail = false;
+	options.SignIn.RequireConfirmedEmail = true;
 });
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -72,19 +65,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
 			ValidateIssuerSigningKey = true,
 		};
+	}).AddGoogle(options =>
+	{
+		options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+		options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 	});
 
 builder.Services.AddAuthorization(options =>
 {
-	options.AddPolicy("Administrator",
+	options.AddPolicy(Constants.ADMINISTRATOR,
 		authBuilder =>
 		{
-			authBuilder.RequireRole("Administrator");
+			authBuilder.RequireRole(Constants.ADMINISTRATOR);
 		});
-	options.AddPolicy("Manager",
+	options.AddPolicy(Constants.MANAGER,
 		authBuilder =>
 		{
-			authBuilder.RequireRole("Administrator, Manager");
+			authBuilder.RequireRole(Constants.ADMINISTRATOR, Constants.MANAGER);
 		});
 });
 
@@ -97,8 +94,18 @@ builder.Services.AddCors(options =>
 		Builder.WithOrigins("https://localhost:44458", "http://localhost:52324", "https://localhost:7219", "http://localhost:5019");
 	});
 });
+MailSettings emailConfig = new();
+builder.Configuration.GetSection("MailSettings").Bind(emailConfig);
+builder.Services.AddSingleton(emailConfig);
 
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+BraintreeSettings braintreeConfig = new();
+builder.Configuration.GetSection("BraintreeGateway").Bind(braintreeConfig);
+builder.Services.AddSingleton(braintreeConfig);
+
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddTransient<IBraintreeService, BraintreeService>();
 
 var app = builder.Build();
 

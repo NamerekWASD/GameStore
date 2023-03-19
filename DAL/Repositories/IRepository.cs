@@ -14,7 +14,5 @@ namespace DAL.Repositories
 		Task<TEntity> GetAsync(int Id);
 		IAsyncEnumerable<TEntity> GetAll();
 		IAsyncEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
-		void AddNoSave(TEntity entity);
-		void Attach(TEntity existItem);
 	}
 }
