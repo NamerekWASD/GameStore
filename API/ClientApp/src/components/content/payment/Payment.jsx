@@ -1,54 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { paymentType } from "../game/ShoppingCart";
-import PayPal from "./PayPal";
-import CreditCard from "./CreditCard";
 import BitCoin from "./BitCoin";
 import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
+import { toast } from "react-toastify";
+import Loading from "../../../utils/Loading";
+import Braintree from "./Braintree";
 
 const Payment = () => {
     const navigate = useNavigate();
     const [sended, setSended] = useState(false);
+    const sCartData = JSON.parse(localStorage.sCartData);
 
     const changeState = (value) => setSended(value);
-    const onSuccess = (value) => {
+
+    const onSuccess = async (billData, nonce) => {
+        const requestInfo = `api/order/create`;
         const body = {
             userEmail: sCartData.userEmail,
-            password: sCartData.password,
             games: sCartData.games,
-            billingAddress: value,
+            BillingAddress: billData,
+            nonce: nonce
         }
-        localStorage.sCartData = JSON.stringify(body);
-        
+        console.log(billData);
+        const requestInit = {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body),
+        };
 
-        navigate(AppPaths.paymentSuccess)
-    };
-    const sCartData = JSON.parse(localStorage.sCartData);
+        const promise = fetch(requestInfo, requestInit);
+
+        const toastPromise = toast.promise(promise, {
+            pending: "Ще трохи...",
+        })
+        const response = await promise;
+        if (!response.ok) {
+            toast.dismiss(toastPromise);
+            toast.error(await response.text())
+            setSended(false);
+            return
+        }
+        toast.success("Готово!")
+        var orderId = await response.json();
+        setSended(false);
+        navigate(AppPaths.orderDetails + '?' + new URLSearchParams([['orderId', orderId]]));
+    }
+
+    const onError = (errorMessage) => {
+        toast(errorMessage);
+    }
+
+
     function renderPayment() {
         switch (sCartData.payment) {
-            case paymentType.card:
+            case paymentType.card || paymentType.paypal:
                 return (
-                    <>
-                        <CreditCard email={sCartData.userEmail} setSended={changeState} onSuccess={onSuccess} />
-                    </>
-                )
-            case paymentType.paypal:
-                return (
-                    <>
-                        <PayPal />
-                    </>
+                    <Braintree email={sCartData.userEmail}
+                        setSended={changeState}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                        optionType={sCartData.payment}
+                    />
                 )
             case paymentType.crypto:
                 return (
-                    <>
-                        <BitCoin />
-                    </>
+                    <BitCoin setSended={changeState} onSuccess={onSuccess} onError={onError} totalPriceUSD={sCartData.totalPrice} />
                 )
             default:
                 return (
-                    <>
-                        <CreditCard />
-                    </>
+                    <Braintree email={sCartData.userEmail}
+                        setSended={changeState}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                        optionType={sCartData.payment}
+                    />
                 )
         }
     }
@@ -59,12 +88,7 @@ const Payment = () => {
                 !sended ?
                     renderPayment()
                     :
-                    <div className="absolute-centered">
-                        <div className="waviy">
-                            <span className="i1">G</span>
-                            <span className="i2">G</span>
-                        </div>
-                    </div>
+                    <Loading />
             }
         </>
     )
