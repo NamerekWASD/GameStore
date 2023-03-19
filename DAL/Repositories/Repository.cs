@@ -25,7 +25,12 @@ namespace DAL.Repositories
 		}
 		public async Task DeleteAsync(TEntity Item)
 		{
-			Context.Entry(Item).State = EntityState.Deleted;
+			DbSet.Entry(Item).State = EntityState.Deleted;
+			await Context.SaveChangesAsync();
+		}
+		public async Task RemoveRangeAsync(params TEntity[] entities)
+		{
+			DbSet.RemoveRange(entities);
 			await Context.SaveChangesAsync();
 		}
 		public async Task<TEntity> AddAsync(TEntity Item)
@@ -57,6 +62,14 @@ namespace DAL.Repositories
 			{
 				yield return entity;
 			}
+		}
+		public void AddNoSave(TEntity entity)
+		{
+			DbSet.Add(entity);
+		}
+		public void Attach(TEntity existItem)
+		{
+			DbSet.Attach(existItem);
 		}
 		public void Dispose()
 		{

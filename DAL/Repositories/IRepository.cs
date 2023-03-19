@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using DAL.Entity.Games;
+using System.Linq.Expressions;
 
 namespace DAL.Repositories
 {
@@ -6,11 +7,14 @@ namespace DAL.Repositories
 	{
 		Task ClearAsync();
 		Task DeleteAsync(int Id);
-		Task DeleteAsync(TEntity Entity);
-		Task<TEntity> AddAsync(TEntity Entity);
-		Task<TEntity> ModifyAsync(int Id, TEntity NewItem);
+		Task DeleteAsync(TEntity entity);
+		Task RemoveRangeAsync(params TEntity[] entities);
+		Task<TEntity> AddAsync(TEntity entity);
+		Task<TEntity> ModifyAsync(int Id, TEntity newItem);
 		Task<TEntity> GetAsync(int Id);
 		IAsyncEnumerable<TEntity> GetAll();
 		IAsyncEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
+		void AddNoSave(TEntity entity);
+		void Attach(TEntity existItem);
 	}
 }
