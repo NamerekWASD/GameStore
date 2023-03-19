@@ -5,8 +5,6 @@ import './custom.css';
 
 import Layout from './components/Layout';
 import Home from "./components/content/Home";
-import RegistrationForm from "./components/content/user/RegistrationForm";
-import LoginForm from "./components/content/user/LoginForm"
 import Profile from "./components/content/user/Profile"
 import { AppPaths } from './utils/AppPaths';
 import { CheckAuthenticated } from './utils/ApiRequests';
@@ -14,16 +12,18 @@ import GameDetails from './components/content/game/GameDetails';
 import ShoppingCart from './components/content/game/ShoppingCart';
 import GameSearch from './components/content/game/GameSearch';
 import Payment from './components/content/payment/Payment';
-import PaymentSuccess from './components/content/payment/PaymentSuccess';
-import PaymentError from './components/content/payment/PaymentError';
-import Orders from './components/content/order/Orders';
 import OrderDetails from './components/content/order/OrderDetails';
+import AuthorizationForm from './components/content/user/AuthorizationForm';
+import GameCatalog from './components/content/game/GameCatalog';
+import Manager from './components/content/manager/Manager';
+import EditGame from './components/content/manager/EditGame';
+import CreateGame from './components/content/manager/CreateGame';
 
 const App = () => {
     const [isAuthenticated, setAuthenticated] = useState();
     useEffect(() => {
         refreshAuth();
-    });
+    }, []);
 
     const refreshAuth = () => {
         CheckAuthenticated().then(result => {
@@ -36,51 +36,55 @@ const App = () => {
             element: <Home />
         },
         {
-            path: AppPaths.login,
-            element: <LoginForm refreshAuth={refreshAuth} />
-        },
-        {
-            path: AppPaths.register,
-            element: <RegistrationForm />
+            path: AppPaths.authorization,
+            element: <AuthorizationForm isAuthenticated={isAuthenticated} refreshAuth={refreshAuth} />
         },
         {
             path: AppPaths.profile,
-            element: <Profile isAuthenticated={isAuthenticated}/>
+            element: <Profile isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
         },
         {
             path: AppPaths.gameDetails,
-            element: <GameDetails/>
+            element: <GameDetails isAuthenticated ={isAuthenticated}/>
         },
         {
             path: AppPaths.shoppingCart,
-            element: <ShoppingCart isAuthenticated={isAuthenticated}/>
+            element: <ShoppingCart isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
         },
         {
             path: AppPaths.gameSearch,
             element: <GameSearch/>
         },
         {
+            path: AppPaths.gameCatalog,
+            element: <GameCatalog/>
+        },
+        {
             path: AppPaths.payment,
             element: <Payment refreshAuth={refreshAuth}/>
         },
         {
-            path: AppPaths.paymentSuccess,
-            element: <PaymentSuccess/>
-        },
-        {
-            path: AppPaths.paymentError,
-            element: <PaymentError/>
-        },
-        {
-            path: AppPaths.order,
+            path: AppPaths.orderDetails,
             element: <OrderDetails/>
+        },
+        {
+            path: AppPaths.manager,
+            element: <Manager isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
+        },
+        {
+            path: AppPaths.editGame,
+            element: <EditGame/>
+        },
+        {
+            path: AppPaths.createGame,
+            element: <CreateGame/>
         }
 
 
     ];
 
     return (
-        <Layout isAuthenticated={isAuthenticated}>
+        <Layout isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}>
             <Routes>
                 {AppRoutes.map((route, index) => {
                     const { element, ...rest } = route;
