@@ -10,3 +10,15 @@ C:\Users\Nykolai\source\repos\gameStore\Exceptions\obj\Debug\net7.0\Exceptions.d
 C:\Users\Nykolai\source\repos\gameStore\Exceptions\obj\Debug\net7.0\refint\Exceptions.dll
 C:\Users\Nykolai\source\repos\gameStore\Exceptions\obj\Debug\net7.0\Exceptions.pdb
 C:\Users\Nykolai\source\repos\gameStore\Exceptions\obj\Debug\net7.0\ref\Exceptions.dll
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\bin\Debug\net7.0\Exceptions.deps.json
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\bin\Debug\net7.0\Exceptions.dll
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\bin\Debug\net7.0\Exceptions.pdb
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.csproj.AssemblyReference.cache
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.AssemblyInfoInputs.cache
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.AssemblyInfo.cs
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.csproj.CoreCompileInputs.cache
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.dll
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\refint\Exceptions.dll
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\Exceptions.pdb
+C:\Users\Nykolai\source\repos\Game Store\Exceptions\obj\Debug\net7.0\ref\Exceptions.dll
