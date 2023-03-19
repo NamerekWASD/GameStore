@@ -5,8 +5,10 @@ import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpLong } from '@fortawesome/free-solid-svg-icons';
 import $ from 'jquery'
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
-const Layout = ({children, isAuthenticated}) => {
+const Layout = ({ children, isAuthenticated, refreshAuth }) => {
   var header, content, toTopBtn;
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const Layout = ({children, isAuthenticated}) => {
   }
 
   function toggleToTopBtn() {
-    if(toTopBtn.inProgress){
+    if (toTopBtn.inProgress) {
       return
     }
     const appearBoundary = 500
@@ -36,12 +38,12 @@ const Layout = ({children, isAuthenticated}) => {
     if (shouldAppear && toTopBtn.isGone) {
       checkButton(false, 20)
     }
-    if(!shouldAppear && !toTopBtn.isGone) {
+    if (!shouldAppear && !toTopBtn.isGone) {
       checkButton(true, -100)
     }
     function checkButton(flag, yValue) {
       toTopBtn.inProgress = true;
-      toTopBtn.element.animate({bottom: yValue}, 'fast', () =>{
+      toTopBtn.element.animate({ bottom: yValue }, 'fast', () => {
         toTopBtn.isGone = flag;
         toTopBtn.inProgress = false;
       })
@@ -59,19 +61,29 @@ const Layout = ({children, isAuthenticated}) => {
     }
   }
 
-  function scrollToTop(){
+  function scrollToTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
   return (
     <div id='main'>
-      <NavMenu isAuthenticated={isAuthenticated}/>
+      <NavMenu isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
       <Container id='content' className='w-100' style={{ minHeight: '100vh', margin: 0, padding: 0, maxWidth: '100%' }}>
+      <ToastContainer position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" />
         {children}
       </Container>
       <Footer />
       <button id='to-top-btn' onClick={() => scrollToTop()}>
-        <FontAwesomeIcon icon={faUpLong} style={{color: 'white'}} />
+        <FontAwesomeIcon icon={faUpLong} style={{ color: 'white' }} />
       </button>
     </div>
   );

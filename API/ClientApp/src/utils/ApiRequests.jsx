@@ -1,47 +1,124 @@
+import { toast } from "react-toastify";
 import { AppPaths } from "./AppPaths";
 
-export async function CheckAuthenticated() {
-    const response = await fetch(`api/account`, {
-        method: "GET",
+/////////////////// User API ////////////////////////////////
+
+export async function SendLoginData(LoginModel) {
+    const requestInfo = `api/account/authorize`;
+    const requestInit = {
+        method: 'POST',
         headers: {
             "Accept": "application/json",
-        }
-    });
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(LoginModel)
+    };
+    return await fetch(requestInfo, requestInit);
+}
 
-    if (!response.ok) {
-        return false;
-    }
+export async function SendEmailConfirmationCode(confirmationModel) {
+    const requestInfo = `api/account/confirm`;
+    const requestInit = {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(confirmationModel)
+    };
+    return await fetch(requestInfo, requestInit);
+}
 
-    const responseResult = await response.json();
-    return responseResult;
+export async function CheckAuthenticated() {
+    const requestInfo = `api/account`;
+    return await sendToServerWithJSONResponse(requestInfo);
 };
 
-export const loadUserData = async (navigate, useNavigate, waitResult) => {
+export const loadUserData = async (refreshAuth) => {
     const response = await fetch('api/account/data', {
         method: "GET",
         headers: {
             "Accept": "application/json",
         }
     })
-    if (useNavigate && response.redirected) {
-        navigate(AppPaths.login + '?' + new URLSearchParams([['returnURL', (await response.json()).ReturnUrl]]));
+    if (response.redirected) {
+        refreshAuth();
         return;
-    }
-    if(waitResult){
-        return await response.json();
     }
     return response;
 }
 
-export const logout = async () => {
+export const logout = async (update) => {
     const response = await fetch('api/account/logout');
     if (response.ok) {
-        CheckAuthenticated();
+        update();
+        toast.info("Ви вийшли з аккаунту");
+        return;
     }
+    toast.error("Сталася помилка...")
 }
-export async function loadGames(detailed) {
 
+export async function requestIsInRole(role){
+    const requestInfo = "api/account/" + role
+    return await fetch(requestInfo);
+}
+
+/////////////////// Games API ////////////////////////
+
+export async function loadGames(detailed) {
     const requestInfo = `api/game` + (detailed ? '/detailed' : '');
+    return await sendToServerWithJSONResponse(requestInfo);
+
+};
+export async function loadGame(id) {
+    const requestInfo = "api/game/" + id;
+    return await sendToServerWithJSONResponse(requestInfo);
+}
+
+export async function loadGenres() {
+    const requestInfo = "api/game/genres";
+    return await sendToServerWithJSONResponse(requestInfo);
+}
+
+export async function loadGamesByGenre(id) {
+    const requestInfo = "api/game/genre/" + id;
+    return await sendToServerWithJSONResponse(requestInfo);
+}
+
+
+export async function subscribeOnGame(gameId, userEmail) {
+    const requestInfo = "api/game/subscribe/" + gameId;
+    const requestInit = {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userEmail)
+    };
+    return await sendToServerWithJSONResponse(requestInfo, requestInit);
+}
+
+export async function loadGamesBySearchQuery(query) {
+    const requestInfo = "api/game/search?query=" + query;
+    return await fetch(requestInfo);
+}
+export async function loadGamesByFilters(filter) {
+    const requestInfo = "api/game/filter";
+    const requestInit = {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(filter)
+    };
+
+    return await sendToServerWithJSONResponse(requestInfo, requestInit);
+}
+
+export async function loadFilterData(){
+    const requestInfo = "api/game/filter";
     const requestInit = {
         method: 'GET',
         headers: {
@@ -49,41 +126,62 @@ export async function loadGames(detailed) {
             "Content-Type": "application/json"
         },
     };
-
-    const response = await fetch(requestInfo, requestInit);
-    const responseBody = await response.json();
-    return responseBody;
-
-};
-export async function loadGame(id) {
-    const requestInfo = "api/game/" + id;
-    const requestInit = {
-        method: 'GET',
-    };
-
-    const response = await fetch(requestInfo, requestInit)
-    const responseBody = await response.json();
-    return responseBody;
+    return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadGenres() {
-    const requestInfo = "api/game/genres";
-    const requestInit = {
-        method: 'GET',
-    };
+export async function loadGameModel(gameId){
+    const requestInfo = `api/game/model/` + gameId;
+    return await sendToServerWithJSONResponse(requestInfo);
 
-    const response = await fetch(requestInfo, requestInit)
-    const responseBody = await response.json();
-    return responseBody;
 }
 
-export async function loadGamesByGenre(id) {
-    const requestInfo = "api/game/genre/" + id;
+export async function uploadChanges(game){
+    const requestInfo = `api/game/${game.id === 0 ? 'create' : 'edit/'+game.id}`;
     const requestInit = {
-        method: 'GET',
+        method: game.id === 0 ? 'POST' : 'PUT',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(game)
     };
+    return await fetch(requestInfo, requestInit);
+}
 
+/////////////////// Orders API ////////////////////////
+
+export async function loadOrder(id, useNavigate, navigate) {
+    const requestInfo = "api/order/" + id;
+    const response = await fetch(requestInfo);
+    if (response.status === 400) {
+        toast.info(await response.text());
+        navigate('/');
+        return;
+    }
+    if (useNavigate && response.redirected) {
+        navigate(AppPaths.login + '?' + new URLSearchParams([['returnURL', (await response.json()).ReturnUrl]]));
+        return;
+    }
+    return await response.json();
+}
+
+export async function loadLastBill(navigate) {
+    const requestInfo = "api/order/last-bill";
+    const response = await fetch(requestInfo);
+
+    if (response.redirected) {
+        navigate(AppPaths.login + '?' + new URLSearchParams([['returnURL', (await response.json()).ReturnUrl]]));
+        return;
+    }
+    
+    return await response.json();
+}
+
+
+/////////////////// Utils ////////////////////////
+
+
+async function sendToServerWithJSONResponse(requestInfo, requestInit) {
     const response = await fetch(requestInfo, requestInit)
-    const responseBody = await response.json();
-    return responseBody;
+    return await response.json();
 }

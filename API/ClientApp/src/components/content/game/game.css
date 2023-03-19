@@ -1,5 +1,5 @@
 :root {
-    --crement-width: 38px;
+    --crement-width: 20px;
 }
 
 .img-link {
@@ -62,13 +62,9 @@
     width: 100%;
 }
 
-.payment {
-    font-size: 46px !important;
+.payment-info {
     text-align: center;
     min-width: 300px;
-    width: max-content;
-    color: black;
-    box-shadow: inset black 0 0 10px;
 }
 
 
@@ -78,19 +74,26 @@
     padding-left: 30px;
 }
 
-.add-to-basket {
+.btn-responsive {
     font-size: 22px !important;
 }
 
-.add-to-basket span {
+.btn-responsive span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: .3s;
 }
 
-.add-to-basket span:after {
+.btn-responsive span.add::after {
     content: '\00bb';
+}
+
+.btn-responsive span.subscribe::after {
+    content: '\2604';
+}
+
+.btn-responsive span:after {
     position: absolute;
     opacity: 0;
     top: 0;
@@ -98,11 +101,11 @@
     transition: .3s;
 }
 
-.add-to-basket:hover span {
+.btn-responsive:hover span {
     padding-right: 25px;
 }
 
-.add-to-basket:hover span:after {
+.btn-responsive:hover span:after {
     opacity: 1;
     right: 0;
 }
@@ -112,8 +115,12 @@
     width: var(--crement-width);
 }
 
+.btn-crement>img {
+    width: inherit;
+}
+
 .count-input {
-    width: var(--crement-width);
+    width: calc(var(--crement-width) * 2);
 }
 
 .my-card {
@@ -133,21 +140,6 @@
     flex: 1 1;
     margin: 0 auto;
 }
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group.required .control-label::after {
-    content: "*";
-    color: red;
-}
-
-.form-group.required .col-form-label::after {
-    content: "*";
-    color: red;
-}
-
 .order-form {
     padding: 10px;
     box-shadow: 0 5px 10px black;
@@ -176,16 +168,27 @@
     text-align: left;
 }
 
-.bg-gray{
+.bg-gray {
     background-color: rgb(214, 214, 214);
 }
 
-.grid-2{
+.bg-price {
+    background: linear-gradient(45deg, #0050ac, #1179be, #387ad1);
+}
+
+.bg-discount {
+    background: linear-gradient(45deg, #007222, #26b445, #118a57);
+}
+
+.grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }
-.price::after{
+
+.price::after {
     content: '$'
 }
+
+
 @media screen and (max-width: 900px) {
     .game-info {
         font-size: smaller;

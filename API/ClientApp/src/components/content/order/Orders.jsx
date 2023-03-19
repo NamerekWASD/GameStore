@@ -13,7 +13,7 @@ const Orders = () => {
     }, [orders])
 
     async function loadOrders() {
-        const requestInfo = `api/cheque`;
+        const requestInfo = `api/order`;
         const requestInit = {
             method: 'GET',
             headers: {
@@ -32,15 +32,15 @@ const Orders = () => {
         navigate(AppPaths.gameSearch);
     }
     return (
-        <>
+        <main className="h-100">
 
             {
-                orders ?
-                    <table>
+                orders && orders.length !== 0 ?
+                    <table className="px-3 responsive-table">
                         <thead>
                             <tr>
                                 <th>Номер Замовлення</th>
-                                <th>Ціна</th>
+                                <th>Сума</th>
                                 <th>Кількіть товарів</th>
                                 <th>Дата замолення</th>
                             </tr>
@@ -56,14 +56,14 @@ const Orders = () => {
                         </tbody>
                     </table>
                     :
-                    <div>
+                    <div className="p-3 text-center">
                         <h3>
                             Ви поки що нічого не замовляли
                         </h3>
-                        <button className="btn btn-outline-success rounded-0" onClick={continueShopping}>Продовжити покупки</button>
+                        <button className="btn btn-outline-success rounded-0 btn-75px" onClick={continueShopping}>Продовжити покупки</button>
                     </div>
             }
-        </>
+        </main>
     )
 }
 export default Orders;
