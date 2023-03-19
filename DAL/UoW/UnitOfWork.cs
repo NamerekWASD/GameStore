@@ -1,13 +1,16 @@
 ﻿using DAL.Context;
 using DAL.Entity;
-using DAL.Entity.Cheques;
 using DAL.Entity.Games;
+using DAL.Entity.GameType;
+using DAL.Entity.Images;
+using DAL.Entity.Mails;
+using DAL.Entity.Orders;
 using DAL.Repositories;
 using UnitsOfWork.Interfaces;
 
 namespace DAL.UoW
 {
-    public class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly GameContext gameContext;
 
@@ -20,19 +23,26 @@ namespace DAL.UoW
 		{
 			this.gameContext = gameContext;
 		}
-
-		private IRepository<Cheque> _cheques;
+		private IRepository<Order> _orders;
 		private IRepository<Game> _games;
 		private IRepository<Genre> _genres;
 		private IRepository<User> _users;
 		private IRepository<Copy> _copies;
 		private IRepository<SoldCopy> _soldCopies;
-		public IRepository<Cheque> Cheques
+		private IRepository<GameSubscription> _gameSubscriptions;
+		private IRepository<BillingAddress> _billingAddresses;
+		private IRepository<Image> _images;
+		private IRepository<CopyType> _copyTypes;
+		private IRepository<Platform> _platforms;
+		private IRepository<Developer> _developers;
+		private IRepository<Publisher> _publishers;
+		private IRepository<Region> _regions;
+		public IRepository<Order> Orders
 		{
 			get
 			{
-				_cheques ??= new Repository<Cheque>(gameContext);
-				return _cheques;
+				_orders ??= new Repository<Order>(gameContext);
+				return _orders;
 			}
 		}
 
@@ -76,6 +86,72 @@ namespace DAL.UoW
 				return _soldCopies;
 			}
 		}
+		public IRepository<GameSubscription> GameSubscriptions
+		{
+			get
+			{
+				_gameSubscriptions ??= new Repository<GameSubscription>(gameContext);
+				return _gameSubscriptions;
+			}
+		}
+		public IRepository<BillingAddress> BillingAddresses
+		{
+			get
+			{
+				_billingAddresses ??= new Repository<BillingAddress>(gameContext);
+				return _billingAddresses;
+			}
+		}
+
+		public IRepository<Image> Images
+		{
+			get
+			{
+				_images ??= new Repository<Image>(gameContext);
+				return _images;
+			}
+		}
+		public IRepository<CopyType> CopyTypes
+		{
+			get
+			{
+				_copyTypes ??= new Repository<CopyType>(gameContext);
+				return _copyTypes;
+			}
+		}
+		public IRepository<Platform> Platforms
+		{
+			get
+			{
+				_platforms ??= new Repository<Platform>(gameContext);
+				return _platforms;
+			}
+		}
+		public IRepository<Developer> Developers
+		{
+			get
+			{
+				_developers ??= new Repository<Developer>(gameContext);
+				return _developers;
+			}
+		}
+		public IRepository<Publisher> Publishers
+		{
+			get
+			{
+				_publishers ??= new Repository<Publisher>(gameContext);
+				return _publishers;
+			}
+		}
+		public IRepository<Region> Regions
+		{
+			get
+			{
+				_regions ??= new Repository<Region>(gameContext);
+				return _regions;
+			}
+		}
+
 		public void DeleteDB()
 		{
 			gameContext.Database.EnsureDeleted();
