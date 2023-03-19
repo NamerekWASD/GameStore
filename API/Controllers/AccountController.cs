@@ -1,4 +1,6 @@
-﻿using API.Models;
+﻿using API.Models.Users;
+using BLL.Interface;
+using BLL.Tools;
 using DAL.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,48 +15,84 @@ namespace API.Controllers
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<AccountController> _logger;
 		private readonly SignInManager<User> _signInManager;
+		private readonly IMailService _mailService;
+		private readonly IWebHostEnvironment _appEnvironment;
+		private readonly RoleManager<IdentityRole<int>> _roleManager;
 
 		public AccountController(
 			UserManager<User> _userManager,
 			SignInManager<User> _signInManager,
-			ILogger<AccountController> _logger)
+			ILogger<AccountController> _logger,
+			IWebHostEnvironment _appEnvironment,
+			IMailService _mailService,
+			RoleManager<IdentityRole<int>> _roleManager)
 		{
 			this._signInManager = _signInManager;
 			this._logger = _logger;
 			this._userManager = _userManager;
+			this._appEnvironment = _appEnvironment;
+			this._mailService = _mailService;
+			this._roleManager = _roleManager;
 		}
 
 		[HttpGet]
 		[AllowAnonymous]
-		public async Task<bool> IsAuthenticated()
+		public bool IsAuthenticated()
 		{
-			var IsAuthenticated = await Task<bool>.Factory.StartNew(() => User != null
-				&& User.Identity != null && User.Identity.IsAuthenticated);
-			return IsAuthenticated;
+			return User != null && User.Identity != null && User.Identity.IsAuthenticated && _signInManager.IsSignedIn(User);
 		}
 		[HttpGet("login")]
 		[AllowAnonymous]
 		public IActionResult Login(string ReturnUrl = "")
 		{
-			return Ok(ReturnUrl);
+			return Ok("Спершу авторизуйтесь");
 		}
+		[HttpGet("accessDenied")]
+		[AllowAnonymous]
+		public IActionResult AccessDenied()
+		{
+			return Ok("У вас недостатньо прав...");
+		}
+
+		[HttpGet(Constants.MANAGER)]
+		[Authorize(Constants.MANAGER)]
+		public IActionResult IsManager()
+		{
+			return Ok();
+		}
+		[HttpGet(Constants.ADMINISTRATOR)]
+		[Authorize(Constants.ADMINISTRATOR)]
+		public IActionResult IsAdministrator()
+		{
+			return Ok();
+		}
+
 		[HttpGet("data")]
 		[Authorize]
 		public async Task<IActionResult> GetUserData()
 		{
 			var userFromDB = await _userManager.GetUserAsync(User);
 			var externalLogin = await _signInManager.GetExternalLoginInfoAsync();
+
+			// TODO: make things work
+
+			var schemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
+			_logger.LogInformation("external Auths: ", string.Join(", ", schemes.Select(item => item.DisplayName)));
+
 			if (userFromDB is null)
 			{
 				return BadRequest("User not found");
 			}
-			var user = new UserModel()
+			var user = new UserModel
 			{
 				ImageURL = userFromDB.ImageURL ?? "",
 				UserName = userFromDB.UserName ?? "",
 				Email = userFromDB.Email ?? "",
-				Provider = externalLogin?.LoginProvider ?? ""
 			};
+			if (externalLogin is not null)
+			{
+				user.Provider = externalLogin.ProviderDisplayName;
+			}
 
 			return Ok(user);
 		}
@@ -64,18 +102,16 @@ namespace API.Controllers
 		public async Task<IActionResult> UpdateUserData([FromBody] UserModel userModel)
 		{
 			var userFromDB = await _userManager.GetUserAsync(User);
-			if (userFromDB is null)
-			{
-				return BadRequest("User not found");
-			}
 			userFromDB.Email = userModel.Email;
+			userFromDB.FirstName = userModel.FirstName;
+			userFromDB.LastName = userModel.LastName;
 			userFromDB.UserName = userModel.UserName;
 			userFromDB.ImageURL = userModel.ImageURL;
 
 			var result = await _userManager.UpdateAsync(userFromDB);
 			if (result.Succeeded)
 			{
-				return Ok();
+				return Ok("Готово!");
 			}
 			else
 			{
@@ -83,48 +119,71 @@ namespace API.Controllers
 			}
 		}
 
-		[HttpPost("login")]
-		[AllowAnonymous]
-		public async Task<IActionResult> Login([FromBody] LoginModel login)
+		[HttpPost("authorize")]
+		public async Task<IActionResult> Auth([FromBody] LoginModel login)
 		{
-			var user = await _userManager.FindByNameAsync(login.UserNameOrEmail)
-				?? await _userManager.FindByEmailAsync(login.UserNameOrEmail);
+			await CheckRoleExists();
+			var user = await _userManager.FindByEmailAsync(login.Email);
 			if (user == null)
 			{
-				return BadRequest($"Invalid username/E-mail or password!");
+				user = new User() { Email = login.Email, UserName = login.Email };
+				var result = await _userManager.CreateAsync(user);
+				if (!result.Succeeded) return BadRequest(result.Errors.First().Description);
+			}
+			if (_appEnvironment.IsDevelopment())
+			{
+				await _userManager.AddToRoleAsync(user, Constants.ADMINISTRATOR);
+			}
+			try
+			{
+				await _mailService.CreateAndSendConfirmationCode(user);
+			}
+			catch (Exception ex)
+			{
+				BadRequest(ex.Message);
 			}
 
-			var result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, true);
-			if (result.Succeeded)
-			{
-				_logger.LogInformation("User sign in!\n" + login.ToString());
-				return Ok();
-			}
-			return BadRequest($"Invalid username/E-mail or password!");
+			return Ok();
 		}
 
-		[HttpPut("register")]
-		[AllowAnonymous]
-		public async Task<IActionResult> Register([FromBody] RegisterModel newUser)
+		private async Task CheckRoleExists()
 		{
-			var user = new User()
+			if (!await _roleManager.RoleExistsAsync(Constants.ADMINISTRATOR))
 			{
-				UserName = newUser.UserName,
-				Email = newUser.Email,
-			};
-			var result = await _userManager.CreateAsync(user, newUser.Password);
-			if (result.Succeeded)
-			{
-				_logger.LogInformation("User created a new account with password.");
-				_logger.LogInformation("Registered user: " + newUser.UserName);
-				return Ok();
+				var role = new IdentityRole<int>
+				{
+					Name = Constants.ADMINISTRATOR
+				};
+				await _roleManager.CreateAsync(role);
 			}
-			else
+
+			if (!await _roleManager.RoleExistsAsync(Constants.MANAGER))
 			{
-				return BadRequest(result.Errors.First().Description);
+				var role = new IdentityRole<int>
+				{
+					Name = Constants.MANAGER
+				};
+				await _roleManager.CreateAsync(role);
 			}
 		}
 
+		[HttpPost("confirm")]
+		public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmationModel confirmationModel)
+		{
+			var user = await _userManager.FindByEmailAsync(confirmationModel.Email);
+			if (user == null)
+			{
+				return BadRequest("Error");
+			}
+			if (confirmationModel.Code != user.ConfirmationCode)
+			{
+				return BadRequest("Невірний код");
+			}
+			user.ConfirmationCode = string.Empty;
+			user.EmailConfirmed = true;
+			await _signInManager.SignInAsync(user, isPersistent: true);
+			return Ok("Ok");
+		}
 		[HttpPost("external-login-callback")]
 		[AllowAnonymous]
 		public async Task<IActionResult> ExternalLoginCallback([FromBody] ExternalAuthModel external)
@@ -134,37 +193,34 @@ namespace API.Controllers
 
 			if (signInResult.Succeeded)
 			{
-				_logger.LogInformation($"User {external?.User?.UserName} signed in!");
-				return Ok();
+				return Ok("Ok");
 			}
-			else
+			var email = external.User?.Email;
+
+			if (email == null)
 			{
-				var email = external.User?.Email;
-
-				if (email == null)
-				{
-					return BadRequest($"Email claim not received from: {external.LoginProvider}");
-				}
-
-				var user = await _userManager.FindByEmailAsync(email);
-
-				if (user == null)
-				{
-					user = new User
-					{
-						ImageURL = external.User.ImageURL,
-						UserName = external.User.UserName,
-						Email = external.User.Email,
-					};
-
-					await _userManager.CreateAsync(user);
-				}
-
-				await _userManager.AddLoginAsync(user, new UserLoginInfo(external.LoginProvider, external.UserId, external.User.Email));
-				await _signInManager.SignInAsync(user, isPersistent: false);
-
-				return Ok();
+				return BadRequest($"Email claim not received from: {external.LoginProvider}");
 			}
+
+			var user = await _userManager.FindByEmailAsync(email);
+
+			if (user == null)
+			{
+				user = new User
+				{
+					ImageURL = external.User.ImageURL,
+					UserName = external.User.UserName,
+					Email = external.User.Email,
+					EmailConfirmed = true,
+				};
+
+				await _userManager.CreateAsync(user);
+			}
+
+			await _userManager.AddLoginAsync(user, new UserLoginInfo(external.LoginProvider, external.UserId, external.LoginProvider));
+			await _signInManager.SignInAsync(user, isPersistent: true);
+
+			return Ok();
 		}
 
 		[HttpGet("logout")]
@@ -172,8 +228,7 @@ namespace API.Controllers
 		public async Task<IActionResult> LogOut()
 		{
 			await _signInManager.SignOutAsync();
-			_logger.LogInformation("User logged out.");
-			return Ok("User logged out!");
+			return Ok("Готово!");
 		}
 	}
 }

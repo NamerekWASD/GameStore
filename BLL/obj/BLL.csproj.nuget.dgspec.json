@@ -55,6 +55,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Braintree": {
+              "target": "Package",
+              "version": "[5.16.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[3.6.0, )"
@@ -65,7 +69,11 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
             },
             "MimeKit": {
               "target": "Package",
