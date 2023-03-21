@@ -183,11 +183,16 @@
 .grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }
-
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
 .price::after {
     content: '$'
 }
-
+.game-form{
+    display: grid;
+    gap: 10px;
+}
 
 @media screen and (max-width: 900px) {
     .game-info {
@@ -228,5 +233,9 @@
 
     .card-container {
         min-width: 0;
+    }
+    .game-form{
+        display: flex;
+        flex-direction: column;
     }
 }

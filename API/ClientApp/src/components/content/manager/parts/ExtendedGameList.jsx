@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadGames } from "../../../../utils/ApiRequests";
 import { AppPaths } from "../../../../utils/AppPaths";
@@ -19,40 +19,14 @@ const ExtendedGameList = () => {
     const createGame = () => {
         navigate(AppPaths.createGame);
     }
-
-    const renderGames = () => {
-        const editGame = (game) => {
-            navigate(AppPaths.editGame + '?' + new URLSearchParams([["gameId", game.id]]))
-        }
-    
-        return (
-            <>
-                {
-
-                    games ? games.map(game => {
-                        return (
-                            <tr key={game.id} className="pointer" onClick={() => editGame(game)}>
-                                <td><img src={game.images.find(item => item.name === PORTRAIT).path} style={{ width: '150px' }} alt={game.title} /></td>
-                                <td>{game.id}</td>
-                                <td><h5>{game.title}</h5><span>{game.genres.join(', ')}</span></td>
-                                <td>{game.copyType}</td>
-                                <td className={game.copyCount <= 3 ? "text-danger" : ""}>{game.copyCount}</td>
-                                <td><Price item={game} /></td>
-                            </tr>
-                        )
-                    })
-                    :
-                    <LoadingCircle />
-                }
-            </>
-        )
+    const editGame = (game) => {
+        navigate(AppPaths.editGame + '?' + new URLSearchParams([["gameId", game.id]]))
     }
-    const memoGames = useMemo(renderGames, [games, navigate])
     return (
-        <div>
+        <div className="container">
             <div>
                 <div>
-                    <button className="btn btn-outline-success rounded-0 m-3"
+                    <button className="btn btn-outline-success rounded-0 m-3 w-100" style={{height: '4rem'}}
                         onClick={createGame}>Створити продукт</button>
                 </div>
             </div>
@@ -61,10 +35,11 @@ const ExtendedGameList = () => {
             </div>
 
             <div className="d-flex">
+                <div className="flex-fill">
                 {
                     games.length !== 0 ?
-                        <table className=" responsive-table">
-                            <thead className=" sticky-top" style={{ top: '55px' }}>
+                        <table className="responsive-table">
+                            <thead className="sticky-top" style={{ top: '55px' }}>
                                 <tr>
                                     <th></th>
                                     <th>Id</th>
@@ -75,12 +50,29 @@ const ExtendedGameList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {memoGames}
+                                {
+
+                                    games ? games.map(game => {
+                                        return (
+                                            <tr key={game.id} className="pointer" onClick={() => editGame(game)} style={{maxWidth: '150px'}}>
+                                                <td><img src={game.images.find(item => item.name === PORTRAIT).path} style={{ width: '150px' }} alt={game.title} /></td>
+                                                <td>{game.id}</td>
+                                                <td><h5>{game.title}</h5><span>{game.genres.join(', ')}</span></td>
+                                                <td>{game.copyType}</td>
+                                                <td className={game.copyCount <= 3 ? "text-danger" : ""}>{game.copyCount}</td>
+                                                <td><Price item={game} /></td>
+                                            </tr>
+                                        )
+                                    })
+                                        :
+                                        <LoadingCircle />
+                                }
                             </tbody>
                         </table>
                         :
                         <h2>За вашим запитом не знайдено жодної гри!</h2>
                 }
+                </div>
                 <div>
                     <FilterTable setGames={setGames} />
                 </div>

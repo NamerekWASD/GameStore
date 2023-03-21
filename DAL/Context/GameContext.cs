@@ -7,6 +7,7 @@ using DAL.Entity.Orders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DAL.Context
 {
@@ -33,6 +34,5 @@ namespace DAL.Context
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Genre> Genres { get; set; }
 		public DbSet<SoldCopy> SoldCopies { get; set; }
-
 	}
 }

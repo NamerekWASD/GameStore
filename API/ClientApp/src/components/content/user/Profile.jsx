@@ -1,6 +1,5 @@
-import React, { createRef, useEffect, useMemo, useRef, useState } from "react";
-import './Profile.css';
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
 import newUser from './newUser.png'
 import Orders from "../order/Orders";
@@ -9,54 +8,46 @@ import { toast } from "react-toastify";
 
 const Profile = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
-    
+
     const [user, setUser] = useState();
-    const userName = createRef();
-    const email = createRef();
 
     useEffect(() => {
-        if(!isAuthenticated){
+        if (isAuthenticated === false) {
             navigate(AppPaths.authorization)
         }
-        if (!user) {
-            fetchData();
-        }
-    }, [user]);
+    }, [navigate, isAuthenticated]);
 
-    async function fetchData() {
-        const response = await loadUserData(refreshAuth);
-        if(!response) return;
-        const responseBody = await response.json();
-        setUser(responseBody);
-    }
+    useEffect(() => {
+        if (!user) {
+            loadUserData(refreshAuth).then(response => {
+                if (!response) return;
+                return response.json();
+            })
+                .then(result => {
+                    setUser(result);
+                });
+        }
+    }, [user, refreshAuth]);
 
     const onSubmit = (e) => {
         e.preventDefault()
-        setUser(prev => ({
-            ...prev,
-            userName: userName.current.value,
-            email: email.current.value
-        }))
-        send()
-    }
-    async function send() {
-        console.log(user);
-        const response = await fetch(`api/account/update`, {
+        fetch(`api/account/update`, {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user)
+        }).then(response => {
+            processResponse(response)
         })
-        processResponse(response)
     }
 
     async function processResponse(response) {
         if (response.ok) {
             return true;
         }
-        toast.error(await response.json());
+        toast.error(await response.text());
         return false;
     }
 
@@ -77,8 +68,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
 
     }
 
-    const memoOption = useMemo(() => renderOption(), [user, optionType]);
-    function renderOption() {
+    const renderOption = () => {
         switch (optionType) {
             case option.settings:
                 return (
@@ -87,31 +77,31 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                             <div className="p-3">
                                 <div className="form-group">
                                     <label className="labels" htmlFor="fname">Ім'я</label>
-                                    <input ref={userName}
+                                    <input 
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.lastName : ''} onChange={(e) => e.target.value} />
+                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value}))} />
                                 </div>
                                 <div className="form-group">
                                     <label className="labels" htmlFor="lname">Призвіще</label>
-                                    <input ref={userName}
+                                    <input
                                         type="text" id="lname" name="lname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.firstName : ''} onChange={(e) => e.target.value} />
+                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value}))} />
                                 </div>
                                 <div className="form-group required">
                                     <label className="labels" htmlFor="username">Ім'я користувача</label>
-                                    <input ref={userName}
+                                    <input
                                         type="text" id="username" name="username"
                                         className="form-control rounded-0" required minLength={3}
-                                        defaultValue={user ? user.userName : ''} onChange={(e) => e.target.value} />
+                                        defaultValue={user ? user.userName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value}))} />
                                 </div>
                                 <div className="form-group required">
                                     <label className="labels" htmlFor="email">Електронна пошта</label>
-                                    <input ref={email}
+                                    <input
                                         type="email" id="email" name="email"
                                         className="form-control rounded-0" required disabled={user && user.provider}
-                                        defaultValue={user ? user.email : ''} onChange={(e) => e.target.value} />
+                                        defaultValue={user ? user.email : ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value}))} />
                                 </div>
                                 <div className="text-center">
                                     <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" value='Зберегти зміни' />
@@ -131,6 +121,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                 )
         }
     }
+    const memoOption = useMemo(renderOption, [user, optionType, option]);
 
     return (
         <div id="profile" className="d-flex flex-row bg-white mx-auto my-5 flex-wrap justify-content-center" style={{ maxWidth: "1200px" }}>
@@ -139,12 +130,11 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                     {
                         user ?
                             <>
-                                <img width="130px" src={user.imageURL && user.imageURL.length === 0 ? newUser : user.imageURL} alt="User" />
+                                <img width="130px" src={user && user.imageURL && user.imageURL.length === 0 ? newUser : user.imageURL} alt="User" />
                                 <span className="text-black-50 mt-2">{user.userName}</span>
                             </>
                             : ''
                     }
-                    <span> </span>
                 </div>
             </div>
             <div className="border-right" style={{ minWidth: '40vw' }}>

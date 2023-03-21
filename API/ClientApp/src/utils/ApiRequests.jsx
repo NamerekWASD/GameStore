@@ -58,7 +58,7 @@ export const logout = async (update) => {
     toast.error("Сталася помилка...")
 }
 
-export async function requestIsInRole(role){
+export async function requestIsInRole(role) {
     const requestInfo = "api/account/" + role
     return await fetch(requestInfo);
 }
@@ -105,6 +105,7 @@ export async function loadGamesBySearchQuery(query) {
 }
 export async function loadGamesByFilters(filter) {
     const requestInfo = "api/game/filter";
+    console.log(filter);
     const requestInit = {
         method: 'POST',
         headers: {
@@ -117,7 +118,7 @@ export async function loadGamesByFilters(filter) {
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadFilterData(){
+export async function loadFilterData() {
     const requestInfo = "api/game/filter";
     const requestInit = {
         method: 'GET',
@@ -129,22 +130,42 @@ export async function loadFilterData(){
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadGameModel(gameId){
+export async function loadGameModel(gameId) {
     const requestInfo = `api/game/model/` + gameId;
-    return await sendToServerWithJSONResponse(requestInfo);
+    return await fetch(requestInfo);
 
 }
 
-export async function uploadChanges(game){
-    const requestInfo = `api/game/${game.id === 0 ? 'create' : 'edit/'+game.id}`;
+export async function uploadChanges(game) {
+    const requestInfo = `api/game/${ game.id && game.id !== 0 ?  'edit/' + game.id : 'create'}`;
     const requestInit = {
-        method: game.id === 0 ? 'POST' : 'PUT',
+        method: game.id && game.id !== 0 ?  'PUT' : 'POST',
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
         body: JSON.stringify(game)
     };
+    return await fetch(requestInfo, requestInit);
+}
+export async function uploadImageToServer(file, gameId) {
+    const requestInfo = `api/game/upload-image/${gameId}`;
+    const requestInit = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Accept': 'application/json',
+        },
+        body: file
+    };
+    return await fetch(requestInfo, requestInit);
+}
+
+export async function deleteGame(gameId) {
+    const requestInfo = `api/game/delete/${gameId}`;
+    const requestInit = {
+        method: 'DELETE',
+    }
     return await fetch(requestInfo, requestInit);
 }
 
@@ -173,7 +194,7 @@ export async function loadLastBill(navigate) {
         navigate(AppPaths.login + '?' + new URLSearchParams([['returnURL', (await response.json()).ReturnUrl]]));
         return;
     }
-    
+
     return await response.json();
 }
 

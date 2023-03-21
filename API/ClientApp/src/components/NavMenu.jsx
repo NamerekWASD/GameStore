@@ -69,7 +69,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                 <Collapse className="d-sm-inline-flex" isOpen={!collapsed} navbar style={collapseBeforeStyle}>
                     <ul className="navbar-nav flex-grow justify-content-end flex-fill align-content-center">
                         <NavItem className='ms-1'>
-                            <Dropdown isOpen={dropdownOpen} toggle={toggle} direction='down' className='h-100'>
+                            <Dropdown isOpen={dropdownOpen} toggle={toggle} direction='down' className='h-100 z-index-top'>
                                 <DropdownToggle className='rounded-0 h-100'>Каталог</DropdownToggle>
                                 <DropdownMenu className='rounded-0 p-0'>
                                     <DropdownItem>

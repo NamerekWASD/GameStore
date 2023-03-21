@@ -1,14 +1,19 @@
 ﻿using API.Models.Filters;
 using API.Models.Games;
+using API.Models.Images;
 using BLL.DTO.Filters;
 using BLL.DTO.Games;
+using BLL.DTO.Images;
 using BLL.Interface;
 using BLL.Service;
 using BLL.Tools;
 using DAL.Context;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading;
 using UnitsOfWork.Interfaces;
 
@@ -20,18 +25,15 @@ namespace API.Controllers
 	{
 		private readonly IGameService _gameService;
 		private readonly IMailService _mailService;
-		private readonly IWebHostEnvironment _appEnvironment;
 		private readonly ILogger<GameController> _logger;
 
 		public GameController(
 			IGameService gameService,
 			IMailService mailService,
-			IWebHostEnvironment appEnvironment,
 			ILogger<GameController> logger)
 		{
 			_gameService = gameService;
 			_mailService = mailService;
-			_appEnvironment = appEnvironment;
 			_logger = logger;
 		}
 
@@ -97,59 +99,65 @@ namespace API.Controllers
 		{
 			return Ok(await _mailService.MakeSubscription(id, userEmail));
 		}
+
 		[HttpGet("model/{id}")]
 		[Authorize(Constants.MANAGER)]
 		public async Task<IActionResult> GetModelById(int id, CancellationToken cancellationToken)
 		{
+			if (id == 0) return NotFound();
 			var game = MapperHelpers.Instance.Map<GameModel>(await _gameService.GetGame(id).WaitAsync(cancellationToken));
-			if (game == null) return BadRequest();
+			if (game == null) return NotFound("Гру не знайдено!");
 			return Ok(game);
 		}
 
 		[HttpPost("create")]
 		[Authorize(Constants.MANAGER)]
-		public async Task<IActionResult> CreateGame([FromBody] GameModel game, CancellationToken cancellationToken)
+		public async Task<IActionResult> CreateGame([FromBody] GameModel game)
 		{
-			return Ok(await _gameService.AddGame(MapperHelpers.Instance.Map<GameDTO>(game)).WaitAsync(cancellationToken));
+			await _gameService.AddGame(MapperHelpers.Instance.Map<GameDTO>(game));
+			return Ok();
 		}
 
 		[HttpPut("edit/{id}")]
 		[Authorize(Constants.MANAGER)]
 		public async Task<IActionResult> EditGame(int id, [FromBody] GameModel game)
 		{
-			return Ok(MapperHelpers.Instance.Map<GameModel>(await _gameService.EditGame(id, MapperHelpers.Instance.Map<GameDTO>(game))));
+			await _gameService.EditGame(id, MapperHelpers.Instance.Map<GameDTO>(game));
+			return Ok();	
 		}
 
 		[HttpDelete("delete/{id}")]
 		[Authorize(Constants.MANAGER)]
 		public async Task<IActionResult> DeleteGame(int id, CancellationToken cancellationToken)
 		{
-			return Ok(await _gameService.DeleteGame(id).WaitAsync(cancellationToken));
+			JsonSerializerOptions options = new()
+			{
+				Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+			};
+
+			string serrialized = JsonSerializer.Serialize(MapperHelpers.Instance.Map<GameModel>(await _gameService.GetGame(id)), options);
+			var result = await _gameService.DeleteGame(id, serrialized);
+			if (result)
+				return Ok();
+			else 
+				return BadRequest("Сталась помилка...");
 		}
 
-		[HttpDelete("upload-file/{id}")]
+		[HttpPost("upload-image/{id}")]
 		[Authorize(Constants.MANAGER)]
-		public async Task<IActionResult> UploadFile(int id, IFormFile uploadedFile)
+		public async Task<IActionResult> UploadFile(int id, [FromForm] ImageFormModel model)
 		{
 
-			if (uploadedFile is null)
+			if (model is null || model.Image is null)
 			{
 				BadRequest("Прикріпіть файл");
 			}
-
-			string path = "/Files/GameImages" + uploadedFile.FileName;
-			using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-			{
-				await uploadedFile.CopyToAsync(fileStream);
-			}
-			if(await _gameService.BindImageToGame(id, uploadedFile.FileName, path))
-			{
-				return Ok();
-			}
-			else
+			var imageDTO = await _gameService.BindImageToGame(id, MapperHelpers.Instance.Map<ImageFormDTO>(model));
+			if (imageDTO is null)
 			{
 				return BadRequest("Сталась помилка...");
 			}
+			return Ok(MapperHelpers.Instance.Map<ImageModel>(imageDTO));
 		}
 		private async IAsyncEnumerable<GameLightModel> GetGameLightsAsync([EnumeratorCancellation] CancellationToken cancellationToken)
 		{
