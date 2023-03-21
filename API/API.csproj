@@ -25,6 +25,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.4" />
     <PackageReference Include="MimeKit" Version="3.6.0" />
     <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="RazorEngine" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(SpaRoot)**" />

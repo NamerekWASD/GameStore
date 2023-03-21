@@ -8,6 +8,11 @@ import $ from 'jquery'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
+export function scrollToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
 const Layout = ({ children, isAuthenticated, refreshAuth }) => {
   var header, content, toTopBtn;
 
@@ -61,10 +66,7 @@ const Layout = ({ children, isAuthenticated, refreshAuth }) => {
     }
   }
 
-  function scrollToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+
   return (
     <div id='main'>
       <NavMenu isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>

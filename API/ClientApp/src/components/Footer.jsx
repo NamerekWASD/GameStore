@@ -3,14 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { faBox, faEnvelope, faGamepad, faGem, faHome, faKey, faLink, faLock, faPercent, faPhone, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { AppPaths } from "../utils/AppPaths";
-import { MANAGER } from "../utils/Constants";
 import { useNavigate } from "react-router-dom";
 import { navigateToManager } from "../utils/Navigation";
+import { scrollToTop } from "./Layout";
 
 const Footer = () => {
     const navigate = useNavigate();
 
-    
+    const manager = () => {
+        navigateToManager(navigate);
+        scrollToTop();
+    }
 
     return (
         <footer className="text-center text-lg-start text-muted footer">
@@ -81,7 +84,7 @@ const Footer = () => {
                                 <a href="#" className="text-dark nav-link">FAQ</a>
                             </p>
                             <p>
-                                <button className="btn text-dark nav-link" onClick={() => navigateToManager(navigate)}>Менеджеру</button>
+                                <button className="btn text-dark nav-link" onClick={manager}>Менеджеру</button>
                             </p>
                         </div>
                         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

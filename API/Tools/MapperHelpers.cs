@@ -48,6 +48,8 @@ internal static class MapperHelpers
 		cfg.CreateMap<RegionDTO, RegionModel>().ReverseMap();
 		cfg.CreateMap<GameDTO, GameModel>().ReverseMap();
 		cfg.CreateMap<CopyTypeDTO, CopyTypeModel>().ReverseMap();
+		cfg.CreateMap<FilterGameDTO, FilterGameModel>().ReverseMap();
+		cfg.CreateMap<ImageFormModel, ImageFormDTO>();
 
 	}).CreateMapper();
 }

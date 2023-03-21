@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{8B4188F3-C869-4E75-8CBA-F831027BF0AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{EAA830ED-5AB5-4C9F-808B-3CD62187A5ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exceptions", "Exceptions\Exceptions.csproj", "{EAA830ED-5AB5-4C9F-808B-3CD62187A5ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deleted data", "Deleted data", "{D8D3D2CE-CAC2-49C2-A3EF-CEE10E60F45E}"
+	ProjectSection(SolutionItems) = preProject
+		Deleted data\Elden Ring.txt = Deleted data\Elden Ring.txt
+		Deleted data\The Last of Us Part I.txt = Deleted data\The Last of Us Part I.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,9 +9,9 @@ namespace BLL.DTO.Filters
 	public class FilterGameDTO
 	{
 		public string? SearchQuery { get; set; }
-		public List<string>? CopyTypeNames { get; set; }
-		public List<int>? PlatformIds { get; set; }
-		public List<int>? GenreIds { get; set; }
+		public List<int> RegionIds{ get; set; } = new List<int>();
+		public List<int> PlatformIds { get; set; } = new List<int>();
+		public List<int> GenreIds { get; set; } = new List<int>();
 		public int DeveloperId { get; set; }
 		public int PublisherId { get; set; }
 		public DateTime DateFrom { get; set; }

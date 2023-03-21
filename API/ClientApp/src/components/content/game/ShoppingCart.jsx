@@ -8,10 +8,10 @@ import { AppPaths } from "../../../utils/AppPaths";
 import { loadUserData, SendLoginData, subscribeOnGame } from "../../../utils/ApiRequests";
 import EmailConfirmation from "../user/Auth/EmailConfirmation";
 import { toast } from "react-toastify";
-import ModalSubscribe from "../../../utils/ModalSubscribe";
 import { navigateToDetails } from "../../../utils/Navigation";
 import { setItemsCount } from "../../NavMenu";
 import Price from "./parts/Price";
+import ModalSubscribe from "./parts/ModalSubscribe";
 
 
 export const paymentType = {
@@ -28,7 +28,6 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     const [gameToSubscibe, setGameToSubscibe] = useState();
     const total = useRef(null);
     const email = useRef(null);
-    const AdditionInfo = useRef(null);
 
     const modal = useRef(null);
     const modalConfirm = useRef(null);
@@ -149,9 +148,6 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         }
         else {
             modalSubscribe.current.style.display = 'block';
-            window.addEventListener('click', () => {
-                modalSubscribe.current.style.display = 'none';
-            })
         }
         removeGameFromShoppingBasket(game.id);
     }
@@ -220,7 +216,6 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             userEmail: email.current.value,
             games: gamesModel,
             payment: payment,
-            additionInfo: AdditionInfo.current.value,
         }
 
         localStorage.sCartData = JSON.stringify(bill);
@@ -291,13 +286,6 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                         </label>
                                     </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="payment" id="gridRadios2"
-                                            value={paymentType.paypal} onChange={(e) => setPayment(e.target.value)} />
-                                        <label className="form-check-label" htmlFor="gridRadios2">
-                                            PayPal
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
                                         <input className="form-check-input" type="radio" name="payment" id="gridRadios3"
                                             value={paymentType.crypto} onChange={(e) => setPayment(e.target.value)} />
                                         <label className="form-check-label" htmlFor="gridRadios3">
@@ -307,13 +295,9 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                 </div>
                             </div>
                         </fieldset>
-                        <div className="form-group">
-                            <input className="form-check-input" id="callback" type="checkbox" name="callback" required />
-                            <label className="form-check-label ms-2 rounded-0" htmlFor="callback">Я впевненений у коректності даних</label>
-                        </div>
-                        <div className="form-group">
-                            <textarea ref={AdditionInfo} className="form-control rounded-0" id="additional-information" rows="3"></textarea>
-                            <label htmlFor="additional-information" className="form-label">Додаткова інформація</label>
+                        <div className="form-group checkbox-unique">
+                            <input id="callback" type="checkbox" name="callback" required />
+                            <label className="form-check-label" htmlFor="callback">Я впевненений у коректності даних</label>
                         </div>
                         <button type="submit" className="btn btn-primary w-100 rounded-0">Підтвердити</button>
                     </form>

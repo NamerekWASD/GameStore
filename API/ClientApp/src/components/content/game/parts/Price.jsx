@@ -8,7 +8,7 @@ const Price = ({ item, priceClassName, discountClassName, vertical }) => {
                         {
                             item.discountPrice ?
                                 <div className="d-flex border-gradient justify-content-center align-items-center"
-                                    style={{aspectRatio: 1 / 1 }}>
+                                    style={{width: '70px', height: '70px'}}>
                                     <span className={"text-gradient " + discountClassName}
                                     >
                                         {((item.discountPrice / item.price * 100) - 100).toFixed(0)}%

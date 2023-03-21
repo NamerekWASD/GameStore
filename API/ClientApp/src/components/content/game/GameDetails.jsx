@@ -1,24 +1,28 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {  useSearchParams } from "react-router-dom";
 import './game.css';
 import iconDistribute from './../../../static/distribute.svg';
 import iconRegion from './../../../static/key.svg';
 import iconCopy from './../../../static/copy.svg';
-import ModalSubscribe from "../../../utils/ModalSubscribe";
 import { loadUserData, subscribeOnGame } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import { setItemsCount } from "../../NavMenu";
 import Loading from "../../../utils/Loading";
 import Price from "./parts/Price";
+import ImageModal from "./parts/ImageModal";
+import { PORTRAIT } from "../../../utils/Constants";
+import ModalSubscribe from "./parts/ModalSubscribe";
 
 const GameDetails = ({ isAuthenticated }) => {
+
     const [searchParams] = useSearchParams();
-    const [game, setGame] = useState({});
+    const [game, setGame] = useState();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
     const modalSubscribe = useRef(null);
 
-
+    const [isImageModal, setShowImageModal] = useState(false);
+    const [currentImage, setCurrentImage] = useState();
 
     async function loadGame() {
         const requestInfo = "api/game/" + searchParams.get('id');
@@ -49,11 +53,13 @@ const GameDetails = ({ isAuthenticated }) => {
     }, [game]);
 
     useEffect(() => {
-        loadGame()
-            .then(result => {
-                setGame(result)
-            });
-    }, [searchParams])
+        if (!game) {
+            loadGame()
+                .then(result => {
+                    setGame(result)
+                });
+        }
+    }, [])
 
     function addToCart() {
         var games = [];
@@ -84,10 +90,12 @@ const GameDetails = ({ isAuthenticated }) => {
         }
         else {
             modalSubscribe.current.style.display = 'block';
-            window.addEventListener('click', () => {
-                modalSubscribe.current.style.display = 'none';
-            })
         }
+    }
+
+    function showImageModal() {
+        setCurrentImage(game.images.find(item => item.name === PORTRAIT));
+        setShowImageModal(true);
     }
 
     return (
@@ -96,8 +104,8 @@ const GameDetails = ({ isAuthenticated }) => {
                 game && game.id ?
                     <div className="game-details d-flex my-3 p-3 overflow-hidden">
                         <div className="game-image">
-                            <div style={{ maxWidth: '100%', width: '100%' }} className='overflow-hidden'>
-                                <img src={game.images.find(item => item.name === 'portrait').path} alt={searchParams.get('title')} className='width-inherit' />
+                            <div style={{ maxWidth: '100%', width: '100%' }} className='overflow-hidden pointer' onClick={() => showImageModal()}>
+                                <img src={game.images.find(item => item.name === 'portrait').path} alt={searchParams.get('title')} className='width-inherit responsive-image' />
                             </div>
                             <div className="description-grid bg-dark text-white py-2">
                                 <div>Жанр</div>
@@ -109,6 +117,13 @@ const GameDetails = ({ isAuthenticated }) => {
                                 <div>Дата випуску</div>
                                 <span>{new Date(Date.parse(game.released)).toLocaleDateString('uk-UA', options)}</span>
                             </div>
+
+                            {
+                                !game.discountPrice ?
+                                    <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Підписатись на оновлення</span></button>
+                                    :
+                                    ''
+                            }
                         </div>
                         <div className="game-info">
                             <div className="d-flex flex-row flex-wrap-reverse gap-2 bg-dark justify-content-around text-white p-3 w-100">
@@ -117,19 +132,19 @@ const GameDetails = ({ isAuthenticated }) => {
                                     <div className="game-type">
                                         <div>
                                             <div className="game-info-img">
-                                                <img src={iconDistribute} />
+                                                <img src={iconDistribute} alt="iconDistribute" />
                                             </div>
                                             <strong>Платформа: </strong><span className="text-capitalize">{game.platform}</span>
                                         </div>
                                         <div>
                                             <div className="game-info-img">
-                                                <img src={iconRegion} />
+                                                <img src={iconRegion} alt="iconRegion" />
                                             </div>
-                                            <strong>Доступно в: </strong><span>{game.regions.join(' ')}</span>
+                                            <strong>Доступно: </strong><span>{game.regions.join(' ')}</span>
                                         </div>
                                         <div>
                                             <div className="game-info-img">
-                                                <img src={iconCopy} />
+                                                <img src={iconCopy} alt="iconCopy" />
                                             </div>
                                             <strong>Тип копії: </strong><span className=" text-capitalize">{game.copyType}</span>
                                         </div>
@@ -139,10 +154,12 @@ const GameDetails = ({ isAuthenticated }) => {
                                 </div>
 
                                 <div className="payment-info p-4 flex-fill">
-                                        <Price item={game} discountClassName="fs-5" priceClassName="fs-1" vertical={true}/>
+                                    <Price item={game} discountClassName="fs-5" priceClassName="fs-1" vertical={true} />
                                     {
                                         game.copyCount !== 0 ?
-                                            <button className="btn btn-outline-success rounded-0 btn-responsive py-3 w-100" onClick={() => addToCart()}><span className="add">Додати у кошик</span></button>
+                                            <div>
+                                                <button className="btn btn-outline-success rounded-0 btn-responsive py-3 w-100" onClick={() => addToCart()}><span className="add">Додати у кошик</span></button>
+                                            </div>
                                             :
                                             <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Повідомити коли з'явиться</span></button>
                                     }
@@ -150,9 +167,14 @@ const GameDetails = ({ isAuthenticated }) => {
                             </div>
                             <div className="game-description bg-dark text-white">
                                 <h3>Опис</h3>
-                                <p>{game.description}</p>
+                                <p dangerouslySetInnerHTML={game ? { __html: game.description } : { __html: '' }}></p>
                             </div>
                         </div>
+                        <ImageModal images={game.images}
+                            current={currentImage ?? game.images[0]}
+                            setImageToShow={setCurrentImage}
+                            showContent={isImageModal}
+                            setShowContent={setShowImageModal} />
                     </div>
                     :
                     renderLoad

@@ -103,6 +103,7 @@ builder.Configuration.GetSection("BraintreeGateway").Bind(braintreeConfig);
 builder.Services.AddSingleton(braintreeConfig);
 
 builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<ISubscriptionService, MailService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddTransient<IBraintreeService, BraintreeService>();

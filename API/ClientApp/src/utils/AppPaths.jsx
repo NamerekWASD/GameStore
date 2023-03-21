@@ -1,4 +1,5 @@
 export const AppPaths = {
+    home: '/',
     authorization: '/account/authorize',
     profile: '/account/profile',
     gameDetails: '/game/details',

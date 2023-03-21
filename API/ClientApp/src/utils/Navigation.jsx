@@ -13,10 +13,14 @@ export const navigateToManager = (navigate) => {
         navigate(AppPaths.manager)
     }
 }
+
+const errorToast = { current: undefined}
+
 export const verify = async (role) => {
     const response = await requestIsInRole(role);
     if(response.redirected){
-        toast.error(await response.text());
+        if(errorToast.current) toast.dismiss(errorToast.current);
+        errorToast.current = toast.error(await response.text());
         return false;
     }
     return true;

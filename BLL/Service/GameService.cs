@@ -9,8 +9,13 @@ using DAL.Entity.Games;
 using DAL.Entity.GameType;
 using DAL.Entity.Images;
 using DAL.UoW;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnitsOfWork.Interfaces;
 
 namespace BLL.Service
@@ -20,11 +25,21 @@ namespace BLL.Service
 
 		private readonly IUnitOfWork UoW;
 		private readonly ILogger<GameService> _logger;
+		private readonly IWebHostEnvironment _appEnvironment;
+		private readonly ISubscriptionService _subscriptionService;
+		private readonly IServer _server;
 
-		public GameService(GameContext context, ILogger<GameService> logger)
+		public GameService(GameContext context,
+			IWebHostEnvironment _appEnvironment,
+			ILogger<GameService> logger,
+			ISubscriptionService subscriptionService,
+			IServer server)
 		{
 			UoW = new UnitOfWork(context);
+			this._appEnvironment = _appEnvironment;
 			_logger = logger;
+			_subscriptionService = subscriptionService;
+			_server = server;
 		}
 
 		public async Task<GameDTO> GetGame(int id)
@@ -65,30 +80,30 @@ namespace BLL.Service
 		public async Task<IEnumerable<GameDTO>> GetGamesByFilter(FilterGameDTO filter, CancellationToken cancellationToken)
 		{
 			List<GameDTO> filteredGames = new();
-			await foreach (var game in UoW.Games.GetAll().WithCancellation(cancellationToken))
-			{
-				if (filter.GenreIds is not null &&
-					filter.GenreIds.Count is not 0 &&
-					filter.GenreIds.Any(item => game.Genres.Any(genre => genre.Id == item)))
+			if (filter.GenreIds.Any() || filter.PlatformIds.Any() || filter.RegionIds.Any())
+				await foreach (var game in UoW.Games.GetAll().WithCancellation(cancellationToken))
 				{
-					filteredGames.Add(MapperHelper.Instance.Map<GameDTO>(game));
-					continue;
-				}
-				if (filter.PlatformIds is not null &&
-					filter.PlatformIds.Count is not 0 &&
-					filter.PlatformIds.Any(game.CopyType.Platform.Id.Equals))
-				{
-					filteredGames.Add(MapperHelper.Instance.Map<GameDTO>(game));
-					continue;
-				}
+					if (filter.GenreIds.Any() &&
+						!filter.GenreIds.Any(item => game.Genres.Any(genre => genre.Id == item)))
+					{
+						continue;
+					}
+					if (filter.PlatformIds.Any() &&
+						!filter.PlatformIds.Any(game.CopyType.Platform.Id.Equals))
+					{
+						continue;
+					}
 
-				if (filter.CopyTypeNames is not null &&
-					filter.CopyTypeNames.Count is not 0 &&
-					filter.CopyTypeNames.Any(game.CopyType.Name.Equals))
-				{
+					if (filter.RegionIds.Any() &&
+						!filter.RegionIds.Any(regionId => game.CopyType.AvailableRegions.Any(item => item.Id == regionId)))
+					{
+						continue;
+					}
 					filteredGames.Add(MapperHelper.Instance.Map<GameDTO>(game));
-					continue;
 				}
+			else
+			{
+				filteredGames.AddRange(GetGames().ToBlockingEnumerable(cancellationToken));
 			}
 
 			if (!filteredGames.Any())
@@ -179,21 +194,21 @@ namespace BLL.Service
 
 		public async Task<GameDTO> AddGame(GameDTO game)
 		{
-			throw new NotImplementedException();
+			var newGame = new Game();
+			UpdateProperties(game, newGame);
+			await ProcessGameGenres(game, newGame);
+			await ProcessGameImages(game, newGame);
+			await ProcessGameDeveloper(game, newGame);
+			await ProcessGamePublisher(game, newGame);
+			await ProcessGameCopyType(game, newGame);
+
+			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.AddAsync(newGame));
 		}
 
 		public async Task<GameDTO> EditGame(int id, GameDTO game)
 		{
 			var gameFromDB = await UoW.Games.GetAsync(id);
-			gameFromDB.Title = game.Title;
-			gameFromDB.Description = game.Description;
-			gameFromDB.Price = game.Price;
-			gameFromDB.IsAvailable = game.IsAvailable;
-			gameFromDB.IsHotOffer = game.IsHotOffer;
-			gameFromDB.SoldCopies = game.SoldCopies;
-			gameFromDB.DiscountPrice = game.DiscountPrice;
-			gameFromDB.Released = game.Released;
-
+			UpdateProperties(game, gameFromDB);
 
 			await ProcessGameGenres(game, gameFromDB);
 			await ProcessGameImages(game, gameFromDB);
@@ -201,98 +216,132 @@ namespace BLL.Service
 			await ProcessGamePublisher(game, gameFromDB);
 			await ProcessGameCopyType(game, gameFromDB);
 
-			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.ModifyAsync(id, MapperHelper.Instance.Map<Game>(gameFromDB)));
+			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.ModifyAsync(id, gameFromDB));
 		}
 
-		private async Task ProcessGameGenres(GameDTO game, Game gameFromDB)
+		private void UpdateProperties(GameDTO game, Game toUpdate)
 		{
-			foreach (var item in gameFromDB.Genres.ToList())
+			toUpdate.Title = game.Title;
+			toUpdate.Description = game.Description;
+			toUpdate.Price = game.Price;
+			toUpdate.IsAvailable = game.IsAvailable;
+			toUpdate.IsHotOffer = game.IsHotOffer;
+			if (game.DiscountPrice is not null && game.DiscountPrice != toUpdate.DiscountPrice)
 			{
-				gameFromDB.Genres.Remove(item);
+				toUpdate.DiscountPrice = game.DiscountPrice;
+				_subscriptionService.NotifyDiscount(MapperHelper.Instance.Map<GameDTO>(toUpdate));
 			}
+			toUpdate.DiscountPrice = game.DiscountPrice;
+			toUpdate.Released = game.Released;
+		}
+
+		private async Task ProcessGameGenres(GameDTO game, Game toUpdate)
+		{
+
+			toUpdate.Genres ??= new();
+			foreach (var item in toUpdate.Genres.ToList())
+			{
+				toUpdate.Genres.Remove(item);
+			}
+
 			foreach (var genre in game.Genres.ToList())
 			{
 				if (genre.Id is 0)
 				{
-					gameFromDB.Genres.Add(MapperHelper.Instance.Map<Genre>(genre));
+					toUpdate.Genres.Add(MapperHelper.Instance.Map<Genre>(genre));
 					continue;
 				}
 				else if (genre.Id is not 0)
 				{
-					gameFromDB.Genres.Add(await UoW.Genres.GetAsync(genre.Id));
+					toUpdate.Genres.Add(await UoW.Genres.GetAsync(genre.Id));
 					continue;
 				}
 			}
 		}
 
-		private async Task ProcessGameImages(GameDTO game, Game gameFromDB)
+		private async Task ProcessGameImages(GameDTO game, Game toUpdate)
 		{
-			foreach (var image in gameFromDB.Images.ToList())
+
+			toUpdate.Images ??= new();
+			foreach (var item in toUpdate.Images.ToList())
 			{
-				gameFromDB.Images.Remove(image);
+				toUpdate.Images.Remove(item);
 			}
+
 			foreach (var image in game.Images.ToList())
 			{
 				if (image.Id is 0)
 				{
-					gameFromDB.Images.Add(MapperHelper.Instance.Map<Image>(image));
+					toUpdate.Images.Add(MapperHelper.Instance.Map<Image>(image));
 					continue;
 				}
 				else
 				{
-					gameFromDB.Images.Add(await UoW.Images.GetAsync(image.Id));
+					toUpdate.Images.Add(await UoW.Images.GetAsync(image.Id));
 				}
 			}
 		}
 
-		private async Task ProcessGamePublisher(GameDTO game, Game gameFromDB)
+		private async Task ProcessGamePublisher(GameDTO game, Game toUpdate)
 		{
 			if (game.PublisherId is not 0 &&
-							!game.PublisherId.Equals(gameFromDB.PublisherId))
+							!game.PublisherId.Equals(toUpdate.PublisherId))
 			{
-				gameFromDB.Publisher = await UoW.Publishers.GetAsync(game.PublisherId);
-				gameFromDB.PublisherId = gameFromDB.Publisher.Id;
+				if (toUpdate.Id is 0)
+				{
+					toUpdate.PublisherId = game.PublisherId;
+					return;
+				}
+				toUpdate.Publisher = await UoW.Publishers.GetAsync(game.PublisherId);
 				return;
 			}
 			if (game.PublisherId is 0)
 			{
-				gameFromDB.Publisher = await UoW.Publishers.AddAsync(new()
+				toUpdate.Publisher = await UoW.Publishers.AddAsync(new()
 				{
 					Id = 0,
 					Name = game.Publisher.Name,
 				});
-				gameFromDB.PublisherId = gameFromDB.Publisher.Id;
 			}
 		}
 
-		private async Task ProcessGameDeveloper(GameDTO game, Game gameFromDB)
+		private async Task ProcessGameDeveloper(GameDTO game, Game toUpdate)
 		{
 			if (game.DeveloperId is not 0 &&
-							!game.DeveloperId.Equals(gameFromDB.DeveloperId))
+							!game.DeveloperId.Equals(toUpdate.DeveloperId))
 			{
-				gameFromDB.Developer = await UoW.Developers.GetAsync(game.DeveloperId);
-				gameFromDB.DeveloperId = gameFromDB.Developer.Id;
+				if (toUpdate.Id is 0)
+				{
+					toUpdate.DeveloperId = game.DeveloperId;
+					return;
+				}
+				toUpdate.Developer = await UoW.Developers.GetAsync(game.DeveloperId);
 				return;
 			}
 			if (game.DeveloperId is 0)
 			{
-				gameFromDB.Developer = await UoW.Developers.AddAsync(new()
+				toUpdate.Developer = await UoW.Developers.AddAsync(new()
 				{
 					Id = 0,
 					Name = game.Developer.Name,
 				});
-				gameFromDB.DeveloperId = gameFromDB.Developer.Id;
 			}
 		}
 
-		private async Task ProcessGameCopyType(GameDTO game, Game gameFromDB)
+		private async Task ProcessGameCopyType(GameDTO game, Game toUpdate)
 		{
 			if (game.CopyTypeId is not 0 &&
-							!game.CopyTypeId.Equals(gameFromDB.CopyTypeId))
+							!game.CopyTypeId.Equals(toUpdate.CopyTypeId))
 			{
-				gameFromDB.CopyType = await UoW.CopyTypes.GetAsync(game.CopyTypeId);
+				if (toUpdate.Id is 0)
+				{
+					toUpdate.CopyTypeId = game.CopyTypeId;
+					return;
+				}
+				toUpdate.CopyType = await UoW.CopyTypes.GetAsync(game.CopyTypeId);
+				return;
 			}
-			if(game.CopyTypeId is 0)
+			if (game.CopyTypeId is 0)
 			{
 				var newCopyType = new CopyType()
 				{
@@ -302,46 +351,76 @@ namespace BLL.Service
 				};
 				await ProcessCopyType(game.CopyType, newCopyType);
 
-				gameFromDB.CopyType = await UoW.CopyTypes.AddAsync(newCopyType);
-				gameFromDB.CopyTypeId = gameFromDB.CopyType.Id;
+				toUpdate.CopyType = await UoW.CopyTypes.AddAsync(newCopyType);
 			}
 		}
 
-		private async Task ProcessCopyType(CopyTypeDTO copy, CopyType newCopy)
+		private async Task ProcessCopyType(CopyTypeDTO copy, CopyType toUpdate)
 		{
 			if (copy.PlatformId is not 0 &&
-				!copy.PlatformId.Equals(newCopy.Id))
+				!copy.PlatformId.Equals(toUpdate.Id))
 			{
-				newCopy.Platform = await UoW.Platforms.GetAsync(copy.PlatformId);
-				newCopy.PlatformId = newCopy.Platform.Id;
+				toUpdate.Platform = await UoW.Platforms.GetAsync(copy.PlatformId);
 			}
 			if (copy.PlatformId is 0)
 			{
-				newCopy.Platform = new Platform()
+				toUpdate.Platform = new Platform()
 				{
 					Id = 0,
 					Name = copy.Platform.Name
 				};
-				newCopy.PlatformId = 0;
+				toUpdate.PlatformId = 0;
 			}
+			toUpdate.AvailableRegions ??= new();
 
 			foreach (var region in copy.AvailableRegions.ToList())
 			{
 				if (region.Id is 0)
 				{
-					newCopy.AvailableRegions.Add(MapperHelper.Instance.Map<Region>(region));
+					toUpdate.AvailableRegions.Add(MapperHelper.Instance.Map<Region>(region));
 					continue;
 				}
 				else
 				{
-					newCopy.AvailableRegions.Add(await UoW.Regions.GetAsync(region.Id));
+					toUpdate.AvailableRegions.Add(await UoW.Regions.GetAsync(region.Id));
 				}
 			}
 		}
 
-		public async Task<GameDTO> DeleteGame(int id)
+		public async Task<bool> DeleteGame(int id, string serialized)
 		{
-			throw new NotImplementedException();
+			var game = await UoW.Games.GetAsync(id);
+			if (game == null) return false;
+
+			string contentRootPath = _appEnvironment.ContentRootPath;
+			string deletedDataDirectory = contentRootPath[..contentRootPath.LastIndexOf("\\")] + "\\Deleted data";
+			string newFile = deletedDataDirectory + "\\" + game.Title + ".txt";
+			using StreamWriter sw = File.AppendText(newFile);
+			await sw.WriteLineAsync(serialized);
+			await sw.DisposeAsync();
+			sw.Close();
+
+			if (game.Images is not null)
+				foreach (var image in game.Images.ToList())
+				{
+					await DeleteImage(image);
+				}
+			if (game.Copies is not null)
+				foreach (var copy in game.Copies.ToList())
+				{
+					await UoW.Copies.DeleteAsync(copy.Id);
+				}
+			await UoW.Games.DeleteAsync(game);
+			return true;
+		}
+
+		private async Task DeleteImage(Image? image)
+		{
+			await UoW.Images.DeleteAsync(image.Id);
+			if (image.ActualPath is not null && File.Exists(image.ActualPath))
+			{
+				File.Delete(image.ActualPath);
+			}
 		}
 
 		public async IAsyncEnumerable<GenreDTO> GetGenres()
@@ -351,34 +430,33 @@ namespace BLL.Service
 				yield return MapperHelper.Instance.Map<GenreDTO>(genre);
 			}
 		}
-		public async IAsyncEnumerable<PublisherDTO> GetPublishers()
-		{
-			await foreach (var publishers in UoW.Genres.GetAll())
-			{
-				yield return MapperHelper.Instance.Map<PublisherDTO>(publishers);
-			}
-		}
-		public async IAsyncEnumerable<PlatformDTO> GetPlatforms()
-		{
-			await foreach (var platform in UoW.Genres.GetAll())
-			{
-				yield return MapperHelper.Instance.Map<PlatformDTO>(platform);
-			}
-		}
 
-		public async Task<bool> BindImageToGame(int gameId, string fileName, string path)
+		public async Task<ImageDTO?> BindImageToGame(int gameId, ImageFormDTO model)
 		{
-			var image = new ImageDTO() { GameId = gameId, Path = path, Name = fileName };
-			try
+			var game = await UoW.Games.GetAsync(gameId);
+			var image = new Image()
 			{
-				await UoW.Images.AddAsync(MapperHelper.Instance.Map<Image>(image));
-			}
-			catch (Exception ex)
+				Name = model.FileName,
+			};
+			game.Images.Add(await UoW.Images.AddAsync(image));
+
+			string relativePath = "/files/game images/" + game.Title + '/';
+			string rootPath = _appEnvironment.WebRootPath;
+			Directory.CreateDirectory(rootPath + relativePath);
+			string actualFileName = +image.Id + model.Image.FileName;
+			string actualPath = rootPath + relativePath + actualFileName;
+
+			using (var fileStream = new FileStream(actualPath, FileMode.Create))
 			{
-				_logger.LogError(ex, ex.Message);
-				return false;
+				await model.Image.CopyToAsync(fileStream);
 			}
-			return true;
+			var serverPath = _server.Features.Get<IServerAddressesFeature>().Addresses.First() + relativePath;
+			
+
+			image.Path = serverPath + actualFileName;
+			image.ActualPath = actualPath;
+			await UoW.Games.ModifyAsync(game.Id, game);
+			return MapperHelper.Instance.Map<ImageDTO>(image);
 		}
 	}
 }
