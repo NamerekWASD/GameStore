@@ -24,11 +24,8 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
     }
 
     const initializeBraintree = () => dropin.create({
-        authorization: process.REACT_APP_BRAINTREE_AUTHORIZATION_CODE,
+        authorization: process.env.REACT_APP_BRAINTREE_AUTHORIZATION_CODE,
         container: '#braintree-drop-in-div',
-        paypal: {
-            flow: 'vault'
-        },
         preselectVaultedPaymentMethod: true,
 
     }, function (error, instance) {
@@ -60,7 +57,7 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
             postalCode.current.value = result.postalCode;
             setCountry({value: result.countryCodeAlpha2, label: result.countryCodeAlpha2});
         });
-    }, [braintreeInstance])
+    }, [])
 
     function collectData() {
         return {

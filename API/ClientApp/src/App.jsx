@@ -33,6 +33,7 @@ const App = () => {
     const AppRoutes = [
         {
             index: true,
+            path: AppPaths.home,
             element: <Home />
         },
         {

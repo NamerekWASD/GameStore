@@ -62,8 +62,6 @@ input[type="checkbox"] {
   width: 0;
   height: 0;
   position: relative;
-  top: 30px;
-  left: 17px;
 }
 
 input[type="checkbox"]+label {
@@ -133,12 +131,28 @@ input[type="checkbox"]:checked+label:before {
 }
 
 .checkbox-unique>* {
-  margin-top: -25px;
+  margin-top: -20px;
 }
-
+.dis-grid{
+  display: grid;
+}
 /* The Modal (background) */
 .modal {
   display: none;
+  position: fixed;
+  z-index: 100;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: 0.5s;
+}
+
+.modal-visible {
   position: fixed;
   z-index: 100;
   padding-top: 100px;
@@ -291,7 +305,7 @@ input[type="checkbox"]:checked+label:before {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #fff;
+  background: black;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
@@ -396,6 +410,10 @@ input[type="checkbox"]:checked+label:before {
   width: inherit;
 }
 
+.height-inherit {
+  height: inherit;
+}
+
 .my-carousel-item {
   position: relative;
 }
@@ -431,6 +449,60 @@ input[type="checkbox"]:checked+label:before {
   z-index: 1;
 }
 
-#z-index-top * {
-  z-index: 3;
+.z-index-top * {
+  z-index: 10000;
+}
+
+.z-index-95 * {
+  z-index: 95;
+}
+
+.rounded-all-0 * {
+  border-radius: 0 !important;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.prevent-select * {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Scrollbar */
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.icon-normal{
+  transition: all 0.2s linear;
+  -moz-transition: all .2s linear;
+  -webkit-transition: all .2s linear;
+}
+
+.icon-normal.icon-down{
+  transform: rotate(180deg);
+  -moz-transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  color: #a12525;
 }
