@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+    <h1 style="text-align: center;">На цю гру з'явилась знижка</h1>
+    <div style="border-bottom: 1rem solid green; background: linear-gradient(90deg, black, gray);">
+        <a href="{sitePathHere}" style="text-decoration: none; color: white;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <img src="{imageHere}" alt="{altHere}" style="height: 250px;">
+                <h1>{titleHere}</h1>
+                <h2 style="font-weight: bolder; font-size: 26px; padding: 5px; text-decoration: .5rem underline solid green;">
+                    {pecentageHere}%</h2>
+                <div style="margin-left: 30px;">
+                    <div
+                        style="text-decoration: line-through; color: rgb(255, 167, 3); font-size: small; position: relative; right: -30px;">
+                        {oldPriceHere}<sup>{currencyHere}</sup>
+                    </div>
+                    <div style="background-color: rgb(2, 88, 2); padding: 5px; color: white; font-size: 26px;">
+                        {discountHere}<sup>{currencyHere}</sup>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</body>
+
+</html>

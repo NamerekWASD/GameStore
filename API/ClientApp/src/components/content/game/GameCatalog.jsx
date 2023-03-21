@@ -1,20 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { loadGames, loadGamesByGenre, loadGenres } from "../../../utils/ApiRequests";
+import { loadFilterData, loadGames, loadGamesByFilters, loadGamesByGenre, loadGenres } from "../../../utils/ApiRequests";
 import './game.css'
+import FilterTable from "./parts/FilterTable";
 import GameList from "./parts/GameList";
 
 const GameCatalog = () => {
     const [searchParams] = useSearchParams();
     const [games, setGames] = useState([]);
-    const [genres, setGenres] = useState([]);
-    const [defaultList, setDefault] = useState();
     const genreRef = useRef(null);
-    const minPrice = useRef(null);
-    const maxPrice = useRef(null);
-
-    const minDate = useRef(null);
-    const maxDate = useRef(null);
 
     const order = {
         names: { name: 'title', type: 'desc' },
@@ -26,44 +20,22 @@ const GameCatalog = () => {
     }
     const [sortType, setSortType] = useState(order.names);
 
-    const memoGames = useMemo(() => renderGames(), [games, sortType]);
-
     useEffect(() => {
         genreRef.current.textContent = searchParams.get('genre') ?? 'Каталог';
-        if (searchParams.get('id')) {
-            loadGamesByGenre(searchParams.get('id')).then(result => {
+        if (!searchParams.get('id')) {
+            loadGames(true)
+            .then(result => {
                 setGames(result);
-                setDefault(result);
             });
         } else {
-            loadGames(true).then(result => {
+            loadGamesByFilters({ genreIds: [searchParams.get('id')] })
+            .then(result => {
                 setGames(result);
-                setDefault(result);
             });
-            loadGenres().then(result => setGenres(result));
         }
 
     }, [searchParams]);
 
-    function applySettings() {
-        var newList = defaultList.filter(game => {
-            if (game.price < +minPrice.current.value || game.price > +maxPrice.current.value) {
-                return false;
-            }
-            const year = game.released.split('-')[0];
-            if (year < parseInt(minDate.current.value) || year > parseInt(maxDate.current.value)) {
-                return false;
-            }
-            let someGenreChecked = genres.some(genre => genre.checked === true);
-            if (someGenreChecked && !genres.some(filter => filter.checked && game.genres.some(gameGenre => filter.name === gameGenre))) {
-                return false;
-            }
-
-            return true;
-        });
-        setGames(newList);
-    }
-    
     function renderGames() {
         const copy = games.sort(function (a, b) {
             var propertyA, propertyB;
@@ -91,40 +63,6 @@ const GameCatalog = () => {
             </>
         )
     }
-
-    function renderGenres() {
-        return (
-            <>
-                {
-                    searchParams.get('id') ? '' :
-                        <div className="mb-1 bg-gray p-3">
-                            <h5 className="text-center">Жанри</h5>
-                            <div className="d-grid grid-2">
-                                {
-                                    genres ? genres.map((genre) => {
-                                        return (
-                                            <div key={genre.id}>
-                                                <label>
-                                                    <input id={"genre|" + genre.id} type="checkbox"
-                                                        defaultValue={false}
-                                                        onChange={(e) => genre.checked = e.target.checked} />
-                                                    <label htmlFor={"genre|" + genre.id}>{genre.name}</label>
-                                                </label>
-                                            </div>
-                                        )
-                                    })
-                                        : ''
-                                }
-                            </div>
-                        </div>
-                }
-            </>
-        )
-    }
-
-    function reset() {
-
-    }
     return (
         <div className="container h-100 mt-4">
             <div>
@@ -150,54 +88,10 @@ const GameCatalog = () => {
             <div className="d-flex mt-5 flex-row gap-4">
                 <div className="flex-fill h-100">
                     <div className="col">
-                        {memoGames}
+                        {renderGames()}
                     </div>
                 </div>
-                <div className='sticky-top ms-3' style={{ zIndex: "0", top: '55px', width: '350px' }}>
-                    <div className="mb-1 bg-gray p-3">
-                        <h5 className="text-center">Ціна</h5>
-                        <div className="p-3 d-flex justify-content-around gap-2">
-                            <div className="bg-white">
-                                <span className="px-1">Від</span>
-                                <input
-                                    ref={minPrice}
-                                    className="border-0 price no-outline" type="number"
-                                    min={0} max={100}
-                                    id="minPrice" step="5" defaultValue="0"
-                                />
-                            </div>
-                            <div className="bg-white">
-                                <span className="px-1">До</span>
-                                <input
-                                    ref={maxPrice}
-                                    className="border-0 price no-outline" type="number"
-                                    min={0} max={100}
-                                    id="maxPrice" step="5" defaultValue="100"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    {renderGenres()}
-                    <div className="mb-1 bg-gray p-3">
-                        <h5 className="text-center">Дата виходу</h5>
-                        <div className="p-3 d-flex justify-content-around gap-2">
-                            <div className="bg-white">
-                                <span className="px-1">Від</span>
-                                <input ref={minDate}
-                                    className="border-0 no-outline" type="number" min="1990"
-                                    max={new Date().getFullYear()} step="1" defaultValue="1990" />
-                            </div>
-                            <div className="bg-white">
-                                <span className="px-1">До</span>
-                                <input ref={maxDate}
-                                    className="border-0 no-outline" type="number" min="1990"
-                                    max={new Date().getFullYear()} step="1" defaultValue={new Date().getFullYear()} />
-                            </div>
-                        </div>
-                    </div>
-                    <button className="btn rounded-0 btn-outline-danger w-100 mb-1" onClick={() => reset()}>Скинути</button>
-                    <button className="btn rounded-0 btn-outline-success w-100" onClick={() => applySettings()}>Підтвердити</button>
-                </div>
+                <FilterTable setGames={setGames} searchFilter={searchParams.get('id') ? {genreIds: [searchParams.get('id')]} : undefined} />
             </div>
         </div>
     );
