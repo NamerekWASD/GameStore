@@ -1,97 +1,106 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { loadFilterData, loadGames, loadGamesByFilters, loadGamesByGenre, loadGenres } from "../../../utils/ApiRequests";
+import React, { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import Select from "react-select";
+import { loadGamesByFilters } from "../../../utils/ApiRequests";
+import { orderOptions } from "../../../utils/Constants";
 import './game.css'
-import FilterTable from "./parts/FilterTable";
+import FilterTable from "./parts/filter/FilterTable";
 import GameList from "./parts/GameList";
+
+
+
+export const processHeader = (count) => {
+    switch (true) {
+        case (count === 1):
+            return count + ' гра';
+        case (count >= 2 && count < 5):
+            return count + ' гри';
+        case (count >= 5):
+            return count + ' ігор';
+        default:
+            return count + ' ігор';
+
+    }
+}
 
 const GameCatalog = () => {
     const [searchParams] = useSearchParams();
-    const [games, setGames] = useState([]);
     const genreRef = useRef(null);
+    const [searchFilters, setSearchFilters] = useState({ genreIds: [], regionIds: [], platformIds: [] });
 
-    const order = {
-        names: { name: 'title', type: 'desc' },
-        newer: { name: 'released', type: 'asc' },
-        older: { name: 'released', type: 'desc' },
-        expensivest: { name: 'price', type: 'asc' },
-        cheaper: { name: 'price', type: 'desc' },
-        popularity: { name: 'sold', type: 'asc' }
-    }
-    const [sortType, setSortType] = useState(order.names);
+    const [games, setGames] = useState([]);
+    const [isMax, setIsMax] = useState(false);
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         genreRef.current.textContent = searchParams.get('genre') ?? 'Каталог';
-        if (!searchParams.get('id')) {
-            loadGames(true)
-            .then(result => {
-                setGames(result);
-            });
-        } else {
-            loadGamesByFilters({ genreIds: [searchParams.get('id')] })
-            .then(result => {
-                setGames(result);
-            });
+        if (searchParams.get('id')) {
+            setSearchFilters(prevState => ({
+                ...prevState,
+                genreIds: [+searchParams.get('id')]
+            }))
+        }else{
+            setSearchFilters(prevState => ({
+                ...prevState,
+                genreIds: []
+            }))
         }
+    }, [searchParams])
 
-    }, [searchParams]);
+    useEffect(() => {
 
-    function renderGames() {
-        const copy = games.sort(function (a, b) {
-            var propertyA, propertyB;
-            if (sortType.name === order.newer.name) {
-                propertyA = new Date(Date.parse(a[sortType.name]));
-                propertyB = new Date(Date.parse(b[sortType.name]));
-            } else {
-                propertyA = a[sortType.name];
-                propertyB = b[sortType.name];
-            }
-            if (propertyA < propertyB) return -1;
-            if (propertyA > propertyB) return 1;
-            return 0
-        });
-        if (sortType.type === 'asc') {
-            copy.reverse();
+        if (page === 0) {
+            setPage(prevState => prevState + 1)
+            return
         }
-        return (
-            <>
-                {
-                    (copy.length !== 0) ?
-                        <GameList games={copy} />
-                        : <h3>За вашим запитом не знайдено жодної гри</h3>
+        loadGamesByFilters(searchFilters, page)
+            .then(result => {
+                if (result.page !== 1) {
+                    setGames(prevState => [...prevState, ...result.games]);
+                } else {
+                    setGames(result.games)
                 }
-            </>
-        )
-    }
+                setIsMax(result.isMax);
+                setCount(result.totalCount);
+            });
+
+    }, [searchParams, page, searchFilters]);
+
     return (
-        <div className="container h-100 mt-4">
+        <div className="h-100 m-4">
             <div>
-                <h1 ref={genreRef} className="fw-bolder"></h1>
+                <h1 ref={genreRef} className="fw-bolder">Каталог</h1>
                 <div className="d-flex flex-row">
-                    <div className="fw-bold">Знайдено {games.length} {games.length.toString().endsWith('1') ? 'гра' : 'гри'}</div>
-                    <div className="ms-5">
-                        Упорядкувати
-                        <select className="ms-2 no-outline overflow-scroll" id="order-list"
-                            style={{ width: '200px' }} onChange={(e) => {
-                                setSortType(order[e.target.value])
-                            }}>
-                            <option value={"names"}>За назвою</option>
-                            <option value={"newer"}>За датою, від нових</option>
-                            <option value={"older"}>За датою, від старих</option>
-                            <option value={"expensivest"}>За ціною, від дорогих</option>
-                            <option value={"cheaper"}>За ціною, від дешевих</option>
-                            <option value={"popularity"}>За популярністю</option>
-                        </select>
+                    <div className="fw-bold">Знайдено {count !== 0 ? processHeader(count) : 'жодної гри'}</div>
+                    <div className="ms-5 w-25">
+                        <Select className="" id="order-list"
+                            options={orderOptions}
+                            defaultValue={orderOptions[0]}
+                            onChange={(e) => {
+                                setSearchFilters(prevState => ({
+                                    ...prevState,
+                                    orderBy: parseInt(e.value),
+                                }))
+                                setPage(0);
+                            }}
+                            placeholder="Упорядкувати"
+                        />
                     </div>
                 </div>
             </div>
             <div className="d-flex mt-5 flex-row gap-4">
                 <div className="flex-fill h-100">
                     <div className="col">
-                        {renderGames()}
+                        <GameList games={games} isMax={isMax} setPage={setPage} />
                     </div>
                 </div>
-                <FilterTable setGames={setGames} searchFilter={searchParams.get('id') ? {genreIds: [searchParams.get('id')]} : undefined} />
+                <FilterTable setGames={setGames}
+                    setSearchFilters={setSearchFilters}
+                    setPage={setPage}
+                    searchFilters={searchFilters}
+                    showGenre={!searchParams.get('id')}
+                />
             </div>
         </div>
     );

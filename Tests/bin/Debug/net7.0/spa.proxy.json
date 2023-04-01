@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44458",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\API\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

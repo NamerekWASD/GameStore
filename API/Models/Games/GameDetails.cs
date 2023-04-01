@@ -15,7 +15,8 @@ namespace API.Models.Games
 		public string Platform { get; set; } = string.Empty;
         public string CopyType { get; set; } = string.Empty;
         public string[]? Genres { get; set; }
-        public bool IsAvailable { get; set; }
+		public string[]? Tags { get; set; }
+		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
 		public int CopyCount { get; set; }
         public decimal Price { get; set; }
