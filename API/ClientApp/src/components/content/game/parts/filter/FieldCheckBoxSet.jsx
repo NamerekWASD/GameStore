@@ -3,7 +3,7 @@ import $ from 'jquery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
-const FieldCheckBoxSet = ({ fieldName, array, propertyName, processInput, checked }) => {
+const FieldCheckBoxSet = ({ fieldName, array, propertyName, processInput }) => {
 
     const handleCollapse = (e) => {
         const element = $(`#${propertyName}-collapse`);
@@ -21,7 +21,7 @@ const FieldCheckBoxSet = ({ fieldName, array, propertyName, processInput, checke
                     array.map((value) => {
                         return (
                             <div key={value.id} className="form-group checkbox-unique">
-                                <input id={propertyName + "|" + value.id} type="checkbox" defaultChecked={checked ? checked.some(id => +id === +value.id) : false}
+                                <input id={propertyName + "|" + value.id} type="checkbox"
                                     onChange={(e) => processInput(value.id, e.target.checked, propertyName)} />
                                 <label htmlFor={propertyName + "|" + value.id}>{value.name}</label>
                             </div>

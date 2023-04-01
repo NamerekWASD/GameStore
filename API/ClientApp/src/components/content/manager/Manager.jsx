@@ -18,7 +18,7 @@ const Manager = () => {
             }
             setVerified(true);
         });
-    }, [navigate])
+    }, [])
 
     return (
         <main>

@@ -65,8 +65,8 @@ export async function requestIsInRole(role) {
 
 /////////////////// Games API ////////////////////////
 
-export async function loadGames(detailed) {
-    const requestInfo = `api/game` + (detailed ? '/detailed' : '');
+export async function loadGames(page) {
+    const requestInfo = `api/game?${new URLSearchParams([['page', page]])}`;
     return await sendToServerWithJSONResponse(requestInfo);
 
 };
@@ -79,12 +79,6 @@ export async function loadGenres() {
     const requestInfo = "api/game/genres";
     return await sendToServerWithJSONResponse(requestInfo);
 }
-
-export async function loadGamesByGenre(id) {
-    const requestInfo = "api/game/genre/" + id;
-    return await sendToServerWithJSONResponse(requestInfo);
-}
-
 
 export async function subscribeOnGame(gameId, userEmail) {
     const requestInfo = "api/game/subscribe/" + gameId;
@@ -99,13 +93,8 @@ export async function subscribeOnGame(gameId, userEmail) {
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadGamesBySearchQuery(query) {
-    const requestInfo = "api/game/search?query=" + query;
-    return await fetch(requestInfo);
-}
-export async function loadGamesByFilters(filter) {
-    const requestInfo = "api/game/filter";
-    console.log(filter);
+export async function loadGamesByFilters(filter, page) {
+    const requestInfo = `api/game/filter?${new URLSearchParams([['page', page]])}`;
     const requestInit = {
         method: 'POST',
         headers: {
@@ -153,9 +142,6 @@ export async function uploadImageToServer(file, gameId) {
     const requestInit = {
         method: 'POST',
         mode: 'cors',
-        headers: {
-            'Accept': 'application/json',
-        },
         body: file
     };
     return await fetch(requestInfo, requestInit);
@@ -198,6 +184,21 @@ export async function loadLastBill(navigate) {
     return await response.json();
 }
 
+/////////////////// Copy API ////////////////////////
+
+export async function sendCopyData(data){
+    const requestInfo = `api/copy/create`;
+    const requestInit = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),    
+    };
+    return await fetch(requestInfo, requestInit);
+}
 
 /////////////////// Utils ////////////////////////
 

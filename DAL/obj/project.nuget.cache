@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "iMl3V/lklodz8mpAB0XXzB8MJdMv8/wYxJEe9gPzZB08G0k4b05CerSTHg2rqJMUkIV+gHgaP8fl/PIcA40Bjg==",
+  "dgSpecHash": "nhxhDR0F0tfkZGoDFB/VhxjUzYA3XWq51fNUPGX1eqEpFL6B5fnyINTW0IRM5lYt/fGphSglKuq1QA6ZJ3nnlA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Nykolai\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.3\\microsoft.aspnetcore.cryptography.internal.7.0.3.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.3\\microsoft.aspnetcore.cryptography.keyderivation.7.0.3.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.3\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.3.nupkg.sha512",
@@ -22,7 +23,9 @@
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\Nykolai\\.nuget\\packages\\moq\\4.18.4\\moq.4.18.4.nupkg.sha512",
+    "C:\\Users\\Nykolai\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

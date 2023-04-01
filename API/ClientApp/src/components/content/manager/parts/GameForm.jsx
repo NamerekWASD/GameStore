@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Creatable from 'react-select/creatable';
 import Select from 'react-select';
-import { deleteGame, loadFilterData, loadGameModel, uploadImageToServer } from "../../../../utils/ApiRequests";
+import { deleteGame, loadFilterData, loadGameModel, sendCopyData, uploadImageToServer } from "../../../../utils/ApiRequests";
 import Loading from "../../../../utils/Loading";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingCircle from "../../../../utils/LoadingCircle";
@@ -12,28 +12,6 @@ import $ from 'jquery';
 import ModalDelete from "./ModalDelete";
 import { AppPaths } from "../../../../utils/AppPaths";
 
-// const copyTypeBlank = {
-//     id: 0,
-//     name: '',
-//     platform: {
-//         id: 0,
-//         name: ''
-//     },
-//     availableRegions: [
-//         {
-//             id: 0,
-//             name: ''
-//         },
-//     ]
-// };
-// const filterDataBlank = {
-//     copyTypes: [copyTypeBlank],
-//     platforms: [{ value: 0, label: '' }],
-//     genres: [{ value: 0, label: '' }],
-//     developers: [{ value: 0, label: '' }],
-//     publishers: [{ value: 0, label: '' }],
-//     availableRegions: [{ value: 0, label: '' }],
-// };
 
 const GameForm = ({ saveChanges }) => {
     const navigate = useNavigate();
@@ -46,7 +24,11 @@ const GameForm = ({ saveChanges }) => {
     const [game, setGame] = useState();
     const [addImage, setAddImage] = useState(false);
     const [newImage, setNewImage] = useState({
-        name: PORTRAIT
+        typeId: 1,
+        type: {
+            id: 1,
+            name: PORTRAIT
+        }
     });
     const [isDiscounted, setDiscounted] = useState(false);
     const [description, setDescription] = useState();
@@ -82,56 +64,65 @@ const GameForm = ({ saveChanges }) => {
 
 
     useEffect(() => {
-        if (!filterData) {
-            loadFilterData().then(result => {
-                setFilterData({
-                    copyTypes: result.copyTypes.map(value => {
-                        return {
-                            label: value.name + ' ' + value.platform.name + ' | ' + value.availableRegions.map(item => item.name).join(', '),
-                            value: value
-                        };
-                    }),
-                    platforms: result.platforms.map(value => {
-                        return {
-                            label: value.name,
-                            value: value.id
-                        };
-                    }),
-                    genres: result.genres.map(value => {
-                        return {
-                            label: value.name,
-                            value: value.id
-                        };
-                    }),
-                    developers: result.developers.map(value => {
-                        return {
-                            label: value.name,
-                            value: value.id
-                        };
-                    }),
-                    publishers: result.publishers.map(value => {
-                        return {
-                            label: value.name,
-                            value: value.id
-                        };
-                    }),
-                    availableRegions: result.availableRegions.map(value => {
-                        return {
-                            label: value.name,
-                            value: value.id
-                        };
-                    })
-                })
-            });
-        }
-    }, [filterData])
+        loadFilterData().then(result => {
+            setFilterData({
+                copyTypes: result.copyTypes.map(value => {
+                    return {
+                        label: value.name + ' ' + value.platform.name + ' | ' + value.availableRegions.map(item => item.name).join(', '),
+                        value: value
+                    };
+                }),
+                platforms: result.platforms.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                genres: result.genres.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                developers: result.developers.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                publishers: result.publishers.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                availableRegions: result.availableRegions.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                imageTypes: result.imageTypes.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+                tags: result.tags.map(value => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    };
+                }),
+            })
+        });
+    }, [])
 
     const submit = (e) => {
         e.preventDefault();
-
-        const image = game.images.find(value => value.name === PORTRAIT)
-        if(!image){
-            toast.error(`В продукті має бути хоча б одне зображення із назвою "${PORTRAIT}"` );
+        const image = game.images.some(value => value.type.name === PORTRAIT)
+        if (!image) {
+            toast.error(`В продукті має бути хоча б одне зображення із назвою "${PORTRAIT}"`);
             return;
         }
 
@@ -212,7 +203,8 @@ const GameForm = ({ saveChanges }) => {
     const uploadImage = async (e) => {
         const image = new FormData();
         setAddImage(false);
-        image.append('fileName', newImage.name);
+        image.append('typeId', newImage.typeId);
+        image.append('type', newImage.type.name);
         image.append('image', e.target.files[0]);
         const response = await uploadImageToServer(image, game.id);
         if (!response.ok) {
@@ -233,9 +225,6 @@ const GameForm = ({ saveChanges }) => {
     const showModal = (image) => {
         setImageToShow(image);
         setShowImageModal(true);
-        window.onclick(() => {
-            setShowImageModal(false);
-        })
     }
 
 
@@ -251,6 +240,18 @@ const GameForm = ({ saveChanges }) => {
         }
         toast.success("Продукт успішно видалений!");
         navigate(AppPaths.manager);
+    }
+    const copyData = useRef(null);
+
+    const insertCopy = async () => {
+        const data = { id: 0, data: copyData.current.value, gameId: game.id, game: undefined };
+        const response = await sendCopyData(data);
+        if (response.status === 200) {
+            toast.success("Ви успішно додали копію!");
+            copyData.current.value = '';
+            return;
+        }
+        toast.error("Сталась помилка...");
     }
 
     return (
@@ -315,6 +316,19 @@ const GameForm = ({ saveChanges }) => {
                                         }))}
 
                                         defaultValue={game && game.id !== 0 ? game.genres.map(value => { return { label: value.name, value: value.id } }) : undefined}
+                                        required />
+                                </div>
+                                <div className="form-group required">
+                                    <label className="control-label">Мітки</label>
+                                    <Creatable className="rounded-all-0"
+                                        isMulti
+                                        options={filterData ? filterData.tags : undefined}
+                                        onChange={(value) => setGame(prevState => ({
+                                            ...prevState,
+                                            tags: value.map(tag => { return { id: isNaN(tag.value) ? 0 : tag.value, name: tag.label } })
+                                        }))}
+
+                                        defaultValue={game && game.id !== 0 ? game.tags.map(value => { return { label: value.name, value: value.id } }) : undefined}
                                         required />
                                 </div>
                                 <div className="form-group required">
@@ -442,9 +456,21 @@ const GameForm = ({ saveChanges }) => {
                                     addImage ?
                                         <div>
                                             <div className="form-group required">
-                                                <label className="control-label" htmlFor="pic-name">Назва зображення</label>
-                                                <input type="text" name="pic-name" id="game-image-name" className="rounded-0 form-control"
-                                                    defaultValue={newImage.name} onChange={(e) => setNewImage(prevState => ({ ...prevState, name: e.target.value }))} />
+                                                <label className="control-label" htmlFor="pic-name">Тип зображення</label>
+                                                <Creatable className="rounded-all-0"
+                                                    options={filterData ? filterData.imageTypes : undefined}
+                                                    onChange={(value) => {
+                                                        setNewImage(prevState => ({
+                                                            ...prevState,
+                                                            typeId: isNaN(value.value) ? 0 : value.value,
+                                                            type: {
+                                                                id: isNaN(value.value) ? 0 : value.value,
+                                                                name: value.label
+                                                            }
+                                                        }))
+                                                    }}
+                                                    defaultValue={{ label: PORTRAIT, value: 1 }}
+                                                    required />
                                             </div>
                                             <hr />
                                             <div className="form-group required">
@@ -467,6 +493,7 @@ const GameForm = ({ saveChanges }) => {
                                 }
                             </div>
                         </div>
+
                         <div className="d-flex gap-3 mb-3">
                             <div className="form-group required w-100">
                                 <h4 className="control-label fw-bold">Опис</h4>
@@ -489,13 +516,25 @@ const GameForm = ({ saveChanges }) => {
                                 </div>
                             </div>
                         </div>
+                        {
+                            game && game.id !== 0 ?
+                                <div>
+                                    <h3>Заповніть поле даними копії</h3>
+                                    <div>
+                                        <textarea ref={copyData} className="form-control rounded-0" name="copy-data" id="copy-data" rows="3"></textarea>
+                                    </div>
+                                    <button type="button" className="btn btn-outline-primary rounded-0 w-100" onClick={insertCopy}>Завантажити копію</button>
+                                </div>
+                                : ''
+                        }
+                        <hr />
                         <button className="btn btn-outline-success rounded-0 w-100" type="submit">{"Зберегти зміни"}</button>
                         {
                             game && game.id !== 0 ?
                                 <>
                                     <hr />
                                     <button type="button" className="btn btn-outline-danger rounded-0 w-100" onClick={() => handleDelete()}>Видалити продукт</button>
-                                    <ModalDelete refModal={modalRef}  onAcceptDelete={acceptDelete} game={game} />
+                                    <ModalDelete refModal={modalRef} onAcceptDelete={acceptDelete} game={game} />
                                 </>
                                 :
                                 ''
