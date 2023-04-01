@@ -8,7 +8,7 @@ namespace DAL.Entity
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
 		public string? ImageURL { get; set; }
-		public virtual List<Order>? Orders { get; set; }
+		public virtual List<Order> Orders { get; set; } = new();
 		public string? ConfirmationCode { get; set; }
 	}
 }

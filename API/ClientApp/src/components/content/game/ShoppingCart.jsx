@@ -36,21 +36,21 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
 
     const countRefs = useRef([]);
     countRefs.current = games.map((_, index) => countRefs.current[index] ?? createRef());
-    const priceRefs = useRef([]);
-    priceRefs.current = games.map((_, index) => priceRefs.current[index] ?? createRef());
 
     const memoRenderGames = useMemo(() => renderGames(), [games])
 
     useEffect(() => {
-        if (localStorage.games && localStorage.games.length !== 0 && games.length === 0) {
+        if (localStorage.games && localStorage.games.length !== 0) {
             loadSpecifiedtGames(JSON.parse(localStorage.games)).then(result => setGames(result));
         }
+        
+    }, [])
+
+    useEffect(() => {
         if (games.length !== 0) {
             localStorage.games = JSON.stringify(games);
             recalculateTotalPrice();
-        } else {
-            localStorage.games = [];
-        }
+        } 
     }, [games])
 
     useEffect(() => {
@@ -153,9 +153,11 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     }
 
     function removeGameFromShoppingBasket(id) {
-        const newList = games.filter((item) => item.id !== id);
+        const newList = games.filter((item) => item.id !== id).map(item => {
+            return {id: item.id, count: item.count}
+        });
         localStorage.games = JSON.stringify(newList);
-        setGames(newList);
+        setGames(prevState => prevState.filter(item => newList.some(game => game.id === item.id)));
         setItemsCount(newList.length);
     }
 
@@ -252,7 +254,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     }
 
     return (
-        <div className="d-flex flex-wrap-reverse gap-3 shopping-cart-container" style={{ maxWidth: "1200px" }}>
+        <div className="d-flex flex-wrap-reverse gap-3 shopping-cart-container" style={{ maxWidth: "1500px" }}>
             <div className="card-container col mx-auto">
                 <h3><b>Ваш кошик</b></h3>
                 {memoRenderGames}

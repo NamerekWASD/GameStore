@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {  useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import './game.css';
 import iconDistribute from './../../../static/distribute.svg';
 import iconRegion from './../../../static/key.svg';
@@ -24,23 +24,9 @@ const GameDetails = ({ isAuthenticated }) => {
     const [isImageModal, setShowImageModal] = useState(false);
     const [currentImage, setCurrentImage] = useState();
 
-    async function loadGame() {
-        const requestInfo = "api/game/" + searchParams.get('id');
-        const requestInit = {
-            method: 'GET',
-        };
-
-        const response = await fetch(requestInfo, requestInit)
-        if (!response.ok) {
-            setGame(null)
-            return;
-        }
-        const responseBody = await response.json();
-        return responseBody;
-    }
 
     const renderLoad = useMemo(() => {
-        if (!game) {
+        if (game === null) {
             return (
                 <div className="absolute-centered">
                     <h2>Гру не знайдено</h2>
@@ -53,13 +39,22 @@ const GameDetails = ({ isAuthenticated }) => {
     }, [game]);
 
     useEffect(() => {
-        if (!game) {
-            loadGame()
-                .then(result => {
-                    setGame(result)
-                });
-        }
-    }, [])
+        const requestInfo = "api/game/" + searchParams.get('id');
+        const requestInit = {
+            method: 'GET',
+        };
+
+        fetch(requestInfo, requestInit).then(response =>{
+            if (!response.ok) {
+                setGame(null)
+                throw new Error("Сталась помилка...");
+            }
+            return response.json();
+        }).then(result => {
+            setGame(result)
+        }).catch(err => toast.error(err));
+        
+    }, [searchParams])
 
     function addToCart() {
         var games = [];
@@ -67,13 +62,18 @@ const GameDetails = ({ isAuthenticated }) => {
             games = JSON.parse(localStorage.games);
         }
 
-        if (games.some((element) => element.id == game.id)) {
+        if (games.some((element) => element.id === game.id)) {
             toast.info("Ви вже додали цю гру в кошик")
             return;
         }
 
-        games.push(game);
+        games.push({
+            id: game.id,
+            count: 1,
+
+        });
         setItemsCount(games.length);
+        console.log(games);
         localStorage.games = JSON.stringify(games);
         toast.success("Гра успішно додана!")
     }
@@ -94,7 +94,7 @@ const GameDetails = ({ isAuthenticated }) => {
     }
 
     function showImageModal() {
-        setCurrentImage(game.images.find(item => item.name === PORTRAIT));
+        setCurrentImage(game.images.find(item => item.type.name === PORTRAIT));
         setShowImageModal(true);
     }
 
@@ -105,7 +105,7 @@ const GameDetails = ({ isAuthenticated }) => {
                     <div className="game-details d-flex my-3 p-3 overflow-hidden">
                         <div className="game-image">
                             <div style={{ maxWidth: '100%', width: '100%' }} className='overflow-hidden pointer' onClick={() => showImageModal()}>
-                                <img src={game.images.find(item => item.name === 'portrait').path} alt={searchParams.get('title')} className='width-inherit responsive-image' />
+                                <img src={game.images.find(item => item.type.name === PORTRAIT).path} alt={searchParams.get('title')} className='width-inherit responsive-image' />
                             </div>
                             <div className="description-grid bg-dark text-white py-2">
                                 <div>Жанр</div>
@@ -117,13 +117,7 @@ const GameDetails = ({ isAuthenticated }) => {
                                 <div>Дата випуску</div>
                                 <span>{new Date(Date.parse(game.released)).toLocaleDateString('uk-UA', options)}</span>
                             </div>
-
-                            {
-                                !game.discountPrice ?
-                                    <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Підписатись на оновлення</span></button>
-                                    :
-                                    ''
-                            }
+                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Підписатись на оновлення</span></button>
                         </div>
                         <div className="game-info">
                             <div className="d-flex flex-row flex-wrap-reverse gap-2 bg-dark justify-content-around text-white p-3 w-100">
@@ -156,12 +150,12 @@ const GameDetails = ({ isAuthenticated }) => {
                                 <div className="payment-info p-4 flex-fill">
                                     <Price item={game} discountClassName="fs-5" priceClassName="fs-1" vertical={true} />
                                     {
-                                        game.copyCount !== 0 ?
+                                        game.copyCount !== 0 && game.isAvailable ?
                                             <div>
                                                 <button className="btn btn-outline-success rounded-0 btn-responsive py-3 w-100" onClick={() => addToCart()}><span className="add">Додати у кошик</span></button>
                                             </div>
                                             :
-                                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Повідомити коли з'явиться</span></button>
+                                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Повідомити коли з'явиться у продажу</span></button>
                                     }
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ namespace BLL.DTO.Orders
 	{
 		public int Id { get; set; }
 		public List<SoldCopyDTO>? Copies { get; set; }
+		public int BuyerId { get; set; }
 		public User? Buyer { get; set; }
 		public int BillId { get; set; }
 		public BillingAddressDTO? Bill { get; set; }
