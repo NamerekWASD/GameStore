@@ -1,5 +1,9 @@
-﻿using API.Models.GameType;
+﻿using API.Models.Developers;
+using API.Models.GameType;
+using API.Models.Genres;
 using API.Models.Images;
+using API.Models.Publishers;
+using API.Models.Tags;
 
 namespace API.Models.Games
 {
@@ -10,6 +14,7 @@ namespace API.Models.Games
 		public List<ImageModel>? Images { get; set; }
 		public string Description { get; set; } = string.Empty;
 		public List<GenreModel>? Genres { get; set; }
+		public List<TagModel>? Tags { get; set; }
 		public int DeveloperId { get; set; }
 		public DeveloperModel? Developer { get; set; }
 		public int PublisherId { get; set; }

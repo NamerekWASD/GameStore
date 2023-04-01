@@ -1,4 +1,6 @@
 ﻿
+using BLL.DTO.Platforms;
+using BLL.DTO.Regions;
 using DAL.Entity.Games;
 
 namespace BLL.DTO.GameType
