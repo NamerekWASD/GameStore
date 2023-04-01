@@ -15,20 +15,27 @@
 
 .header {
     z-index: 99;
-    background: white;
+    background: linear-gradient(90deg, rgb(168, 124, 43), rgb(241, 168, 32));
     border-bottom: inset 1px black;
     transition: 1s;
-}
-
-.sticky {
-    background: rgb(255, 255, 255, .95  );
+    color: white !important;
     position: fixed;
     top: 0;
     width: 100%;
 }
-.counter{
+
+.highlight-green {
+    background-color: green !important;
+}
+
+.highlight-red {
+    background-color: red !important;
+}
+
+.counter {
     background-color: black;
     font-size: 13px;
+    font-weight: 600px;
     position: relative;
     color: white;
     width: 22px;
@@ -38,4 +45,5 @@
     border-radius: 100%;
     bottom: 10px;
     right: 5px;
+    transition: .3s ease-out all;
 }

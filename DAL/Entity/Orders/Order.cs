@@ -1,7 +1,10 @@
 ﻿
+using DAL.Entity.BillingAddresses;
+using DAL.Entity.SoldCopies;
+
 namespace DAL.Entity.Orders
 {
-	public class Order
+    public class Order
 	{
 		public int Id { get; set; }
 		public virtual List<SoldCopy>? Copies { get; set; }
