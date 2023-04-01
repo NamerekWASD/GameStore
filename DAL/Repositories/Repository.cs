@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace DAL.Repositories
 {
@@ -18,14 +20,9 @@ namespace DAL.Repositories
 			DbSet.RemoveRange(DbSet);
 			await Context.SaveChangesAsync();
 		}
-		public async Task DeleteAsync(int Id)
+		public async Task DeleteAsync(TEntity item)
 		{
-			DbSet.Remove(await DbSet.FindAsync(Id));
-			await Context.SaveChangesAsync();
-		}
-		public async Task DeleteAsync(TEntity Item)
-		{
-			DbSet.Entry(Item).State = EntityState.Deleted;
+			DbSet.Remove(item);
 			await Context.SaveChangesAsync();
 		}
 		public async Task RemoveRangeAsync(params TEntity[] entities)
@@ -33,32 +30,49 @@ namespace DAL.Repositories
 			DbSet.RemoveRange(entities);
 			await Context.SaveChangesAsync();
 		}
-		public async Task<TEntity> AddAsync(TEntity Item)
+		public async Task<TEntity> AddAsync(TEntity item)
 		{
-			var entity = await DbSet.AddAsync(Item);
+			var entity = await DbSet.AddAsync(item);
 			await Context.SaveChangesAsync();
 			return entity.Entity;
 		}
-		public async Task<TEntity> ModifyAsync(int Id, TEntity Item)
+		public async Task<TEntity> ModifyAsync(TEntity item)
 		{
-			Context.Entry<TEntity>(await Context.Set<TEntity>().FindAsync(Id)).CurrentValues.SetValues(Item);
+			Context.Entry(item).State = EntityState.Modified;
 			await Context.SaveChangesAsync();
-			return await DbSet.FindAsync(Id);
+			return item;
 		}
-		public async Task<TEntity> GetAsync(int Id)
+		public async Task<TEntity?> GetAsync(int Id)
 		{
 			return await DbSet.FindAsync(Id);
 		}
-		public async IAsyncEnumerable<TEntity> GetAll()
+		public async Task<IQueryable<TEntity>> GetAllAsync()
 		{
-			foreach(var entity in await DbSet.ToListAsync())
+			return (await DbSet.ToListAsync()).AsQueryable();
+		}
+		public async Task<IQueryable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
+		{
+			return (await DbSet.ToListAsync(cancellationToken: cancellationToken)).AsQueryable();
+		}
+		public async Task<IQueryable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate)
+		{
+			return (await DbSet.Where(predicate).ToListAsync()).AsQueryable();
+		}
+		public async Task<IQueryable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+		{
+			return (await DbSet.Where(predicate).ToListAsync(cancellationToken: cancellationToken)).AsQueryable();
+		}
+
+		public async IAsyncEnumerable<TEntity> GetAll([EnumeratorCancellation] CancellationToken cancellationToken)
+		{
+			foreach(var entity in await DbSet.ToListAsync(cancellationToken: cancellationToken))
 			{
 				yield return entity;
 			}
 		}
-		public async IAsyncEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
+		public async IAsyncEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate, [EnumeratorCancellation] CancellationToken cancellationToken)
 		{
-			foreach (var entity in await DbSet.Where(predicate).ToListAsync())
+			foreach (var entity in await DbSet.Where(predicate).ToListAsync(cancellationToken: cancellationToken))
 			{
 				yield return entity;
 			}

@@ -18,7 +18,7 @@ const ModalSubscribe = ({ refModal, game}) => {
     return (
         <div ref={refModal} className="modal">
             <div className="modal-content rounded-0">
-                <div className="modal-header rounded-0 d-block p-3">
+                <div className="rounded-0 d-block p-3 bg-warm">
                     <h3 className="text-center">Підписатись на гру 
                         <span id="close-modal" className="close-modal position-absolute end-0 me-3" onClick={() => refModal.current.style.display = 'none'}>&times;</span>
                     </h3>

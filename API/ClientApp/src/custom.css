@@ -133,9 +133,11 @@ input[type="checkbox"]:checked+label:before {
 .checkbox-unique>* {
   margin-top: -20px;
 }
-.dis-grid{
+
+.dis-grid {
   display: grid;
 }
+
 /* The Modal (background) */
 .modal {
   display: none;
@@ -148,7 +150,7 @@ input[type="checkbox"]:checked+label:before {
   height: 100%;
   overflow: auto;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   transition: 0.5s;
 }
 
@@ -162,7 +164,7 @@ input[type="checkbox"]:checked+label:before {
   height: 100%;
   overflow: auto;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   transition: 0.5s;
 }
 
@@ -494,15 +496,64 @@ input[type="checkbox"]:checked+label:before {
   background: #555;
 }
 
-.icon-normal{
+.icon-normal {
   transition: all 0.2s linear;
   -moz-transition: all .2s linear;
   -webkit-transition: all .2s linear;
 }
 
-.icon-normal.icon-down{
+.icon-normal.icon-down {
   transform: rotate(180deg);
-  -moz-transform:rotate(180deg);
-  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
   color: #a12525;
+}
+
+
+.formAnimation {
+  background-image: linear-gradient(to left, white, white 50%, rgb(170, 0, 0) 50%, rgb(170, 0, 0));
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  transition: background-position 0.5s ease;
+  color: #000;
+}
+
+.formAnimation.focused {
+  background-position: 0 0;
+  color: white;
+}
+
+.bg-light-gray {
+  background-color: rgb(197, 195, 195);
+}
+
+.video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+}
+
+.bg-gray-gradient-bottom {
+  background: linear-gradient(to bottom, rgb(32, 32, 32), rgb(255, 255, 255, 0));
+}
+.bg-gray-gradient-top {
+  background: linear-gradient(to top, rgb(32, 32, 32), rgb(255, 255, 255, 0));
 }

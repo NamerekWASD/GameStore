@@ -1,29 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, DropdownMenu, DropdownItem, Dropdown, DropdownToggle } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './NavMenu.css';
 import { loadGenres, logout } from '../utils/ApiRequests';
 import cart from './../static/shopping-cart.svg';
 import $ from 'jquery';
 import { AppPaths } from '../utils/AppPaths';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
 import GameDropList from './content/game/GameDropList';
+import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+
+const timeout = { current: undefined }
 
 export function setItemsCount(count) {
     const element = $("#shopping-cart-counter");
-    const value = count - +element.text();
-    const color = value <= 0 ? 'red' : 'green';
-    const responsiveElement = $(`<span></span>`).text(value).css({ "position": "absolute", 'color': color, 'font-weight': 800 });
+    const color = count - +element.text() <= 0 ? 'red' : 'green';
     element.text(count);
-    element.append(responsiveElement);
-    responsiveElement.animate({ 'right': '-25px', 'opacity': 0 }, 800, function () {
-        responsiveElement.remove();
-    })
+    element.addClass(`highlight-${color}`);
+    if (typeof timeout.current !== "undefined") {
+        clearTimeout(timeout.current);
+    }
+    timeout.current = setTimeout(() => {
+        element.removeClass(`highlight-${color}`);
+    }, 500);
 }
 
 
 const NavMenu = ({ isAuthenticated, refreshAuth }) => {
+    const navigate = useNavigate();
+    const [headerStyle, setHeaderStyle] = useState({
+        visibility: 'visible',
+        transition: 'all 200ms ease-in'
+    })
     const [collapsed, setCollapsed] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [genres, setGenres] = useState([]);
@@ -34,17 +43,28 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        if (localStorage.games && +counter.current.textContent == 0) {
+        if (localStorage.games && +counter.current.textContent === 0) {
             var items = JSON.parse(localStorage.games);
             setItemsCount(items.length);
         }
+
+        const myInput = document.getElementById('myInput');
+        const formAnimation = myInput.parentElement;
+
+        myInput.addEventListener('focus', () => {
+            formAnimation.classList.add('focused');
+        });
+
+        myInput.addEventListener('blur', () => {
+            formAnimation.classList.remove('focused');
+            searchField.current.value = '';
+            setSearchQuery('')
+        });
     }, []);
 
     useEffect(() => {
-        if (genres.length === 0) {
-            loadGenres().then(result => setGenres(result));
-        }
-    }, [genres]);
+        loadGenres().then(result => setGenres(result));
+    }, []);
     function toggleNavbar() {
         setCollapsed(!collapsed);
     };
@@ -52,17 +72,38 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
     const collapseBeforeStyle = {
         flexDirection: "row !important",
     }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setSearchQuery(searchField.current.value);
-    }
     const refresh = () => {
         setSearchQuery('')
         searchField.current.value = '';
     }
 
+    useScrollPosition(
+        ({ prevPos, currPos }) => {
+            const isVisible = currPos.y > prevPos.y
+            const shouldBeStyle = {
+                visibility: isVisible ? 'visible' : 'hidden',
+                transition: `all 200ms ${isVisible ? 'ease-in' : 'ease-out'}`,
+                transform: isVisible ? 'none' : 'translate(0, -100%)'
+            }
+
+            if (JSON.stringify(shouldBeStyle) === JSON.stringify(headerStyle)) return
+
+            setHeaderStyle(shouldBeStyle)
+        },
+        [headerStyle],
+        false,
+        false,
+        100
+    )
+
+    
+    const navigateToSearch = (e) => {
+        e.preventDefault();
+        navigate(AppPaths.gameSearch + '?' + new URLSearchParams([["search", searchQuery]]))
+        refresh();
+    }
     return (
-        <header id='myHeader' className='header'>
+        <header id='myHeader' className='header' style={{ ...headerStyle }}>
             <Navbar className="navbar-expand-sm box-shadow p-0">
                 <NavbarBrand className='my-0 p-0' tag={Link} to="/">Game Store</NavbarBrand>
                 <NavbarToggler onClick={() => toggleNavbar()} className="mr-2 rounded-0" />
@@ -83,7 +124,11 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                                             return (
                                                 <DropdownItem key={genre.id}>
                                                     <NavItem>
-                                                        <NavLink tag={Link} className="text-dark" to={AppPaths.gameCatalog + '?' + new URLSearchParams([['genre', genre.name], ['id', genre.id]]).toString()}>{genre.name}</NavLink>
+                                                        <NavLink tag={Link}
+                                                            to={AppPaths.gameCatalog + '?' +
+                                                                new URLSearchParams([['genre', genre.name], ['id', genre.id]]).toString()}>
+                                                            {genre.name}
+                                                        </NavLink>
                                                     </NavItem>
                                                 </DropdownItem>
                                             )
@@ -92,15 +137,19 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                                 </DropdownMenu>
                             </Dropdown>
                         </NavItem>
-                        <NavItem className='flex-fill ms-3'>
-                            <form className='h-100'  onSubmit={handleSubmit}>
-                                <FontAwesomeIcon icon={faSearch} />
-                                <input ref={searchField} className='h-100 border-0 no-outline bg-transparent w-50 fw-bold' type="text" placeholder='Пошук...' onChange={(e) => e.target.value} />
-                                <GameDropList searchQuery={searchQuery} refresh={refresh} />
+                        <NavItem className='me-auto'>
+                            <form className='h-100 px-3 formAnimation' onSubmit={navigateToSearch}>
+                                <FontAwesomeIcon icon={faSearch} className="pe-3" />
+                                <input id='myInput' ref={searchField} className='h-100 border-0 no-outline fw-bold bg-transparent'
+                                    type="text" placeholder='Пошук...'
+                                    onChange={(e) => setSearchQuery(e.target.value)}/>
+                                <FontAwesomeIcon className='pointer ms-3' size={'xl'} icon={faClose} onClick={refresh} />
+                                <GameDropList searchQuery={searchQuery} refresh={refresh} isVisible={headerStyle && headerStyle.visibility === 'visible'} />
+
                             </form>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="cart"><img src={cart} alt="" />
+                            <NavLink tag={Link} to="cart"><img src={cart} alt="" />
                                 <div ref={counter} id='shopping-cart-counter' className='counter'>0</div>
                             </NavLink>
                         </NavItem>
@@ -108,7 +157,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                             isAuthenticated ?
                                 <>
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to={AppPaths.profile}>Профіль</NavLink>
+                                        <NavLink tag={Link} to={AppPaths.profile}>Профіль</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <span className="text-dark nav-link pointer" onClick={() => logout(refreshAuth)}>Вийти з аккаунту</span>
@@ -117,7 +166,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                                 :
                                 <>
                                     <NavItem>
-                                        <NavLink tag={Link} className="text-dark" to={AppPaths.authorization}>Авторизуватись</NavLink>
+                                        <NavLink tag={Link} to={AppPaths.authorization}>Авторизуватись</NavLink>
                                     </NavItem>
                                 </>
                         }

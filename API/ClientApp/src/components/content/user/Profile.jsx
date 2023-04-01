@@ -31,20 +31,24 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        fetch(`api/account/update`, {
+        const requestInfo = `api/account/update`;
+        const requestInit = {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user)
-        }).then(response => {
+        };
+
+        fetch(requestInfo, requestInit).then(response => {
             processResponse(response)
         })
     }
 
     async function processResponse(response) {
         if (response.ok) {
+            toast.success(await response.text())
             return true;
         }
         toast.error(await response.text());
@@ -80,14 +84,14 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                                     <input 
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value}))} />
+                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value}))} />
                                 </div>
                                 <div className="form-group">
                                     <label className="labels" htmlFor="lname">Призвіще</label>
                                     <input
                                         type="text" id="lname" name="lname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value}))} />
+                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value}))} />
                                 </div>
                                 <div className="form-group required">
                                     <label className="labels" htmlFor="username">Ім'я користувача</label>

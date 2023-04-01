@@ -1,4 +1,4 @@
-﻿using BLL.DTO.Games;
+﻿using BLL.DTO.Copies;
 
 namespace BLL.DTO.Orders
 {

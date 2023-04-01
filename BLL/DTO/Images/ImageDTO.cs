@@ -1,11 +1,13 @@
 ﻿using BLL.DTO.Games;
+using DAL.Entity.Images;
 
 namespace BLL.DTO.Images
 {
 	public class ImageDTO
 	{
 		public int Id { get; set; }
-		public string Name { get; set; } = string.Empty;
+		public int TypeId { get; set; }
+		public ImageTypeDTO? Type { get; set; }
 		public string Path { get; set; } = string.Empty;
 		public string? ActualPath { get; set; }
 		public int GameId { get; set; }
