@@ -1,16 +1,25 @@
 ﻿using DAL.Context;
 using DAL.Entity;
+using DAL.Entity.BillingAddresses;
+using DAL.Entity.Copies;
+using DAL.Entity.Developers;
 using DAL.Entity.Games;
 using DAL.Entity.GameType;
+using DAL.Entity.Genres;
 using DAL.Entity.Images;
 using DAL.Entity.Mails;
 using DAL.Entity.Orders;
+using DAL.Entity.Platforms;
+using DAL.Entity.Publishers;
+using DAL.Entity.Regions;
+using DAL.Entity.SoldCopies;
+using DAL.Entity.Tags;
 using DAL.Repositories;
 using UnitsOfWork.Interfaces;
 
 namespace DAL.UoW
 {
-	public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
 	{
 		private readonly GameContext gameContext;
 
@@ -23,20 +32,22 @@ namespace DAL.UoW
 		{
 			this.gameContext = gameContext;
 		}
-		private IRepository<Order> _orders;
-		private IRepository<Game> _games;
-		private IRepository<Genre> _genres;
-		private IRepository<User> _users;
-		private IRepository<Copy> _copies;
-		private IRepository<SoldCopy> _soldCopies;
-		private IRepository<GameSubscription> _gameSubscriptions;
-		private IRepository<BillingAddress> _billingAddresses;
-		private IRepository<Image> _images;
-		private IRepository<CopyType> _copyTypes;
-		private IRepository<Platform> _platforms;
-		private IRepository<Developer> _developers;
-		private IRepository<Publisher> _publishers;
-		private IRepository<Region> _regions;
+		private IRepository<Order>? _orders;
+		private IRepository<Game>? _games;
+		private IRepository<Tag>? _tags;
+		private IRepository<Genre>? _genres;
+		private IRepository<User>? _users;
+		private IRepository<Copy>? _copies;
+		private IRepository<SoldCopy>? _soldCopies;
+		private IRepository<GameSubscription>? _gameSubscriptions;
+		private IRepository<BillingAddress>? _billingAddresses;
+		private IRepository<Image>? _images;
+		private IRepository<CopyType>? _copyTypes;
+		private IRepository<Platform>? _platforms;
+		private IRepository<Developer>? _developers;
+		private IRepository<Publisher>? _publishers;
+		private IRepository<Region>? _regions;
+		private IRepository<ImageType>? _imageTypes;
 		public IRepository<Order> Orders
 		{
 			get
@@ -52,6 +63,14 @@ namespace DAL.UoW
 			{
 				_games ??= new Repository<Game>(gameContext);
 				return _games;
+			}
+		}
+		public IRepository<Tag> Tags
+		{
+			get
+			{
+				_tags ??= new Repository<Tag>(gameContext);
+				return _tags;
 			}
 		}
 		public IRepository<Genre> Genres
@@ -149,6 +168,15 @@ namespace DAL.UoW
 			{
 				_regions ??= new Repository<Region>(gameContext);
 				return _regions;
+			}
+		}
+
+		public IRepository<ImageType> ImageTypes
+		{
+			get
+			{
+				_imageTypes ??= new Repository<ImageType>(gameContext);
+				return _imageTypes;
 			}
 		}
 
