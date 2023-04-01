@@ -14,13 +14,10 @@ export const navigateToManager = (navigate) => {
     }
 }
 
-const errorToast = { current: undefined}
-
 export const verify = async (role) => {
     const response = await requestIsInRole(role);
     if(response.redirected){
-        if(errorToast.current) toast.dismiss(errorToast.current);
-        errorToast.current = toast.error(await response.text());
+        toast.error(await response.text());
         return false;
     }
     return true;

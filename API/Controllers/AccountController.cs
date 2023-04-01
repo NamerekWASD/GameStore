@@ -1,19 +1,22 @@
 ﻿using API.Models.Users;
-using BLL.Interface;
+using BLL.Service.Mails;
 using BLL.Tools;
 using DAL.Entity;
+using Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/[controller]")]
 	public class AccountController : ControllerBase
 	{
 		private readonly UserManager<User> _userManager;
+#pragma warning disable IDE0052 // Remove unread private members
 		private readonly ILogger<AccountController> _logger;
+#pragma warning restore IDE0052 // Remove unread private members
 		private readonly SignInManager<User> _signInManager;
 		private readonly IMailService _mailService;
 		private readonly IWebHostEnvironment _appEnvironment;
@@ -43,7 +46,7 @@ namespace API.Controllers
 		}
 		[HttpGet("login")]
 		[AllowAnonymous]
-		public IActionResult Login(string ReturnUrl = "")
+		public IActionResult Login()
 		{
 			return Ok("Спершу авторизуйтесь");
 		}
@@ -72,12 +75,6 @@ namespace API.Controllers
 		public async Task<IActionResult> GetUserData()
 		{
 			var userFromDB = await _userManager.GetUserAsync(User);
-			var externalLogin = await _signInManager.GetExternalLoginInfoAsync();
-
-			// TODO: make things work
-
-			var schemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
-			_logger.LogInformation("external Auths: ", string.Join(", ", schemes.Select(item => item.DisplayName)));
 
 			if (userFromDB is null)
 			{
@@ -87,12 +84,10 @@ namespace API.Controllers
 			{
 				ImageURL = userFromDB.ImageURL ?? "",
 				UserName = userFromDB.UserName ?? "",
+				FirstName = userFromDB.FirstName ?? "",
+				LastName = userFromDB.LastName ?? "",
 				Email = userFromDB.Email ?? "",
 			};
-			if (externalLogin is not null)
-			{
-				user.Provider = externalLogin.ProviderDisplayName;
-			}
 
 			return Ok(user);
 		}
@@ -101,7 +96,7 @@ namespace API.Controllers
 		[Authorize]
 		public async Task<IActionResult> UpdateUserData([FromBody] UserModel userModel)
 		{
-			var userFromDB = await _userManager.GetUserAsync(User);
+			var userFromDB = await _userManager.GetUserAsync(User) ?? throw new NotFoundException("Користувача не знайдено");
 			userFromDB.Email = userModel.Email;
 			userFromDB.FirstName = userModel.FirstName;
 			userFromDB.LastName = userModel.LastName;
@@ -195,7 +190,7 @@ namespace API.Controllers
 			{
 				return Ok("Ok");
 			}
-			var email = external.User?.Email;
+			var email = external.User.Email;
 
 			if (email == null)
 			{

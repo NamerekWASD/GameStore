@@ -180,6 +180,10 @@
     background: linear-gradient(45deg, #007222, #26b445, #118a57);
 }
 
+.bg-discount-red{
+    background: linear-gradient(45deg, #720000, #b46626, #8a1111);
+}
+
 .grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }

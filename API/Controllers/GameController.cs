@@ -1,17 +1,23 @@
 ﻿using API.Models.Filters;
 using API.Models.Games;
+using API.Models.Genres;
 using API.Models.Images;
+using API.Models.Lists;
+using API.Tools;
 using BLL.DTO.Filters;
 using BLL.DTO.Games;
 using BLL.DTO.Images;
-using BLL.Interface;
 using BLL.Service;
+using BLL.Service.Games;
+using BLL.Service.Genres;
+using BLL.Service.Mails;
 using BLL.Tools;
 using DAL.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
+using Ninject.Infrastructure.Language;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading;
@@ -25,28 +31,43 @@ namespace API.Controllers
 	{
 		private readonly IGameService _gameService;
 		private readonly IMailService _mailService;
+		private readonly IGenreService _genreService;
+#pragma warning disable IDE0052 // Remove unread private members
 		private readonly ILogger<GameController> _logger;
+#pragma warning restore IDE0052 // Remove unread private members
 
 		public GameController(
 			IGameService gameService,
 			IMailService mailService,
+			IGenreService genreService,
 			ILogger<GameController> logger)
 		{
 			_gameService = gameService;
 			_mailService = mailService;
+			_genreService = genreService;
 			_logger = logger;
 		}
 
 		[HttpGet]
-		public IActionResult GetGameList(CancellationToken cancellationToken)
+		public async Task<IActionResult> GetGameList(CancellationToken cancellationToken,
+			[FromQuery(Name = "page")] int page = 1)
 		{
-			return Ok(GetGameLightsAsync(cancellationToken));
+			var games = await _gameService.GetGamesWithPagination(page, cancellationToken);
+			return Ok(MapperHelpers.Instance.Map<GameListModel>(games));
 		}
 
-		[HttpGet("detailed")]
-		public IActionResult GetGameDetailedList(CancellationToken cancellationToken)
+		[HttpPost("filter")]
+		public async Task<IActionResult> SearchByFilter([FromBody] FilterGameModel? filter,
+			CancellationToken cancellationToken,
+			[FromQuery(Name = "page")] int page = 1)
 		{
-			return Ok(GetGameDetailedAsync(cancellationToken));
+			if (filter == null)
+			{
+				var games = await _gameService.GetGamesWithPagination(page, cancellationToken);
+				return Ok(MapperHelpers.Instance.Map<GameListModel>(games));
+			}
+			var gameListModel = await _gameService.GetGamesByFilterWithPagination(MapperHelpers.Instance.Map<FilterGameDTO>(filter), page, cancellationToken);
+			return Ok(MapperHelpers.Instance.Map<GameListModel>(gameListModel));
 		}
 
 		[HttpPost("list")]
@@ -57,7 +78,9 @@ namespace API.Controllers
 		[HttpGet("genres")]
 		public IActionResult GetGenres(CancellationToken cancellationToken)
 		{
-			return Ok(GetGenresAsync(cancellationToken));
+			return Ok(_genreService.GetGenres(cancellationToken)
+				.ToBlockingEnumerable(cancellationToken: cancellationToken)
+				.Select(MapperHelpers.Instance.Map<GenreModel>));
 		}
 
 		[HttpGet("{id}")]
@@ -68,30 +91,11 @@ namespace API.Controllers
 			return Ok(game);
 		}
 
-		[HttpGet("genre/{id}")]
-		public IActionResult GetByGenreId(int id, CancellationToken cancellationToken)
-		{
-			return Ok(GetGamesByGenre(id, cancellationToken));
-		}
-
-		[HttpGet("search")]
-		public IActionResult SearchByQuery([FromQuery(Name = "query")] string query, CancellationToken cancellationToken)
-		{
-			return Ok(GetGamesByQuery(query, cancellationToken).ToBlockingEnumerable(cancellationToken).AsQueryable().Take(5));
-		}
-
 		[HttpGet("filter")]
 		public async Task<IActionResult> FormFilterData(CancellationToken cancellationToken)
 		{
 			var filterData = await _gameService.GetFilterData(cancellationToken);
 			return Ok(MapperHelpers.Instance.Map<FilterFormDataModel>(filterData));
-		}
-
-		[HttpPost("filter")]
-		public async Task<IActionResult> SearchByFilter([FromBody] FilterGameModel filter, CancellationToken cancellationToken)
-		{
-			var games = await _gameService.GetGamesByFilter(MapperHelpers.Instance.Map<FilterGameDTO>(filter), cancellationToken);
-			return Ok(games.Select(MapperHelpers.Instance.Map<GameDetails>));
 		}
 
 		[HttpPost("subscribe/{id}")]
@@ -114,21 +118,23 @@ namespace API.Controllers
 		[Authorize(Constants.MANAGER)]
 		public async Task<IActionResult> CreateGame([FromBody] GameModel game)
 		{
-			await _gameService.AddGame(MapperHelpers.Instance.Map<GameDTO>(game));
+			var edited = await _gameService.AddGame(MapperHelpers.Instance.Map<GameDTO>(game));
+			if(edited == null) return NotFound();
 			return Ok();
 		}
 
-		[HttpPut("edit/{id}")]
+		[HttpPut("edit")]
 		[Authorize(Constants.MANAGER)]
-		public async Task<IActionResult> EditGame(int id, [FromBody] GameModel game)
+		public async Task<IActionResult> EditGame([FromBody] GameModel game)
 		{
-			await _gameService.EditGame(id, MapperHelpers.Instance.Map<GameDTO>(game));
-			return Ok();	
+			var edited = await _gameService.EditGame(MapperHelpers.Instance.Map<GameDTO>(game));
+			if (edited == null) return NotFound();
+			return Ok();
 		}
 
 		[HttpDelete("delete/{id}")]
 		[Authorize(Constants.MANAGER)]
-		public async Task<IActionResult> DeleteGame(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> DeleteGame(int id)
 		{
 			JsonSerializerOptions options = new()
 			{
@@ -136,10 +142,10 @@ namespace API.Controllers
 			};
 
 			string serrialized = JsonSerializer.Serialize(MapperHelpers.Instance.Map<GameModel>(await _gameService.GetGame(id)), options);
-			var result = await _gameService.DeleteGame(id, serrialized);
+			var result = await _gameService.DeleteGameWithSerializedData(id, serrialized);
 			if (result)
 				return Ok();
-			else 
+			else
 				return BadRequest("Сталась помилка...");
 		}
 
@@ -159,47 +165,9 @@ namespace API.Controllers
 			}
 			return Ok(MapperHelpers.Instance.Map<ImageModel>(imageDTO));
 		}
-		private async IAsyncEnumerable<GameLightModel> GetGameLightsAsync([EnumeratorCancellation] CancellationToken cancellationToken)
-		{
-			await foreach (var game in _gameService.GetGames().WithCancellation(cancellationToken))
-			{
-				yield return MapperHelpers.Instance.Map<GameLightModel>(game);
-			}
-		}
-		private async IAsyncEnumerable<GameDetails> GetGameDetailedAsync([EnumeratorCancellation] CancellationToken cancellationToken)
-		{
-			await foreach (var game in _gameService.GetGames().WithCancellation(cancellationToken))
-			{
-				yield return MapperHelpers.Instance.Map<GameDetails>(game);
-			}
-		}
 		private async IAsyncEnumerable<GameLightModel> GetGameLightsByIdsAsync(int[] ids, [EnumeratorCancellation] CancellationToken cancellationToken)
 		{
-			await foreach (var game in _gameService.GetGames(ids).WithCancellation(cancellationToken))
-			{
-				yield return MapperHelpers.Instance.Map<GameLightModel>(game);
-			}
-		}
-
-		private async IAsyncEnumerable<GenreModel> GetGenresAsync([EnumeratorCancellation] CancellationToken cancellationToken)
-		{
-			await foreach (var genre in _gameService.GetGenres().WithCancellation(cancellationToken))
-			{
-				yield return MapperHelpers.Instance.Map<GenreModel>(genre);
-			}
-		}
-
-		private async IAsyncEnumerable<GameDetails> GetGamesByGenre(int genreId, [EnumeratorCancellation] CancellationToken cancellationToken)
-		{
-			await foreach (var game in _gameService.GetGamesByGenre(genreId).WithCancellation(cancellationToken))
-			{
-				yield return MapperHelpers.Instance.Map<GameDetails>(game);
-			}
-		}
-
-		private async IAsyncEnumerable<GameLightModel> GetGamesByQuery(string query, [EnumeratorCancellation] CancellationToken cancellationToken)
-		{
-			await foreach (var game in _gameService.GetGamesByQuery(query, cancellationToken).WithCancellation(cancellationToken))
+			await foreach (var game in _gameService.GetGames(ids, cancellationToken).WithCancellation(cancellationToken))
 			{
 				yield return MapperHelpers.Instance.Map<GameLightModel>(game);
 			}
