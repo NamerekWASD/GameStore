@@ -1,5 +1,5 @@
 # Game Store
-GameStore is an online game store that allows users to buy, sell, and create games. It provides a platform to interact with existing games as well as create and edit new ones. Ukrainian localization is used in the project.
+GameStore is an online game store that allows users to buy and sell copies, and create games for selling. It provides a platform to interact with existing games as well as create and edit new ones. Ukrainian localization is used in the project.
 
 ### Technologies
 The front-end of GameStore is built using React.js, while the back-end is built using .Net and utilizes a RESTful API. The application utilizes various services, including Braintree for transaction processing, ethereal.email as a fake SMTP client, and Google OAuth2 for authentication through Google accounts.
