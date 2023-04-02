@@ -7,7 +7,6 @@ import { MANAGER } from "../../../utils/Constants";
 import { verify } from "../../../utils/Navigation";
 import GameForm from "./parts/GameForm";
 
-
 const CreateGame = () => {
     const navigate = useNavigate();
 
@@ -18,7 +17,6 @@ const CreateGame = () => {
     }, [navigate])
 
     const saveChanges = async (newData) => {
-
         const response = await uploadChanges(newData);
         if(response.status === 200){
             toast.success('Гра успішно додана!');
@@ -26,7 +24,6 @@ const CreateGame = () => {
             return;
         }
         toast.error('Сталася помилка...');
-
     }
 
     return (

@@ -1,4 +1,3 @@
-
 const LoadingCircle = () => {
     return (
         <div className="w-100 text-center">

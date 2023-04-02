@@ -1,10 +1,9 @@
 ﻿using API.Models.Platforms;
 using API.Models.Regions;
-using BLL.DTO.GameType;
 
 namespace API.Models.GameType
 {
-    public class CopyTypeModel
+	public class CopyTypeModel
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
+	[ApiController]
 	[Route("api/[controller]")]
 	public class AccountController : ControllerBase
 	{
@@ -44,12 +44,14 @@ namespace API.Controllers
 		{
 			return User != null && User.Identity != null && User.Identity.IsAuthenticated && _signInManager.IsSignedIn(User);
 		}
+
 		[HttpGet("login")]
 		[AllowAnonymous]
 		public IActionResult Login()
 		{
 			return Ok("Спершу авторизуйтесь");
 		}
+
 		[HttpGet("accessDenied")]
 		[AllowAnonymous]
 		public IActionResult AccessDenied()
@@ -63,6 +65,7 @@ namespace API.Controllers
 		{
 			return Ok();
 		}
+
 		[HttpGet(Constants.ADMINISTRATOR)]
 		[Authorize(Constants.ADMINISTRATOR)]
 		public IActionResult IsAdministrator()
@@ -179,6 +182,7 @@ namespace API.Controllers
 			await _signInManager.SignInAsync(user, isPersistent: true);
 			return Ok("Ok");
 		}
+
 		[HttpPost("external-login-callback")]
 		[AllowAnonymous]
 		public async Task<IActionResult> ExternalLoginCallback([FromBody] ExternalAuthModel external)

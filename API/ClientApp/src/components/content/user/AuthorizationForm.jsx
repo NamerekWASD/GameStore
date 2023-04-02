@@ -37,7 +37,6 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
         }
     }
 
-
     async function sendAsExternalLogin(provider, user, userId) {
         const externalAuth = {
             userId: userId,
@@ -124,6 +123,3 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
 }
 
 export default AuthorizationForm;
-
-
-

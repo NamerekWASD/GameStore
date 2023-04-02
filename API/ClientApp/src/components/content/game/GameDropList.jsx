@@ -43,7 +43,6 @@ const GameDropList = ({ searchQuery, refresh, isVisible }) => {
         navigateToDetails(game, navigate);
     }
 
-
     return (
         <div ref={gameDropList} className="drop-list text-dark">
             <div ref={cardContainer}>

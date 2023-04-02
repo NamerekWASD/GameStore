@@ -12,7 +12,6 @@ import $ from 'jquery';
 import ModalDelete from "./ModalDelete";
 import { AppPaths } from "../../../../utils/AppPaths";
 
-
 const GameForm = ({ saveChanges }) => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -61,7 +60,6 @@ const GameForm = ({ saveChanges }) => {
     useEffect(() => {
         setDiscounted(game && game.discountPrice !== null ? true : false)
     }, [game])
-
 
     useEffect(() => {
         loadFilterData().then(result => {
@@ -180,7 +178,6 @@ const GameForm = ({ saveChanges }) => {
     }
 
     const scrollToBottom = () => {
-
         const element = $("#scroll-to-bottom");
         element.animate({
             scrollTop: element.prop("scrollHeight")
@@ -220,13 +217,10 @@ const GameForm = ({ saveChanges }) => {
         scrollToBottom()
     }
 
-
-
     const showModal = (image) => {
         setImageToShow(image);
         setShowImageModal(true);
     }
-
 
     const handleDelete = () => {
         modalRef.current.style.display = 'block';

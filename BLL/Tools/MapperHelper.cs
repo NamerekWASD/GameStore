@@ -28,10 +28,9 @@ using DAL.Entity.Tags;
 
 namespace BLL.Tools
 {
-    public static class MapperHelper
+	public static class MapperHelper
 	{
-
-		public readonly static IMapper Instance = new MapperConfiguration(SetupCofiguration).CreateMapper();
+		public static readonly IMapper Instance = new MapperConfiguration(SetupCofiguration).CreateMapper();
 
 		private static void SetupCofiguration(IMapperConfigurationExpression cfg)
 		{
@@ -50,7 +49,6 @@ namespace BLL.Tools
 			cfg.CreateMap<Image, ImageDTO>().ReverseMap();
 			cfg.CreateMap<ImageTypeDTO, ImageType>().ReverseMap();
 			cfg.CreateMap<Tag, TagDTO>().ReverseMap();
-
 		}
 	}
 }

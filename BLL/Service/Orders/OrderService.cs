@@ -1,5 +1,4 @@
-﻿using BLL.DTO.Games;
-using BLL.DTO.Orders;
+﻿using BLL.DTO.Orders;
 using BLL.Tools;
 using DAL.Context;
 using DAL.Entity.BillingAddresses;
@@ -14,130 +13,130 @@ using UnitsOfWork.Interfaces;
 
 namespace BLL.Service.Orders
 {
-    public class OrderService : IOrderService
-    {
-        private readonly IUnitOfWork UoW;
+	public class OrderService : IOrderService
+	{
+		private readonly IUnitOfWork UoW;
 #pragma warning disable IDE0052 // Remove unread private members
-        private readonly ILogger<OrderService> _logger;
+		private readonly ILogger<OrderService> _logger;
 #pragma warning restore IDE0052 // Remove unread private members
-        private readonly object locker = new();
-        public OrderService(GameContext context, ILogger<OrderService> logger)
-        {
-            UoW = new UnitOfWork(context);
-            _logger = logger;
-        }
+		private readonly object locker = new();
 
-        public async IAsyncEnumerable<OrderDTO> GetOrders(int userId)
-        {
-            var user = await UoW.Users.GetAsync(userId) ?? throw new NotFoundException("Користувача не знайдено");
-            foreach (var order in user.Orders)
-            {
-                yield return MapperHelper.Instance.Map<OrderDTO>(order);
-            }
-        }
+		public OrderService(GameContext context, ILogger<OrderService> logger)
+		{
+			UoW = new UnitOfWork(context);
+			_logger = logger;
+		}
 
-        public async Task<OrderDTO?> GetOrder(int userId, int orderId)
-        {
-            var order = MapperHelper.Instance.Map<OrderDTO>(await UoW.Orders.GetAsync(orderId));
+		public async IAsyncEnumerable<OrderDTO> GetOrders(int userId)
+		{
+			var user = await UoW.Users.GetAsync(userId) ?? throw new NotFoundException("Користувача не знайдено");
+			foreach (var order in user.Orders)
+			{
+				yield return MapperHelper.Instance.Map<OrderDTO>(order);
+			}
+		}
 
-            if (order is null || order.BuyerId != userId)
-            {
-                return null;
-            }
-            return order;
-        }
+		public async Task<OrderDTO?> GetOrder(int userId, int orderId)
+		{
+			var order = MapperHelper.Instance.Map<OrderDTO>(await UoW.Orders.GetAsync(orderId));
 
-        public async Task<int> CreateOrder(OrderLightDTO data)
-        {
-            var order = new Order
-            {
-                Buyer = await UoW.Users.GetAsync(data.UserId),
-                Copies = new List<SoldCopy>(),
-                Created = DateTime.Now,
-                Bill = data.BillingAddress?.Id == 0 ?
-                MapperHelper.Instance.Map<BillingAddress>(data.BillingAddress) :
-                await UoW.BillingAddresses.GetAsync(data.BillId)
-            };
+			if (order is null || order.BuyerId != userId)
+			{
+				return null;
+			}
+			return order;
+		}
 
-            foreach (var game in data.Games)
-            {
-                await ProcessGameCopies(order, game);
-            };
+		public async Task<int> CreateOrder(OrderLightDTO data)
+		{
+			var order = new Order
+			{
+				Buyer = await UoW.Users.GetAsync(data.UserId),
+				Copies = new List<SoldCopy>(),
+				Created = DateTime.Now,
+				Bill = data.BillingAddress?.Id == 0 ?
+				MapperHelper.Instance.Map<BillingAddress>(data.BillingAddress) :
+				await UoW.BillingAddresses.GetAsync(data.BillId)
+			};
 
-            return (await UoW.Orders.AddAsync(MapperHelper.Instance.Map<Order>(order))).Id;
-        }
+			foreach (var game in data.Games)
+			{
+				await ProcessGameCopies(order, game);
+			};
 
-        public async Task CalculateTotalPrice(OrderLightDTO data)
-        {
-            decimal sum = 0;
+			return (await UoW.Orders.AddAsync(MapperHelper.Instance.Map<Order>(order))).Id;
+		}
 
-            foreach (var game in await GetGames(data))
-            {
-                if (game.Price is null) throw new NotSetPrice(string.Format("На цю гру не встановлено ціну.\n{0}: {1}", game.Id, game.Title));
-                lock (locker)
-                {
-                    if (game.DiscountPrice is null)
-                    {
-                        sum += (int)game.Price;
-                        continue;
-                    }
-                    sum += (decimal)game.DiscountPrice;
-                }
-            }
-            data.TotalPrice = sum;
-        }
+		public async Task CalculateTotalPrice(OrderLightDTO data)
+		{
+			decimal sum = 0;
 
-        private async Task ProcessGameCopies(Order order, GameOrderDTO gameData)
-        {
-            var game = await UoW.Games.GetAsync(gameData.Id) ?? throw new NotFoundException("Гру не знайдено");
-            var copies = game.Copies.Where(copy => !copy.IsSold).Take(gameData.Count);
+			foreach (var game in await GetGames(data))
+			{
+				if (game.Price is null) throw new NotSetPrice(string.Format("На цю гру не встановлено ціну.\n{0}: {1}", game.Id, game.Title));
+				lock (locker)
+				{
+					if (game.DiscountPrice is null)
+					{
+						sum += (int)game.Price;
+						continue;
+					}
+					sum += (decimal)game.DiscountPrice;
+				}
+			}
+			data.TotalPrice = sum;
+		}
 
-            if (copies.Count() != gameData.Count)
-            {
-                throw new ArgumentException("Невірна кількість копій!");
-            }
+		private async Task ProcessGameCopies(Order order, GameOrderDTO gameData)
+		{
+			var game = await UoW.Games.GetAsync(gameData.Id) ?? throw new NotFoundException("Гру не знайдено");
+			var copies = game.Copies.Where(copy => !copy.IsSold).Take(gameData.Count);
 
-            var tasks = new List<Task>();
+			if (copies.Count() != gameData.Count)
+			{
+				throw new ArgumentException("Невірна кількість копій!");
+			}
 
-            foreach (var copy in copies)
-            {
-                tasks.Add(CreateSoldCopy(copy, order, game.DiscountPrice ?? game.Price));
-            }
+			var tasks = new List<Task>();
 
-            await Task.WhenAll(tasks);
+			foreach (var copy in copies)
+			{
+				tasks.Add(CreateSoldCopy(copy, order, game.DiscountPrice ?? game.Price));
+			}
 
-            lock (locker)
-            {
-                game.SoldCopies += copies.Count();
-            }
+			await Task.WhenAll(tasks);
 
-            await UoW.Games.ModifyAsync(game);
-        }
+			lock (locker)
+			{
+				game.SoldCopies += copies.Count();
+			}
 
-        private async Task CreateSoldCopy(Copy copy, Order order, decimal? price)
+			await UoW.Games.ModifyAsync(game);
+		}
+
+		private async Task CreateSoldCopy(Copy copy, Order order, decimal? price)
 		{
 			if (price is null) throw new NotSetPrice(string.Format("На цю гру не встановлено ціну.\n{0}: {1}", copy.Game.Id, copy.Game.Title));
 			var soldCopy = new SoldCopy
-            {
-                CopyId = copy.Id,
-                Price = (decimal)price
-            };
-            order.Copies?.Add(soldCopy);
+			{
+				CopyId = copy.Id,
+				Price = (decimal)price
+			};
+			order.Copies?.Add(soldCopy);
 
-            copy.IsSold = true;
-            await UoW.Copies.ModifyAsync(MapperHelper.Instance.Map<Copy>(copy));
-        }
+			copy.IsSold = true;
+			await UoW.Copies.ModifyAsync(MapperHelper.Instance.Map<Copy>(copy));
+		}
 
-        private async Task<List<Game>> GetGames(OrderLightDTO data)
-        {
-            var games = new List<Game>();
-            foreach (var game in data.Games)
-            {
-                var fromDb = await UoW.Games.GetAsync(game.Id) ?? throw new NotFoundException("Гру не знайдено");
-                games.Add(fromDb);
-            }
-            return games;
-        }
-
-    }
+		private async Task<List<Game>> GetGames(OrderLightDTO data)
+		{
+			var games = new List<Game>();
+			foreach (var game in data.Games)
+			{
+				var fromDb = await UoW.Games.GetAsync(game.Id) ?? throw new NotFoundException("Гру не знайдено");
+				games.Add(fromDb);
+			}
+			return games;
+		}
+	}
 }

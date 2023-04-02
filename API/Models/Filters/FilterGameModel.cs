@@ -7,7 +7,7 @@ namespace API.Models.Filters
 		public string? SearchQuery { get; set; } = string.Empty;
 		public List<int>? RegionIds { get; set; } = new();
 		public List<int>? PlatformIds { get; set; } = new();
-		public List<int>? GenreIds { get; set; } = new ();
+		public List<int>? GenreIds { get; set; } = new();
 		public List<int> TagIds { get; set; } = new List<int>();
 		public int DeveloperId { get; set; }
 		public int PublisherId { get; set; }

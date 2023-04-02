@@ -68,7 +68,6 @@ export async function requestIsInRole(role) {
 export async function loadGames(page) {
     const requestInfo = `api/game?${new URLSearchParams([['page', page]])}`;
     return await sendToServerWithJSONResponse(requestInfo);
-
 };
 export async function loadGame(id) {
     const requestInfo = "api/game/" + id;
@@ -122,13 +121,12 @@ export async function loadFilterData() {
 export async function loadGameModel(gameId) {
     const requestInfo = `api/game/model/` + gameId;
     return await fetch(requestInfo);
-
 }
 
 export async function uploadChanges(game) {
-    const requestInfo = `api/game/${ game.id && game.id !== 0 ?  'edit' : 'create'}`;
+    const requestInfo = `api/game/${game.id && game.id !== 0 ? 'edit' : 'create'}`;
     const requestInit = {
-        method: game.id && game.id !== 0 ?  'PUT' : 'POST',
+        method: game.id && game.id !== 0 ? 'PUT' : 'POST',
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -186,7 +184,7 @@ export async function loadLastBill(navigate) {
 
 /////////////////// Copy API ////////////////////////
 
-export async function sendCopyData(data){
+export async function sendCopyData(data) {
     const requestInfo = `api/copy/create`;
     const requestInit = {
         method: 'POST',
@@ -195,13 +193,12 @@ export async function sendCopyData(data){
             'Accept': 'application/json',
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data),    
+        body: JSON.stringify(data),
     };
     return await fetch(requestInfo, requestInit);
 }
 
 /////////////////// Utils ////////////////////////
-
 
 async function sendToServerWithJSONResponse(requestInfo, requestInit) {
     const response = await fetch(requestInfo, requestInit)

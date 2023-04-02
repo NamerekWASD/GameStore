@@ -1,6 +1,4 @@
-
 const ModalDelete = ({ refModal, onAcceptDelete, game }) => {
-
     return (
         <div ref={refModal} className="modal">
             <div className="modal-content rounded-0">

@@ -1,38 +1,37 @@
-﻿using API.Models.Games;
-using AutoMapper;
-using BLL.DTO.Games;
-using BLL.DTO.Images;
-using API.Models.Images;
-using API.Models.Orders;
-using BLL.DTO.Orders;
-using Braintree;
-using API.Models.Filters;
-using BLL.DTO.Filters;
-using BLL.DTO.GameType;
-using API.Models.GameType;
-using API.Models.Copies;
-using BLL.DTO.Gernres;
-using BLL.DTO.Platforms;
-using BLL.DTO.Developers;
-using BLL.DTO.Publishers;
-using BLL.DTO.Regions;
+﻿using API.Models.Copies;
 using API.Models.Developers;
-using API.Models.Platforms;
+using API.Models.Filters;
+using API.Models.Games;
+using API.Models.GameType;
 using API.Models.Genres;
+using API.Models.Images;
+using API.Models.Lists;
+using API.Models.Orders;
+using API.Models.Platforms;
 using API.Models.Publishers;
 using API.Models.Regions;
-using BLL.DTO.Copies;
-using BLL.DTO.Tags;
 using API.Models.Tags;
+using AutoMapper;
+using BLL.DTO.Copies;
+using BLL.DTO.Developers;
+using BLL.DTO.Filters;
+using BLL.DTO.Games;
+using BLL.DTO.GameType;
+using BLL.DTO.Gernres;
+using BLL.DTO.Images;
 using BLL.DTO.Lists;
-using API.Models.Lists;
+using BLL.DTO.Orders;
+using BLL.DTO.Platforms;
+using BLL.DTO.Publishers;
+using BLL.DTO.Regions;
+using BLL.DTO.Tags;
+using Braintree;
 
 namespace API.Tools
 {
 	public static class MapperHelpers
 	{
-
-		public readonly static IMapper Instance = new MapperConfiguration(cfg =>
+		public static readonly IMapper Instance = new MapperConfiguration(cfg =>
 		{
 			cfg.CreateMap<GameDTO, GameLightModel>()
 			.ForMember(destination => destination.CopyType, option => option.MapFrom(source => source.CopyType != null ? source.CopyType.Name : string.Empty))
@@ -68,9 +67,8 @@ namespace API.Tools
 			cfg.CreateMap<FilterGameDTO, FilterGameModel>().ReverseMap();
 			cfg.CreateMap<TagDTO, TagModel>().ReverseMap();
 			cfg.CreateMap<ImageFormModel, ImageFormDTO>();
-			cfg.CreateMap<ImageTypeDTO, ImageTypeModel>().ReverseMap()	;
+			cfg.CreateMap<ImageTypeDTO, ImageTypeModel>().ReverseMap();
 			cfg.CreateMap<GameListDTO, GameListModel>();
-
 		}).CreateMapper();
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace BLL.DTO.Orders
 {
-    public class OrderDTO
+	public class OrderDTO
 	{
 		public int Id { get; set; }
 		public List<SoldCopyDTO>? Copies { get; set; }

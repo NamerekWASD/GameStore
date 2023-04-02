@@ -26,7 +26,6 @@ const GameSearch = () => {
             setSearchParams(undefined)
             return
         }
-
     }, [searchParams]);
 
     const findUnique = (value) =>{
@@ -59,9 +58,9 @@ const GameSearch = () => {
                 <div className="d-flex flex-row">
                     <h3 className="fw-bold">Знайдено {count !== 0 ? processHeader(count) : 'жодної гри'}</h3>
                 </div>
-                <FilterSearch 
-                setSearchFilter={setsearchFilter} 
-                searchQuery={searchFilter ? searchFilter.searchQuery : ''} 
+                <FilterSearch
+                setSearchFilter={setsearchFilter}
+                searchQuery={searchFilter ? searchFilter.searchQuery : ''}
                 setPage={setPage}/>
             </div>
             <div className="d-flex mt-5 flex-row gap-4">

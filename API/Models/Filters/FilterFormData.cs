@@ -9,7 +9,7 @@ using API.Models.Tags;
 
 namespace API.Models.Filters
 {
-    public class FilterFormDataModel
+	public class FilterFormDataModel
 	{
 		public List<CopyTypeModel>? CopyTypes { get; set; }
 		public List<PlatformModel>? Platforms { get; set; }
@@ -20,5 +20,4 @@ namespace API.Models.Filters
 		public List<RegionModel>? AvailableRegions { get; set; }
 		public List<ImageTypeModel>? ImageTypes { get; set; }
 	}
-
 }

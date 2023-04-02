@@ -1,6 +1,4 @@
-
 export const FilterSearch = ({ setSearchFilter, searchQuery, setPage }) => {
-
     return (
         <div>
             <input type="text" className="form-control w-100 rounded-0"
@@ -11,7 +9,7 @@ export const FilterSearch = ({ setSearchFilter, searchQuery, setPage }) => {
                         searchQuery: e.target.value
                     }))
                     setPage(0);
-                }} 
+                }}
                 placeholder="Пошук..."
                 />
         </div>
