@@ -1,5 +1,4 @@
-﻿using API.Models.Games;
-using BLL.Tools;
+﻿using BLL.Tools;
 using DAL.Context;
 using DAL.Entity.Copies;
 using DAL.Entity.Developers;
@@ -12,14 +11,11 @@ using DAL.Entity.Publishers;
 using DAL.Entity.Regions;
 using DAL.Entity.Tags;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 namespace API.Data
 {
 	public class SeedData
 	{
-
 		public static void Initialize(IServiceProvider serviceProvider)
 		{
 			using var context = new GameContext(serviceProvider.GetRequiredService<DbContextOptions<GameContext>>());
@@ -107,7 +103,6 @@ namespace API.Data
 			{
 				Name = "Тактика"
 			};
-
 
 			Developer fromSoftware = new()
 			{
@@ -348,7 +343,6 @@ namespace API.Data
 				Data = "Loggin: Sumail$uk\nPassword: 25fdszvc"
 			};
 
-
 			Game GTA5 = new()
 			{
 				Title = "Grand Theft Auto V",
@@ -406,7 +400,6 @@ namespace API.Data
 			{
 				Data = "Loggin: Bogdan33\nPassword: 12dzsc345"
 			};
-
 
 			Copy copy17 = new()
 			{
@@ -804,7 +797,7 @@ namespace API.Data
 			};
 			Tag competitive = new()
 			{
-				Name= "Змагання"
+				Name = "Змагання"
 			};
 			Developer capcom = new()
 			{

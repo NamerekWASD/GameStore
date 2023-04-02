@@ -24,7 +24,6 @@ builder.Services.AddDbContext<GameContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Default"),
 				providerOptions => { providerOptions.EnableRetryOnFailure(); }).UseLazyLoadingProxies());
 
-
 builder.Services.AddIdentity<User, IdentityRole<int>>()
 	.AddEntityFrameworkStores<GameContext>()
 	.AddDefaultTokenProviders();
@@ -33,7 +32,6 @@ builder.Services.AddControllers();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-
 	// Lockout settings.
 	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 	options.Lockout.MaxFailedAccessAttempts = 5;

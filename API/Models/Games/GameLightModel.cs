@@ -2,13 +2,13 @@
 
 namespace API.Models.Games
 {
-    public class GameLightModel
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
+	public class GameLightModel
+	{
+		public int Id { get; set; }
+		public string Title { get; set; } = string.Empty;
 		public ImageModel? Image { get; set; }
 		public string Platform { get; set; } = string.Empty;
-        public string CopyType { get; set; } = string.Empty;
+		public string CopyType { get; set; } = string.Empty;
 		public string[]? Genres { get; set; }
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }

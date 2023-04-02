@@ -1,6 +1,6 @@
 ﻿namespace API.Models.Orders
 {
-    public class OrderModel
+	public class OrderModel
 	{
 		public int Id { get; set; }
 		public List<SoldCopyModel>? Copies { get; set; }

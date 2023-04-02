@@ -7,7 +7,7 @@ using API.Models.Tags;
 
 namespace API.Models.Games
 {
-    public class GameModel
+	public class GameModel
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;

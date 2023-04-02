@@ -7,7 +7,6 @@ import { MANAGER } from "../../../utils/Constants";
 import { verify } from "../../../utils/Navigation";
 import GameForm from "./parts/GameForm";
 
-
 const EditGame = () => {
     const navigate = useNavigate();
     useEffect(() => {

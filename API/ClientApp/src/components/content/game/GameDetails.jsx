@@ -14,7 +14,6 @@ import { PORTRAIT } from "../../../utils/Constants";
 import ModalSubscribe from "./parts/ModalSubscribe";
 
 const GameDetails = ({ isAuthenticated }) => {
-
     const [searchParams] = useSearchParams();
     const [game, setGame] = useState();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -23,7 +22,6 @@ const GameDetails = ({ isAuthenticated }) => {
 
     const [isImageModal, setShowImageModal] = useState(false);
     const [currentImage, setCurrentImage] = useState();
-
 
     const renderLoad = useMemo(() => {
         if (game === null) {
@@ -53,7 +51,6 @@ const GameDetails = ({ isAuthenticated }) => {
         }).then(result => {
             setGame(result)
         }).catch(err => toast.error(err));
-        
     }, [searchParams])
 
     function addToCart() {
@@ -70,7 +67,6 @@ const GameDetails = ({ isAuthenticated }) => {
         games.push({
             id: game.id,
             count: 1,
-
         });
         setItemsCount(games.length);
         console.log(games);

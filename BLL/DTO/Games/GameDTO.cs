@@ -10,7 +10,7 @@ using BLL.Tools;
 
 namespace BLL.DTO.Games
 {
-    public class GameDTO
+	public class GameDTO
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;
@@ -37,10 +37,11 @@ namespace BLL.DTO.Games
 		{
 			get
 			{
-				if(CopyType is null) return Array.Empty<string>();
+				if (CopyType is null) return Array.Empty<string>();
 				return CopyType.AvailableRegions.Select(item => item.Name).ToArray();
 			}
 		}
+
 		public string[] GetGenres
 		{
 			get
@@ -48,6 +49,7 @@ namespace BLL.DTO.Games
 				return Genres?.Select(g => g.Name).ToArray() ?? Array.Empty<string>();
 			}
 		}
+
 		public string[] GetTags
 		{
 			get
@@ -63,6 +65,5 @@ namespace BLL.DTO.Games
 				return Images?.FirstOrDefault(image => image.Type != null && image.Type.Name == Constants.PORTRAIT_IMAGE) ?? new();
 			}
 		}
-
 	}
 }

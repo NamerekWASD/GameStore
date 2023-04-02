@@ -8,7 +8,6 @@ const videos = [
 ]
 
 export const VideoContainer = () => {
-
     const [currentVideoIndex, setCurrentVideoIndex] = useState(() => Math.floor(Math.random() * videos.length));
 
     const handleEnded = () => setCurrentVideoIndex(index => {

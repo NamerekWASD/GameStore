@@ -26,7 +26,6 @@ export function setItemsCount(count) {
     }, 500);
 }
 
-
 const NavMenu = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
     const [headerStyle, setHeaderStyle] = useState({
@@ -96,7 +95,6 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
         100
     )
 
-    
     const navigateToSearch = (e) => {
         e.preventDefault();
         navigate(AppPaths.gameSearch + '?' + new URLSearchParams([["search", searchQuery]]))
@@ -142,7 +140,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                                 <FontAwesomeIcon icon={faSearch} className="pe-3" />
                                 <input id='myInput' ref={searchField} className='h-100 border-0 no-outline fw-bold bg-transparent'
                                     type="text" placeholder='Пошук...'
-                                    onChange={(e) => setSearchQuery(e.target.value)}/>
+                                    onChange={(e) => setSearchQuery(e.target.value)} />
                                 <FontAwesomeIcon className='pointer ms-3' size={'xl'} icon={faClose} onClick={refresh} />
                                 <GameDropList searchQuery={searchQuery} refresh={refresh} isVisible={headerStyle && headerStyle.visibility === 'visible'} />
 
