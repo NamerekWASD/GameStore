@@ -54,7 +54,6 @@ const Payment = () => {
         toast(errorMessage);
     }
 
-
     function renderPayment() {
         switch (sCartData.payment) {
             case paymentType.card || paymentType.paypal:

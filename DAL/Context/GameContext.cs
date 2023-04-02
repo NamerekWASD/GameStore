@@ -16,20 +16,21 @@ using DAL.Entity.Tags;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DAL.Context
 {
-    public class GameContext : IdentityDbContext<User, IdentityRole<int>, int>
+	public class GameContext : IdentityDbContext<User, IdentityRole<int>, int>
 	{
 		public GameContext() : base()
 		{
 			Database.EnsureCreated();
 		}
+
 		public GameContext(DbContextOptions<GameContext> options) : base(options)
 		{
 			Database.EnsureCreated();
 		}
+
 		public DbSet<Game> Games { get; set; }
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<CopyType> CopyTypes { get; set; }

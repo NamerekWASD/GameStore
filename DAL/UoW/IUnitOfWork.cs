@@ -17,12 +17,12 @@ using DAL.Repositories;
 
 namespace UnitsOfWork.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+	public interface IUnitOfWork : IDisposable
 	{
 		IRepository<Order> Orders { get; }
 		IRepository<User> Users { get; }
 		IRepository<Game> Games { get; }
-		IRepository<Tag> Tags{ get; }
+		IRepository<Tag> Tags { get; }
 		IRepository<Genre> Genres { get; }
 		IRepository<Copy> Copies { get; }
 		IRepository<SoldCopy> SoldCopies { get; }

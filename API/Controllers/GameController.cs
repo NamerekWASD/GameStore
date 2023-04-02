@@ -7,21 +7,15 @@ using API.Tools;
 using BLL.DTO.Filters;
 using BLL.DTO.Games;
 using BLL.DTO.Images;
-using BLL.Service;
 using BLL.Service.Games;
 using BLL.Service.Genres;
 using BLL.Service.Mails;
 using BLL.Tools;
-using DAL.Context;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
 using Ninject.Infrastructure.Language;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Threading;
-using UnitsOfWork.Interfaces;
 
 namespace API.Controllers
 {
@@ -75,6 +69,7 @@ namespace API.Controllers
 		{
 			return Ok(GetGameLightsByIdsAsync(ids, cancellationToken));
 		}
+
 		[HttpGet("genres")]
 		public IActionResult GetGenres(CancellationToken cancellationToken)
 		{
@@ -119,7 +114,7 @@ namespace API.Controllers
 		public async Task<IActionResult> CreateGame([FromBody] GameModel game)
 		{
 			var edited = await _gameService.AddGame(MapperHelpers.Instance.Map<GameDTO>(game));
-			if(edited == null) return NotFound();
+			if (edited == null) return NotFound();
 			return Ok();
 		}
 
@@ -153,7 +148,6 @@ namespace API.Controllers
 		[Authorize(Constants.MANAGER)]
 		public async Task<IActionResult> UploadFile(int id, [FromForm] ImageFormModel model)
 		{
-
 			if (model is null || model.Image is null)
 			{
 				BadRequest("Прикріпіть файл");
@@ -165,6 +159,7 @@ namespace API.Controllers
 			}
 			return Ok(MapperHelpers.Instance.Map<ImageModel>(imageDTO));
 		}
+
 		private async IAsyncEnumerable<GameLightModel> GetGameLightsByIdsAsync(int[] ids, [EnumeratorCancellation] CancellationToken cancellationToken)
 		{
 			await foreach (var game in _gameService.GetGames(ids, cancellationToken).WithCancellation(cancellationToken))

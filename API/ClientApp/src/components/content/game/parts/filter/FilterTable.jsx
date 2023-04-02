@@ -5,9 +5,7 @@ import $ from 'jquery'
 import { scrollToTop } from "../../../../Layout";
 import Select from 'react-select';
 
-
 const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) => {
-
     const minPrice = useRef(null);
     const maxPrice = useRef(null);
     const minDate = useRef(null);
@@ -24,7 +22,6 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
 
     useEffect(() => {
         loadFilterData().then(result => {
-
             result.tags = result.tags.map(value => ({ label: value.name, value: value.id }))
             result.developers = result.developers.map(value => ({ label: value.name, value: value.id }))
             result.publishers = result.publishers.map(value => ({ label: value.name, value: value.id }))

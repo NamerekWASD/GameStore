@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class CopyController : ControllerBase
 	{
 		private readonly ICopyService _copyService;
+
 		public CopyController(ICopyService copyService)
 		{
 			_copyService = copyService;

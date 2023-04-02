@@ -28,7 +28,6 @@ const ExtendedGameList = () => {
     }
 
     useEffect(() => {
-
         if (page < 1) {
             setPage(1);
             return;
@@ -58,7 +57,6 @@ const ExtendedGameList = () => {
         if (bottomPosition < 0 && !isMax) {
             setPage(prevState => prevState + 1);
         }
-
     }, [isMax], false, false, 300)
     return (
         <div className="container">
@@ -89,7 +87,6 @@ const ExtendedGameList = () => {
                                 </thead>
                                 <tbody ref={listContainer}>
                                     {
-
                                         games.map(game => {
                                             return (
                                                 <tr key={game.id} className="pointer" onClick={() => editGame(game)} style={{ maxWidth: '150px' }}>

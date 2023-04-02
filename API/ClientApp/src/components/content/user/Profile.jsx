@@ -69,7 +69,6 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
         });
         e.target.classList.add(borderBottom);
         setOptionType(e.target.value);
-
     }
 
     const renderOption = () => {
@@ -81,7 +80,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                             <div className="p-3">
                                 <div className="form-group">
                                     <label className="labels" htmlFor="fname">Ім'я</label>
-                                    <input 
+                                    <input
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
                                         defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value}))} />

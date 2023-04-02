@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using DAL.Entity.Copies;
+﻿using DAL.Entity.Copies;
 using DAL.Entity.Developers;
 using DAL.Entity.GameType;
 using DAL.Entity.Genres;
@@ -7,10 +6,11 @@ using DAL.Entity.Images;
 using DAL.Entity.Mails;
 using DAL.Entity.Publishers;
 using DAL.Entity.Tags;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entity.Games
 {
-    public class Game
+	public class Game
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;
@@ -28,10 +28,13 @@ namespace DAL.Entity.Games
 		public DateTime? Released { get; set; }
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
+
 		[Column(TypeName = "decimal(18, 2)")]
 		public decimal? Price { get; set; }
+
 		[Column(TypeName = "decimal(18, 2)")]
 		public decimal? DiscountPrice { get; set; }
+
 		public int SoldCopies { get; set; }
 		public virtual List<GameSubscription> Subscriptions { get; set; } = new();
 	}

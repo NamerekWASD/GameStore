@@ -1,5 +1,4 @@
 ﻿using BLL.DTO.Games;
-using DAL.Entity.Images;
 
 namespace BLL.DTO.Images
 {

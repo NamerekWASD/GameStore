@@ -69,7 +69,6 @@ const Carousel = ({ games }) => {
         updateMaxItems();
     }, [games.length, calculateMaxItems, startCarousel])
 
-
     async function calculateMaxItems() {
         myIndex.current = -1;
         const reducer = (games.length % 3);
@@ -83,7 +82,6 @@ const Carousel = ({ games }) => {
     useEffect(() => {
         setSliderIndex(0);
     }, [isPanorama])
-
 
     useEffect(() => {
         window.addEventListener('blur', clearTimeOut);

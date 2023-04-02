@@ -1,6 +1,4 @@
-﻿using DAL.Entity.Orders;
-
-namespace BLL.DTO.Orders
+﻿namespace BLL.DTO.Orders
 {
 	public class BillingAddressDTO
 	{

@@ -6,15 +6,10 @@ using BLL.DTO.Platforms;
 using BLL.DTO.Publishers;
 using BLL.DTO.Regions;
 using BLL.DTO.Tags;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.DTO.Filters
 {
-    public class FilterFormDTO
+	public class FilterFormDTO
 	{
 		public List<CopyTypeDTO> CopyTypes { get; set; } = new();
 		public List<PlatformDTO> Platforms { get; set; } = new();

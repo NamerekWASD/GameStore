@@ -1,4 +1,3 @@
-
 const Loading = () => {
     return (
         <div className="absolute-centered">

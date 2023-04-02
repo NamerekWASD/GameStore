@@ -13,7 +13,6 @@ import { setItemsCount } from "../../NavMenu";
 import Price from "./parts/Price";
 import ModalSubscribe from "./parts/ModalSubscribe";
 
-
 export const paymentType = {
     card: 'Visa/Mastercard',
     paypal: 'PayPal',
@@ -33,7 +32,6 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     const modalConfirm = useRef(null);
     const modalSubscribe = useRef(null);
 
-
     const countRefs = useRef([]);
     countRefs.current = games.map((_, index) => countRefs.current[index] ?? createRef());
 
@@ -43,14 +41,13 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         if (localStorage.games && localStorage.games.length !== 0) {
             loadSpecifiedtGames(JSON.parse(localStorage.games)).then(result => setGames(result));
         }
-        
     }, [])
 
     useEffect(() => {
         if (games.length !== 0) {
             localStorage.games = JSON.stringify(games);
             recalculateTotalPrice();
-        } 
+        }
     }, [games])
 
     useEffect(() => {
@@ -174,11 +171,10 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     function recalculateTotalPrice() {
         let sum = 0;
         games.forEach(game => {
-            sum += (game.discountPrice ?? game.price) * game.count 
+            sum += (game.discountPrice ?? game.price) * game.count
         });
         total.current.textContent = +sum.toFixed(2);
     }
-
 
     async function submitForm(e) {
         e.preventDefault();

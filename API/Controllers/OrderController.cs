@@ -8,7 +8,6 @@ using DAL.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Asn1.X509.Qualified;
 using System.Runtime.CompilerServices;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,7 +26,7 @@ namespace API.Controllers
 
 		public OrderController(IOrderService orderService,
 			IBraintreeService gateway,
-			UserManager<User> userManager, 
+			UserManager<User> userManager,
 			ILogger<OrderController> logger)
 		{
 			_orderService = orderService;
@@ -35,6 +34,7 @@ namespace API.Controllers
 			_userManager = userManager;
 			_logger = logger;
 		}
+
 		[HttpGet]
 		public IActionResult GetAll(CancellationToken cancellationToken)
 		{
@@ -57,6 +57,7 @@ namespace API.Controllers
 
 			return Ok(MapperHelpers.Instance.Map<OrderModel>(order));
 		}
+
 		[HttpGet("last-bill")]
 		public async Task<IActionResult> GetLastBillingAddress()
 		{
@@ -68,6 +69,7 @@ namespace API.Controllers
 
 			return Ok(user.Orders.LastOrDefault().Bill);
 		}
+
 		[HttpPost("create")]
 		public async Task<IActionResult> CreateOrder([FromBody] OrderLightModel data)
 		{
@@ -76,7 +78,6 @@ namespace API.Controllers
 			var gateway = _braintreeService.GetGateway();
 			var request = new TransactionRequest
 			{
-
 				BillingAddress = MapperHelpers.Instance.Map<AddressRequest>(data.BillingAddress),
 				Amount = orderlight.TotalPrice,
 				CurrencyIsoCode = "USD",
@@ -98,11 +99,12 @@ namespace API.Controllers
 				user = await _userManager.FindByEmailAsync(data.UserEmail);
 				if (user is null) return BadRequest("Користувача не знайдено");
 			}
-			
+
 			orderlight.UserId = user.Id;
 			var orderId = await _orderService.CreateOrder(orderlight);
 			return Ok(orderId);
 		}
+
 		private async IAsyncEnumerable<OrderModel> GetOrders([EnumeratorCancellation] CancellationToken cancellation)
 		{
 			var user = await _userManager.GetUserAsync(User);
