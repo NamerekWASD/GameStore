@@ -22,13 +22,13 @@ namespace BLL.DTO.Games
 		public DeveloperDTO? Developer { get; set; }
 		public int PublisherId { get; set; }
 		public PublisherDTO? Publisher { get; set; }
-		public int CopyTypeId { get; set; }
+		public int? CopyTypeId { get; set; }
 		public CopyTypeDTO? CopyType { get; set; }
 		public List<CopyDTO> Copies { get; set; } = new();
-		public DateTime Released { get; set; }
+		public DateTime? Released { get; set; }
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
-		public decimal Price { get; set; }
+		public decimal? Price { get; set; }
 		public decimal? DiscountPrice { get; set; }
 		public int SoldCopies { get; set; }
 		public List<GameSubscriptionDTO> Subscriptions { get; set; } = new();

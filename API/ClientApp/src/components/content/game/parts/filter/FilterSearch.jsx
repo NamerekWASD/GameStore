@@ -11,7 +11,9 @@ export const FilterSearch = ({ setSearchFilter, searchQuery, setPage }) => {
                         searchQuery: e.target.value
                     }))
                     setPage(0);
-                }} />
+                }} 
+                placeholder="Пошук..."
+                />
         </div>
     )
 }
