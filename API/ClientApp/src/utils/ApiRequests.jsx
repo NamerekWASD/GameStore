@@ -126,7 +126,7 @@ export async function loadGameModel(gameId) {
 }
 
 export async function uploadChanges(game) {
-    const requestInfo = `api/game/${ game.id && game.id !== 0 ?  'edit/' + game.id : 'create'}`;
+    const requestInfo = `api/game/${ game.id && game.id !== 0 ?  'edit' : 'create'}`;
     const requestInit = {
         method: game.id && game.id !== 0 ?  'PUT' : 'POST',
         headers: {

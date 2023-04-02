@@ -8,6 +8,7 @@ import LoadingCircle from "../../../../utils/LoadingCircle";
 import { processHeader } from "../../game/GameCatalog";
 import FilterTable from "../../game/parts/filter/FilterTable";
 import Price from "../../game/parts/Price";
+import { FilterSearch } from "../../game/parts/filter/FilterSearch";
 
 const ExtendedGameList = () => {
     const navigate = useNavigate();
@@ -18,13 +19,27 @@ const ExtendedGameList = () => {
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
     const listContainer = useRef(null)
+
+    const findUnique = (value) =>{
+        if(games.some(game => game.id === value.id)){
+            return false;
+        }
+        return true;
+    }
+
     useEffect(() => {
-        if (page === 0) {
+
+        if (page < 1) {
             setPage(1);
             return;
         }
+
         loadGamesByFilters(searchFilters, page).then(result => {
-            setGames(prevState => [...prevState, ...result.games])
+            if(result.page === 1){
+                setGames(result.games);
+                return;
+            }
+            setGames(prevState => [...prevState, ...result.games.filter(findUnique)])
             setIsMax(result.isMax);
             setCount(result.totalCount);
         });
@@ -33,6 +48,7 @@ const ExtendedGameList = () => {
     const createGame = () => {
         navigate(AppPaths.createGame);
     }
+
     const editGame = (game) => {
         navigate(AppPaths.editGame + '?' + new URLSearchParams([["gameId", game.id]]))
     }
@@ -40,21 +56,22 @@ const ExtendedGameList = () => {
         const rect = listContainer.current.getBoundingClientRect();
         const bottomPosition = rect.height + rect.y + currPos.y - window.innerHeight;
         if (bottomPosition < 0 && !isMax) {
-            console.log(isMax);
             setPage(prevState => prevState + 1);
         }
 
     }, [isMax], false, false, 300)
     return (
         <div className="container">
-            <div className="p-3">
+            <div className="py-3">
                 <button className="btn btn-outline-success rounded-0 w-100" style={{ height: '4rem' }}
                     onClick={createGame}>Створити продукт</button>
             </div>
             <div>
-                <h3>Знайдено {processHeader(count)}</h3>
+                <h3>Знайдено {count ? processHeader(count) : ''}</h3>
             </div>
-
+            <div className="my-3">
+                <FilterSearch searchQuery={""} setPage={setPage} setSearchFilter={setSearchFilters} />
+            </div>
             <div className="d-flex">
                 <div className="flex-fill me-2">
                     {
@@ -80,7 +97,7 @@ const ExtendedGameList = () => {
                                                     <td>{game.id}</td>
                                                     <td><h5>{game.title}</h5><span>{game.genres.join(', ')}</span></td>
                                                     <td>{game.copyType}</td>
-                                                    <td className={game.copyCount <= 3 ? "text-danger" : ""}>{game.copyCount}</td>
+                                                    <td className={game.copyCount <= 3 ? "text-danger fw-bold" : ""}>{game.copyCount}</td>
                                                     <td><Price item={game} /></td>
                                                 </tr>
                                             )

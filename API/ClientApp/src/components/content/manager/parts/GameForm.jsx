@@ -356,19 +356,30 @@ const GameForm = ({ saveChanges }) => {
                                     needNewCopyType ?
                                         renderCreateCopy()
                                         :
-                                        <div className="form-group required">
+                                        <div className="form-group ">
                                             <label className="control-label">Тип копії</label>
                                             <Select className="rounded-all-0"
+                                                isClearable
                                                 options={filterData ? filterData.copyTypes : undefined}
-                                                onChange={(value) => setGame(prevState => ({
-                                                    ...prevState,
-                                                    copyTypeId: value.value.id,
-                                                    copyType: value.value
-                                                }))}
-                                                defaultValue={game && game.id !== 0 ? {
+                                                onChange={(value) => {
+                                                    if (value) {
+                                                        setGame(prevState => ({
+                                                            ...prevState,
+                                                            copyTypeId: value.value.id,
+                                                            copyType: value.value
+                                                        }))
+                                                        return;
+                                                    }
+                                                    setGame(prevState => ({
+                                                        ...prevState,
+                                                        copyTypeId: undefined,
+                                                        copyType: undefined
+                                                    }))
+                                                }}
+                                                defaultValue={game && game.id !== 0 && game.copyType ? {
                                                     label: game.copyType.name + ' ' + game.copyType.platform.name + ' | ' + game.copyType.availableRegions.map(item => item.name).join(', '),
                                                     value: game.copyType
-                                                } : {}}
+                                                } : undefined}
                                             />
                                         </div>
                                 }
@@ -427,9 +438,9 @@ const GameForm = ({ saveChanges }) => {
                                 <h4>Зображення</h4>
                                 <div id="scroll-to-bottom" className="border border-1 border-dark overflow-scroll hide-scrollbar" style={{ height: '50vh' }}>
                                     {
-                                        game && game.images ? game.images.map(image => {
+                                        game && game.images ? game.images.map((image, index) => {
                                             return (
-                                                <div key={image.id} className="p-4">
+                                                <div key={image.id ?? index - 99999} className="p-4">
                                                     <div className="position-relative">
                                                         <span className="position-absolute close-modal text-center bg-danger"
                                                             style={{ width: '50px', height: '50px', transition: '.3s', right: '0' }}
