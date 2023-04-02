@@ -365,6 +365,7 @@ input[type="checkbox"]:checked+label:before {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 15px;
+  margin-top: -15px;
   font-size: 18px;
 }
 

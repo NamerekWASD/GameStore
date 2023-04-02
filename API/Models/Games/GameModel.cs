@@ -19,12 +19,12 @@ namespace API.Models.Games
 		public DeveloperModel? Developer { get; set; }
 		public int PublisherId { get; set; }
 		public PublisherModel? Publisher { get; set; }
-		public int CopyTypeId { get; set; }
+		public int? CopyTypeId { get; set; }
 		public CopyTypeModel? CopyType { get; set; }
-		public DateTime Released { get; set; }
+		public DateTime? Released { get; set; }
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
-		public decimal Price { get; set; }
+		public decimal? Price { get; set; }
 		public decimal? DiscountPrice { get; set; }
 		public int SoldCopies { get; set; }
 	}

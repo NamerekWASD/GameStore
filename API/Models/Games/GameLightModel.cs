@@ -14,7 +14,7 @@ namespace API.Models.Games
 		public bool IsHotOffer { get; set; }
 		public int CopyCount { get; set; }
 		public int SoldCopies { get; set; }
-		public decimal Price { get; set; }
+		public decimal? Price { get; set; }
 		public decimal? DiscountPrice { get; set; }
 	}
 }
