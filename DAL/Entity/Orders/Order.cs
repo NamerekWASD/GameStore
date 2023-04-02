@@ -1,10 +1,9 @@
-﻿
-using DAL.Entity.BillingAddresses;
+﻿using DAL.Entity.BillingAddresses;
 using DAL.Entity.SoldCopies;
 
 namespace DAL.Entity.Orders
 {
-    public class Order
+	public class Order
 	{
 		public int Id { get; set; }
 		public virtual List<SoldCopy>? Copies { get; set; }
@@ -12,6 +11,5 @@ namespace DAL.Entity.Orders
 		public int BillId { get; set; }
 		public virtual BillingAddress? Bill { get; set; }
 		public DateTime Created { get; set; }
-
 	}
 }

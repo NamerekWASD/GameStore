@@ -2,8 +2,8 @@
 
 namespace BLL.Service.Mails
 {
-    public interface ISubscriptionService
-    {
-        Task NotifyDiscount(GameDTO game);
-    }
+	public interface ISubscriptionService
+	{
+		Task NotifyDiscount(GameDTO game);
+	}
 }

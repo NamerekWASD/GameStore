@@ -19,7 +19,7 @@ using UnitsOfWork.Interfaces;
 
 namespace DAL.UoW
 {
-    public class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly GameContext gameContext;
 
@@ -32,6 +32,7 @@ namespace DAL.UoW
 		{
 			this.gameContext = gameContext;
 		}
+
 		private IRepository<Order>? _orders;
 		private IRepository<Game>? _games;
 		private IRepository<Tag>? _tags;
@@ -48,6 +49,7 @@ namespace DAL.UoW
 		private IRepository<Publisher>? _publishers;
 		private IRepository<Region>? _regions;
 		private IRepository<ImageType>? _imageTypes;
+
 		public IRepository<Order> Orders
 		{
 			get
@@ -65,6 +67,7 @@ namespace DAL.UoW
 				return _games;
 			}
 		}
+
 		public IRepository<Tag> Tags
 		{
 			get
@@ -73,6 +76,7 @@ namespace DAL.UoW
 				return _tags;
 			}
 		}
+
 		public IRepository<Genre> Genres
 		{
 			get
@@ -81,6 +85,7 @@ namespace DAL.UoW
 				return _genres;
 			}
 		}
+
 		public IRepository<User> Users
 		{
 			get
@@ -89,6 +94,7 @@ namespace DAL.UoW
 				return _users;
 			}
 		}
+
 		public IRepository<Copy> Copies
 		{
 			get
@@ -97,6 +103,7 @@ namespace DAL.UoW
 				return _copies;
 			}
 		}
+
 		public IRepository<SoldCopy> SoldCopies
 		{
 			get
@@ -105,6 +112,7 @@ namespace DAL.UoW
 				return _soldCopies;
 			}
 		}
+
 		public IRepository<GameSubscription> GameSubscriptions
 		{
 			get
@@ -113,6 +121,7 @@ namespace DAL.UoW
 				return _gameSubscriptions;
 			}
 		}
+
 		public IRepository<BillingAddress> BillingAddresses
 		{
 			get
@@ -130,6 +139,7 @@ namespace DAL.UoW
 				return _images;
 			}
 		}
+
 		public IRepository<CopyType> CopyTypes
 		{
 			get
@@ -138,6 +148,7 @@ namespace DAL.UoW
 				return _copyTypes;
 			}
 		}
+
 		public IRepository<Platform> Platforms
 		{
 			get
@@ -146,6 +157,7 @@ namespace DAL.UoW
 				return _platforms;
 			}
 		}
+
 		public IRepository<Developer> Developers
 		{
 			get
@@ -154,6 +166,7 @@ namespace DAL.UoW
 				return _developers;
 			}
 		}
+
 		public IRepository<Publisher> Publishers
 		{
 			get
@@ -162,6 +175,7 @@ namespace DAL.UoW
 				return _publishers;
 			}
 		}
+
 		public IRepository<Region> Regions
 		{
 			get

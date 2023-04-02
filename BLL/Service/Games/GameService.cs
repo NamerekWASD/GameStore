@@ -1,39 +1,38 @@
+using BLL.DTO.Developers;
+using BLL.DTO.Enums;
 using BLL.DTO.Filters;
 using BLL.DTO.Games;
 using BLL.DTO.GameType;
+using BLL.DTO.Gernres;
 using BLL.DTO.Images;
+using BLL.DTO.Lists;
+using BLL.DTO.Platforms;
+using BLL.DTO.Publishers;
+using BLL.DTO.Regions;
+using BLL.DTO.Tags;
+using BLL.Service.Mails;
 using BLL.Tools;
 using DAL.Context;
 using DAL.Entity.Games;
 using DAL.Entity.GameType;
+using DAL.Entity.Genres;
 using DAL.Entity.Images;
+using DAL.Entity.Platforms;
+using DAL.Entity.Regions;
+using DAL.Entity.Tags;
+using DAL.Managers;
 using DAL.UoW;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using UnitsOfWork.Interfaces;
-using BLL.DTO.Enums;
-using DAL.Managers;
-using BLL.DTO.Lists;
-using BLL.Service.Mails;
-using BLL.DTO.Gernres;
-using BLL.DTO.Developers;
-using BLL.DTO.Publishers;
-using BLL.DTO.Tags;
-using DAL.Entity.Genres;
-using DAL.Entity.Tags;
-using DAL.Entity.Regions;
-using BLL.DTO.Platforms;
-using BLL.DTO.Regions;
-using DAL.Entity.Platforms;
 
 namespace BLL.Service.Games
 {
 	public class GameService : IGameService
 	{
-
 		private readonly IUnitOfWork UoW;
 #pragma warning disable IDE0052 // Remove unread private members
 		private readonly ILogger<GameService> _logger;
@@ -54,6 +53,7 @@ namespace BLL.Service.Games
 			_subscriptionService = subscriptionService;
 			_server = server;
 		}
+
 		public GameService(GameContext context,
 			IWebHostEnvironment _appEnvironment,
 			ILogger<GameService> logger,
@@ -84,6 +84,7 @@ namespace BLL.Service.Games
 			};
 			return list;
 		}
+
 		public async Task<GameListDTO> GetGamesByFilterWithPagination(FilterGameDTO filter, int page, CancellationToken cancellationToken)
 		{
 			var gamesQuery = await UoW.Games.GetAllAsync(cancellationToken);
@@ -279,7 +280,6 @@ namespace BLL.Service.Games
 			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.ModifyAsync(gameFromDB));
 		}
 
-
 		private void UpdateProperties(GameDTO game, Game toUpdate)
 		{
 			toUpdate.Title = game.Title;
@@ -298,7 +298,6 @@ namespace BLL.Service.Games
 
 		private async Task ProcessGameGenres(GameDTO game, Game toUpdate)
 		{
-
 			toUpdate.Genres ??= new();
 			foreach (var item in toUpdate.Genres.ToList())
 			{
@@ -320,6 +319,7 @@ namespace BLL.Service.Games
 				}
 			}
 		}
+
 		private async Task ProcessGameTags(GameDTO game, Game toUpdate)
 		{
 			toUpdate.Tags ??= new();
@@ -452,7 +452,6 @@ namespace BLL.Service.Games
 			}
 			if (game.CopyTypeId is 0)
 			{
-
 				var newCopyType = new CopyType()
 				{
 					Id = 0,
@@ -498,6 +497,7 @@ namespace BLL.Service.Games
 				}
 			}
 		}
+
 		public async Task<bool> DeleteGame(int id)
 		{
 			if (id == 0) return false;
@@ -521,9 +521,7 @@ namespace BLL.Service.Games
 				return false;
 			}
 			return true;
-
 		}
-
 
 		public async Task<bool> DeleteGameWithSerializedData(int id, string serialized)
 		{
@@ -600,7 +598,6 @@ namespace BLL.Service.Games
 				await model.Image.CopyToAsync(fileStream);
 			}
 			var serverPath = _server.Features.Get<IServerAddressesFeature>()?.Addresses.First() + relativePath;
-
 
 			image.Path = serverPath + actualFileName;
 			image.ActualPath = actualPath;

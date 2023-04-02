@@ -14,12 +14,12 @@ const EmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
         };
 
         const response = await SendEmailConfirmationCode(confirmationModel);
-        if(!response.ok){
+        if (!response.ok) {
             toast.error(await response.text());
             return;
         }
         toast.success("Пошту підтверджено!")
-        if(after) after(response)
+        if (after) after(response)
     };
 
     return (
@@ -33,14 +33,14 @@ const EmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
                 <form className='text-center' onSubmit={confirmEmail}>
                     <h1 className="fw-bold mb-1">Код</h1>
                     <div className="form-group text-center">
-                        <input ref={ConfirmationCode} type="text" className='text-input text-center fs-1 mb-3 no-outline form-control rounded-0 mx-auto' 
-                        minLength={5} maxLength={5} style={{ height: '70px', width: '150px' }} 
-                        onChange={(e) => {
-                            if(e.target.value.length === 5){
-                                confirmEmail(e)
-                            }
-                            return e.target.value;
-                        }} />
+                        <input ref={ConfirmationCode} type="text" className='text-input text-center fs-1 mb-3 no-outline form-control rounded-0 mx-auto'
+                            minLength={5} maxLength={5} style={{ height: '70px', width: '150px' }}
+                            onChange={(e) => {
+                                if (e.target.value.length === 5) {
+                                    confirmEmail(e)
+                                }
+                                return e.target.value;
+                            }} />
                     </div>
                 </form>
             </div>

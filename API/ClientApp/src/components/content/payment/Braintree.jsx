@@ -27,7 +27,6 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
         authorization: process.env.REACT_APP_BRAINTREE_AUTHORIZATION_CODE,
         container: '#braintree-drop-in-div',
         preselectVaultedPaymentMethod: true,
-
     }, function (error, instance) {
         if (error)
             console.error(error)
@@ -70,7 +69,6 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
             countryCodeAlpha2: country.value,
             countryName: country.label,
         };
-
     }
     return (
         <div className="bg-gray p-3 m-2">

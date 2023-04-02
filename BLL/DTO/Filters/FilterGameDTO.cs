@@ -1,16 +1,11 @@
 ﻿using BLL.DTO.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.DTO.Filters
 {
 	public class FilterGameDTO
 	{
 		public string? SearchQuery { get; set; }
-		public List<int> RegionIds{ get; set; } = new List<int>();
+		public List<int> RegionIds { get; set; } = new List<int>();
 		public List<int> PlatformIds { get; set; } = new List<int>();
 		public List<int> GenreIds { get; set; } = new List<int>();
 		public List<int> TagIds { get; set; } = new List<int>();

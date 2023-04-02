@@ -4,7 +4,6 @@ import { faArrowLeftLong, faArrowRightLong, faCircleArrowLeft, faCircleArrowRigh
 import $ from 'jquery'
 
 const ImageModal = ({ images, showContent, setShowContent, setImageToShow, current }) => {
-
     const iterateItem = (index) => {
         const currentIndex = images.findIndex(item => item.id === current.id);
         var arrayIndex = currentIndex + index
@@ -16,7 +15,6 @@ const ImageModal = ({ images, showContent, setShowContent, setImageToShow, curre
         arrayIndex = index === -1 ? images.length - 1 : 0
         setImageToShow(images[arrayIndex])
     }
-
 
     return (
         <>

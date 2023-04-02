@@ -1,11 +1,10 @@
-﻿
-using BLL.DTO.Platforms;
+﻿using BLL.DTO.Platforms;
 using BLL.DTO.Regions;
 using DAL.Entity.Games;
 
 namespace BLL.DTO.GameType
 {
-    public class CopyTypeDTO
+	public class CopyTypeDTO
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;

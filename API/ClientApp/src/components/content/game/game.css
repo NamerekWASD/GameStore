@@ -7,9 +7,9 @@
     transition: .3s;
 }
 
-.img-link:hover {
-    transform: scale(105%);
-}
+    .img-link:hover {
+        transform: scale(105%);
+    }
 
 .flex-container {
     display: flex;
@@ -29,11 +29,11 @@
     text-align: center;
 }
 
-.game-image>img {
-    width: inherit;
-    max-width: inherit;
-    border: 1px solid black;
-}
+    .game-image > img {
+        width: inherit;
+        max-width: inherit;
+        border: 1px solid black;
+    }
 
 .game-info {
     display: flex;
@@ -47,12 +47,12 @@
     padding-right: 10px;
 }
 
-.game-info-img>img {
-    width: inherit;
-    border-radius: 5px;
-    width: 50px;
-    height: 50px;
-}
+    .game-info-img > img {
+        width: inherit;
+        border-radius: 5px;
+        width: 50px;
+        height: 50px;
+    }
 
 .game-type {
     display: grid;
@@ -67,7 +67,6 @@
     min-width: 300px;
 }
 
-
 .game-description {
     font-size: 18px;
     padding: 10px;
@@ -78,46 +77,46 @@
     font-size: 22px !important;
 }
 
-.btn-responsive span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: .3s;
-}
+    .btn-responsive span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: .3s;
+    }
 
-.btn-responsive span.add::after {
-    content: '\00bb';
-}
+        .btn-responsive span.add::after {
+            content: '\00bb';
+        }
 
-.btn-responsive span.subscribe::after {
-    content: '\2604';
-}
+        .btn-responsive span.subscribe::after {
+            content: '\2604';
+        }
 
-.btn-responsive span:after {
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: .3s;
-}
+        .btn-responsive span:after {
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: .3s;
+        }
 
-.btn-responsive:hover span {
-    padding-right: 25px;
-}
+    .btn-responsive:hover span {
+        padding-right: 25px;
+    }
 
-.btn-responsive:hover span:after {
-    opacity: 1;
-    right: 0;
-}
+        .btn-responsive:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
 
 .btn-crement {
     border-radius: 0;
     width: var(--crement-width);
 }
 
-.btn-crement>img {
-    width: inherit;
-}
+    .btn-crement > img {
+        width: inherit;
+    }
 
 .count-input {
     width: calc(var(--crement-width) * 2);
@@ -140,6 +139,7 @@
     flex: 1 1;
     margin: 0 auto;
 }
+
 .order-form {
     padding: 10px;
     box-shadow: 0 5px 10px black;
@@ -160,13 +160,13 @@
     gap: 1rem;
 }
 
-.description-grid>div {
-    text-align: right;
-}
+    .description-grid > div {
+        text-align: right;
+    }
 
-.description-grid>span {
-    text-align: left;
-}
+    .description-grid > span {
+        text-align: left;
+    }
 
 .bg-gray {
     background-color: rgb(214, 214, 214);
@@ -180,20 +180,23 @@
     background: linear-gradient(45deg, #007222, #26b445, #118a57);
 }
 
-.bg-discount-red{
+.bg-discount-red {
     background: linear-gradient(45deg, #720000, #b46626, #8a1111);
 }
 
 .grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }
+
 .grid-3 {
     grid-template-columns: repeat(3, 1fr);
 }
+
 .price::after {
     content: '$'
 }
-.game-form{
+
+.game-form {
     display: grid;
     gap: 10px;
 }
@@ -203,7 +206,7 @@
         font-size: smaller;
     }
 
-    .game-image>img {
+    .game-image > img {
         min-width: 150px;
     }
 
@@ -232,13 +235,13 @@
     .shopping-cart-container {
         flex-direction: column-reverse;
         flex-wrap: nowrap !important;
-
     }
 
     .card-container {
         min-width: 0;
     }
-    .game-form{
+
+    .game-form {
         display: flex;
         flex-direction: column;
     }

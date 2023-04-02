@@ -1,5 +1,5 @@
-
-
+using API.Models.Games;
+using API.Tools;
 using BLL.DTO.Copies;
 using BLL.DTO.Developers;
 using BLL.DTO.Games;
@@ -14,17 +14,14 @@ using BLL.Service.Games;
 using BLL.Service.Mails;
 using BLL.Tools;
 using DAL.Context;
-using Microsoft.AspNetCore.Hosting.Server;
+using DAL.Managers;
+using DAL.UoW;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Microsoft.EntityFrameworkCore;
-using DAL.UoW;
-using API.Models.Games;
-using API.Tools;
 using System.Text.Json;
-using DAL.Entity.Games;
-using DAL.Managers;
 
 namespace Tests
 {
@@ -96,7 +93,6 @@ namespace Tests
 			{
 				Name = "Тактика"
 			};
-
 
 			DeveloperDTO fromSoftware = new()
 			{
@@ -317,11 +313,13 @@ namespace Tests
 			};
 			_games = new List<GameDTO>() { elden, DoomEternal, TCRSS };
 		}
+
 		[TearDown]
 		public void TearDown()
 		{
 			mockUnitOfWork.Object.DeleteDB();
 		}
+
 		[Test]
 		public void AddingGame()
 		{
@@ -345,6 +343,7 @@ namespace Tests
 				Assert.That(gameFromDb.GetFirstPortrait.Id, Is.Not.EqualTo(0));
 			});
 		}
+
 		[Test]
 		public void EditingGame()
 		{
@@ -382,7 +381,6 @@ namespace Tests
 				AvailableRegions = new() { region },
 				PlatformId = replacedCopyType.PlatformId,
 			};
-
 
 			gameFromDb.Released = released;
 

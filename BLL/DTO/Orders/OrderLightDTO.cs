@@ -1,8 +1,7 @@
-﻿
-namespace BLL.DTO.Orders
+﻿namespace BLL.DTO.Orders
 {
-    public class OrderLightDTO
-    {
+	public class OrderLightDTO
+	{
 		public int UserId { get; set; }
 		public List<GameOrderDTO> Games { get; set; } = new();
 		public int BillId { get; set; }

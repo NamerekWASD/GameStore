@@ -7,8 +7,6 @@ import './game.css'
 import FilterTable from "./parts/filter/FilterTable";
 import GameList from "./parts/GameList";
 
-
-
 export const processHeader = (count) => {
     switch (true) {
         case (count === 1):
@@ -19,7 +17,6 @@ export const processHeader = (count) => {
             return count + ' ігор';
         default:
             return count + ' ігор';
-
     }
 }
 
@@ -49,7 +46,6 @@ const GameCatalog = () => {
     }, [searchParams])
 
     useEffect(() => {
-
         if (page === 0) {
             setPage(prevState => prevState + 1)
             return
@@ -64,7 +60,6 @@ const GameCatalog = () => {
                 setIsMax(result.isMax);
                 setCount(result.totalCount);
             });
-
     }, [searchParams, page, searchFilters]);
 
     return (
