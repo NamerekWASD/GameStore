@@ -22,14 +22,14 @@ namespace DAL.Entity.Games
 		public virtual Developer? Developer { get; set; }
 		public int PublisherId { get; set; }
 		public virtual Publisher? Publisher { get; set; }
-		public int CopyTypeId { get; set; }
+		public int? CopyTypeId { get; set; }
 		public virtual CopyType? CopyType { get; set; }
 		public virtual List<Copy> Copies { get; set; } = new();
-		public DateTime Released { get; set; }
+		public DateTime? Released { get; set; }
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
 		[Column(TypeName = "decimal(18, 2)")]
-		public decimal Price { get; set; }
+		public decimal? Price { get; set; }
 		[Column(TypeName = "decimal(18, 2)")]
 		public decimal? DiscountPrice { get; set; }
 		public int SoldCopies { get; set; }

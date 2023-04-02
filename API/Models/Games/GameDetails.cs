@@ -11,7 +11,7 @@ namespace API.Models.Games
         public string Publisher { get; set; } = string.Empty;
 		public string Developer { get; set; } = string.Empty;
 		public string[]? Regions { get; set; }
-        public DateOnly Released { get; set; }
+        public DateTime? Released { get; set; }
 		public string Platform { get; set; } = string.Empty;
         public string CopyType { get; set; } = string.Empty;
         public string[]? Genres { get; set; }
@@ -19,7 +19,7 @@ namespace API.Models.Games
 		public bool IsAvailable { get; set; }
 		public bool IsHotOffer { get; set; }
 		public int CopyCount { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 		public decimal? DiscountPrice { get; set; }
 		public int SoldCopies { get; set; }
 	}

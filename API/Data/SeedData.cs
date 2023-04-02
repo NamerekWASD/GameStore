@@ -17,7 +17,7 @@ using System.Text.RegularExpressions;
 
 namespace API.Data
 {
-    public class SeedData
+	public class SeedData
 	{
 
 		public static void Initialize(IServiceProvider serviceProvider)
@@ -143,7 +143,7 @@ namespace API.Data
 				AvailableRegions = EastEurope,
 			};
 
-			ImageType portrait = new()
+			ImageType poster = new()
 			{
 				Name = Constants.PORTRAIT_IMAGE,
 			};
@@ -167,14 +167,7 @@ namespace API.Data
 			Game elden = new()
 			{
 				Title = "Elden Ring",
-				Images = new()
-				{
-					new()
-					{
-						Type = portrait,
-						Path = "https://upload.wikimedia.org/wikipedia/ru/7/7c/Elden_Ring_-_cover.jpg"
-					}
-				},
+				Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/7/7c/Elden_Ring_-_cover.jpg" } },
 				Description = "Elden Ring — це рольова гра-екшн 2022 року, розроблена FromSoftware " +
 				"і видана Bandai Namco Entertainment. Elden Ring представлено через перспективу від " +
 				"третьої особи, де гравці вільно блукають інтерактивним відкритим світом. Шість основних " +
@@ -229,14 +222,7 @@ namespace API.Data
 			Game DoomEternal = new()
 			{
 				Title = "Doom Eternal",
-				Images = new()
-				{
-					new()
-					{
-						Type = portrait,
-						Path = "https://upload.wikimedia.org/wikipedia/ru/8/8c/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Doom_Eternal.jpg"
-					}
-				},
+				Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/8/8c/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Doom_Eternal.jpg" } },
 				Description = "Doom Eternal — це шутер від першої особи, розроблений компанією id Software " +
 				"та опублікований Bethesda Softworks. Продовження гри Doom (2016) і сьома гра серії Doom, випущена 20 березня 2020 року. " +
 				"Сюжет розгортається через деякий час після подій гри 2016 року. Історія знову розповідає " +
@@ -293,14 +279,7 @@ namespace API.Data
 			Game TCRSS = new()
 			{
 				Title = "Tom Clancy's Rainbow Six Siege",
-				Images = new()
-				{
-					new()
-					{
-						Type = portrait,
-						Path = "https://cdn1.epicgames.com/offer/carnation/Carousel_BoxArt_1200x1600_1200x1600-6888b9d57181d8fcfb3472a7f70ecc49"
-					}
-				},
+				Images = new() { new() { Type = poster, Path = "https://cdn1.epicgames.com/offer/carnation/Carousel_BoxArt_1200x1600_1200x1600-6888b9d57181d8fcfb3472a7f70ecc49" } },
 				Description = "Tom Clancy's Rainbow Six Siege — тактична онлайнова відеогра-шутер, " +
 				"розроблена Ubisoft Montreal і видана Ubisoft. У грі велика увага приділяється " +
 				"руйнуванню навколишнього середовища та співпраці між гравцями. Кожен гравець бере " +
@@ -373,14 +352,7 @@ namespace API.Data
 			Game GTA5 = new()
 			{
 				Title = "Grand Theft Auto V",
-				Images = new()
-				{
-					new()
-					{
-						Type = portrait,
-						Path = "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg"
-					}
-				},
+				Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg" } },
 				Description = "Grand Theft Auto V (скор. GTA V) — це пригодницька відеогра 2013 року, розроблена " +
 				"Rockstar North та видана компанією Rockstar Games. Події відбуваються у вигаданому штаті Сан-Андреас, " +
 				"що заснований на південній Каліфорнії. Сюжетна історія слідує за трьома злочинцями, " +
@@ -449,14 +421,7 @@ namespace API.Data
 			Game cyberpunk2077 = new()
 			{
 				Title = "Cyberpunk 2077",
-				Images = new()
-				{
-					new()
-					{
-						Type = portrait,
-						Path = "https://m.media-amazon.com/images/M/MV5BMGU4ODVkZDYtYjNiNS00YmFiLWFmOWQtODM2NDRjZDAxNzliXkEyXkFqcGdeQXVyMTI0MzA4NTgw._V1_FMjpg_UX1000_.jpg"
-					}
-				},
+				Images = new() { new() { Type = poster, Path = "https://m.media-amazon.com/images/M/MV5BMGU4ODVkZDYtYjNiNS00YmFiLWFmOWQtODM2NDRjZDAxNzliXkEyXkFqcGdeQXVyMTI0MzA4NTgw._V1_FMjpg_UX1000_.jpg" } },
 				Description = "«Cyberpunk 2077» (укр. «Кіберпанк 2077») — відеогра в жанрі action RPG в стилі кіберпанку, розроблена польською студією CD Projekt RED на ігровому рушії REDengine 4. " +
 				"Гра є адаптацією настільної рольової гри Cyberpunk 2020, " +
 				"її події відбуваються на п'ятдесят сім років пізніше у вигаданому місті " +
@@ -513,7 +478,7 @@ namespace API.Data
 				Images = new() {
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://upload.wikimedia.org/wikipedia/ru/2/21/The_Last_of_Us_Part_I_-_%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0.png"
 					}
 				},
@@ -580,7 +545,7 @@ namespace API.Data
 			Game HorizonZeroDawn = new()
 			{
 				Title = "Horizon Zero Dawn",
-				Images = new() { new() { Type = portrait, Path = "https://static.posters.cz/image/750/%D0%9F%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%B8/horizon-zero-dawn-key-art-i34856.jpg" } },
+				Images = new() { new() { Type = poster, Path = "https://static.posters.cz/image/750/%D0%9F%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%B8/horizon-zero-dawn-key-art-i34856.jpg" } },
 				Description = "Horizon Zero Dawn — відеогра в жанрі action RPG, розроблена студією Guerrilla Games " +
 					"та видана Sony Interactive Entertainment для PlayStation 4 у 2017 році, а для PC у 2020 році. Гра відбувається " +
 					"у відкритому світі, де гравець бере на себе роль Алой, юної мисливця із племені Нора. Сюжет розповідає про " +
@@ -618,8 +583,8 @@ namespace API.Data
 			Game TheWitcher3 = new()
 			{
 				Title = "The Witcher 3: Wild Hunt",
-				Images = new() { new() { Type = portrait, Path = "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81nBSbgcxFL._SY679_.jpg" },
-					new() { Type = portrait, Path = "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png" } },
+				Images = new() { new() { Type = poster, Path = "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81nBSbgcxFL._SY679_.jpg" },
+					new() { Type = poster, Path = "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png" } },
 				Description = "The Witcher 3: Wild Hunt - це рольова гра з відкритим світом, " +
 					"розроблена польською студією CD Projekt RED. Гравці беруть на себе роль відьмака Ґеральта з Рівії, який мандрує " +
 					"по світу, виконуючи завдання, збираючи ресурси і розблоковуючи нові можливості. " +
@@ -676,7 +641,7 @@ namespace API.Data
 				Images = new() {
 					new()
 						{
-							Type = portrait,
+							Type = poster,
 							Path = "https://upload.wikimedia.org/wikipedia/ru/9/99/MassEffect2_cover.png"
 						},
 					new()
@@ -738,7 +703,7 @@ namespace API.Data
 				Images = new() {
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://upload.wikimedia.org/wikipedia/ru/2/26/AC_Valhalla_standard_edition.jpg"
 					}
 				},
@@ -801,7 +766,7 @@ namespace API.Data
 				Images = new() {
 				new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71k0BMp4U1L._AC_UF894,1000_QL80_.jpg"
 					}
 				},
@@ -825,6 +790,112 @@ namespace API.Data
 				Copies = new List<Copy>() { copy25, copy26 },
 				SoldCopies = 35200000,
 			};
+			Tag arcade = new()
+			{
+				Name = "Аркада"
+			};
+			Developer npixel = new()
+			{
+				Name = "Npixel"
+			};
+			Publisher KakaoGames = new()
+			{
+				Name = "Npixel"
+			};
+			Tag competitive = new()
+			{
+				Name= "Змагання"
+			};
+			Developer capcom = new()
+			{
+				Name = "Capcom"
+			};
+			Publisher capcomP = new()
+			{
+				Name = "Capcom"
+			}; ;
+			Game streetFighter6 = new()
+			{
+				Title = "Street Fighter 6",
+				Images = new() { new() { Type = poster, Path = "https://pbs.twimg.com/media/FUgPIkWXoAASe3Y.jpg:large" } },
+				Description = "Street Fighter 6 - це очікувана файтинг гра, яка розробляється компанією Capcom. Гра буде наступником " +
+					"Street Fighter V і буде мати більш епічні бої, оновлену графіку та багато нових персонажів. Будуть представлені " +
+					"нові режими гри, зокрема, онлайн-турніри та режим гри на виживання. У грі також будуть нові механіки бою, які " +
+					"дозволять гравцям виконувати більш складні комбо та спеціальні прийоми. Завдяки вдосконаленій системі онлайн-ігор, " +
+					"Street Fighter 6 дозволить гравцям з усього світу змагатися між собою в захоплюючих боях.",
+				Released = new DateTime(2024, 6, 30),
+				Genres = new List<Genre>() { action },
+				Tags = new() { multiplayer, arcade, competitive },
+				Developer = capcom,
+				Publisher = capcomP,
+				Price = 59.9M,
+				CopyType = key,
+				IsAvailable = false,
+				IsHotOffer = false,
+				Copies = new List<Copy>() { },
+				SoldCopies = 0,
+			};
+			Tag singlePlayer = new()
+			{
+				Name = "Одиночна гра",
+			};
+			Developer larianStudios = new()
+			{
+				Name = "Larian Studios"
+			};
+			Publisher larianStudiosP = new()
+			{
+				Name = "Larian Studios"
+			};
+			Game baldursGate3 = new()
+			{
+				Title = "Baldur's Gate 3",
+				Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/uk/c/c7/%D0%9E%D0%B1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B8%D0%BD%D0%BA%D0%B0_%D0%B2%D1%96%D0%B4%D0%B5%D0%BE%D0%B3%D1%80%D0%B8_Baldur%27s_Gate_III.png" } },
+				Description = "Baldur's Gate 3 - очікувана рольова гра, яка розробляється компанією Larian Studios. Гра є третьою частиною " +
+					"в серії Baldur's Gate та продовжує історію світу Forgotten Realms. Гравці зможуть обрати один з численних класів героїв " +
+					"та зануритися у світ фантастичної пригоди. В Baldur's Gate 3 гравці зможуть зустрітися з новими персонажами, " +
+					"виконувати завдання та боротися зі своїми ворогами. Гра матиме нові механіки, які дозволять гравцям виконувати " +
+					"більш складні дії, такі як взаємодія з оточуючим світом та використання магії. Будуть представлені нові режими " +
+					"гри, включаючи мультиплеєр та режим гри на виживання. Завдяки вдосконаленій системі генерації ігрового світу, " +
+					"Baldur's Gate 3 дозволить гравцям досліджувати світ, який ніколи не повторюється.",
+				Released = new DateTime(2023, 12, 31),
+				Genres = new List<Genre>() { RPG, adventure },
+				Tags = new() { singlePlayer, fantasy, storyRich },
+				Developer = larianStudios,
+				Publisher = larianStudiosP,
+				Price = 69.9M,
+				CopyType = key,
+				IsAvailable = false,
+				IsHotOffer = false,
+				Copies = new List<Copy>() { },
+				SoldCopies = 0,
+			};
+			Developer ubisoft = new()
+			{
+				Name = "Ubisoft"
+			};
+			Game assassinCreedMirage = new()
+			{
+				Title = "Assassin's Creed Mirage",
+				Images = new() { new() { Type = poster, Path = "https://cdna.artstation.com/p/assets/images/images/053/877/092/large/red-clown-mirage-w-logo.jpg?1663234039" } },
+				Description = "Assassin's Creed Mirage - це нова гра у серії Assassin's Creed, що розробляється студією Ubisoft. Гравець зможе " +
+					"побачити нову епоху - час Великого Степу, відвідати знакові міста та місцевості, такі як Самарканд та Хива, та " +
+					"стати частиною світу, що належить кочівникам. В Assassin's Creed Mirage буде представлено багато нових персонажів, які " +
+					"зможуть допомогти гравцеві в його пригодах. Гравець зможе відчути вільну та відкриту гру, в якій можна виконувати " +
+					"багато завдань та місій. Крім того, будуть доступні різноманітні види бойової техніки та знарядь для виконання місій. " +
+					"Assassin's Creed Mirage - це ідеальна гра для тих, хто любить історію, бойові мистецтва та пригоди.",
+				Released = new DateTime(2023, 11, 15),
+				Genres = new List<Genre>() { action, adventure },
+				Tags = new() { singlePlayer, openWorld, historical },
+				Developer = ubisoft,
+				Publisher = Ubisoft,
+				Price = 69.9M,
+				CopyType = null,
+				IsAvailable = false,
+				IsHotOffer = false,
+				Copies = new List<Copy>() { },
+				SoldCopies = 0,
+			};
 			context.Games.AddRange(elden,
 						  DoomEternal,
 						  TCRSS,
@@ -835,7 +906,10 @@ namespace API.Data
 						  TheWitcher3,
 						  HorizonZeroDawn,
 						  assassinCreedValhalla,
-						  terraria);
+						  terraria,
+						  streetFighter6,
+						  baldursGate3,
+						  assassinCreedMirage);
 			context.SaveChanges();
 		}
 	}

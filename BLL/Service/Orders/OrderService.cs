@@ -73,11 +73,12 @@ namespace BLL.Service.Orders
 
             foreach (var game in await GetGames(data))
             {
+                if (game.Price is null) throw new NotSetPrice(string.Format("На цю гру не встановлено ціну.\n{0}: {1}", game.Id, game.Title));
                 lock (locker)
                 {
                     if (game.DiscountPrice is null)
                     {
-                        sum += game.Price;
+                        sum += (int)game.Price;
                         continue;
                     }
                     sum += (decimal)game.DiscountPrice;
@@ -113,12 +114,13 @@ namespace BLL.Service.Orders
             await UoW.Games.ModifyAsync(game);
         }
 
-        private async Task CreateSoldCopy(Copy copy, Order order, decimal price)
-        {
-            var soldCopy = new SoldCopy
+        private async Task CreateSoldCopy(Copy copy, Order order, decimal? price)
+		{
+			if (price is null) throw new NotSetPrice(string.Format("На цю гру не встановлено ціну.\n{0}: {1}", copy.Game.Id, copy.Game.Title));
+			var soldCopy = new SoldCopy
             {
                 CopyId = copy.Id,
-                Price = price
+                Price = (decimal)price
             };
             order.Copies?.Add(soldCopy);
 
