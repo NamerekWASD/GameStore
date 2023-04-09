@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nC0PwZ+Bp9GWD44jXojUD2omMcgv1UiYbNmWIxjXN818YbAfav20kqmRSs6cRg5N2kBLXwMsrURl64oTXk7IiQ==",
+  "dgSpecHash": "kO3Qu+mpHa1vvE0MWGlxtoKCoz10dU3C9e/CnQow81SzBLNksNfNHhUWn1QCKOKyp2xu/JBRvmRhhJm8Aw5/mg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\BLL\\BLL.csproj",
+  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\BLL\\BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nykolai\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\braintree\\5.16.0\\braintree.5.16.0.nupkg.sha512",
