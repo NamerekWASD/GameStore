@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nhxhDR0F0tfkZGoDFB/VhxjUzYA3XWq51fNUPGX1eqEpFL6B5fnyINTW0IRM5lYt/fGphSglKuq1QA6ZJ3nnlA==",
+  "dgSpecHash": "vKl7+9j6OCQx7FOpKXvJLFJndy5HdJxy0k3EZU3SffSsg1HwUlxiluIBXI/PMJsmNqqXyAlTfcUsSf5R8V0epA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj",
+  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nykolai\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.3\\microsoft.aspnetcore.cryptography.internal.7.0.3.nupkg.sha512",

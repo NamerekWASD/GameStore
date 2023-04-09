@@ -19,7 +19,7 @@ const Carousel = ({ games }) => {
     const navigate = useNavigate();
     const [sliderIndex, setSliderIndex] = useState(0);
     const maxItems = { current: 15 };
-    const myIndex = { current: -1 };
+    const itemIndex = { current: -1 };
 
     useEffect(() => {
         window.addEventListener('resize', checkIsPanorama)
@@ -48,12 +48,14 @@ const Carousel = ({ games }) => {
             clearTimeout(timeout.current);
         }
         const totalWidth = carousel.current.offsetWidth;
+        const items =  $('.my-carousel-item')
+        items.stop();
         if (sliderIndex >= maxItems.current / 3) {
-            $('.my-carousel-item').animate({ left: `0px` }, 500);
+            items.animate({ left: `0px` }, 500);
             setSliderIndex(0);
             return;
         }
-        $('.my-carousel-item').animate({ left: `-${totalWidth * sliderIndex}px` }, 500);
+        items.animate({ left: `-${totalWidth * sliderIndex}px` }, 500);
         $('.my-carousel-bullet').css({ 'color': 'gray' })
         $('.my-carousel-bullet').eq(sliderIndex).css({ 'color': 'white' })
         timeout.current = setTimeout(() => {
@@ -70,7 +72,7 @@ const Carousel = ({ games }) => {
     }, [games.length, calculateMaxItems, startCarousel])
 
     async function calculateMaxItems() {
-        myIndex.current = -1;
+        itemIndex.current = -1;
         const reducer = (games.length % 3);
         maxItems.current = Math.min(games.length - reducer, maxItems.current);
     }
@@ -93,8 +95,8 @@ const Carousel = ({ games }) => {
     }, [])
 
     function renderGame() {
-        myIndex.current++;
-        const game = games[myIndex.current];
+        itemIndex.current++;
+        const game = games[itemIndex.current];
         return (
             <>
                 {

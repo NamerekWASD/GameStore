@@ -67,10 +67,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
 			ValidateIssuerSigningKey = true,
 		};
-	}).AddGoogle(options =>
-	{
-		options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-		options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 	});
 
 builder.Services.AddAuthorization(options =>

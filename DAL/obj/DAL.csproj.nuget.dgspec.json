@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj": {}
+    "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj": {
+    "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\DAL.csproj",
+        "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\Nykolai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\DAL\\obj\\",
+        "outputPath": "C:\\Users\\Nykolai\\Source\\Repos\\GameStore\\DAL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Nykolai\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

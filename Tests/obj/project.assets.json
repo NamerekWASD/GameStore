@@ -6601,24 +6601,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nykolai\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Nykolai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\Tests\\Tests.csproj",
+      "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\Tests\\Tests.csproj",
       "packagesPath": "C:\\Users\\Nykolai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\Nykolai\\Source\\Repos\\GameStore\\Tests\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\Nykolai\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6632,11 +6627,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Nykolai\\source\\repos\\Game Store\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\API\\API.csproj"
+            "C:\\Users\\Nykolai\\source\\repos\\GameStore\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\API\\API.csproj"
             },
-            "C:\\Users\\Nykolai\\source\\repos\\Game Store\\BLL\\BLL.csproj": {
-              "projectPath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\BLL\\BLL.csproj"
+            "C:\\Users\\Nykolai\\source\\repos\\GameStore\\BLL\\BLL.csproj": {
+              "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\BLL\\BLL.csproj"
             }
           }
         }
@@ -6700,7 +6695,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
