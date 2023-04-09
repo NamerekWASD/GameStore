@@ -190,7 +190,7 @@ namespace BLL.Service.Games
 				OrderBy.OLDER => games.OrderBy(game => game.Released),
 				OrderBy.EXPENSIVEST => games.OrderByDescending(game => game.DiscountPrice ?? game.Price),
 				OrderBy.CHEAPEST => games.OrderBy(game => game.DiscountPrice ?? game.Price),
-				OrderBy.POPULARITY => games.OrderBy(game => game.SoldCopies),
+				OrderBy.POPULARITY => games.OrderByDescending(game => game.SoldCopies),
 				_ => games,
 			};
 		}

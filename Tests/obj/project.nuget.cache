@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Fm6ZdgisGQ90JkFllOIeF+ri+DS4ysRr8R8elLRSdnZ7GdrW0fOPAZ1sauvDiFOY7Z+K/kEWYCsocfk/iDxQOA==",
+  "dgSpecHash": "rKOvg8HiY8S+s8p2dyWk8hxv2Zd16o5ZyToGRjJ30+xx0TSBjZ90tYgq5YItBemZihfrdyFeexKDRX5VpvCVaA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\Game Store\\Tests\\Tests.csproj",
+  "projectFilePath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nykolai\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Nykolai\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
