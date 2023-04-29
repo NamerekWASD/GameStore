@@ -6,6 +6,7 @@ import { AppPaths } from "../../../utils/AppPaths";
 import { toast } from "react-toastify";
 import Loading from "../../../utils/Loading";
 import Braintree from "./Braintree";
+import { setItemsCount } from "../../NavMenu";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -14,15 +15,15 @@ const Payment = () => {
 
     const changeState = (value) => setSended(value);
 
-    const onSuccess = async (billData, nonce) => {
+    const onSuccess = async (billData, payload) => {
         const requestInfo = `api/order/create`;
         const body = {
             userEmail: sCartData.userEmail,
             games: sCartData.games,
             BillingAddress: billData,
-            nonce: nonce
+            nonce: payload.nonce,
+            paymentType: payload.type,
         }
-        console.log(billData);
         const requestInit = {
             method: 'POST',
             headers: {
@@ -40,14 +41,16 @@ const Payment = () => {
         const response = await promise;
         if (!response.ok) {
             toast.dismiss(toastPromise);
-            toast.error(await response.text())
+            toast.error(await response.json())
             setSended(false);
             return
         }
         toast.success("Готово!")
-        var orderId = await response.json();
+        var orderNumber = await response.json();
         setSended(false);
-        navigate(AppPaths.orderDetails + '?' + new URLSearchParams([['orderId', orderId]]));
+        localStorage.games = [];
+        setItemsCount(0);
+        navigate(AppPaths.orderDetails + '?' + new URLSearchParams([['orderNumber', orderNumber]]));
     }
 
     const onError = (errorMessage) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, DropdownMenu, DropdownItem, Dropdown, DropdownToggle } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import './NavMenu.css';
-import { loadGenres, logout } from '../utils/ApiRequests';
+import { GetGenres, logout } from '../utils/ApiRequests';
 import cart from './../static/shopping-cart.svg';
 import $ from 'jquery';
 import { AppPaths } from '../utils/AppPaths';
@@ -55,15 +55,16 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
         });
 
         myInput.addEventListener('blur', () => {
-            formAnimation.classList.remove('focused');
-            searchField.current.value = '';
-            setSearchQuery('')
+            setTimeout(() => {
+                formAnimation.classList.remove('focused');
+                searchField.current.value = '';
+                setSearchQuery('')
+            }, 50)
         });
+
+        GetGenres().then(result => setGenres(result));
     }, []);
 
-    useEffect(() => {
-        loadGenres().then(result => setGenres(result));
-    }, []);
     function toggleNavbar() {
         setCollapsed(!collapsed);
     };
@@ -80,7 +81,6 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
         ({ prevPos, currPos }) => {
             const isVisible = currPos.y > prevPos.y
             const shouldBeStyle = {
-                visibility: isVisible ? 'visible' : 'hidden',
                 transition: `all 200ms ${isVisible ? 'ease-in' : 'ease-out'}`,
                 transform: isVisible ? 'none' : 'translate(0, -100%)'
             }
@@ -106,7 +106,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                 <NavbarBrand className='my-0 p-0' tag={Link} to="/">Game Store</NavbarBrand>
                 <NavbarToggler onClick={() => toggleNavbar()} className="mr-2 rounded-0" />
                 <Collapse className="d-sm-inline-flex" isOpen={!collapsed} navbar style={collapseBeforeStyle}>
-                    <ul className="navbar-nav flex-grow justify-content-end flex-fill align-content-center">
+                    <ul className={"navbar-nav flex-grow justify-content-end flex-fill align-content-center " + (!collapsed && "gap-2")}>
                         <NavItem className='ms-1'>
                             <Dropdown isOpen={dropdownOpen} toggle={toggle} direction='down' className='h-100 z-index-top'>
                                 <DropdownToggle className='rounded-0 h-100'>Каталог</DropdownToggle>
@@ -139,7 +139,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                             <form className='h-100 px-3 formAnimation' onSubmit={navigateToSearch}>
                                 <FontAwesomeIcon icon={faSearch} className="pe-3" />
                                 <input id='myInput' ref={searchField} className='h-100 border-0 no-outline fw-bold bg-transparent'
-                                    type="text" placeholder='Пошук...'
+                                    type="text" placeholder='Пошук...' autoComplete='off'
                                     onChange={(e) => setSearchQuery(e.target.value)} />
                                 <FontAwesomeIcon className='pointer ms-3' size={'xl'} icon={faClose} onClick={refresh} />
                                 <GameDropList searchQuery={searchQuery} refresh={refresh} isVisible={headerStyle && headerStyle.visibility === 'visible'} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { loadGamesByFilters } from "../../../utils/ApiRequests";
+import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { processHeader } from "./GameCatalog";
 import { FilterSearch } from "./parts/filter/FilterSearch";
 import GameList from "./parts/GameList";
@@ -40,7 +40,7 @@ const GameSearch = () => {
             setPage(prevState => prevState + 1)
             return
         }
-        loadGamesByFilters(searchFilter, page)
+        GetGamesByFilters(searchFilter, page)
             .then(result => {
                 if (result.page !== 1) {
                     setGames(prevState => [...prevState, ...result.games.filter(findUnique)]);

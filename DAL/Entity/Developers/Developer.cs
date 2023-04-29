@@ -1,6 +1,6 @@
-﻿using DAL.Entity.Games;
+﻿using DAL.Entity;
 
-namespace DAL.Entity.Developers
+namespace DAL.Entity
 {
 	public class Developer
 	{

@@ -1,5 +1,5 @@
 ﻿using DAL.Context;
-using DAL.Entity.Copies;
+using DAL.Entity;
 using DAL.UoW;
 using Microsoft.Extensions.Logging;
 using UnitsOfWork.Interfaces;

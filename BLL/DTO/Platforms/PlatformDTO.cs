@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO.Platforms
+﻿namespace BLL.DTO
 {
 	public class PlatformDTO
 	{

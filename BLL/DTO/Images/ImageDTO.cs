@@ -1,6 +1,5 @@
-﻿using BLL.DTO.Games;
-
-namespace BLL.DTO.Images
+﻿
+namespace BLL.DTO
 {
 	public class ImageDTO
 	{

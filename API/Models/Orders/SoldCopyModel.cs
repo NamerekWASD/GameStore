@@ -1,6 +1,5 @@
-﻿using API.Models.Copies;
-
-namespace API.Models.Orders
+﻿
+namespace API.Models
 {
 	public class SoldCopyModel
 	{

@@ -26,6 +26,8 @@
 
 #sign-form {
     display: flex;
+    max-width: 700px;
+    margin: 2.5rem auto;
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
@@ -36,6 +38,7 @@
 
 @media(max-width: 720px) {
     #sign-form {
+        width: 90%;
         flex-direction: column;
     }
 }

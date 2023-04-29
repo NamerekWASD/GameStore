@@ -1,6 +1,4 @@
-﻿using DAL.Entity.Games;
-
-namespace DAL.Entity.Tags
+﻿namespace DAL.Entity
 {
 	public class Tag
 	{

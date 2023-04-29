@@ -1,9 +1,4 @@
-﻿using API.Models.Developers;
-using API.Models.GameType;
-using API.Models.Genres;
-using API.Models.Images;
-using API.Models.Publishers;
-using API.Models.Tags;
+﻿using API.Models.GameType;
 
 namespace API.Models.Games
 {

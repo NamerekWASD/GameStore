@@ -1,6 +1,4 @@
-﻿using BLL.DTO.Copies;
-
-namespace BLL.DTO.Orders
+﻿namespace BLL.DTO.Orders
 {
 	public class SoldCopyDTO
 	{

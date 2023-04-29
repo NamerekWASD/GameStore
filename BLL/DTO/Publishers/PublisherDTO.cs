@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO.Publishers
+﻿namespace BLL.DTO
 {
 	public class PublisherDTO
 	{

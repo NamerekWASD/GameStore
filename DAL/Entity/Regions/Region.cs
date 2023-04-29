@@ -1,6 +1,4 @@
-﻿using DAL.Entity.GameType;
-
-namespace DAL.Entity.Regions
+﻿namespace DAL.Entity
 {
 	public class Region
 	{

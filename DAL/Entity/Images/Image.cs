@@ -1,6 +1,4 @@
-﻿using DAL.Entity.Games;
-
-namespace DAL.Entity.Images
+﻿namespace DAL.Entity
 {
 	public class Image
 	{

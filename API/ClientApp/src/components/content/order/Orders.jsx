@@ -8,11 +8,8 @@ const Orders = () => {
     const [orders, setOrders] = useState(undefined);
 
     useEffect(() => {
-        console.log(orders);
-        if (!orders) {
             loadOrders()
-        }
-    }, [orders])
+    }, [])
 
     async function loadOrders() {
         const requestInfo = `api/order`;
@@ -30,7 +27,7 @@ const Orders = () => {
     }
 
     const continueShopping = (e) => {
-        navigate(AppPaths.gameSearch);
+        navigate(AppPaths.gameCatalog);
     }
     return (
         <main className="h-100">

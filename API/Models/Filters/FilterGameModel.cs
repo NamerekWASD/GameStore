@@ -1,4 +1,4 @@
-﻿using BLL.DTO.Enums;
+﻿using BLL.DTO;
 
 namespace API.Models.Filters
 {
