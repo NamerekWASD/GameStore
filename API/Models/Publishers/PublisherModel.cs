@@ -1,4 +1,4 @@
-﻿namespace API.Models.Publishers
+﻿namespace API.Models
 {
 	public class PublisherModel
 	{

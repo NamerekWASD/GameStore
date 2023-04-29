@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO.Developers
+﻿namespace BLL.DTO
 {
 	public class DeveloperDTO
 	{

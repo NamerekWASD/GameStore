@@ -1,6 +1,5 @@
-﻿using BLL.DTO.GameType;
-
-namespace BLL.DTO.Regions
+﻿
+namespace BLL.DTO
 {
 	public class RegionDTO
 	{

@@ -27,7 +27,7 @@ const ModalSubscribe = ({ refModal, game}) => {
                 <form className='text-center' onSubmit={submit}>
                     <h1 className="fw-bold mb-1">Пошта</h1>
                     <div>
-                        <input ref={email} type="email" className='text-input fs-5 mb-3 no-outline w-100 form-control rounded-0'
+                        <input ref={email} type="email" className='text-input fs-5 mb-3 no-outline w-100 form-control rounded-0 border-4'
                             onChange={(e) => e.target.value} placeholder="example@domain.com"/>
                     </div>
                     <div className="modal-body p-2">

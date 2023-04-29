@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { loadFilterData } from "../../../../../utils/ApiRequests";
+import { GetFilterData } from "../../../../../utils/ApiRequests";
 import FieldCheckBoxSet from "./FieldCheckBoxSet";
 import $ from 'jquery'
 import { scrollToTop } from "../../../../Layout";
@@ -21,7 +21,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
     })
 
     useEffect(() => {
-        loadFilterData().then(result => {
+        GetFilterData().then(result => {
             result.tags = result.tags.map(value => ({ label: value.name, value: value.id }))
             result.developers = result.developers.map(value => ({ label: value.name, value: value.id }))
             result.publishers = result.publishers.map(value => ({ label: value.name, value: value.id }))

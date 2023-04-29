@@ -1,15 +1,6 @@
 ﻿using BLL.Tools;
 using DAL.Context;
-using DAL.Entity.Copies;
-using DAL.Entity.Developers;
-using DAL.Entity.Games;
-using DAL.Entity.GameType;
-using DAL.Entity.Genres;
-using DAL.Entity.Images;
-using DAL.Entity.Platforms;
-using DAL.Entity.Publishers;
-using DAL.Entity.Regions;
-using DAL.Entity.Tags;
+using DAL.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -511,7 +502,7 @@ namespace API.Data
 
 			Copy copy20 = new()
 			{
-				Data = ""
+				Data = "Login: ZestkiYZadrot\nPassword: 1234asdf"
 			};
 			Platform PS4 = new()
 			{

@@ -1,6 +1,4 @@
-﻿using BLL.DTO.Games;
-
-namespace BLL.DTO.Lists
+﻿namespace BLL.DTO
 {
 	public class GameListDTO
 	{

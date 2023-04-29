@@ -1,9 +1,10 @@
 import React from "react";
-const BitCoin =() =>{
-    return(
-        <>
-    <h3>Нажаль цей метод оплати недоступний</h3>
-        </>
+import CenteredContainer from "../../Containers/CenteredContainer";
+const BitCoin = () => {
+    return (
+        <CenteredContainer>
+            <h3>Нажаль цей метод оплати недоступний</h3>
+        </CenteredContainer>
     )
 }
 export default BitCoin;

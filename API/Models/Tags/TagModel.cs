@@ -1,4 +1,4 @@
-﻿namespace API.Models.Tags
+﻿namespace API.Models
 {
 	public class TagModel
 	{

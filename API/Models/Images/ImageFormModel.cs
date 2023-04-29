@@ -1,4 +1,4 @@
-﻿namespace API.Models.Images
+﻿namespace API.Models
 {
 	public class ImageFormModel
 	{

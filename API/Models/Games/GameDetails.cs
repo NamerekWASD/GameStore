@@ -1,6 +1,4 @@
-﻿using API.Models.Images;
-
-namespace API.Models.Games
+﻿namespace API.Models.Games
 {
 	public class GameDetails
 	{

@@ -1,4 +1,4 @@
-﻿namespace API.Models.Platforms
+﻿namespace API.Models
 {
 	public class PlatformModel
 	{

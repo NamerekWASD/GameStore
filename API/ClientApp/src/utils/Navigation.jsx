@@ -9,14 +9,12 @@ export const navigateToDetails = (game, navigate) => {
 };
 
 export const navigateToManager = (navigate) => {
-    if(verify(MANAGER)){
-        navigate(AppPaths.manager)
-    }
+    navigate(AppPaths.manager);
 }
 
 export const verify = async (role) => {
     const response = await requestIsInRole(role);
-    if(response.redirected){
+    if (response.redirected) {
         toast.error(await response.text());
         return false;
     }

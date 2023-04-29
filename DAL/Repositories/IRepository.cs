@@ -12,9 +12,13 @@ namespace DAL.Repositories
 
 		Task<TEntity> AddAsync(TEntity entity);
 
-		Task<TEntity> ModifyAsync(TEntity newItem);
+		Task<TEntity> AddAsyncNoSave(TEntity item);
 
-		Task<TEntity?> GetAsync(int Id);
+        Task<TEntity> ModifyAsync(TEntity newItem);
+
+        TEntity ModifyNoSave(TEntity item);
+
+        Task<TEntity?> GetAsync(int Id);
 
 		Task<IQueryable<TEntity>> GetAllAsync();
 
@@ -27,5 +31,5 @@ namespace DAL.Repositories
 		IAsyncEnumerable<TEntity> GetAll(CancellationToken cancellationToken);
 
 		IAsyncEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
-	}
+    }
 }

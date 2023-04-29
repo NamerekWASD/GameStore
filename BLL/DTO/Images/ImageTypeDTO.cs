@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO.Images
+﻿namespace BLL.DTO
 {
 	public class ImageTypeDTO
 	{

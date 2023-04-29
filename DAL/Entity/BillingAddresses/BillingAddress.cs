@@ -1,4 +1,4 @@
-﻿namespace DAL.Entity.BillingAddresses
+﻿namespace DAL.Entity
 {
 	public class BillingAddress
 	{

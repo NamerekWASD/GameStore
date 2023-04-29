@@ -170,3 +170,12 @@ C:\Users\Nykolai\source\repos\Game Store\Tests\bin\Debug\net7.0\Microsoft.AspNet
 C:\Users\Nykolai\source\repos\Game Store\Tests\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll
 C:\Users\Nykolai\source\repos\Game Store\Tests\bin\Debug\net7.0\API.dll
 C:\Users\Nykolai\source\repos\Game Store\Tests\bin\Debug\net7.0\API.pdb
+C:\Users\Nykolai\source\repos\GameStore\Tests\bin\Debug\net7.0\CoverletSourceRootsMapping
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.csproj.AssemblyReference.cache
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.AssemblyInfoInputs.cache
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.AssemblyInfo.cs
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.csproj.CoreCompileInputs.cache
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.dll
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\refint\Tests.dll
+C:\Users\Nykolai\source\repos\GameStore\Tests\obj\Debug\net7.0\Tests.pdb

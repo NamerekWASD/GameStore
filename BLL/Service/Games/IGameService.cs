@@ -1,7 +1,4 @@
-using BLL.DTO.Filters;
-using BLL.DTO.Games;
-using BLL.DTO.Images;
-using BLL.DTO.Lists;
+using BLL.DTO;
 
 namespace BLL.Service.Games
 {
