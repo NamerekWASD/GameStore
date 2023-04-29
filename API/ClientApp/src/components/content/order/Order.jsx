@@ -8,13 +8,13 @@ const Order = ({ data }) => {
     const created = new Date(data.created).toLocaleDateString(undefined, options);
 
     const navigateToOrderDetails = () =>{
-        navigate(AppPaths.orderDetails + '?' + new URLSearchParams([['orderId', data.id]]).toString());
+        navigate(AppPaths.orderDetails + '?' + new URLSearchParams([['orderNumber', data.orderNumber]]).toString());
     }
 
     return (
             <tr className="pointer" onClick={navigateToOrderDetails}>
-                <td>{data.id}</td>
-                <td>{parseFloat(totalPrice).toFixed(2)} <sup>$</sup></td>
+                <td className="text-smaller">{data.orderNumber}</td>
+                <td>{parseFloat(totalPrice).toFixed(2)}$</td>
                 <td>{data.copies.length}</td>
                 <td>{created}</td>
             </tr>

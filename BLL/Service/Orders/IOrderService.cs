@@ -6,10 +6,10 @@ namespace BLL.Service.Orders
 	{
 		IAsyncEnumerable<OrderDTO> GetOrders(int userId);
 
-		Task<OrderDTO?> GetOrder(int userId, int orderId);
+		Task<OrderDTO?> GetOrder(int userId, string orderNumber);
 
-		Task<int> CreateOrder(OrderLightDTO data);
+		Task<string> CreateOrder(OrderLightDTO data);
 
-		Task CalculateTotalPrice(OrderLightDTO data);
-	}
+        Task CommitChanges();
+    }
 }

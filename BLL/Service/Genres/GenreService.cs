@@ -1,4 +1,4 @@
-﻿using BLL.DTO.Gernres;
+﻿using BLL.DTO;
 using BLL.Tools;
 using DAL.Context;
 using DAL.UoW;
@@ -20,7 +20,7 @@ namespace BLL.Service.Genres
 		{
 			await foreach (var genre in _unitOfWork.Genres.GetAll(cancellationToken))
 			{
-				yield return MapperHelper.Instance.Map<GenreDTO>(genre);
+				yield return MapperHelpers.Instance.Map<GenreDTO>(genre);
 			}
 		}
 	}

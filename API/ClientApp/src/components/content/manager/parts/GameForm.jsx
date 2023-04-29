@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Creatable from 'react-select/creatable';
 import Select from 'react-select';
-import { deleteGame, loadFilterData, loadGameModel, sendCopyData, uploadImageToServer } from "../../../../utils/ApiRequests";
+import { deleteGame, GetFilterData, GetGameModel, sendCopyData, uploadImageToServer } from "../../../../utils/ApiRequests";
 import Loading from "../../../../utils/Loading";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingCircle from "../../../../utils/LoadingCircle";
@@ -43,7 +43,7 @@ const GameForm = ({ saveChanges }) => {
                 setGame({ id: 0 });
                 return;
             }
-            loadGameModel(id).then(response => {
+            GetGameModel(id).then(response => {
                 if (response.status === 200) {
                     return response.json()
                 }
@@ -62,7 +62,7 @@ const GameForm = ({ saveChanges }) => {
     }, [game])
 
     useEffect(() => {
-        loadFilterData().then(result => {
+        GetFilterData().then(result => {
             setFilterData({
                 copyTypes: result.copyTypes.map(value => {
                     return {

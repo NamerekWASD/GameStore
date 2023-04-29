@@ -1,8 +1,5 @@
-﻿using BLL.DTO.Platforms;
-using BLL.DTO.Regions;
-using DAL.Entity.Games;
-
-namespace BLL.DTO.GameType
+﻿
+namespace BLL.DTO
 {
 	public class CopyTypeDTO
 	{
@@ -11,6 +8,6 @@ namespace BLL.DTO.GameType
 		public int PlatformId { get; set; }
 		public PlatformDTO? Platform { get; set; }
 		public List<RegionDTO> AvailableRegions { get; set; } = new();
-		public List<Game>? Games { get; set; } = new();
+		public List<GameDTO>? Games { get; set; } = new();
 	}
 }

@@ -1,13 +1,5 @@
-﻿using BLL.DTO.Developers;
-using BLL.DTO.GameType;
-using BLL.DTO.Gernres;
-using BLL.DTO.Images;
-using BLL.DTO.Platforms;
-using BLL.DTO.Publishers;
-using BLL.DTO.Regions;
-using BLL.DTO.Tags;
-
-namespace BLL.DTO.Filters
+﻿
+namespace BLL.DTO
 {
 	public class FilterFormDTO
 	{

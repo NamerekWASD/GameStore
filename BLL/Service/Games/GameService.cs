@@ -1,25 +1,8 @@
-using BLL.DTO.Developers;
-using BLL.DTO.Enums;
-using BLL.DTO.Filters;
-using BLL.DTO.Games;
-using BLL.DTO.GameType;
-using BLL.DTO.Gernres;
-using BLL.DTO.Images;
-using BLL.DTO.Lists;
-using BLL.DTO.Platforms;
-using BLL.DTO.Publishers;
-using BLL.DTO.Regions;
-using BLL.DTO.Tags;
+using BLL.DTO;
 using BLL.Service.Mails;
 using BLL.Tools;
 using DAL.Context;
-using DAL.Entity.Games;
-using DAL.Entity.GameType;
-using DAL.Entity.Genres;
-using DAL.Entity.Images;
-using DAL.Entity.Platforms;
-using DAL.Entity.Regions;
-using DAL.Entity.Tags;
+using DAL.Entity;
 using DAL.Managers;
 using DAL.UoW;
 using Microsoft.AspNetCore.Hosting;
@@ -69,7 +52,7 @@ namespace BLL.Service.Games
 
 		public async Task<GameDTO> GetGame(int id)
 		{
-			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.GetAsync(id));
+			return MapperHelpers.Instance.Map<GameDTO>(await UoW.Games.GetAsync(id));
 		}
 
 		public async Task<GameListDTO> GetGamesWithPagination(int page, CancellationToken cancellationToken)
@@ -77,7 +60,7 @@ namespace BLL.Service.Games
 			var gamesQuery = TakeRange(await UoW.Games.GetAllAsync(cancellationToken), page, out int totalCount, out bool isMax);
 			var list = new GameListDTO()
 			{
-				Games = gamesQuery.Select(MapperHelper.Instance.Map<GameDTO>).ToList(),
+				Games = gamesQuery.Select(MapperHelpers.Instance.Map<GameDTO>).ToList(),
 				IsMax = isMax,
 				TotalCount = totalCount,
 				Page = page,
@@ -89,11 +72,11 @@ namespace BLL.Service.Games
 		{
 			var gamesQuery = await UoW.Games.GetAllAsync(cancellationToken);
 			gamesQuery = FilterGames(gamesQuery, filter);
-			gamesQuery = TakeRange(gamesQuery, page, out int totalCount, out bool isMax);
 			gamesQuery = SortGames(gamesQuery, filter.OrderBy);
+			gamesQuery = TakeRange(gamesQuery, page, out int totalCount, out bool isMax);
 			var list = new GameListDTO()
 			{
-				Games = gamesQuery.Select(MapperHelper.Instance.Map<GameDTO>).ToList(),
+				Games = gamesQuery.Select(MapperHelpers.Instance.Map<GameDTO>).ToList(),
 				IsMax = isMax,
 				TotalCount = totalCount,
 				Page = page,
@@ -185,12 +168,12 @@ namespace BLL.Service.Games
 		{
 			return orderBy switch
 			{
-				OrderBy.DEFAULT => games.OrderBy(game => game.Title),
-				OrderBy.NEWER => games.OrderByDescending(game => game.Released),
-				OrderBy.OLDER => games.OrderBy(game => game.Released),
-				OrderBy.EXPENSIVEST => games.OrderByDescending(game => game.DiscountPrice ?? game.Price),
-				OrderBy.CHEAPEST => games.OrderBy(game => game.DiscountPrice ?? game.Price),
-				OrderBy.POPULARITY => games.OrderByDescending(game => game.SoldCopies),
+				OrderBy.DEFAULT => games.OrderBy(game => game.Title).ThenBy(game => game.Title),
+				OrderBy.NEWER => games.OrderByDescending(game => game.Released).ThenBy(game => game.Title),
+				OrderBy.OLDER => games.OrderBy(game => game.Released).ThenBy(game => game.Title),
+				OrderBy.EXPENSIVEST => games.OrderByDescending(game => game.DiscountPrice ?? game.Price).ThenBy(game => game.Title),
+				OrderBy.CHEAPEST => games.OrderBy(game => game.DiscountPrice ?? game.Price).ThenBy(game => game.Title),
+				OrderBy.POPULARITY => games.OrderByDescending(game => game.SoldCopies).ThenBy(game => game.Title),
 				_ => games,
 			};
 		}
@@ -199,7 +182,7 @@ namespace BLL.Service.Games
 		{
 			await foreach (var game in UoW.Games.GetAll(item => ids.Contains(item.Id), cancellationToken))
 			{
-				yield return MapperHelper.Instance.Map<GameDTO>(game);
+				yield return MapperHelpers.Instance.Map<GameDTO>(game);
 			}
 		}
 
@@ -209,42 +192,42 @@ namespace BLL.Service.Games
 
 			await foreach (var copyType in UoW.CopyTypes.GetAll(cancellationToken))
 			{
-				filter.CopyTypes.Add(MapperHelper.Instance.Map<CopyTypeDTO>(copyType));
+				filter.CopyTypes.Add(MapperHelpers.Instance.Map<CopyTypeDTO>(copyType));
 			}
 
 			await foreach (var platform in UoW.Platforms.GetAll(cancellationToken))
 			{
-				filter.Platforms.Add(MapperHelper.Instance.Map<PlatformDTO>(platform));
+				filter.Platforms.Add(MapperHelpers.Instance.Map<PlatformDTO>(platform));
 			}
 
 			await foreach (var genre in UoW.Genres.GetAll(cancellationToken))
 			{
-				filter.Genres.Add(MapperHelper.Instance.Map<GenreDTO>(genre));
+				filter.Genres.Add(MapperHelpers.Instance.Map<GenreDTO>(genre));
 			}
 
 			await foreach (var genre in UoW.Tags.GetAll(cancellationToken))
 			{
-				filter.Tags.Add(MapperHelper.Instance.Map<TagDTO>(genre));
+				filter.Tags.Add(MapperHelpers.Instance.Map<TagDTO>(genre));
 			}
 
 			await foreach (var developer in UoW.Developers.GetAll(cancellationToken))
 			{
-				filter.Developers.Add(MapperHelper.Instance.Map<DeveloperDTO>(developer));
+				filter.Developers.Add(MapperHelpers.Instance.Map<DeveloperDTO>(developer));
 			}
 
 			await foreach (var publisher in UoW.Publishers.GetAll(cancellationToken))
 			{
-				filter.Publishers.Add(MapperHelper.Instance.Map<PublisherDTO>(publisher));
+				filter.Publishers.Add(MapperHelpers.Instance.Map<PublisherDTO>(publisher));
 			}
 
 			await foreach (var region in UoW.Regions.GetAll(cancellationToken))
 			{
-				filter.AvailableRegions.Add(MapperHelper.Instance.Map<RegionDTO>(region));
+				filter.AvailableRegions.Add(MapperHelpers.Instance.Map<RegionDTO>(region));
 			}
 
 			await foreach (var imageType in UoW.ImageTypes.GetAll(cancellationToken))
 			{
-				filter.ImageTypes.Add(MapperHelper.Instance.Map<ImageTypeDTO>(imageType));
+				filter.ImageTypes.Add(MapperHelpers.Instance.Map<ImageTypeDTO>(imageType));
 			}
 
 			return filter;
@@ -261,7 +244,7 @@ namespace BLL.Service.Games
 			await ProcessGamePublisher(game, newGame);
 			await ProcessGameCopyType(game, newGame);
 			int id = (await UoW.Games.AddAsync(newGame)).Id;
-			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.GetAsync(id));
+			return MapperHelpers.Instance.Map<GameDTO>(await UoW.Games.GetAsync(id));
 		}
 
 		public async Task<GameDTO?> EditGame(GameDTO game)
@@ -277,7 +260,7 @@ namespace BLL.Service.Games
 			await ProcessGamePublisher(game, gameFromDB);
 			await ProcessGameCopyType(game, gameFromDB);
 
-			return MapperHelper.Instance.Map<GameDTO>(await UoW.Games.ModifyAsync(gameFromDB));
+			return MapperHelpers.Instance.Map<GameDTO>(await UoW.Games.ModifyAsync(gameFromDB));
 		}
 
 		private void UpdateProperties(GameDTO game, Game toUpdate)
@@ -290,7 +273,7 @@ namespace BLL.Service.Games
 			if (game.DiscountPrice is not null && game.DiscountPrice != toUpdate.DiscountPrice)
 			{
 				toUpdate.DiscountPrice = game.DiscountPrice;
-				_subscriptionService.NotifyDiscount(MapperHelper.Instance.Map<GameDTO>(toUpdate));
+				_subscriptionService.NotifyDiscount(MapperHelpers.Instance.Map<GameDTO>(toUpdate));
 			}
 			toUpdate.DiscountPrice = game.DiscountPrice;
 			toUpdate.Released = game.Released;
@@ -308,7 +291,7 @@ namespace BLL.Service.Games
 			{
 				if (genre.Id is 0)
 				{
-					toUpdate.Genres.Add(MapperHelper.Instance.Map<Genre>(genre));
+					toUpdate.Genres.Add(MapperHelpers.Instance.Map<Genre>(genre));
 					continue;
 				}
 				else if (genre.Id is not 0)
@@ -332,7 +315,7 @@ namespace BLL.Service.Games
 			{
 				if (tag.Id is 0)
 				{
-					toUpdate.Tags.Add(MapperHelper.Instance.Map<Tag>(tag));
+					toUpdate.Tags.Add(MapperHelpers.Instance.Map<Tag>(tag));
 					continue;
 				}
 				else if (tag.Id is not 0)
@@ -347,7 +330,7 @@ namespace BLL.Service.Games
 		private async Task ProcessGameImages(GameDTO game, Game toUpdate)
 		{
 			List<Image> imagesToDelete = toUpdate.Images.Where(image => !game.Images.Any(item => item.Id == image.Id))
-				.Select(MapperHelper.Instance.Map<Image>).ToList();
+				.Select(MapperHelpers.Instance.Map<Image>).ToList();
 
 			toUpdate.Images ??= new();
 			foreach (var item in toUpdate.Images.ToList())
@@ -359,7 +342,7 @@ namespace BLL.Service.Games
 			{
 				if (image.Id is 0)
 				{
-					var toAdd = MapperHelper.Instance.Map<Image>(image);
+					var toAdd = MapperHelpers.Instance.Map<Image>(image);
 					if (toAdd.TypeId is not 0)
 					{
 						toAdd.Type = await UoW.ImageTypes.GetAsync(toAdd.TypeId);
@@ -486,7 +469,7 @@ namespace BLL.Service.Games
 			{
 				if (region.Id is 0)
 				{
-					toUpdate.AvailableRegions.Add(MapperHelper.Instance.Map<Region>(region));
+					toUpdate.AvailableRegions.Add(MapperHelpers.Instance.Map<Region>(region));
 					continue;
 				}
 				else
@@ -560,7 +543,7 @@ namespace BLL.Service.Games
 		{
 			await foreach (var genre in UoW.Genres.GetAll(cancellationToken))
 			{
-				yield return MapperHelper.Instance.Map<GenreDTO>(genre);
+				yield return MapperHelpers.Instance.Map<GenreDTO>(genre);
 			}
 		}
 
@@ -602,7 +585,7 @@ namespace BLL.Service.Games
 			image.Path = serverPath + actualFileName;
 			image.ActualPath = actualPath;
 			await UoW.Games.ModifyAsync(game);
-			return MapperHelper.Instance.Map<ImageDTO>(image);
+			return MapperHelpers.Instance.Map<ImageDTO>(image);
 		}
 	}
 }

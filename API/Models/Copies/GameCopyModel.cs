@@ -1,6 +1,8 @@
-﻿using API.Models.Games;
+﻿
 
-namespace API.Models.Copies
+using API.Models.Games;
+
+namespace API.Models
 {
 	public class GameCopyModel
 	{

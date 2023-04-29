@@ -1,8 +1,5 @@
-﻿using DAL.Entity.Games;
-using DAL.Entity.Platforms;
-using DAL.Entity.Regions;
-
-namespace DAL.Entity.GameType
+﻿
+namespace DAL.Entity
 {
 	public class CopyType
 	{

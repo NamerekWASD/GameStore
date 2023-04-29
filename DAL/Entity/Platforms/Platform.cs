@@ -1,4 +1,4 @@
-﻿namespace DAL.Entity.Platforms
+﻿namespace DAL.Entity
 {
 	public class Platform
 	{

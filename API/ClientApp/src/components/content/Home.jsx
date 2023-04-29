@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from './game/parts/Carousel';
-import { loadGames } from '../../utils/ApiRequests';
+import { GetGames } from '../../utils/ApiRequests';
 import Loading from '../../utils/Loading';
 import GameList from './game/parts/GameList';
 import { Novelties } from './game/parts/lists/Novelties';
@@ -19,7 +19,7 @@ const Home = (props) => {
     return true;
   }
   useEffect(() => {
-    loadGames(page).then(result => {
+    GetGames(page).then(result => {
       if (result.page !== 1) {
         setGames(prevState => [...prevState, ...result.games.filter(findUnique)]);
       } else {
