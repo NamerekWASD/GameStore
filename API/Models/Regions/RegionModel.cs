@@ -1,4 +1,4 @@
-﻿namespace API.Models.Regions
+﻿namespace API.Models
 {
 	public class RegionModel
 	{

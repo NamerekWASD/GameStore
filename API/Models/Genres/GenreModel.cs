@@ -1,4 +1,4 @@
-﻿namespace API.Models.Genres
+﻿namespace API.Models
 {
 	public class GenreModel
 	{

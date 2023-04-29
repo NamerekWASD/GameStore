@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import { loadGamesByFilters } from "../../../utils/ApiRequests";
+import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { orderOptions } from "../../../utils/Constants";
 import './game.css'
 import FilterTable from "./parts/filter/FilterTable";
@@ -50,7 +50,7 @@ const GameCatalog = () => {
             setPage(prevState => prevState + 1)
             return
         }
-        loadGamesByFilters(searchFilters, page)
+        GetGamesByFilters(searchFilters, page)
             .then(result => {
                 if (result.page !== 1) {
                     setGames(prevState => [...prevState, ...result.games]);

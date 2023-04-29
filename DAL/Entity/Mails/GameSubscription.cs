@@ -1,6 +1,4 @@
-﻿using DAL.Entity.Games;
-
-namespace DAL.Entity.Mails
+﻿namespace DAL.Entity
 {
 	public class GameSubscription
 	{

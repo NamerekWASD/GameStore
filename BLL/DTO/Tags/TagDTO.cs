@@ -1,6 +1,5 @@
-﻿using BLL.DTO.Games;
-
-namespace BLL.DTO.Tags
+﻿
+namespace BLL.DTO
 {
 	public class TagDTO
 	{

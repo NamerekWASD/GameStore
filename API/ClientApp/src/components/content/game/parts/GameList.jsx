@@ -58,7 +58,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
                                 <Card key={game.id} className={"m-2 bg-light-gray rounded-0 overflow-hidden pointer " + cardClassName} onClick={() => navigateToDetails(game, navigate)} >
                                     <Card.Img variant="top"
                                     src={game.image ? game.image.path : game.images.find(item => item.type.name === PORTRAIT).path}
-                                    alt={game.title} style={{width: '270px', height:'320px'}}
+                                    alt={game.title} style={{width: '240px', height:'320px'}}
                                     className="rounded-0"/>
                                     <Card.Body>
                                         <Card.Title className="fs-6">{game.title}</Card.Title>

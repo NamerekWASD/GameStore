@@ -1,4 +1,4 @@
-﻿using BLL.DTO.Games;
+﻿using BLL.DTO;
 
 namespace BLL.Service.Mails
 {

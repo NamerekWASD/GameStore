@@ -1,5 +1,4 @@
-﻿using API.Models.Images;
-
+﻿
 namespace API.Models.Games
 {
 	public class GameLightModel

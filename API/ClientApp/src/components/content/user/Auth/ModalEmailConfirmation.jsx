@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { toast } from "react-toastify";
 import { SendEmailConfirmationCode } from "../../../../utils/ApiRequests";
 
-const EmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
+const ModalEmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
     const ConfirmationCode = useRef();
 
     const confirmEmail = async (e) => {
@@ -33,7 +33,7 @@ const EmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
                 <form className='text-center' onSubmit={confirmEmail}>
                     <h1 className="fw-bold mb-1">Код</h1>
                     <div className="form-group text-center">
-                        <input ref={ConfirmationCode} type="text" className='text-input text-center fs-1 mb-3 no-outline form-control rounded-0 mx-auto'
+                        <input ref={ConfirmationCode} type="text" className='text-input text-center fs-1 mb-3 form-control rounded-0 mx-auto border border-2 border-dark shadow-none'
                             minLength={5} maxLength={5} style={{ height: '70px', width: '150px' }}
                             onChange={(e) => {
                                 if (e.target.value.length === 5) {
@@ -47,4 +47,4 @@ const EmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
         </div>
     )
 }
-export default EmailConfirmation;
+export default ModalEmailConfirmation;

@@ -2,11 +2,13 @@
 {
 	public class OrderLightDTO
 	{
+		public string OrderNumber { get; set; }	= string.Empty;
 		public int UserId { get; set; }
 		public List<GameOrderDTO> Games { get; set; } = new();
-		public int BillId { get; set; }
 		public BillingAddressDTO? BillingAddress { get; set; }
-		public decimal TotalPrice { get; set; }
-		public string Nonce { get; set; } = string.Empty;
-	}
+		public decimal Total { get; set; }
+        public decimal SubTotal { get; set; }
+        public string Nonce { get; set; } = string.Empty;
+		public string PaymentType { get; set; } = string.Empty;
+    }
 }

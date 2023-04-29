@@ -1,4 +1,4 @@
-﻿using BLL.DTO.Gernres;
+﻿using BLL.DTO;
 
 namespace BLL.Service.Genres
 {

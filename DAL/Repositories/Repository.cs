@@ -40,14 +40,25 @@ namespace DAL.Repositories
 			return entity.Entity;
 		}
 
-		public async Task<TEntity> ModifyAsync(TEntity item)
+        public async Task<TEntity> AddAsyncNoSave(TEntity item)
+        {
+            var entity = await DbSet.AddAsync(item);
+            return entity.Entity;
+        }
+        public async Task<TEntity> ModifyAsync(TEntity item)
 		{
 			Context.Entry(item).State = EntityState.Modified;
 			await Context.SaveChangesAsync();
 			return item;
 		}
 
-		public async Task<TEntity?> GetAsync(int Id)
+		public TEntity ModifyNoSave(TEntity item)
+        {
+            Context.Entry(item).State = EntityState.Modified;
+            return item;
+        }
+
+        public async Task<TEntity?> GetAsync(int Id)
 		{
 			return await DbSet.FindAsync(Id);
 		}

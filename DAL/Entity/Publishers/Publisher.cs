@@ -1,4 +1,4 @@
-﻿namespace DAL.Entity.Publishers
+﻿namespace DAL.Entity
 {
 	public class Publisher
 	{

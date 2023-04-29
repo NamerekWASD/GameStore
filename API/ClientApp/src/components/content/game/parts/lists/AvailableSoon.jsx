@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { loadFilterData, loadGamesByFilters } from "../../../../../utils/ApiRequests"
+import { GetGamesByFilters } from "../../../../../utils/ApiRequests"
 import GameList from "../GameList";
 
 export const AvailableSoon = () => {
     const [games, setGames] = useState([]);
     useEffect(() => {
-        loadGamesByFilters({ orderBy: 1, dateFrom: new Date() }, 1).then(result => {
+        GetGamesByFilters({ orderBy: 1, dateFrom: new Date() }, 1).then(result => {
             result.games.length = Math.min(result.games.length, 5)
             setGames(result.games)
         })

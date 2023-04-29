@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
 import newUser from './newUser.png'
 import Orders from "../order/Orders";
-import { loadUserData } from "../../../utils/ApiRequests";
+import { GetUserData } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
 
 const Profile = ({ isAuthenticated, refreshAuth }) => {
@@ -19,7 +19,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
 
     useEffect(() => {
         if (!user) {
-            loadUserData(refreshAuth).then(response => {
+            GetUserData(refreshAuth).then(response => {
                 if (!response) return;
                 return response.json();
             })
@@ -27,10 +27,10 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                     setUser(result);
                 });
         }
-    }, [user, refreshAuth]);
+    }, [refreshAuth]);
 
     const onSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const requestInfo = `api/account/update`;
         const requestInit = {
             method: 'POST',
@@ -48,7 +48,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
 
     async function processResponse(response) {
         if (response.ok) {
-            toast.success(await response.text())
+            toast.success(await response.json())
             return true;
         }
         toast.error(await response.text());
@@ -83,28 +83,28 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                                     <input
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value}))} />
+                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value }))} />
                                 </div>
                                 <div className="form-group">
                                     <label className="labels" htmlFor="lname">Призвіще</label>
                                     <input
                                         type="text" id="lname" name="lname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value}))} />
+                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value }))} />
                                 </div>
                                 <div className="form-group required">
                                     <label className="labels" htmlFor="username">Ім'я користувача</label>
                                     <input
                                         type="text" id="username" name="username"
                                         className="form-control rounded-0" required minLength={3}
-                                        defaultValue={user ? user.userName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value}))} />
+                                        defaultValue={user ? user.userName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value }))} />
                                 </div>
                                 <div className="form-group required">
                                     <label className="labels" htmlFor="email">Електронна пошта</label>
                                     <input
                                         type="email" id="email" name="email"
                                         className="form-control rounded-0" required disabled={user && user.provider}
-                                        defaultValue={user ? user.email : ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value}))} />
+                                        defaultValue={user ? user.email : ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value }))} />
                                 </div>
                                 <div className="text-center">
                                     <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" value='Зберегти зміни' />
@@ -133,7 +133,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                     {
                         user ?
                             <>
-                                <img width="130px" src={user && user.imageURL && user.imageURL.length === 0 ? newUser : user.imageURL} alt="User" />
+                                <img width="130px" src={!user.imageURL || user.imageURL.length !== 0 ? newUser : user.imageURL} alt="User" />
                                 <span className="text-black-50 mt-2">{user.userName}</span>
                             </>
                             : ''
@@ -149,7 +149,9 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                         <button className="btn btn-outline-dark rounded-0 nav-tab-item" onClick={handleTabClick} value={option.orders}>Мої замовлення</button>
                     </li>
                 </ul>
-                {memoOption}
+                <div style={{minHeight: '50vh'}}>
+                    {memoOption}
+                </div>
             </div>
         </div>
     )

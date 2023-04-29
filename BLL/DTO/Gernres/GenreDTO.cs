@@ -1,6 +1,6 @@
-﻿using BLL.DTO.Games;
+﻿using BLL.DTO;
 
-namespace BLL.DTO.Gernres
+namespace BLL.DTO
 {
 	public class GenreDTO
 	{

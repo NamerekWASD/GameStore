@@ -1,6 +1,6 @@
 ﻿using API.Models.Games;
 
-namespace API.Models.Copies
+namespace API.Models
 {
 	public class CopyModel
 	{

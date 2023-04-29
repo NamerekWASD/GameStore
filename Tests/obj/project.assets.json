@@ -2066,33 +2066,6 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "API/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "AutoMapper": "12.0.1",
-          "BLL": "1.0.0",
-          "MailKit": "3.6.0",
-          "Microsoft.AspNetCore.Authentication.Google": "7.0.4",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.4",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.4",
-          "Microsoft.AspNetCore.SpaProxy": "7.0.4",
-          "Microsoft.EntityFrameworkCore": "7.0.4",
-          "Microsoft.EntityFrameworkCore.Proxies": "7.0.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.4",
-          "MimeKit": "3.6.0",
-          "Ninject": "3.3.6"
-        },
-        "compile": {
-          "bin/placeholder/API.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/API.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "BLL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -2113,6 +2086,33 @@
         },
         "runtime": {
           "bin/placeholder/BLL.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "ClassLibDotNetStandard/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "BLL": "1.0.0",
+          "MailKit": "3.6.0",
+          "Microsoft.AspNetCore.Authentication.Google": "7.0.4",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.4",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.4",
+          "Microsoft.AspNetCore.SpaProxy": "7.0.4",
+          "Microsoft.EntityFrameworkCore": "7.0.4",
+          "Microsoft.EntityFrameworkCore.Proxies": "7.0.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.4",
+          "MimeKit": "3.6.0",
+          "Ninject": "3.3.6"
+        },
+        "compile": {
+          "bin/placeholder/ClassLibDotNetStandard.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibDotNetStandard.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -6565,15 +6565,15 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "API/1.0.0": {
-      "type": "project",
-      "path": "../API/API.csproj",
-      "msbuildProject": "../API/API.csproj"
-    },
     "BLL/1.0.0": {
       "type": "project",
       "path": "../BLL/BLL.csproj",
       "msbuildProject": "../BLL/BLL.csproj"
+    },
+    "ClassLibDotNetStandard/1.0.0": {
+      "type": "project",
+      "path": "../API/API.csproj",
+      "msbuildProject": "../API/API.csproj"
     },
     "DAL/1.0.0": {
       "type": "project",
@@ -6588,8 +6588,8 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "API >= 1.0.0",
       "BLL >= 1.0.0",
+      "ClassLibDotNetStandard >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.4",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
@@ -6610,7 +6610,7 @@
       "projectName": "Tests",
       "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\Tests\\Tests.csproj",
       "packagesPath": "C:\\Users\\Nykolai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nykolai\\Source\\Repos\\GameStore\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nykolai\\AppData\\Roaming\\NuGet\\NuGet.Config",
