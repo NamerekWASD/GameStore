@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "reactstrap";
 import dropin from "braintree-web-drop-in"
-import { loadLastBill } from "../../../utils/ApiRequests";
+import { GetLastBill } from "../../../utils/ApiRequests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import countryList from 'react-select-country-list'
@@ -15,7 +15,7 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
     const streetAddress = useRef(null);
     const region = useRef(null);
     const postalCode = useRef(null);
-    const billId = useRef(null);
+    const billingAddressId = useRef(null);
     const [country, setCountry] = useState({});
     const countries = useMemo(() => countryList().getData(), [])
 
@@ -46,9 +46,9 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
             initializeBraintree();
         }
 
-        loadLastBill().then(result => {
+        GetLastBill().then(result => {
             if (!result.id) return;
-            billId.current.value = result.id
+            billingAddressId.current.value = result.id
             firstName.current.value = result.firstName;
             lastName.current.value = result.lastName;
             streetAddress.current.value = result.streetAddress;
@@ -60,7 +60,7 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
 
     function collectData() {
         return {
-            id: billId.current.value,
+            id: billingAddressId.current.value,
             firstName: firstName.current.value,
             lastName: lastName.current.value,
             streetAddress: streetAddress.current.value,
@@ -75,7 +75,7 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
             <div>
                 <div className="col bg-white p-3 min-200">
                     <h3>Платіжна адреса</h3>
-                    <input ref={billId} type="number" hidden defaultValue={0} />
+                    <input ref={billingAddressId} type="number" hidden defaultValue={0} />
                     <div className="form-group rounded-0 required">
                         <label className="control-label" htmlFor="fname"><FontAwesomeIcon icon={faUser} />Ім'я</label>
                         <input ref={firstName} className="form-control rounded-0" type="text" id="fname" name="firstname" required />
@@ -129,9 +129,8 @@ const Braintree = ({ email, setSended, onSuccess, onError }) => {
                                         console.error(error);
                                         onError()
                                     } else {
-                                        const paymentMethodNonce = payload.nonce;
                                         setSended(true)
-                                        onSuccess(collectData(), paymentMethodNonce);
+                                        onSuccess(collectData(), payload);
                                     }
                                 });
                         }

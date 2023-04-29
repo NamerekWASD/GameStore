@@ -1,18 +1,4 @@
 ﻿using DAL.Entity;
-using DAL.Entity.BillingAddresses;
-using DAL.Entity.Copies;
-using DAL.Entity.Developers;
-using DAL.Entity.Games;
-using DAL.Entity.GameType;
-using DAL.Entity.Genres;
-using DAL.Entity.Images;
-using DAL.Entity.Mails;
-using DAL.Entity.Orders;
-using DAL.Entity.Platforms;
-using DAL.Entity.Publishers;
-using DAL.Entity.Regions;
-using DAL.Entity.SoldCopies;
-using DAL.Entity.Tags;
 using DAL.Repositories;
 
 namespace UnitsOfWork.Interfaces
@@ -36,6 +22,7 @@ namespace UnitsOfWork.Interfaces
 		IRepository<Region> Regions { get; }
 		IRepository<ImageType> ImageTypes { get; }
 
-		void DeleteDB();
+        Task CommitChanges();
+        void DeleteDB();
 	}
 }

@@ -36,7 +36,7 @@ const Layout = ({ children, isAuthenticated, refreshAuth }) => {
             <NavMenu isAuthenticated={isAuthenticated} refreshAuth={refreshAuth} />
             <Container id='content' className='w-100'
                 style={{ minHeight: '100vh', margin: 0, padding: 0, maxWidth: '100%', paddingTop: $('#myHeader').outerHeight() + 'px' }}>
-                <ToastContainer position="top-center"
+                <ToastContainer position="bottom-left"
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}

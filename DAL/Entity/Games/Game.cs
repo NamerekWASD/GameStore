@@ -1,14 +1,7 @@
-﻿using DAL.Entity.Copies;
-using DAL.Entity.Developers;
-using DAL.Entity.GameType;
-using DAL.Entity.Genres;
-using DAL.Entity.Images;
-using DAL.Entity.Mails;
-using DAL.Entity.Publishers;
-using DAL.Entity.Tags;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DAL.Entity.Games
+namespace DAL.Entity
 {
 	public class Game
 	{

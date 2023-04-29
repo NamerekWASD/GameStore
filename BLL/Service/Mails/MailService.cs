@@ -1,9 +1,8 @@
-﻿using BLL.DTO.Games;
+﻿using BLL.DTO;
 using BLL.DTO.Mails;
 using BLL.Tools;
 using DAL.Context;
 using DAL.Entity;
-using DAL.Entity.Mails;
 using DAL.UoW;
 using Exceptions;
 using MailKit.Net.Smtp;
@@ -145,9 +144,9 @@ namespace BLL.Service.Mails
 
 		public async Task NotifyDiscount(GameDTO game)
 		{
-			if (game.DiscountPrice is null) return;
+			if (game.DiscountPrice is null || game.Price is null) return;
 
-			int percentage = (int)(game.DiscountPrice / game.Price * 100 - 100);
+            int percentage = (int)((game.DiscountPrice / game.Price * 100) - 100);
 
 			foreach (var sub in game.Subscriptions)
 			{

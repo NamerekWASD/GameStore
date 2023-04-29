@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loadGamesByFilters } from "../../../utils/ApiRequests";
-import { AppPaths } from "../../../utils/AppPaths";
+import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { PORTRAIT } from "../../../utils/Constants";
 import { navigateToDetails } from "../../../utils/Navigation";
 import Price from "./parts/Price";
@@ -13,7 +12,7 @@ const GameDropList = ({ searchQuery, refresh, isVisible }) => {
     const gameDropList = useRef(null);
     useEffect(() => {
         if (searchQuery.length !== 0) {
-            loadGamesByFilters({ searchQuery: searchQuery }, 1).then(result => {
+            GetGamesByFilters({ searchQuery: searchQuery }, 1).then(result => {
                 setGames(result.games);
             });
             gameDropList.current.style.height = cardContainer.current.offsetHeight + 'px';

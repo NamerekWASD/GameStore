@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO.Enums
+﻿namespace BLL.DTO
 {
 	public enum OrderBy
 	{

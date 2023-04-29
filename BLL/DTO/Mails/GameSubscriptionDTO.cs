@@ -1,5 +1,4 @@
-﻿using BLL.DTO.Games;
-
+﻿
 namespace BLL.DTO.Mails
 {
 	public class GameSubscriptionDTO

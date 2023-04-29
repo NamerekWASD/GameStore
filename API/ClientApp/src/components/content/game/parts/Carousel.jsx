@@ -14,6 +14,7 @@ const timeout = { current: null };
 
 const Carousel = ({ games }) => {
     const carousel = useRef(null);
+    const container = useRef(null);
     const [isPanorama, setIsPanorama] = useState(window.innerWidth > 800);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
     const navigate = useNavigate();
@@ -131,7 +132,7 @@ const Carousel = ({ games }) => {
 
                         />
                 }
-                <div className="d-flex flex-column justify-content-center align-items-center content bg-dark px-3" style={{ height: '80vh' }}>
+                <div ref={container} className="d-flex flex-column justify-content-center align-items-center content bg-dark px-3" style={{ maxWidth: '100vw', height: '80vh' }}>
                     <div ref={carousel} className="d-flex flex-row overflow-hidden content" style={isMobile || !isPanorama ? { width: '80%', height: '70%' } : { maxWidth: '750px' }}>
                         {
                             emptyArray.slice(0, maxItems.current / 3).map((_, index) => {

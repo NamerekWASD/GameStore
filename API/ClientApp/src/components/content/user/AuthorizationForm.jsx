@@ -3,15 +3,17 @@ import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import './Account.css';
 import GoogleAuth from './Auth/GoogleAuth';
 import { toast } from 'react-toastify';
-import EmailConfirmation from './Auth/EmailConfirmation';
+import ModalEmailConfirmation from './Auth/ModalEmailConfirmation';
 import { SendLoginData } from '../../../utils/ApiRequests';
+import PreLoader from '../../../utils/PreLoader';
 
 const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams()
-    const email = useRef(null);
-    const modal = useRef(null);
+    const RefEmail = useRef(null);
+    const RefModal = useRef(null);
     const [rememberMe, setRememberMe] = useState(false);
+    const [showPreLoader, setShowPreLoader] = useState(false);
 
     useEffect(() => {
         refreshAuth();
@@ -26,15 +28,19 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
 
     const sendConfirmation = async (e) => {
         e.preventDefault();
+
+        setShowPreLoader(true);
+
         const LoginModel = {
-            email: email.current.value,
+            email: RefEmail.current.value,
         };
 
         const response = await SendLoginData(LoginModel);
 
         if (processResponse(response)) {
-            modal.current.style.display = "block";
+            RefModal.current.style.display = "block";
         }
+        setShowPreLoader(false);
     }
 
     async function sendAsExternalLogin(provider, user, userId) {
@@ -71,10 +77,11 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
 
     return (
         <main>
+
+        {showPreLoader && <PreLoader /> }
             {
                 isAuthenticated === false ?
                     <>
-                        <div className='card-conteiner'>
                             <div id="sign-form" className='bg-white'>
                                 <form onSubmit={sendConfirmation}>
                                     <div className="my-card-left">
@@ -85,7 +92,7 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
                                             name="email"
                                             placeholder="Електронна пошта"
                                             required
-                                            ref={email}
+                                            ref={RefEmail}
                                             onChange={(e) => e.target.value} />
                                         <div className='checkbox-rect2'>
                                             <input
@@ -108,8 +115,7 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
                                     <GoogleAuth sendToServer={sendAsExternalLogin} />
                                 </div>
                             </div>
-                        </div>
-                        <EmailConfirmation refModal={modal} rememberMe={rememberMe} refEmail={email} after={after} />
+                        <ModalEmailConfirmation refModal={RefModal} rememberMe={rememberMe} refEmail={RefEmail} after={after} />
                     </>
                     :
                     <>

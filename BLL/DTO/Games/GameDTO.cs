@@ -1,14 +1,7 @@
-﻿using BLL.DTO.Copies;
-using BLL.DTO.Developers;
-using BLL.DTO.GameType;
-using BLL.DTO.Gernres;
-using BLL.DTO.Images;
-using BLL.DTO.Mails;
-using BLL.DTO.Publishers;
-using BLL.DTO.Tags;
+﻿using BLL.DTO.Mails;
 using BLL.Tools;
 
-namespace BLL.DTO.Games
+namespace BLL.DTO
 {
 	public class GameDTO
 	{

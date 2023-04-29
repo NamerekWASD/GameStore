@@ -5,8 +5,8 @@ import plus from './../../../static/plus.svg';
 import remove from './../../../static/close-cross.svg'
 import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
-import { loadUserData, SendLoginData, subscribeOnGame } from "../../../utils/ApiRequests";
-import EmailConfirmation from "../user/Auth/EmailConfirmation";
+import { GetUserData, SendLoginData, subscribeOnGame } from "../../../utils/ApiRequests";
+import EmailConfirmation from "../user/Auth/ModalEmailConfirmation";
 import { toast } from "react-toastify";
 import { navigateToDetails } from "../../../utils/Navigation";
 import { setItemsCount } from "../../NavMenu";
@@ -45,13 +45,13 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
 
     useEffect(() => {
         if (games.length !== 0) {
-            localStorage.games = JSON.stringify(games);
+            localStorage.games = JSON.stringify(games.map(game => ({ id: game.id, count: game.count})));
             recalculateTotalPrice();
         }
-    }, [games])
+    }, [games, games.count])
 
     useEffect(() => {
-        loadUserData(false, navigate)
+        GetUserData(false, navigate)
             .then(response => response.json())
             .then(result => {
                 if (result.email)
@@ -141,7 +141,14 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     function subscribe(game) {
         setGameToSubscibe(game)
         if (isAuthenticated) {
-            subscribeOnGame(game.id, email.current.value);
+            const promise = subscribeOnGame(game.id, email.current.value);
+
+            toast.promise(promise, {
+                pending: "Зачекайте...",
+                error: "Сталась помилка.",
+                success: "Ми повідомимо коли з'являться копії!"
+            })
+            
         }
         else {
             modalSubscribe.current.style.display = 'block';
@@ -164,7 +171,12 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         value = isNaN(value) ? 1 : value;
         if (value > element.current.max || value < 1) return;
         element.current.value = value;
-        games.find(item => item.id === game.id).count = value;
+        setGames(prevGames => prevGames.map(item => {
+            if (item.id === game.id) {
+              return { ...item, count: value };
+            }
+            return item;
+          }));
         recalculateTotalPrice()
     }
 
@@ -173,7 +185,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         games.forEach(game => {
             sum += (game.discountPrice ?? game.price) * game.count
         });
-        total.current.textContent = +sum.toFixed(2);
+        total.current.textContent = sum.toFixed(2);
     }
 
     async function submitForm(e) {
@@ -187,6 +199,11 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                 }
             }
             return;
+        }
+
+        if(games.some(game => game.copyCount === 0)){
+            toast.info("У вас присутні ігри, копії яких скінчились!");
+            return
         }
 
         if (!isAuthenticated) {
@@ -258,7 +275,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                     games.length !== 0 ?
                         <>
                             <hr />
-                            <h2 className="text-end"><span>Сума: </span><span ref={total}></span><sup>$</sup></h2>
+                            <h2 className="text-end"><span>До сплати: </span><span ref={total}></span>$</h2>
                         </>
                         : ''
                 }

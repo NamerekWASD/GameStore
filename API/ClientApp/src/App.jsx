@@ -46,7 +46,7 @@ const App = () => {
         },
         {
             path: AppPaths.gameDetails,
-            element: <GameDetails isAuthenticated ={isAuthenticated}/>
+            element: <GameDetails isAuthenticated ={isAuthenticated} refreshAuth={refreshAuth}/>
         },
         {
             path: AppPaths.shoppingCart,

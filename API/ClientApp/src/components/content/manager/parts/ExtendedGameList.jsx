@@ -1,7 +1,7 @@
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loadGamesByFilters } from "../../../../utils/ApiRequests";
+import { GetGamesByFilters } from "../../../../utils/ApiRequests";
 import { AppPaths } from "../../../../utils/AppPaths";
 import { PORTRAIT } from "../../../../utils/Constants";
 import LoadingCircle from "../../../../utils/LoadingCircle";
@@ -33,7 +33,7 @@ const ExtendedGameList = () => {
             return;
         }
 
-        loadGamesByFilters(searchFilters, page).then(result => {
+        GetGamesByFilters(searchFilters, page).then(result => {
             if(result.page === 1){
                 setGames(result.games);
                 return;

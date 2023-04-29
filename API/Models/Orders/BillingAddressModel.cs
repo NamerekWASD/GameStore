@@ -1,4 +1,4 @@
-﻿namespace API.Models.Orders
+﻿namespace API.Models
 {
 	public class BillingAddressModel
 	{

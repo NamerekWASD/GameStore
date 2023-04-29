@@ -34,7 +34,7 @@ export async function CheckAuthenticated() {
     return await sendToServerWithJSONResponse(requestInfo);
 };
 
-export const loadUserData = async (refreshAuth) => {
+export const GetUserData = async (refreshAuth) => {
     const response = await fetch('api/account/data', {
         method: "GET",
         headers: {
@@ -65,16 +65,16 @@ export async function requestIsInRole(role) {
 
 /////////////////// Games API ////////////////////////
 
-export async function loadGames(page) {
+export async function GetGames(page) {
     const requestInfo = `api/game?${new URLSearchParams([['page', page]])}`;
     return await sendToServerWithJSONResponse(requestInfo);
 };
-export async function loadGame(id) {
+export async function GetGame(id) {
     const requestInfo = "api/game/" + id;
     return await sendToServerWithJSONResponse(requestInfo);
 }
 
-export async function loadGenres() {
+export async function GetGenres() {
     const requestInfo = "api/game/genres";
     return await sendToServerWithJSONResponse(requestInfo);
 }
@@ -92,7 +92,7 @@ export async function subscribeOnGame(gameId, userEmail) {
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadGamesByFilters(filter, page) {
+export async function GetGamesByFilters(filter, page) {
     const requestInfo = `api/game/filter?${new URLSearchParams([['page', page]])}`;
     const requestInit = {
         method: 'POST',
@@ -106,7 +106,7 @@ export async function loadGamesByFilters(filter, page) {
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadFilterData() {
+export async function GetFilterData() {
     const requestInfo = "api/game/filter";
     const requestInit = {
         method: 'GET',
@@ -118,7 +118,7 @@ export async function loadFilterData() {
     return await sendToServerWithJSONResponse(requestInfo, requestInit);
 }
 
-export async function loadGameModel(gameId) {
+export async function GetGameModel(gameId) {
     const requestInfo = `api/game/model/` + gameId;
     return await fetch(requestInfo);
 }
@@ -155,8 +155,8 @@ export async function deleteGame(gameId) {
 
 /////////////////// Orders API ////////////////////////
 
-export async function loadOrder(id, useNavigate, navigate) {
-    const requestInfo = "api/order/" + id;
+export async function GetOrder(orderNumber, useNavigate, navigate) {
+    const requestInfo = "api/order/" + orderNumber;
     const response = await fetch(requestInfo);
     if (response.status === 400) {
         toast.info(await response.text());
@@ -170,7 +170,7 @@ export async function loadOrder(id, useNavigate, navigate) {
     return await response.json();
 }
 
-export async function loadLastBill(navigate) {
+export async function GetLastBill(navigate) {
     const requestInfo = "api/order/last-bill";
     const response = await fetch(requestInfo);
 

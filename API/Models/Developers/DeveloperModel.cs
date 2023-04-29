@@ -1,4 +1,4 @@
-﻿namespace API.Models.Developers
+﻿namespace API.Models
 {
 	public class DeveloperModel
 	{

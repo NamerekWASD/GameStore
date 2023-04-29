@@ -1,6 +1,5 @@
-﻿using BLL.DTO.Games;
-
-namespace BLL.DTO.Copies
+﻿
+namespace BLL.DTO
 {
 	public class CopyDTO
 	{

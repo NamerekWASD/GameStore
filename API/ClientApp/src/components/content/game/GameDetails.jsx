@@ -4,7 +4,7 @@ import './game.css';
 import iconDistribute from './../../../static/distribute.svg';
 import iconRegion from './../../../static/key.svg';
 import iconCopy from './../../../static/copy.svg';
-import { loadUserData, subscribeOnGame } from "../../../utils/ApiRequests";
+import { GetUserData, subscribeOnGame } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import { setItemsCount } from "../../NavMenu";
 import Loading from "../../../utils/Loading";
@@ -13,7 +13,7 @@ import ImageModal from "./parts/ImageModal";
 import { PORTRAIT } from "../../../utils/Constants";
 import ModalSubscribe from "./parts/ModalSubscribe";
 
-const GameDetails = ({ isAuthenticated }) => {
+const GameDetails = ({ isAuthenticated, refreshAuth }) => {
     const [searchParams] = useSearchParams();
     const [game, setGame] = useState();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -69,14 +69,13 @@ const GameDetails = ({ isAuthenticated }) => {
             count: 1,
         });
         setItemsCount(games.length);
-        console.log(games);
         localStorage.games = JSON.stringify(games);
         toast.success("Гра успішно додана!")
     }
 
     async function subscribe() {
         if (isAuthenticated) {
-            const response = await loadUserData();
+            const response = await GetUserData(refreshAuth);
             const user = await response.json();
             toast.promise(subscribeOnGame(game.id, user.email), {
                 pending: 'Зачекайте...',

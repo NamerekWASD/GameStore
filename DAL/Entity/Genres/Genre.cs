@@ -1,6 +1,5 @@
-﻿using DAL.Entity.Games;
-
-namespace DAL.Entity.Genres
+﻿
+namespace DAL.Entity
 {
 	public class Genre
 	{

@@ -1,6 +1,4 @@
-﻿using API.Models.Platforms;
-using API.Models.Regions;
-
+﻿
 namespace API.Models.GameType
 {
 	public class CopyTypeModel

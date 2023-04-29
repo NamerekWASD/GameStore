@@ -1,11 +1,12 @@
-﻿using Braintree;
+﻿using BLL.DTO;
+using BLL.DTO.Orders;
+using Braintree;
+using DAL.Entity;
 
 namespace BLL.Service.BrainTree
 {
 	public interface IBraintreeService
 	{
-		IBraintreeGateway CreateGateway();
-
-		IBraintreeGateway GetGateway();
-	}
+		Task<Result<Transaction>> MakeTransaction(OrderLightDTO orderlight, User user);
+    }
 }

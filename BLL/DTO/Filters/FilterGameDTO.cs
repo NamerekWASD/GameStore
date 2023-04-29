@@ -1,6 +1,5 @@
-﻿using BLL.DTO.Enums;
-
-namespace BLL.DTO.Filters
+﻿
+namespace BLL.DTO
 {
 	public class FilterGameDTO
 	{

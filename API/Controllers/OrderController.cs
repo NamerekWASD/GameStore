@@ -1,10 +1,11 @@
-﻿using API.Models.Orders;
+﻿using API.Models;
 using API.Tools;
 using BLL.DTO.Orders;
 using BLL.Service.BrainTree;
+using BLL.Service.Games;
 using BLL.Service.Orders;
-using Braintree;
 using DAL.Entity;
+using Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,104 +15,112 @@ using System.Runtime.CompilerServices;
 
 namespace API.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	[Authorize]
-	public class OrderController : ControllerBase
-	{
-		private readonly IOrderService _orderService;
-		private readonly IBraintreeService _braintreeService;
-		private readonly UserManager<User> _userManager;
-		private readonly ILogger<OrderController> _logger;
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class OrderController : ControllerBase
+    {
+        private readonly IOrderService _orderService;
+        private readonly IBraintreeService _braintreeService;
+        private readonly UserManager<User> _userManager;
+        private readonly ILogger<OrderController> _logger;
+        private readonly IGameService _gameService;
 
-		public OrderController(IOrderService orderService,
-			IBraintreeService gateway,
-			UserManager<User> userManager,
-			ILogger<OrderController> logger)
-		{
-			_orderService = orderService;
-			_braintreeService = gateway;
-			_userManager = userManager;
-			_logger = logger;
-		}
+        public OrderController(IOrderService orderService,
+            IBraintreeService gateway,
+            UserManager<User> userManager,
+            ILogger<OrderController> logger,
+            IGameService gameService)
+        {
+            _orderService = orderService;
+            _braintreeService = gateway;
+            _userManager = userManager;
+            _logger = logger;
+            _gameService = gameService;
+        }
 
-		[HttpGet]
-		public IActionResult GetAll(CancellationToken cancellationToken)
-		{
-			return Ok(GetOrders(cancellationToken));
-		}
+        [HttpGet]
+        public IActionResult GetAll(CancellationToken cancellationToken)
+        {
+            return Ok(GetOrders(cancellationToken));
+        }
 
-		[HttpGet("{id}")]
-		public async Task<IActionResult> Get(int id)
-		{
-			var user = await _userManager.GetUserAsync(User);
-			if (user == null)
-			{
-				return BadRequest("Користувача не знайдено.");
-			}
-			var order = await _orderService.GetOrder(user.Id, id);
-			if (order == null)
-			{
-				return BadRequest("Замовлення не знайдено.");
-			}
+        [HttpGet("{orderNumber}")]
+        public async Task<IActionResult> Get(string orderNumber)
+        {
+            OrderDTO? order;
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                order = await _orderService.GetOrder(user?.Id ?? 0, orderNumber);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
 
-			return Ok(MapperHelpers.Instance.Map<OrderModel>(order));
-		}
+            }
+            if (order == null)
+            {
+                return BadRequest("Замовлення не знайдено.");
+            }
 
-		[HttpGet("last-bill")]
-		public async Task<IActionResult> GetLastBillingAddress()
-		{
-			var user = await _userManager.GetUserAsync(User);
-			if (user is null || user.Orders is null || user.Orders.Count is 0)
-			{
-				return Ok(0);
-			}
+            return Ok(MapperHelpers.Instance.Map<OrderModel>(order));
+        }
 
-			return Ok(user.Orders.LastOrDefault().Bill);
-		}
+        [HttpGet("last-bill")]
+        public async Task<IActionResult> GetLastBillingAddress()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user is null || user.Orders is null || user.Orders.Count is 0)
+            {
+                return Ok(0);
+            }
 
-		[HttpPost("create")]
-		public async Task<IActionResult> CreateOrder([FromBody] OrderLightModel data)
-		{
-			var orderlight = MapperHelpers.Instance.Map<OrderLightDTO>(data);
-			await _orderService.CalculateTotalPrice(orderlight);
-			var gateway = _braintreeService.GetGateway();
-			var request = new TransactionRequest
-			{
-				BillingAddress = MapperHelpers.Instance.Map<AddressRequest>(data.BillingAddress),
-				Amount = orderlight.TotalPrice,
-				CurrencyIsoCode = "USD",
-				PaymentMethodNonce = data.Nonce,
-				Options = new TransactionOptionsRequest
-				{
-					SubmitForSettlement = true
-				}
-			};
+            return Ok(user.Orders.LastOrDefault()?.Bill ?? null);
+        }
 
-			Result<Transaction> result = gateway.Transaction.Sale(request);
-			if (!result.IsSuccess())
-			{
-				return BadRequest(result.Message);
-			}
-			var user = await _userManager.GetUserAsync(User);
-			if (user is null)
-			{
-				user = await _userManager.FindByEmailAsync(data.UserEmail);
-				if (user is null) return BadRequest("Користувача не знайдено");
-			}
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderLightModel data)
+        {
+            var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException("Ви не авторизувались!");
+            var orderLight = MapperHelpers.Instance.Map<OrderLightDTO>(data);
 
-			orderlight.UserId = user.Id;
-			var orderId = await _orderService.CreateOrder(orderlight);
-			return Ok(orderId);
-		}
+            orderLight.UserId = user.Id;
 
-		private async IAsyncEnumerable<OrderModel> GetOrders([EnumeratorCancellation] CancellationToken cancellation)
-		{
-			var user = await _userManager.GetUserAsync(User);
-			await foreach (var order in _orderService.GetOrders(user.Id).WithCancellation(cancellation))
-			{
-				yield return MapperHelpers.Instance.Map<OrderModel>(order);
-			}
-		}
-	}
+            try
+            {
+                // Створення чеку
+                var orderId = await _orderService.CreateOrder(orderLight);
+
+                orderLight.OrderNumber = orderId;
+                // Проведення оплати
+                var result = await _braintreeService.MakeTransaction(orderLight, user);
+
+                if (!result.IsSuccess())
+                {
+                    throw new Exception(result.Message);
+                }
+
+                // Якщо операції успішні, то зберігаємо дані в контролері
+
+                await _orderService.CommitChanges();
+
+                return Ok(orderId);
+            }
+            catch (Exception ex)
+            {
+                // Якщо сталася помилка, транзакція буде відкатана автоматично
+                return BadRequest(string.Format("Сталась помилка: {0}", ex.Message));
+            }
+        }
+
+        private async IAsyncEnumerable<OrderModel> GetOrders([EnumeratorCancellation] CancellationToken cancellation)
+        {
+            var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException();
+            await foreach (var order in _orderService.GetOrders(user.Id).WithCancellation(cancellation))
+            {
+                yield return MapperHelpers.Instance.Map<OrderModel>(order);
+            }
+        }
+    }
 }

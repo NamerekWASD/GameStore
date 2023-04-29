@@ -1,4 +1,4 @@
-﻿using API.Models.Copies;
+﻿using API.Models;
 using BLL.Service.Copies;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,9 +1,7 @@
-﻿using DAL.Entity.Copies;
-using DAL.Entity.Orders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DAL.Entity.SoldCopies
+namespace DAL.Entity
 {
 	public class SoldCopy
 	{

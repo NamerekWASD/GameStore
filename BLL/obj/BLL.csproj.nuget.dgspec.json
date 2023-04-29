@@ -110,7 +110,7 @@
         "projectName": "DAL",
         "projectPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\Nykolai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nykolai\\Source\\Repos\\GameStore\\DAL\\obj\\",
+        "outputPath": "C:\\Users\\Nykolai\\source\\repos\\GameStore\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nykolai\\AppData\\Roaming\\NuGet\\NuGet.Config",
