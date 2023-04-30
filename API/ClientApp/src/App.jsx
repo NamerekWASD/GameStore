@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import './custom.css';
 
-import Layout from './components/Layout';
+import Layout, { scrollToTop } from './components/Layout';
 import Home from "./components/content/Home";
 import Profile from "./components/content/user/Profile"
 import { AppPaths } from './utils/AppPaths';
@@ -18,9 +18,11 @@ import GameCatalog from './components/content/game/GameCatalog';
 import Manager from './components/content/manager/Manager';
 import EditGame from './components/content/manager/EditGame';
 import CreateGame from './components/content/manager/CreateGame';
+import { useLocation } from "react-router-dom";
 
 const App = () => {
     const [isAuthenticated, setAuthenticated] = useState();
+    const location = useLocation();
     useEffect(() => {
         refreshAuth();
     }, []);
@@ -30,6 +32,10 @@ const App = () => {
             setAuthenticated(result);
         })
     }
+
+    useEffect(() => {
+        scrollToTop();
+    }, [location]);
     const AppRoutes = [
         {
             index: true,

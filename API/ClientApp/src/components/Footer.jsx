@@ -5,14 +5,12 @@ import { faBox, faEnvelope, faGamepad, faGem, faHome, faKey, faLink, faLock, faP
 import { AppPaths } from "../utils/AppPaths";
 import { useNavigate } from "react-router-dom";
 import { navigateToManager } from "../utils/Navigation";
-import { scrollToTop } from "./Layout";
 
 const Footer = () => {
     const navigate = useNavigate();
 
     const manager = () => {
         navigateToManager(navigate);
-        scrollToTop();
     }
 
     return (

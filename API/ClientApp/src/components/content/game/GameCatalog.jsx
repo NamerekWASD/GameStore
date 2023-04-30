@@ -6,6 +6,7 @@ import { orderOptions } from "../../../utils/Constants";
 import './game.css'
 import FilterTable from "./parts/filter/FilterTable";
 import GameList from "./parts/GameList";
+import { findUnique } from "../Home";
 
 export const processHeader = (count) => {
     switch (true) {
@@ -32,6 +33,7 @@ const GameCatalog = () => {
 
     useEffect(() => {
         genreRef.current.textContent = searchParams.get('genre') ?? 'Каталог';
+        setPage(0);
         if (searchParams.get('id')) {
             setSearchFilters(prevState => ({
                 ...prevState,
@@ -46,21 +48,21 @@ const GameCatalog = () => {
     }, [searchParams])
 
     useEffect(() => {
-        if (page === 0) {
+        if (page <= 0) {
             setPage(prevState => prevState + 1)
             return
         }
         GetGamesByFilters(searchFilters, page)
             .then(result => {
-                if (result.page !== 1) {
-                    setGames(prevState => [...prevState, ...result.games]);
+                if (+result.page !== 1) {
+                    setGames(prevState => [...prevState, ...result.games.filter(game => findUnique(games, game))]);
                 } else {
                     setGames(result.games)
                 }
                 setIsMax(result.isMax);
                 setCount(result.totalCount);
             });
-    }, [searchParams, page, searchFilters]);
+    }, [page, searchFilters]);
 
     return (
         <div className="h-100 m-4">
