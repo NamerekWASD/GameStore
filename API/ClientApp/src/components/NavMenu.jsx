@@ -59,7 +59,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                 formAnimation.classList.remove('focused');
                 searchField.current.value = '';
                 setSearchQuery('')
-            }, 50)
+            }, 100)
         });
 
         GetGenres().then(result => setGenres(result));

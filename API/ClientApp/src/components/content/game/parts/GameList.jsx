@@ -24,7 +24,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
         return (
             <div ref={listContainer} className="text-white">
                 {
-                    (games.length !== 0) ?
+                    (games.length !== 0) &&
                         games.map(game => {
                             return (
                                 <div key={game.id} className={"card rounded-0 w-100 bg-light-gray " + cardClassName} style={{ cursor: 'pointer', height: '180px' }}
@@ -43,7 +43,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
                                     </div>
                                 </div>
                             )
-                        }) : <></>
+                        })
                 }
             </div>
         )
@@ -52,7 +52,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
         return (
             <div ref={listContainer} className="text-white" style={{ display: "flex", flexDirection: isColumn ? 'column' : 'row' }}>
                 {
-                    (games.length !== 0) ?
+                    (games.length !== 0) &&
                         games.map(game => {
                             return (
                                 <Card key={game.id} className={"m-2 bg-light-gray rounded-0 overflow-hidden pointer " + cardClassName} onClick={() => navigateToDetails(game, navigate)} >
@@ -67,7 +67,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
                                     </Card.Body>
                                 </Card>
                             )
-                        }) : <></>
+                        })
                 }
             </div>
         )
