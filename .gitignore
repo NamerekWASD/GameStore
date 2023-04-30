@@ -397,3 +397,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 API/ClientApp/.env.development
+
+
+# "obj" and "bin"
+**/obj/
+**/bin/
