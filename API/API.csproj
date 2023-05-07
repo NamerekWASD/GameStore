@@ -5,7 +5,7 @@
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
 		<IsPackable>false</IsPackable>
-		<SpaRoot>ClientApp\</SpaRoot>
+		<SpaRoot>..\clientapp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 		<SpaProxyServerUrl>https://localhost:44458</SpaProxyServerUrl>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
@@ -24,7 +24,7 @@
 		<PackageReference Include="MailKit" Version="3.6.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.5" />
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
@@ -35,11 +35,37 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="obj\**" />
 		<None Remove="$(SpaRoot)**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Remove="obj\**" />
+	  <EmbeddedResource Remove="obj\**" />
+	  <None Remove="..\ClientApp\obj\**" />
+	  <None Remove="..\ClientApp\public\**" />
+	  <None Remove="..\ClientApp\src\**" />
+	  <None Remove="obj\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="..\ClientApp\.env" />
+	  <None Remove="..\ClientApp\.env.development" />
+	  <None Remove="..\ClientApp\.env.development.local" />
+	  <None Remove="..\ClientApp\.gitignore" />
+	  <None Remove="..\ClientApp\aspnetcore-https.js" />
+	  <None Remove="..\ClientApp\aspnetcore-react.js" />
+	  <None Remove="..\ClientApp\clientapp.esproj" />
+	  <None Remove="..\ClientApp\clientapp.esproj.user" />
+	  <None Remove="..\ClientApp\nuget.config" />
+	  <None Remove="..\ClientApp\package-lock.json" />
+	  <None Remove="..\ClientApp\package.json" />
+	  <None Remove="..\ClientApp\README.md" />
+	</ItemGroup>
+	<ItemGroup>
 		<ProjectReference Include="..\BLL\BLL.csproj" />
+		<ProjectReference Include="..\ClientApp\clientapp.esproj">
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="wwwroot\files\game images\" />

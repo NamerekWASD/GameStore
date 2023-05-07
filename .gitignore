@@ -403,4 +403,5 @@ API/ClientApp/.env.development
 # "obj" and "bin"
 **/obj/
 **/bin/
-/clientapp/.env.development
+
+**/.env.development

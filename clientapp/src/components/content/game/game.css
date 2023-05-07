@@ -1,0 +1,238 @@
+:root {
+    --crement-width: 20px;
+}
+
+.img-link {
+    cursor: pointer;
+    transition: .3s;
+}
+
+.img-link:hover {
+    transform: scale(105%);
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.game-details {
+    max-width: 1500px;
+    width: 100%;
+    margin: 10px;
+    gap: .5rem;
+}
+
+.game-image {
+    width: 100%;
+    min-width: 400px;
+    text-align: center;
+}
+
+.game-image>img {
+    width: inherit;
+    max-width: inherit;
+    border: 1px solid black;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.game-info-img {
+    display: inline;
+    padding-right: 10px;
+}
+
+.game-info-img>img {
+    width: inherit;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.game-type {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+    width: 100%;
+}
+
+.payment-info {
+    text-align: center;
+    min-width: 300px;
+}
+
+.game-description {
+    font-size: 18px;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.btn-responsive {
+    font-size: 22px !important;
+}
+
+.btn-responsive span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: .3s;
+}
+
+.btn-responsive span.add::after {
+    content: '\00bb';
+}
+
+.btn-responsive span.subscribe::after {
+    content: '\2604';
+}
+
+.btn-responsive span:after {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: .3s;
+}
+
+.btn-responsive:hover span {
+    padding-right: 25px;
+}
+
+.btn-responsive:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.btn-crement {
+    border-radius: 0;
+    width: var(--crement-width);
+}
+
+.btn-crement>img {
+    width: inherit;
+}
+
+.count-input {
+    width: calc(var(--crement-width) * 2);
+}
+
+.my-card {
+    box-shadow: 0 3px 10px black;
+    border: none;
+    border-radius: 0;
+    display: flex;
+}
+
+.card-container {
+    min-width: 700px;
+}
+
+.order-container {
+    min-width: 350px;
+    max-width: 500px;
+    flex: 1 1;
+    margin: 0 auto;
+}
+
+.order-form {
+    padding: 10px;
+    box-shadow: 0 5px 10px black;
+}
+
+.product-list img {
+    width: 50%;
+}
+
+.shopping-cart-container {
+    margin: 10px auto;
+    width: 90%;
+}
+
+.description-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.description-grid>div {
+    text-align: right;
+}
+
+.description-grid>span {
+    text-align: left;
+}
+
+.bg-price {
+    background: linear-gradient(45deg, #0050ac, #0666a5, #387ad1);
+    width: 60px;
+    text-align: center;
+}
+
+.bg-discount {
+    background: green;
+}
+
+.bg-discount-red {
+    background: linear-gradient(45deg, #720000, #b46626, #8a1111);
+}
+
+.price::after {
+    content: '$'
+}
+
+.game-form {
+    display: grid;
+    gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+    .game-info {
+        font-size: smaller;
+    }
+
+    .game-image>img {
+        min-width: 150px;
+    }
+
+    .game-details {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .game-info {
+        min-width: 0;
+    }
+
+    .game-type {
+        grid-template-columns: 1fr;
+    }
+
+    .game-image {
+        align-self: center;
+    }
+
+    .order-container {
+        min-width: 0;
+        width: -webkit-fill-available;
+    }
+
+    .shopping-cart-container {
+        flex-direction: column-reverse;
+        flex-wrap: nowrap !important;
+    }
+
+    .card-container {
+        min-width: 0;
+    }
+
+    .game-form {
+        display: flex;
+        flex-direction: column;
+    }
+}

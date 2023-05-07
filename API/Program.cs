@@ -110,16 +110,20 @@ builder.Services.AddTransient<IBraintreeService, BraintreeService>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-	var services = scope.ServiceProvider;
 
-	SeedData.Initialize(services);
-}
 
 if (!app.Environment.IsDevelopment())
 {
-	app.UseHsts();
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+}
+else
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+
 }
 app.UseCors("Policy");
 app.UseHttpsRedirection();

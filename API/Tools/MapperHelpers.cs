@@ -1,7 +1,6 @@
 ﻿using API.Models;
 using API.Models.Filters;
 using API.Models.Games;
-using API.Models.GameType;
 using API.Models.Lists;
 using AutoMapper;
 using BLL.DTO;
@@ -10,7 +9,7 @@ using Braintree;
 
 namespace API.Tools
 {
-	public static class MapperHelpers
+    public static class MapperHelpers
 	{
 		public static readonly IMapper Instance = new MapperConfiguration(cfg =>
 		{
@@ -19,7 +18,7 @@ namespace API.Tools
 			.ForMember(destination => destination.Platform, option => option.MapFrom(source => source.CopyType != null && source.CopyType.Platform != null ? source.CopyType.Platform.Name : string.Empty))
 			.ForMember(destination => destination.CopyCount, option => option.MapFrom(source => source.Copies.Where(item => !item.IsSold).Count()))
 			.ForMember(destination => destination.Genres, option => option.MapFrom(source => source.GetGenres))
-			.ForMember(destination => destination.Image, option => option.MapFrom(source => source.GetFirstPortrait));
+			.ForMember(destination => destination.Image, option => option.MapFrom(source => source.GetFirstPoster));
 			cfg.CreateMap<GameDTO, GameDetails>()
 			.ForMember(destination => destination.Publisher, option => option.MapFrom(source => source.Publisher != null ? source.Publisher.Name : string.Empty))
 			.ForMember(destination => destination.Developer, option => option.MapFrom(source => source.Developer != null ? source.Developer.Name : string.Empty))

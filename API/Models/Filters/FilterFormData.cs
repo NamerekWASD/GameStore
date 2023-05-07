@@ -1,8 +1,7 @@
-﻿using API.Models.GameType;
-
+﻿
 namespace API.Models.Filters
 {
-	public class FilterFormDataModel
+    public class FilterFormDataModel
 	{
 		public List<CopyTypeModel>? CopyTypes { get; set; }
 		public List<PlatformModel>? Platforms { get; set; }

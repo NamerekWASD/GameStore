@@ -1,0 +1,135 @@
+﻿a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 20px;
+    color: white;
+    transition: 0.3s;
+}
+
+.dropdown-menu {
+    background-color: #222;
+}
+
+.navbar-toggler {
+    max-width: 50px;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.header {
+    z-index: 99;
+    border-bottom: inset 1px black;
+    transition: 1s;
+    color: white !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+
+.nav-link {
+    border: 0;
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    height: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+a.navbar-brand:hover {
+    color: gray;
+}
+
+.nav-link:hover {
+    border-radius: 0;
+    background-color: #fff;
+    color: #222;
+}
+
+
+.highlight-green {
+    border-color: rgb(32, 165, 32) !important;
+}
+
+.highlight-red {
+    border-color: rgb(189, 8, 8) !important;
+}
+
+.counter {
+    font-size: 16px;
+    position: absolute;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    bottom: 9px;
+    right: 23px;
+    transition: .2s ease-out all;
+}
+
+.counter-container {
+    border-radius: 0;
+    border: transparent 2px solid;
+}
+
+.counter-container:hover>.counter {
+    color: #222;
+    transform: scale(2.5) translateY(-8%);
+}
+
+.formAnimation-container{
+    flex: 1 1 auto;
+    max-width: 30rem;
+}
+
+.formAnimation {
+    background-image: linear-gradient(to left, #222, white 50%, white 50%, white);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.5s ease;
+    color: #222;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.formAnimation>input{
+    width: 100%;
+}
+.formAnimation.focused, .formAnimation:hover {
+    background-position: 0 0;
+    color: white;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.bg-gray {
+    background-color: rgb(85, 85, 85);
+    color: white;
+}

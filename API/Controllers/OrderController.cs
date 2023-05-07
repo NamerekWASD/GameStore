@@ -114,6 +114,12 @@ namespace API.Controllers
             }
         }
 
+        private async Task<List<OrderModel>> GetOrdersAsync(CancellationToken cancellation)
+        {
+            var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException();
+            var orders = await GetOrdersAsync(cancellation);
+            return orders.Select(MapperHelpers.Instance.Map<OrderModel>).ToList();
+        }
         private async IAsyncEnumerable<OrderModel> GetOrders([EnumeratorCancellation] CancellationToken cancellation)
         {
             var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException();

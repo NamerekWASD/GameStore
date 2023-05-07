@@ -51,11 +51,11 @@ namespace BLL.DTO
 			}
 		}
 
-		public ImageDTO GetFirstPortrait
+		public ImageDTO GetFirstPoster
 		{
 			get
 			{
-				return Images?.FirstOrDefault(image => image.Type != null && image.Type.Name == Constants.PORTRAIT_IMAGE) ?? new();
+				return Images?.FirstOrDefault(image => image.Type != null && image.Type.Name == Constants.POSTER_IMAGE) ?? new();
 			}
 		}
 	}

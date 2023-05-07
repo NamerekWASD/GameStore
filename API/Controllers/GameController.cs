@@ -15,7 +15,7 @@ using API.Models.Games;
 
 namespace API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class GameController : ControllerBase
 	{

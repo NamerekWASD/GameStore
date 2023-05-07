@@ -13,10 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exceptions", "Exceptions\Ex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deleted data", "Deleted data", "{D8D3D2CE-CAC2-49C2-A3EF-CEE10E60F45E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7A64D152-6FF1-4BF2-8BEC-1FAEA05E7F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{7A64D152-6FF1-4BF2-8BEC-1FAEA05E7F1D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8B4188F3-C869-4E75-8CBA-F831027BF0AD} = {8B4188F3-C869-4E75-8CBA-F831027BF0AD}
 	EndProjectSection
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "clientapp", "ClientApp\clientapp.esproj", "{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,12 @@ Global
 		{7A64D152-6FF1-4BF2-8BEC-1FAEA05E7F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A64D152-6FF1-4BF2-8BEC-1FAEA05E7F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A64D152-6FF1-4BF2-8BEC-1FAEA05E7F1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

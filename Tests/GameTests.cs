@@ -119,9 +119,9 @@ namespace Tests
 				AvailableRegions = EastEurope,
 			};
 
-			ImageTypeDTO portrait = new()
+			ImageTypeDTO poster = new()
 			{
-				Name = Constants.PORTRAIT_IMAGE,
+				Name = Constants.POSTER_IMAGE,
 			};
 
 			GenreDTO RPG = new()
@@ -147,12 +147,12 @@ namespace Tests
 				{
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://upload.wikimedia.org/wikipedia/ru/7/7c/Elden_Ring_-_cover.jpg"
 					},
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://upload.wikimedia.org/wikipedia/ru/7/7c/Elden_Ring_-_cover.jpg"
 					}
 				},
@@ -214,7 +214,7 @@ namespace Tests
 				{
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://upload.wikimedia.org/wikipedia/ru/8/8c/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Doom_Eternal.jpg"
 					}
 				},
@@ -278,7 +278,7 @@ namespace Tests
 				{
 					new()
 					{
-						Type = portrait,
+						Type = poster,
 						Path = "https://cdn1.epicgames.com/offer/carnation/Carousel_BoxArt_1200x1600_1200x1600-6888b9d57181d8fcfb3472a7f70ecc49"
 					}
 				},
@@ -331,7 +331,7 @@ namespace Tests
 				Assert.That(gameFromDb.Price, Is.EqualTo(eldenRing.Price));
 				Assert.That(gameFromDb.DiscountPrice, Is.Not.Null);
 				Assert.That(gameFromDb.DiscountPrice, Is.EqualTo(eldenRing.DiscountPrice));
-				Assert.That(gameFromDb.GetFirstPortrait.Id, Is.Not.EqualTo(0));
+				Assert.That(gameFromDb.GetFirstPoster.Id, Is.Not.EqualTo(0));
 			});
 		}
 

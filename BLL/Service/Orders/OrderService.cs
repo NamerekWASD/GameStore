@@ -26,10 +26,16 @@ namespace BLL.Service.Orders
         public async IAsyncEnumerable<OrderDTO> GetOrders(int userId)
         {
             var user = await UoW.Users.GetAsync(userId) ?? throw new NotFoundException("Користувача не знайдено");
-            foreach (var order in user.Orders)
+            foreach (var order in user.Orders.OrderByDescending(order => order.Created))
             {
                 yield return MapperHelpers.Instance.Map<OrderDTO>(order);
             }
+        }
+
+        public async Task<List<OrderDTO>> GetOrdersAsync(int userId)
+        {
+            var user = await UoW.Users.GetAsync(userId) ?? throw new NotFoundException("Користувача не знайдено");
+            return user.Orders.Select(MapperHelpers.Instance.Map<OrderDTO>).OrderByDescending(order => order.Created).ToList();
         }
 
         public async Task<OrderDTO?> GetOrder(int userId, string orderNumber)
@@ -38,6 +44,7 @@ namespace BLL.Service.Orders
 
             var order = MapperHelpers.Instance.Map<OrderDTO>(user
                 .Orders.FirstOrDefault(item => item.OrderNumber.Equals(orderNumber)));
+
             return order;
         }
 
