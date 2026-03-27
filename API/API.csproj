@@ -7,7 +7,7 @@
 		<IsPackable>false</IsPackable>
 		<SpaRoot>..\clientapp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-		<SpaProxyServerUrl>https://localhost:44458</SpaProxyServerUrl>
+		<SpaProxyServerUrl>https://localhost:7219</SpaProxyServerUrl>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageId>ClassLibDotNetStandard</PackageId>
