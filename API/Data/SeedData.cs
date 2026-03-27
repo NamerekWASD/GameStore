@@ -3,6 +3,7 @@ using DAL.Context;
 using DAL.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace API.Data
 {
@@ -12,9 +13,10 @@ namespace API.Data
         {
             using var context = new GameContext(serviceProvider.GetRequiredService<DbContextOptions<GameContext>>());
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
             if (userManager != null)
             {
-                InsertAdmin(userManager);
+                InsertAdmin(userManager, roleManager);
             }
             // Look for any movies.
             if (context.Games.Any())
@@ -907,7 +909,7 @@ namespace API.Data
             context.SaveChanges();
         }
 
-        private static void InsertAdmin(UserManager<User> userManager)
+        private static void InsertAdmin(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             var admin = userManager.FindByNameAsync("admin").Result;
             if (admin != null)
@@ -925,6 +927,15 @@ namespace API.Data
 
             if (result.Succeeded)
             {
+                if (!roleManager.RoleExistsAsync(Constants.ADMINISTRATOR).Result)
+                {
+                    result = roleManager.CreateAsync(new IdentityRole<int>(Constants.ADMINISTRATOR)).Result;
+                }
+                else
+                {
+                    var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                    Console.WriteLine($"Failed to create admin role: {errors}");
+                }
                 result = userManager.AddToRoleAsync(admin, Constants.ADMINISTRATOR).Result;
             }
             else

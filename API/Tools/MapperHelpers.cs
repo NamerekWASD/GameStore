@@ -6,12 +6,16 @@ using AutoMapper;
 using BLL.DTO;
 using BLL.DTO.Orders;
 using Braintree;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace API.Tools
 {
     public static class MapperHelpers
 	{
-		public static readonly IMapper Instance = new MapperConfiguration(cfg =>
+		private static readonly MapperConfiguration _config = new MapperConfiguration(cfg => { SetupConfiguration(cfg); }, NullLoggerFactory.Instance);
+		public static readonly IMapper Instance = _config.CreateMapper();
+
+		private static void SetupConfiguration(IMapperConfigurationExpression cfg)
 		{
 			cfg.CreateMap<GameDTO, GameLightModel>()
 			.ForMember(destination => destination.CopyType, option => option.MapFrom(source => source.CopyType != null ? source.CopyType.Name : string.Empty))
@@ -49,6 +53,6 @@ namespace API.Tools
 			cfg.CreateMap<ImageFormModel, ImageFormDTO>();
 			cfg.CreateMap<ImageTypeDTO, ImageTypeModel>().ReverseMap();
 			cfg.CreateMap<GameListDTO, GameListModel>();
-		}).CreateMapper();
+		}
 	}
 }

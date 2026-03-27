@@ -2,22 +2,35 @@ using DAL.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.Context
 {
 	public class GameContext : IdentityDbContext<User, IdentityRole<int>, int>
 	{
-		public GameContext() : base()
-		{
-			Database.EnsureCreated();
-		}
+		public GameContext() : base() { }
 
-		public GameContext(DbContextOptions<GameContext> options) : base(options)
-		{
-			Database.EnsureCreated();
-		}
+		public GameContext(DbContextOptions<GameContext> options) : base(options) { }
 
-		public DbSet<Game> Games { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (optionsBuilder.IsConfigured)
+            {
+				return;
+            }
+            string projectPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "API"));
+
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(projectPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            string connectionString = configuration.GetConnectionString("Default");
+
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        public DbSet<Game> Games { get; set; }
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<CopyType> CopyTypes { get; set; }
 		public DbSet<Region> AvailableRegions { get; set; }

@@ -1,0 +1,1103 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-03-26T09:52:47.6652199Z",
+  "analysisEndTime": "2026-03-26T09:52:51.7527835Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 6,
+      "issues": 6,
+      "incidents": 35,
+      "effort": 35
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 6,
+        "Optional": 5,
+        "Potential": 24,
+        "Information": 0
+      },
+      "category": {
+        "Project": 6,
+        "NuGet": 19,
+        "Api": 10
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "API\\API.csproj",
+      "startingProject": true,
+      "issues": 5,
+      "storyPoints": 20,
+      "properties": {
+        "appName": "API",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net7.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 47,
+        "numberOfCodeFiles": 40,
+        "linesTotal": 1072289,
+        "linesOfCode": 2167,
+        "totalApiScanned": 3175,
+        "minLinesOfCodeToChange": 10,
+        "maxLinesOfCodeToChange": 10
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "09c4a3a3-7a37-493e-a5f5-f94dbfdf5bc1",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Authentication.Google, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.Google, and replace with new package Microsoft.AspNetCore.Authentication.Google 10.0.5",
+              "protected": "Microsoft.AspNetCore.Authentication.Google, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.Google, and replace with new package Microsoft.AspNetCore.Authentication.Google 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.AspNetCore.Authentication.Google, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.Google, and replace with new package Microsoft.AspNetCore.Authentication.Google 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Authentication.Google, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.Google, and replace with new package Microsoft.AspNetCore.Authentication.Google 10.0.5",
+            "label": "Microsoft.AspNetCore.Authentication.Google 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.Google",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "9a342b2b-c283-4c80-ab68-6216a2f9e62f",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Authentication.JwtBearer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+              "protected": "Microsoft.AspNetCore.Authentication.JwtBearer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.AspNetCore.Authentication.JwtBearer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Authentication.JwtBearer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+            "label": "Microsoft.AspNetCore.Authentication.JwtBearer 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "56eb29ba-9119-4a9f-b07b-c8de29a068bc",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.SpaProxy, 7.0.5\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SpaProxy, and replace with new package Microsoft.AspNetCore.SpaProxy 10.0.5",
+              "protected": "Microsoft.AspNetCore.SpaProxy, 7.0.5\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SpaProxy, and replace with new package Microsoft.AspNetCore.SpaProxy 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.AspNetCore.SpaProxy, 7.0.5\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SpaProxy, and replace with new package Microsoft.AspNetCore.SpaProxy 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.SpaProxy, 7.0.5\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SpaProxy, and replace with new package Microsoft.AspNetCore.SpaProxy 10.0.5",
+            "label": "Microsoft.AspNetCore.SpaProxy 7.0.5",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.SpaProxy",
+              "PackageVersion": "7.0.5",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "001a9bbe-b2bb-4184-91e6-2bed64c0cb89",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "c8f9fabf-19c0-4b90-9bbc-0badafc95b6d",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "168558ba-206c-4951-9596-640bd3bd2e73",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "e3efeafd-c93a-4bb8-863d-da87135c1116",
+          "ruleId": "NuGet.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Proxies, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Proxies, and replace with new package Microsoft.EntityFrameworkCore.Proxies 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Proxies, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Proxies, and replace with new package Microsoft.EntityFrameworkCore.Proxies 10.0.5"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Proxies, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Proxies, and replace with new package Microsoft.EntityFrameworkCore.Proxies 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Proxies, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Proxies, and replace with new package Microsoft.EntityFrameworkCore.Proxies 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Proxies 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Proxies",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "e68476fa-761b-497e-8c8b-900cfd917b25",
+          "ruleId": "NuGet.0004",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+              "protected": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+            "protectedSnippet": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+            "label": "AutoMapper 12.0.1",
+            "properties": {
+              "PackageId": "AutoMapper",
+              "PackageVersion": "12.0.1",
+              "PackageNewVersion": "16.1.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "97b776cd-4ca0-43af-8ebf-71dd513f8dbd",
+          "ruleId": "NuGet.0004",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+              "protected": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+            "protectedSnippet": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+            "label": "MimeKit 3.6.0",
+            "properties": {
+              "PackageId": "MimeKit",
+              "PackageVersion": "3.6.0",
+              "PackageNewVersion": "4.15.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d9ee4ba1-f202-4f5f-ab6b-21e9d973006a",
+          "ruleId": "Project.0002",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net7.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net7.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "API\\API.csproj",
+            "snippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net7.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "b7cc5df7-1807-4361-8141-0d95fc49ee88",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "options.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 59,
+            "column": 2
+          }
+        },
+        {
+          "incidentId": "96b10769-a521-40a4-a77e-7b4c1a3da52a",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+              "protected": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults",
+            "label": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 56,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "cbb2e8e0-5b53-4c23-a9ba-b4c1038c4822",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+              "protected": "F:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+            "protectedSnippet": "F:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme",
+            "label": "F:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 56,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "d6146234-e088-42d6-9f13-8424134613c2",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 56,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "152dd55f-70d5-460c-8baa-89bbd7af8d2f",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)\r\n\t.AddJwtBearer(options =\u003E\r\n\t{\r\n\t\toptions.TokenValidationParameters = new TokenValidationParameters\r\n\t\t{\r\n\t\t\tValidateIssuer = true,\r\n\t\t\tValidIssuer = AuthOptions.ISSUER,\r\n\t\t\tValidateAudience = true,\r\n\t\t\tValidAudience = AuthOptions.AUDIENCE,\r\n\t\t\tValidateLifetime = true,\r\n\t\t\tIssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),\r\n\t\t\tValidateIssuerSigningKey = true,\r\n\t\t};\r\n\t});",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})",
+            "label": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 56,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "2c7b31de-d4f2-4b52-892f-28941a2c7aa7",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.ExpireTimeSpan = TimeSpan.FromDays(5);",
+              "protected": "M:System.TimeSpan.FromDays(System.Double)"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "options.ExpireTimeSpan = TimeSpan.FromDays(5);",
+            "protectedSnippet": "M:System.TimeSpan.FromDays(System.Double)",
+            "label": "M:System.TimeSpan.FromDays(System.Double)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 49,
+            "column": 1
+          }
+        },
+        {
+          "incidentId": "3d70b696-2adf-473b-9488-68348a1919c6",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);",
+              "protected": "M:System.TimeSpan.FromMinutes(System.Double)"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);",
+            "protectedSnippet": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "label": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 35,
+            "column": 1
+          }
+        },
+        {
+          "incidentId": "fc6855f6-a09a-44ca-a470-5460765d5797",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddIdentity\u003CUser, IdentityRole\u003Cint\u003E\u003E()\r\n\t.AddEntityFrameworkStores\u003CGameContext\u003E()\r\n\t.AddDefaultTokenProviders();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddIdentity\u003CUser, IdentityRole\u003Cint\u003E\u003E()\r\n\t.AddEntityFrameworkStores\u003CGameContext\u003E()\r\n\t.AddDefaultTokenProviders();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 26,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "f0fc04b4-9fab-401e-8bc3-bb1288300c65",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddIdentity\u003CUser, IdentityRole\u003Cint\u003E\u003E()\r\n\t.AddEntityFrameworkStores\u003CGameContext\u003E()\r\n\t.AddDefaultTokenProviders();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Services.AddIdentity\u003CUser, IdentityRole\u003Cint\u003E\u003E()\r\n\t.AddEntityFrameworkStores\u003CGameContext\u003E()\r\n\t.AddDefaultTokenProviders();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 26,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "77169b02-ad31-40bb-a8cb-87161fa18058",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Message no longer duplicated in Console log output ",
+          "projectPath": "API\\API.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Logging.AddConsole();",
+              "protected": "M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggingBuilder)"
+            },
+            "kind": "File",
+            "path": "API\\Program.cs",
+            "snippet": "builder.Logging.AddConsole();",
+            "protectedSnippet": "M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggingBuilder)",
+            "label": "M:Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddConsole(Microsoft.Extensions.Logging.ILoggingBuilder)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/console-json-logging-duplicate-messages.md",
+                "isCustom": false
+              }
+            ],
+            "line": 21,
+            "column": 0
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "BLL\\BLL.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 6,
+      "properties": {
+        "appName": "BLL",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net7.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 42,
+        "numberOfCodeFiles": 42,
+        "linesTotal": 1599,
+        "linesOfCode": 1599,
+        "totalApiScanned": 1923,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "fb65a33d-2278-49a5-90e1-7216dbeb6764",
+          "ruleId": "NuGet.0002",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "95a054b7-986d-449c-9fa8-ff0ebbd49bcc",
+          "ruleId": "NuGet.0002",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "e8441e7a-2def-4e94-8cf5-47fd57b32a2a",
+          "ruleId": "NuGet.0004",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+              "protected": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+            "protectedSnippet": "AutoMapper, 12.0.1\n\nRecommendation:\n\nAutoMapper, 16.1.1",
+            "label": "AutoMapper 12.0.1",
+            "properties": {
+              "PackageId": "AutoMapper",
+              "PackageVersion": "12.0.1",
+              "PackageNewVersion": "16.1.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "3a92b556-50b0-449c-81d3-467532d02fc3",
+          "ruleId": "NuGet.0005",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Http.Features, 5.0.17\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Http.Features, and replace with new package Microsoft.AspNetCore.Http.Features, 5.0.17",
+              "protected": "Microsoft.AspNetCore.Http.Features, 5.0.17\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Http.Features, and replace with new package Microsoft.AspNetCore.Http.Features, 5.0.17"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "Microsoft.AspNetCore.Http.Features, 5.0.17\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Http.Features, and replace with new package Microsoft.AspNetCore.Http.Features, 5.0.17",
+            "protectedSnippet": "Microsoft.AspNetCore.Http.Features, 5.0.17\n\nRecommendation:\n\nThis package has been deprecated as part of the .NET Package Deprecation effort. You can learn more about it from https://github.com/dotnet/announcements/issues/217\nRemove Microsoft.AspNetCore.Http.Features, and replace with new package Microsoft.AspNetCore.Http.Features, 5.0.17",
+            "label": "Microsoft.AspNetCore.Http.Features 5.0.17",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Http.Features",
+              "PackageVersion": "5.0.17",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "784bd639-5cfb-4deb-9198-267493fa0ae5",
+          "ruleId": "NuGet.0004",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+              "protected": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+            "protectedSnippet": "MimeKit, 3.6.0\n\nRecommendation:\n\nMimeKit, 4.15.1",
+            "label": "MimeKit 3.6.0",
+            "properties": {
+              "PackageId": "MimeKit",
+              "PackageVersion": "3.6.0",
+              "PackageNewVersion": "4.15.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "a0d61251-1315-4c3c-8309-0f6f6ab5da90",
+          "ruleId": "Project.0002",
+          "projectPath": "BLL\\BLL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net7.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net7.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "BLL\\BLL.csproj",
+            "snippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net7.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "ClientApp\\clientapp.esproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "clientapp",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net472"
+        ],
+        "languages": [
+          ""
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 0,
+        "numberOfCodeFiles": 0,
+        "linesTotal": 0,
+        "linesOfCode": 0,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "4fdb1755-879c-4781-b135-6ae32c61f677",
+          "ruleId": "Project.0002",
+          "projectPath": "ClientApp\\clientapp.esproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: .NETFramework,Version=v4.7.2\nRecommended target framework: net10.0",
+              "protected": "Current target framework: .NETFramework,Version=v4.7.2\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "ClientApp\\clientapp.esproj",
+            "snippet": "Current target framework: .NETFramework,Version=v4.7.2\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: .NETFramework,Version=v4.7.2\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": ".NETFramework,Version=v4.7.2",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "DAL\\DAL.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 4,
+      "properties": {
+        "appName": "DAL",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net7.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 22,
+        "numberOfCodeFiles": 22,
+        "linesTotal": 640,
+        "linesOfCode": 640,
+        "totalApiScanned": 625,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "7d6e019b-5fa0-410f-8750-20e8790b34f2",
+          "ruleId": "NuGet.0002",
+          "projectPath": "DAL\\DAL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "DAL\\DAL.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 7.0.3",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "7.0.3",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "b866406b-b463-424d-ac6d-c14a35d395de",
+          "ruleId": "NuGet.0002",
+          "projectPath": "DAL\\DAL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "DAL\\DAL.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 7.0.3\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 7.0.3",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "7.0.3",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "91fbd39b-e485-4361-b9c1-5a195a3d6a10",
+          "ruleId": "NuGet.0002",
+          "projectPath": "DAL\\DAL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.Extensions.Configuration, 7.0.0\n\nRecommendation:\n\nRemove Microsoft.Extensions.Configuration, and replace with new package Microsoft.Extensions.Configuration 10.0.5",
+              "protected": "Microsoft.Extensions.Configuration, 7.0.0\n\nRecommendation:\n\nRemove Microsoft.Extensions.Configuration, and replace with new package Microsoft.Extensions.Configuration 10.0.5"
+            },
+            "kind": "File",
+            "path": "DAL\\DAL.csproj",
+            "snippet": "Microsoft.Extensions.Configuration, 7.0.0\n\nRecommendation:\n\nRemove Microsoft.Extensions.Configuration, and replace with new package Microsoft.Extensions.Configuration 10.0.5",
+            "protectedSnippet": "Microsoft.Extensions.Configuration, 7.0.0\n\nRecommendation:\n\nRemove Microsoft.Extensions.Configuration, and replace with new package Microsoft.Extensions.Configuration 10.0.5",
+            "label": "Microsoft.Extensions.Configuration 7.0.0",
+            "properties": {
+              "PackageId": "Microsoft.Extensions.Configuration",
+              "PackageVersion": "7.0.0",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "4314498d-6df1-448e-a860-388b9c7408d3",
+          "ruleId": "Project.0002",
+          "projectPath": "DAL\\DAL.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net7.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net7.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "DAL\\DAL.csproj",
+            "snippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net7.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "Exceptions\\Exceptions.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "Exceptions",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net7.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 5,
+        "numberOfCodeFiles": 5,
+        "linesTotal": 44,
+        "linesOfCode": 44,
+        "totalApiScanned": 51,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "b8b0def5-420a-4784-817b-64a0a8a4998d",
+          "ruleId": "Project.0002",
+          "projectPath": "Exceptions\\Exceptions.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net7.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net7.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "Exceptions\\Exceptions.csproj",
+            "snippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net7.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "Tests\\Tests.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 3,
+      "properties": {
+        "appName": "Tests",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net7.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 4,
+        "numberOfCodeFiles": 2,
+        "linesTotal": 1768,
+        "linesOfCode": 446,
+        "totalApiScanned": 714,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "4d43d994-0ad4-4ee5-b13f-403f846b030a",
+          "ruleId": "NuGet.0002",
+          "projectPath": "Tests\\Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "Tests\\Tests.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "86c79c87-fae2-43db-8ded-1229dde50745",
+          "ruleId": "NuGet.0002",
+          "projectPath": "Tests\\Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5"
+            },
+            "kind": "File",
+            "path": "Tests\\Tests.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 7.0.4\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 7.0.4",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "7.0.4",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "fafb7299-ae5e-4de3-b650-24fbc498e21d",
+          "ruleId": "Project.0002",
+          "projectPath": "Tests\\Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net7.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net7.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "Tests\\Tests.csproj",
+            "snippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net7.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net7.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0004": {
+      "id": "NuGet.0004",
+      "isFeature": false,
+      "description": "NuGet package contains security vulnerabilities.\n\nPackage needs to be upgraded to a newer version that addresses known security vulnerabilities.",
+      "label": "NuGet package contains security vulnerability",
+      "severity": "Optional",
+      "effort": 1
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    }
+  }
+}
