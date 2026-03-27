@@ -6,6 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - game-store-gg
 on:
   push:
     branches:
+      - workflow-test
       - API
   workflow_dispatch:
 
