@@ -67,7 +67,10 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9D4BFEF616464B009520B16ABBAA5EF9 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_456571E9B58443BB97124759B501A4FF }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6D42599D387A455FA4261AB78D235AC5 }}
-
+          
+      - name: List files after download
+        run: dir /s
+        
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -75,4 +78,6 @@ jobs:
           app-name: 'game-store-gg'
           slot-name: 'Production'
           package: .
+          use-app-offline: true 
+          verbose: true
           
