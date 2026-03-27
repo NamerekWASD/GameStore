@@ -15,14 +15,22 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+
+var defaultConnection = builder.Configuration.GetConnectionString("Default");
+var sqlConnection = new SqlConnection(defaultConnection ?? string.Empty);
+
 builder.Services.AddDbContext<GameContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("Default"),
-				providerOptions => { providerOptions.EnableRetryOnFailure(); }).UseLazyLoadingProxies());
+	options.UseSqlServer(defaultConnection, providerOptions =>
+	{
+		providerOptions.EnableRetryOnFailure();
+	})
+	.UseLazyLoadingProxies());
 
 builder.Services.AddIdentity<User, IdentityRole<int>>()
 	.AddEntityFrameworkStores<GameContext>()
@@ -69,19 +77,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		};
 	});
 
-builder.Services.AddAuthorization(options =>
-{
-	options.AddPolicy(Constants.ADMINISTRATOR,
-		authBuilder =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy(Constants.ADMINISTRATOR, authBuilder =>
 		{
 			authBuilder.RequireRole(Constants.ADMINISTRATOR);
-		});
-	options.AddPolicy(Constants.MANAGER,
-		authBuilder =>
+		})
+    .AddPolicy(Constants.MANAGER, authBuilder =>
 		{
 			authBuilder.RequireRole(Constants.ADMINISTRATOR, Constants.MANAGER);
 		});
-});
 
 builder.Services.AddCors(options =>
 {
@@ -89,7 +93,7 @@ builder.Services.AddCors(options =>
 	{
 		Builder.AllowAnyMethod();
 		Builder.AllowAnyHeader();
-		Builder.WithOrigins("https://localhost:44458", "http://localhost:52324", "https://localhost:7219", "http://localhost:5019");
+		Builder.WithOrigins("https://localhost:44358", "http://localhost:52324", "https://localhost:7219", "http://localhost:5019");
 	});
 });
 MailSettings emailConfig = new();

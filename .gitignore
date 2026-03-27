@@ -405,3 +405,4 @@ API/ClientApp/.env.development
 **/bin/
 
 **/.env.development
+/API/appsettings.json
