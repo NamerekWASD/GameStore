@@ -97,11 +97,13 @@ builder.Services.AddCors(options =>
 	});
 });
 MailSettings emailConfig = new();
-builder.Configuration.GetSection("MailSettings").Bind(emailConfig);
+var mailSettingsSection = builder.Configuration.GetSection("MailSettings");
+mailSettingsSection.Bind(emailConfig);
 builder.Services.AddSingleton(emailConfig);
 
 BraintreeSettings braintreeConfig = new();
-builder.Configuration.GetSection("BraintreeGateway").Bind(braintreeConfig);
+var braintreeConfigSection = builder.Configuration.GetSection("BraintreeGateway");
+braintreeConfigSection.Bind(braintreeConfig);
 builder.Services.AddSingleton(braintreeConfig);
 
 builder.Services.AddScoped<IMailService, MailService>();
@@ -113,9 +115,11 @@ builder.Services.AddScoped<ICopyService, CopyService>();
 builder.Services.AddTransient<IBraintreeService, BraintreeService>();
 
 var app = builder.Build();
-
-
-
+if (app.Logger.IsEnabled(LogLevel.Debug))
+{
+	app.Logger.LogDebug(mailSettingsSection.ToString());
+	app.Logger.LogDebug(braintreeConfigSection.ToString());
+}
 if (!app.Environment.IsDevelopment())
 {
     app.UseDefaultFiles();
@@ -125,9 +129,7 @@ else
 {
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-
     SeedData.Initialize(services);
-
 }
 app.UseCors("Policy");
 app.UseHttpsRedirection();
