@@ -76,6 +76,5 @@ jobs:
           app-name: 'game-store-gg'
           slot-name: 'Production'
           package: .
-          use-app-offline: true 
           verbose: true
           
