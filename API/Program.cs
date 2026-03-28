@@ -21,6 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+if (builder.Environment.IsProduction())
+{
+    builder.Logging.AddAzureWebAppDiagnostics();
+}
 
 var defaultConnection = builder.Configuration.GetConnectionString("Default");
 var sqlConnection = new SqlConnection(defaultConnection ?? string.Empty);
@@ -89,11 +93,11 @@ builder.Services.AddAuthorizationBuilder()
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("Policy", Builder =>
+	options.AddPolicy("Policy", builder =>
 	{
-		Builder.AllowAnyMethod();
-		Builder.AllowAnyHeader();
-		Builder.WithOrigins("https://localhost:44358", "http://localhost:52324", "https://localhost:7219", "http://localhost:5019");
+		builder.AllowAnyMethod();
+		builder.AllowAnyHeader();
+		builder.WithOrigins("https://localhost:44358", "http://localhost:52324", "https://localhost:7219", "http://localhost:5019");
 	});
 });
 MailSettings emailConfig = new();

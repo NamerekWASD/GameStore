@@ -36,6 +36,7 @@
 		</PackageReference>
 		<PackageReference Include="MimeKit" Version="4.15.1" />
 		<PackageReference Include="Ninject" Version="3.3.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Content Remove="$(SpaRoot)**" />
