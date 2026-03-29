@@ -34,7 +34,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("CopyTypesId");
 
-                    b.ToTable("CopyTypeRegion");
+                    b.ToTable("CopyTypeRegion", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.BillingAddress", b =>
@@ -75,7 +75,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BillingAddresses");
+                    b.ToTable("BillingAddresses", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Copy", b =>
@@ -100,7 +100,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Copies");
+                    b.ToTable("Copies", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.CopyType", b =>
@@ -122,7 +122,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.ToTable("CopyTypes");
+                    b.ToTable("CopyTypes", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Developer", b =>
@@ -139,7 +139,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Developers");
+                    b.ToTable("Developers", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Game", b =>
@@ -193,7 +193,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.GameSubscription", b =>
@@ -215,7 +215,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("GameSubscriptions");
+                    b.ToTable("GameSubscriptions", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Genre", b =>
@@ -232,7 +232,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Image", b =>
@@ -262,7 +262,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.ImageType", b =>
@@ -279,7 +279,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImageTypes");
+                    b.ToTable("ImageTypes", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Order", b =>
@@ -315,7 +315,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BuyerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Platform", b =>
@@ -332,7 +332,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Platforms");
+                    b.ToTable("Platforms", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Publisher", b =>
@@ -349,7 +349,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Region", b =>
@@ -366,7 +366,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AvailableRegions");
+                    b.ToTable("AvailableRegions", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.SoldCopy", b =>
@@ -392,7 +392,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("SoldCopies");
+                    b.ToTable("SoldCopies", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.Tag", b =>
@@ -409,7 +409,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entity.User", b =>
@@ -504,7 +504,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GenresId");
 
-                    b.ToTable("GameGenre");
+                    b.ToTable("GameGenre", (string)null);
                 });
 
             modelBuilder.Entity("GameTag", b =>
@@ -519,7 +519,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("GameTag");
+                    b.ToTable("GameTag", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>

@@ -4,11 +4,13 @@ import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { POSTER } from "../../../utils/Constants";
 import { navigateToDetails } from "../../../utils/Navigation";
 import LoadingCircle from "../../../utils/LoadingCircle"
+import { useTranslation } from 'react-i18next';
 import Price from "./parts/Price";
 
 const GameDropList = ({ searchQuery, refresh, isVisible }) => {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
+    const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
     const cardContainer = useRef(null);
     const gameDropList = useRef(null);
@@ -75,7 +77,7 @@ const GameDropList = ({ searchQuery, refresh, isVisible }) => {
                                 })
                                 :
                                 <div className="card rounded-0" style={{ width: '500px' }}>
-                                    <h5 className="m-0 p-3">За вашим Запитом не знайдено жодної гри.</h5>
+                                    <h5 className="m-0 p-3">{t('game.dropList.noResults')}</h5>
                                 </div>
                             :
                             <LoadingCircle />

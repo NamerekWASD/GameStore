@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 export const FilterSearch = ({ searchFilters, setSearchFilter, searchQuery, setPage }) => {
+    const { t } = useTranslation();
     return (
         <div>
             <input type="text" className="form-control w-100 rounded-0"
@@ -22,7 +25,7 @@ export const FilterSearch = ({ searchFilters, setSearchFilter, searchQuery, setP
                         setPage(0);
                     }
                 }}
-                placeholder="Пошук..."
+                placeholder={t('nav.searchPlaceholder')}
             />
         </div>
     )

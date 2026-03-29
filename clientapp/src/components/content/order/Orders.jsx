@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
 import LoadingCircle from "../../../utils/LoadingCircle";
 import Order from "./Order";
+import { useTranslation } from 'react-i18next';
 const Orders = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [orders, setOrders] = useState(undefined);
 
     useEffect(() => {
@@ -38,10 +40,10 @@ const Orders = () => {
                         <table className="px-3 responsive-table">
                             <thead>
                                 <tr>
-                                    <th>Номер Замовлення</th>
-                                    <th>Сума</th>
-                                    <th>Кількіть товарів</th>
-                                    <th>Дата замолення</th>
+                                    <th>{t('orders.table.orderNumber')}</th>
+                                    <th>{t('orders.table.amount')}</th>
+                                    <th>{t('orders.table.itemCount')}</th>
+                                    <th>{t('orders.table.date')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,9 +59,9 @@ const Orders = () => {
                         :
                         <div className="p-3 text-center">
                             <h3>
-                                Ви поки що нічого не замовляли
+                                {t('orders.emptyMessage')}
                             </h3>
-                            <button className="btn btn-outline-success rounded-0 btn-75px" onClick={continueShopping}>Продовжити покупки</button>
+                            <button className="btn btn-outline-success rounded-0 btn-75px" onClick={continueShopping}>{t('orders.continueShopping')}</button>
                         </div>
                 )
                     :

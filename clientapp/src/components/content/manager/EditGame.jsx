@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 import { uploadChanges } from "../../../utils/ApiRequests";
 import { AppPaths } from "../../../utils/AppPaths";
 import { MANAGER } from "../../../utils/Constants";
@@ -15,15 +16,17 @@ const EditGame = () => {
         }
     }, [navigate])
 
+    const { t } = useTranslation();
+
     const saveChanges = async (game) => {
         console.log(game);
         const response = await uploadChanges(game);
         if(response.status === 200){
-            toast.success('Гра успішно змінена!');
+            toast.success(t('manager.editSuccess'));
             navigate(AppPaths.manager);
             return;
         }
-        toast.error('Сталася помилка...');
+        toast.error(t('messages.errorOccurred'));
     }
 
     return (

@@ -1,11 +1,9 @@
-﻿using BLL.DTO;
-using BLL.DTO.Orders;
+﻿using BLL.DTO.Orders;
 using BLL.DTO.Payment;
 using BLL.Service.Games;
 using BLL.Tools;
 using Braintree;
 using DAL.Entity;
-using System.Reflection;
 
 namespace BLL.Service.BrainTree
 {
@@ -20,19 +18,6 @@ namespace BLL.Service.BrainTree
 			_config = config;
             _gameService = gameService;
         }
-
-		private IBraintreeGateway CreateGateway()
-		{
-			var newGateway = new BraintreeGateway()
-			{
-				Environment = Braintree.Environment.SANDBOX,
-				MerchantId = _config.MerchantId,
-				PublicKey = _config.PublicKey,
-				PrivateKey = _config.PrivateKey
-			};
-
-			return newGateway;
-		}
 
         public async Task<Result<Transaction>> MakeTransaction(OrderLightDTO orderlight, User user)
         {
@@ -55,18 +40,25 @@ namespace BLL.Service.BrainTree
                     Email = user.Email,
                     Phone = user.PhoneNumber,
                 },
-                LineItems = games.Select(item => new TransactionLineItemRequest()
+                LineItems = [.. games.Select(item => new TransactionLineItemRequest()
                 {
                     Name = item.Title,
                     Quantity = orderlight.Games?.FirstOrDefault(game => game.Id == item.Id)?.Count ?? null,
                     UnitAmount = item.Price,
                     TotalAmount = item.DiscountPrice ?? item.Price,
                     LineItemKind = ResolveItemKind(orderlight.PaymentType),
-                }).ToArray(),
+                })],
 
             };
             var result = await gateway.Transaction.SaleAsync(transactionRequest);
             return result;
+        }
+
+        public async Task<string?> GetClientToken()
+        {
+            var gateway = CreateGateway();
+            var clientToken = await gateway.ClientToken.GenerateAsync();
+            return clientToken;
         }
 
         private static TransactionLineItemKind? ResolveItemKind(string paymentType)
@@ -84,5 +76,18 @@ namespace BLL.Service.BrainTree
                 return TransactionLineItemKind.UNRECOGNIZED;
             }
         }
+
+		private BraintreeGateway CreateGateway()
+		{
+			var newGateway = new BraintreeGateway()
+			{
+				Environment = Braintree.Environment.ParseEnvironment(_config.Environment),
+				MerchantId = _config.MerchantId,
+				PublicKey = _config.PublicKey,
+				PrivateKey = _config.PrivateKey
+			};
+
+			return newGateway;
+		}
     }
 }

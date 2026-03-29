@@ -78,42 +78,6 @@ namespace API.Controllers
 
             return Ok(user.Orders.LastOrDefault()?.Bill ?? null);
         }
-
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderLightModel data)
-        {
-            var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException("Ви не авторизувались!");
-            var orderLight = MapperHelpers.Instance.Map<OrderLightDTO>(data);
-
-            orderLight.UserId = user.Id;
-
-            try
-            {
-                // Створення чеку
-                var orderId = await _orderService.CreateOrder(orderLight);
-
-                orderLight.OrderNumber = orderId;
-                // Проведення оплати
-                var result = await _braintreeService.MakeTransaction(orderLight, user);
-
-                if (!result.IsSuccess())
-                {
-                    throw new Exception(result.Message);
-                }
-
-                // Якщо операції успішні, то зберігаємо дані в контролері
-
-                await _orderService.CommitChanges();
-
-                return Ok(orderId);
-            }
-            catch (Exception ex)
-            {
-                // Якщо сталася помилка, транзакція буде відкатана автоматично
-                return BadRequest(string.Format("Сталась помилка: {0}", ex.Message));
-            }
-        }
-
         private async Task<List<OrderModel>> GetOrdersAsync(CancellationToken cancellation)
         {
             var user = await _userManager.GetUserAsync(User) ?? throw new NonAuthorizedException();

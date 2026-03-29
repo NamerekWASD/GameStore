@@ -7,7 +7,7 @@
 		<IsPackable>false</IsPackable>
 		<SpaRoot>..\clientapp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-		<SpaProxyServerUrl>https://localhost:7219</SpaProxyServerUrl>
+		<SpaProxyServerUrl>http://localhost:3000</SpaProxyServerUrl>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageId>ClassLibDotNetStandard</PackageId>
@@ -18,7 +18,6 @@
 		<FileVersion>1.0.0.5</FileVersion>
 		<AssemblyVersion>1.0.0.5</AssemblyVersion>
 		<UserSecretsId>79a3edd0-2092-40a2-a04d-dcb46d5ca9ed</UserSecretsId>
-		<UserSecretsId>fd0da30b-e354-440b-9058-3c43fb4db957</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="MailKit" Version="4.15.1" />

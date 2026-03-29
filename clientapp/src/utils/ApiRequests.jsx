@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import i18n from 'i18next';
 import { AppPaths } from "./AppPaths";
 
 /////////////////// User API ////////////////////////////////
@@ -52,10 +53,10 @@ export const logout = async (update) => {
     const response = await fetch('api/account/logout');
     if (response.ok) {
         update();
-        toast.info("Ви вийшли з аккаунту");
+        toast.info(i18n.t('messages.loggedOut'));
         return;
     }
-    toast.error("Сталася помилка...")
+    toast.error(i18n.t('messages.errorOccurred'))
 }
 
 export async function requestIsInRole(role) {

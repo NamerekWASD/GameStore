@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, DropdownMenu, DropdownItem, Dropdown, DropdownToggle } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import './NavMenu.css';
@@ -10,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import GameDropList from './content/game/GameDropList';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const timeout = { current: undefined }
 
@@ -29,6 +31,7 @@ export function setItemsCount(count) {
 
 const NavMenu = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [headerStyle, setHeaderStyle] = useState({
         visibility: 'visible',
         transition: 'all 200ms ease-in'
@@ -116,20 +119,20 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
     return (
         <header id='myHeader' className='header' style={{ ...headerStyle }}>
             <Navbar className="navbar-expand-sm box-shadow p-0">
-                <NavbarBrand className='my-0 p-0' tag={Link} to="/">Game Store</NavbarBrand>
+                <NavbarBrand className='my-0 p-0' tag={Link} to="/">{t('nav.brand')}</NavbarBrand>
                 <NavbarToggler onClick={() => toggleNavbar()} className="mr-2 rounded-0" />
                 <Collapse className="d-sm-inline-flex" isOpen={!collapsed} navbar style={collapseBeforeStyle}>
                     <ul className={"navbar-nav flex-grow justify-content-end flex-fill align-content-center " + (!collapsed && "gap-2")}>
                         <NavItem>
                             <Dropdown isOpen={dropdownOpen} toggle={toggleDropDown} direction='down' className='h-100 z-index-top'>
-                                <DropdownToggle className='rounded-0 h-100 fs-5'>Каталог</DropdownToggle>
+                                <DropdownToggle className='rounded-0 h-100 fs-5'>{t('nav.catalog')}</DropdownToggle>
                                 <DropdownMenu className='rounded-0 p-0'>
                                     <DropdownItem>
                                         <NavItem>
-                                            <NavLink tag={Link} className="nav-link" to={AppPaths.gameCatalog}>Усі ігри</NavLink>
+                                                        <NavLink tag={Link} className="nav-link" to={AppPaths.gameCatalog}>{t('nav.allGames')}</NavLink>
                                         </NavItem>
                                     </DropdownItem>
-                                    <DropdownItem header>Жанри</DropdownItem>
+                                    <DropdownItem header>{t('nav.genres')}</DropdownItem>
                                     {
                                         genres.length !== 0 ? genres.map(genre => {
                                             return (
@@ -152,7 +155,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                             <form className='h-100 px-3 formAnimation' onSubmit={navigateToSearch}>
                                 <FontAwesomeIcon icon={faSearch} className="pe-3" color='gray' />
                                 <input id='myInput' ref={searchField} className='h-100 border-0 no-outline fw-bold bg-transparent'
-                                    type="text" placeholder='Пошук...' autoComplete='off'
+                                    type="text" placeholder={t('nav.searchPlaceholder')} autoComplete='off'
                                     onChange={searchGames} />
                             </form>
                             <GameDropList searchQuery={searchQuery} refresh={refresh} isVisible={headerStyle && headerStyle.visibility === 'visible'} />
@@ -161,6 +164,7 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                         <div className='flex-fill'>
 
                         </div>
+                        <LanguageSwitcher />
                         <NavItem className='position-relative'>
                             <NavLink tag={Link} to="cart" className='counter-container p-1'>
                                 <img src={cart} alt="" width={42} height={42} />
@@ -171,18 +175,18 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                             isAuthenticated ?
                                 <>
                                     <NavItem>
-                                        <NavLink tag={Link} to={AppPaths.profile} className='d-flex'><span className='my-auto'>Профіль</span></NavLink>
+                                        <NavLink tag={Link} to={AppPaths.profile} className='d-flex'><span className='my-auto'>{t('nav.profile')}</span></NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <div className="nav-link pointer d-flex" onClick={() => logout(refreshAuth)}>
-                                            <span className='my-auto'>Вийти з аккаунту</span>
+                                            <span className='my-auto'>{t('nav.logout')}</span>
                                         </div>
                                     </NavItem>
                                 </>
                                 :
                                 <>
                                     <NavItem>
-                                        <NavLink tag={Link} to={AppPaths.authorization}>Авторизуватись</NavLink>
+                                        <NavLink tag={Link} to={AppPaths.authorization}>{t('nav.login')}</NavLink>
                                     </NavItem>
                                 </>
                         }

@@ -54,7 +54,7 @@ namespace BLL.Service.Orders
             var order = new Order
             {
                 Buyer = await UoW.Users.GetAsync(data.UserId),
-                Copies = new List<SoldCopy>(),
+                Copies = [],
                 Created = DateTime.Now,
                 OrderNumber = await GenerateOrderNumber(),
                 Total = data.Total,
@@ -106,7 +106,7 @@ namespace BLL.Service.Orders
                 lock (locker)
                 {
                     total += discount * count;
-                    subTotal += price * count;
+                    subTotal += discount * count;
                 }
             }
             data.Total = total;

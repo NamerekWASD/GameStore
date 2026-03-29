@@ -8,5 +8,6 @@ namespace BLL.Service.BrainTree
 	public interface IBraintreeService
 	{
 		Task<Result<Transaction>> MakeTransaction(OrderLightDTO orderlight, User user);
+		Task<string?> GetClientToken();
     }
 }

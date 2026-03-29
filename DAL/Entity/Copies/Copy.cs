@@ -1,6 +1,4 @@
-﻿using DAL.Entity;
-
-namespace DAL.Entity
+﻿namespace DAL.Entity
 {
 	public class Copy
 	{
@@ -9,5 +7,6 @@ namespace DAL.Entity
 		public int GameId { get; set; }
 		public virtual Game? Game { get; set; }
 		public bool IsSold { get; set; } = false;
-	}
+		public virtual List<SoldCopy>? SoldCopies { get; set; }
+    }
 }

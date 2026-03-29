@@ -5,9 +5,11 @@ import newUser from './newUser.png'
 import Orders from "../order/Orders";
 import { GetUserData } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
 
 const Profile = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [user, setUser] = useState();
 
@@ -79,35 +81,35 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                         <form className="row profile-form" onSubmit={onSubmit}>
                             <div className="p-3">
                                 <div className="form-group">
-                                    <label className="labels" htmlFor="fname">Ім'я</label>
+                                    <label className="labels" htmlFor="fname">{t('profile.firstName')}</label>
                                     <input
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
                                         defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value }))} />
                                 </div>
                                 <div className="form-group">
-                                    <label className="labels" htmlFor="lname">Призвіще</label>
+                                    <label className="labels" htmlFor="lname">{t('profile.lastName')}</label>
                                     <input
                                         type="text" id="lname" name="lname"
                                         className="form-control rounded-0"
                                         defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value }))} />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="labels" htmlFor="username">Ім'я користувача</label>
+                                    <label className="labels" htmlFor="username">{t('profile.username')}</label>
                                     <input
                                         type="text" id="username" name="username"
                                         className="form-control rounded-0" required minLength={3}
                                         defaultValue={user ? user.userName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value }))} />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="labels" htmlFor="email">Електронна пошта</label>
+                                    <label className="labels" htmlFor="email">{t('profile.email')}</label>
                                     <input
                                         type="email" id="email" name="email"
                                         className="form-control rounded-0" required disabled={user && user.provider}
                                         defaultValue={user ? user.email : ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value }))} />
                                 </div>
                                 <div className="text-center">
-                                    <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" value='Зберегти зміни' />
+                                    <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" value={t('profile.saveChanges')} />
                                 </div>
                             </div>
                         </form>
@@ -143,10 +145,10 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
             <div className="border-right" style={{ minWidth: '40vw' }}>
                 <ul className="nav nav-tabs gap-2 flex-nowrap">
                     <li className="nav-item ms-2">
-                        <button className="btn btn-outline-dark rounded-0 border-bottom-0 nav-tab-item" onClick={handleTabClick} value={option.settings}>Налаштування</button>
+                        <button className="btn btn-outline-dark rounded-0 border-bottom-0 nav-tab-item" onClick={handleTabClick} value={option.settings}>{t('profile.tabs.settings')}</button>
                     </li>
                     <li className="nav-item">
-                        <button className="btn btn-outline-dark rounded-0 nav-tab-item" onClick={handleTabClick} value={option.orders}>Мої замовлення</button>
+                        <button className="btn btn-outline-dark rounded-0 nav-tab-item" onClick={handleTabClick} value={option.orders}>{t('profile.tabs.orders')}</button>
                     </li>
                 </ul>
                 <div style={{minHeight: '50vh'}}>

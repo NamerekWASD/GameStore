@@ -21,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddHealthChecks();
 if (builder.Environment.IsProduction())
 {
     builder.Logging.AddAzureWebAppDiagnostics();
@@ -119,6 +120,18 @@ builder.Services.AddScoped<ICopyService, CopyService>();
 builder.Services.AddTransient<IBraintreeService, BraintreeService>();
 
 var app = builder.Build();
+
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("=== Configuration keys ===");
+foreach (var kvp in app.Configuration.AsEnumerable())
+{
+	logger.LogInformation("Key: {Key}", kvp.Key);
+}
+
+// Проверка конкретных секций
+var mailHost = app.Configuration["MailSettings:Host"];
+logger.LogInformation("MailSettings:Host is {Present}", mailHost ?? "NULL");
+
 if (app.Logger.IsEnabled(LogLevel.Debug))
 {
 	app.Logger.LogDebug(mailSettingsSection.ToString());
@@ -153,5 +166,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHealthChecks("/api/healthz");
 
 app.Run();

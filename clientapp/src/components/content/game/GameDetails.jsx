@@ -6,6 +6,8 @@ import iconRegion from './../../../static/key.svg';
 import iconCopy from './../../../static/copy.svg';
 import { GetUserData, subscribeOnGame } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
+import { formatDate } from "../../../utils/i18nHelpers";
 import { setItemsCount } from "../../NavMenu";
 import Loading from "../../../utils/Loading";
 import Price from "./parts/Price";
@@ -23,18 +25,20 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
     const [isImageModal, setShowImageModal] = useState(false);
     const [currentImage, setCurrentImage] = useState();
 
+    const { t } = useTranslation();
+
     const renderLoad = useMemo(() => {
         if (game === null) {
             return (
                 <div className="absolute-centered">
-                    <h2>Гру не знайдено</h2>
+                    <h2>{t('game.notFound')}</h2>
                 </div>
             )
         }
         return (
             <Loading />
         )
-    }, [game]);
+    }, [game, t]);
 
     useEffect(() => {
         const requestInfo = "api/game/" + searchParams.get('id');
@@ -44,9 +48,9 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
 
         fetch(requestInfo, requestInit).then(response =>{
             if (!response.ok) {
-                setGame(null)
-                throw new Error("Сталась помилка...");
-            }
+                    setGame(null)
+                    throw new Error(t('messages.errorOccurred'));
+                }
             return response.json();
         }).then(result => {
             setGame(result)
@@ -60,7 +64,7 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
         }
 
         if (games.some((element) => element.id === game.id)) {
-            toast.info("Ви вже додали цю гру в кошик")
+            toast.info(t('game.alreadyInCart'))
             return;
         }
 
@@ -70,7 +74,7 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
         });
         setItemsCount(games.length);
         localStorage.games = JSON.stringify(games);
-        toast.success("Гра успішно додана!")
+        toast.success(t('game.addedToCart'))
     }
 
     async function subscribe() {
@@ -78,9 +82,9 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
             const response = await GetUserData(refreshAuth);
             const user = await response.json();
             toast.promise(subscribeOnGame(game.id, user.email), {
-                pending: 'Зачекайте...',
-                success: 'Ви успішно підписалися на гру!\n Очікуйте нових повідомлень.',
-                error: 'Нажаль, сталася помилка',
+                pending: t('subscribe.pending'),
+                success: t('game.subscribeSuccess'),
+                error: t('subscribe.error'),
             });
         }
         else {
@@ -102,17 +106,17 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
                             <div style={{ maxWidth: '100%', width: '100%' }} className='overflow-hidden pointer' onClick={() => showImageModal()}>
                                 <img src={game.images.find(item => item.type.name === POSTER).path} alt={searchParams.get('title')} className='width-inherit responsive-image' />
                             </div>
-                            <div className="description-grid bg-dark text-white py-2">
-                                <div>Жанр</div>
-                                <span>{game.genres.join(' ')}</span>
-                                <div>Видавець</div>
-                                <span>{game.publisher}</span>
-                                <div>Розробник</div>
-                                <span>{game.developer}</span>
-                                <div>Дата випуску</div>
-                                <span>{new Date(Date.parse(game.released)).toLocaleDateString('uk-UA', options)}</span>
-                            </div>
-                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Підписатись на оновлення</span></button>
+                                    <div className="description-grid bg-dark text-white py-2">
+                                        <div>{t('game.labels.genre')}</div>
+                                        <span>{game.genres.join(' ')}</span>
+                                        <div>{t('game.labels.publisher')}</div>
+                                        <span>{game.publisher}</span>
+                                        <div>{t('game.labels.developer')}</div>
+                                        <span>{game.developer}</span>
+                                        <div>{t('game.labels.released')}</div>
+                                        <span>{formatDate(game.released)}</span>
+                                    </div>
+                                    <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">{t('game.subscribe')}</span></button>
                         </div>
                         <div className="game-info">
                             <div className="d-flex flex-row flex-wrap-reverse gap-2 bg-dark justify-content-around text-white p-3 w-100">
@@ -123,19 +127,19 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
                                             <div className="game-info-img">
                                                 <img src={iconDistribute} alt="iconDistribute" />
                                             </div>
-                                            <strong>Платформа: </strong><span className="text-capitalize">{game.platform}</span>
+                                            <strong>{t('game.labels.platform')}: </strong><span className="text-capitalize">{game.platform}</span>
                                         </div>
                                         <div>
                                             <div className="game-info-img">
                                                 <img src={iconRegion} alt="iconRegion" />
                                             </div>
-                                            <strong>Доступно: </strong><span>{game.regions.join(' ')}</span>
+                                            <strong>{t('game.labels.available')}: </strong><span>{game.regions.join(' ')}</span>
                                         </div>
                                         <div>
                                             <div className="game-info-img">
                                                 <img src={iconCopy} alt="iconCopy" />
                                             </div>
-                                            <strong>Тип копії: </strong><span className=" text-capitalize">{game.copyType}</span>
+                                            <strong>{t('game.labels.copyType')}: </strong><span className=" text-capitalize">{game.copyType}</span>
                                         </div>
                                         <div>
                                         </div>
@@ -147,15 +151,15 @@ const GameDetails = ({ isAuthenticated, refreshAuth }) => {
                                     {
                                         game.copyCount !== 0 && game.isAvailable ?
                                             <div>
-                                                <button className="btn btn-outline-success rounded-0 btn-responsive py-3 w-100" onClick={() => addToCart()}><span className="add">Додати у кошик</span></button>
+                                                <button className="btn btn-outline-success rounded-0 btn-responsive py-3 w-100" onClick={() => addToCart()}><span className="add">{t('game.addToCart')}</span></button>
                                             </div>
                                             :
-                                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">Повідомити коли з'явиться у продажу</span></button>
+                                            <button className="btn btn-outline-danger rounded-0 btn-responsive py-3 w-100" onClick={() => subscribe()}><span className="subscribe">{t('game.notifyWhenAvailable')}</span></button>
                                     }
                                 </div>
                             </div>
                             <div className="game-description bg-dark text-white">
-                                <h3>Опис</h3>
+                                <h3>{t('game.description')}</h3>
                                 <p dangerouslySetInnerHTML={game ? { __html: game.description } : { __html: '' }}></p>
                             </div>
                         </div>

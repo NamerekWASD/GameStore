@@ -1,0 +1,137 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "total": "Total",
+        "back": "Back"
+    },
+    "order": {
+        "title": "Order",
+        "orderNumber": "Order #{{number}}",
+        "created": "Created: {{date}}",
+        "image": "Image",
+        "game": "Game",
+        "platform": "Platform",
+        "copyType": "Copy Type",
+        "data": "Data",
+        "price": "Price",
+        "totalLabel": "Total:"
+    },
+    "nav": {
+        "brand": "Game Store",
+        "catalog": "Catalog",
+        "allGames": "All games",
+        "genres": "Genres",
+        "searchPlaceholder": "Search...",
+        "profile": "Profile",
+        "logout": "Log out",
+        "login": "Sign in",
+        "cart": "Cart"
+    },
+    "payment": {
+        "billingAddress": "Billing address",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "address": "Address",
+        "country": "Country",
+        "region": "Region",
+        "postalCode": "Postal code",
+        "testCard": "Test card",
+        "continue": "Continue",
+        "pending": "Pending...",
+        "success": "Done!",
+        "error": "An error occurred"
+    },
+    "subscribe": {
+        "title": "Subscribe to game",
+        "email": "Email",
+        "confirm": "Confirm",
+        "pending": "Please wait...",
+        "success": "Done, you are subscribed!",
+        "error": "An error occurred..."
+    },
+    "footer": {
+        "joinUs": "Join our social networks:",
+        "guaranteeTitle": "We guarantee:",
+        "guarantee": {
+            "item1": "Licensed keys from official publishers",
+            "item2": "Working accounts",
+            "item3": "Guaranteed technical support for your purchase",
+            "item4": "Regular promotions, discounts and bonuses"
+        },
+        "productsTitle": "Products",
+        "products": {
+            "games": "Games"
+        },
+        "linksTitle": "Useful links",
+        "links": {
+            "manager": "For managers"
+        },
+        "contacts": {
+            "address": "Yaroslavska St, 56A, Kyiv, 04071",
+            "phone": "+38(063)973-74-49"
+        },
+        "copyright": "Copyright:"
+    },
+    "messages": {
+        "loggedOut": "You have been logged out",
+        "errorOccurred": "An error occurred...",
+        "badRequest": "Bad request"
+    },
+    "constants": {
+        "order": {
+            "default": "Default",
+            "byDateDesc": "By date (newest)",
+            "byDateAsc": "By date (oldest)",
+            "byPriceDesc": "By price (high to low)",
+            "byPriceAsc": "By price (low to high)",
+            "byPopularity": "By popularity"
+        }
+    },
+    "manager": {
+        "createSuccess": "Game successfully added!",
+        "editSuccess": "Game successfully updated!"
+    },
+    "orders": {
+        "table": {
+            "orderNumber": "Order number",
+            "amount": "Amount",
+            "itemCount": "Items count",
+            "date": "Order date"
+        },
+        "emptyMessage": "You haven't placed any orders yet",
+        "continueShopping": "Continue shopping"
+    },
+    "profile": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "username": "Username",
+        "email": "Email",
+        "saveChanges": "Save changes",
+        "tabs": {
+            "settings": "Settings",
+            "orders": "My orders"
+        }
+    },
+    "game": {
+        "dropList": {
+            "noResults": "No games found for your query."
+        },
+        "notFound": "Game not found",
+        "alreadyInCart": "You have already added this game to the cart",
+        "addedToCart": "Game successfully added to cart",
+        "subscribeSuccess": "You have successfully subscribed to the game!\n Expect new notifications.",
+        "subscribe": "Subscribe to updates",
+        "labels": {
+            "genre": "Genre",
+            "publisher": "Publisher",
+            "developer": "Developer",
+            "released": "Released",
+            "platform": "Platform",
+            "available": "Available",
+            "copyType": "Copy type"
+        },
+        "addToCart": "Add to cart",
+        "notifyWhenAvailable": "Notify me when available",
+        "description": "Description"
+    }
+}

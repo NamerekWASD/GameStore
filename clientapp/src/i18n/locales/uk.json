@@ -1,0 +1,137 @@
+{
+    "common": {
+        "loading": "Завантаження...",
+        "total": "Загалом",
+        "back": "Назад"
+    },
+    "order": {
+        "title": "Замовлення",
+        "orderNumber": "№{{number}}",
+        "created": "Створено: {{date}}",
+        "image": "Зображення",
+        "game": "Гра",
+        "platform": "Платформа",
+        "copyType": "Тип копії",
+        "data": "Дані",
+        "price": "Ціна",
+        "totalLabel": "Загалом:"
+    },
+    "nav": {
+        "brand": "Game Store",
+        "catalog": "Каталог",
+        "allGames": "Усі ігри",
+        "genres": "Жанри",
+        "searchPlaceholder": "Пошук...",
+        "profile": "Профіль",
+        "logout": "Вийти з аккаунту",
+        "login": "Авторизуватись",
+        "cart": "Кошик"
+    },
+    "payment": {
+        "billingAddress": "Платіжна адреса",
+        "firstName": "Ім'я",
+        "lastName": "Призвіще",
+        "address": "Адреса",
+        "country": "Країна",
+        "region": "Область",
+        "postalCode": "Індекс",
+        "testCard": "Тестова картка",
+        "continue": "Продовжити",
+        "pending": "Ще трохи...",
+        "success": "Готово!",
+        "error": "Сталась помилка"
+    },
+    "subscribe": {
+        "title": "Підписатись на гру",
+        "email": "Пошта",
+        "confirm": "Підтвердити",
+        "pending": "Зачекайте...",
+        "success": "Готово, ви підписані!",
+        "error": "Сталась помилка..."
+    },
+    "footer": {
+        "joinUs": "Приєднуйтесь до наших соціальних мереж:",
+        "guaranteeTitle": "Ми гарантуємо:",
+        "guarantee": {
+            "item1": "Ліцензійні ключі від офіційних видавців",
+            "item2": "Робочі аккаунти",
+            "item3": "Гарантована техпідтримка вашої покупки",
+            "item4": "Регулярні акції, знижки та бонуси"
+        },
+        "productsTitle": "Продукти",
+        "products": {
+            "games": "Ігри"
+        },
+        "linksTitle": "Корисні посилання",
+        "links": {
+            "manager": "Менеджеру"
+        },
+        "contacts": {
+            "address": "вул. Ярославська, 56А, Київ, 04071",
+            "phone": "+38(063)973-74-49"
+        },
+        "copyright": "Copyright:"
+    },
+    "messages": {
+        "loggedOut": "Ви вийшли з аккаунту",
+        "errorOccurred": "Сталася помилка...",
+        "badRequest": "Некоректний запит"
+    },
+    "constants": {
+        "order": {
+            "default": "За замовчуванням",
+            "byDateDesc": "За датою, від нових",
+            "byDateAsc": "За датою, від старих",
+            "byPriceDesc": "За ціною, від дорогих",
+            "byPriceAsc": "За ціною, від дешевих",
+            "byPopularity": "За популярністю"
+        }
+    },
+    "manager": {
+        "createSuccess": "Гра успішно додана!",
+        "editSuccess": "Гра успішно змінена!"
+    },
+    "orders": {
+        "table": {
+            "orderNumber": "Номер Замовлення",
+            "amount": "Сума",
+            "itemCount": "Кількіть товарів",
+            "date": "Дата замолення"
+        },
+        "emptyMessage": "Ви поки що нічого не замовляли",
+        "continueShopping": "Продовжити покупки"
+    },
+    "profile": {
+        "firstName": "Ім'я",
+        "lastName": "Призвіще",
+        "username": "Ім'я користувача",
+        "email": "Електронна пошта",
+        "saveChanges": "Зберегти зміни",
+        "tabs": {
+            "settings": "Налаштування",
+            "orders": "Мої замовлення"
+        }
+    },
+    "game": {
+        "dropList": {
+            "noResults": "За вашим Запитом не знайдено жодної гри."
+        },
+        "notFound": "Гру не знайдено",
+        "alreadyInCart": "Ви вже додали цю гру в кошик",
+        "addedToCart": "Гра успішно додана!",
+        "subscribeSuccess": "Ви успішно підписалися на гру!\n Очікуйте нових повідомлень.",
+        "subscribe": "Підписатись на оновлення",
+        "labels": {
+            "genre": "Жанр",
+            "publisher": "Видавець",
+            "developer": "Розробник",
+            "released": "Дата випуску",
+            "platform": "Платформа",
+            "available": "Доступно",
+            "copyType": "Тип копії"
+        },
+        "addToCart": "Додати у кошик",
+        "notifyWhenAvailable": "Повідомити коли з'явиться у продажу",
+        "description": "Опис"
+    }
+}

@@ -72,8 +72,8 @@ const GameCatalog = () => {
                     <div className="fw-bold">Знайдено {count !== 0 ? processHeader(count) : 'жодної гри'}</div>
                     <div className="ms-5 w-25">
                         <Select className="" id="order-list"
-                            options={orderOptions}
-                            defaultValue={orderOptions[0]}
+                            options={orderOptions()}
+                            defaultValue={orderOptions()[0]}
                             onChange={(e) => {
                                 setSearchFilters(prevState => ({
                                     ...prevState,
