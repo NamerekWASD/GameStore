@@ -27,7 +27,7 @@ const GameList = ({ games, isMax, setPage, isVertical, noNeedPagination, cardCla
                     (games.length !== 0) &&
                         games.map(game => {
                             return (
-                                <div key={game.id} className={"card rounded-0 w-100 bg-secondary bg-gradient" + cardClassName} style={{ cursor: 'pointer', height: '180px' }}
+                                <div key={game.id} className={"card rounded-0 w-100 bg-gradient" + cardClassName} style={{ cursor: 'pointer', height: '180px' }}
                                     onClick={() => navigateToDetails(game, navigate)} >
                                     <div className="no-gutters d-flex flex-row align-items-center gap-5">
                                         <div style={{ minWidth: "120px", width: "120px", maxWidth: "120px", height: '150px' }} className="overflow-hidden m-3">

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { processHeader } from "./GameCatalog";
 import { FilterSearch } from "./parts/filter/FilterSearch";
 import GameList from "./parts/GameList";
+import './GameSearch.css';
 
 const GameSearch = () => {
+    const { t } = useTranslation();
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchFilters, setsearchFilters] = useState({});
 
@@ -54,14 +57,19 @@ const GameSearch = () => {
 
     return (
         <div className="h-100 m-4">
-            <div>
-                <div className="d-flex flex-row">
-                    <h3 className="fw-bold">Знайдено {count !== 0 ? processHeader(count) : 'жодної гри'}</h3>
+            <div id="search-bar-game-search-page" className="search-header">
+                <div className="d-flex flex-row align-items-center gap-3">
+                    <h3 className="fw-bold m-0">
+                        {t('search.found')} {count !== 0 ? processHeader(count) : t('search.noGames')}
+                    </h3>
                 </div>
-                <FilterSearch searchFilters={searchFilters}
-                setSearchFilter={setsearchFilters}
-                searchQuery={searchFilters ? searchFilters.searchQuery : ''}
-                setPage={setPage}/>
+                <div className="search-filters mt-3">
+                    <FilterSearch searchFilters={searchFilters}
+                        setSearchFilter={setsearchFilters}
+                        searchQuery={searchFilters ? searchFilters.searchQuery : ''}
+                        setPage={setPage}
+                    />
+                </div>
             </div>
             <div className="d-flex mt-5 flex-row gap-4">
                 <div className="flex-fill h-100">

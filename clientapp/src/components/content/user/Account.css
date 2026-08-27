@@ -14,22 +14,24 @@
     display: flex;
     flex-wrap: wrap;
     margin: 10px 0;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 5px 5px 7px black;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
 }
 
-    .input-holder div {
-        padding: 10px;
-    }
+.input-holder div {
+    padding: 12px;
+}
 
 #sign-form {
     display: flex;
     max-width: 700px;
     margin: 2.5rem auto;
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .my-card-left h1 {
@@ -57,50 +59,54 @@
     display: block;
     outline: none;
     box-sizing: border-box;
-    padding: 4px;
+    padding: 10px 12px;
     width: 100%;
-    height: 32px;
+    height: 40px;
     border: none;
-    border-bottom: 3px solid black;
-    font-family: 'Roboto', sans-serif;
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 15px;
-    transition: 0.2s ease;
+    transition: var(--transition);
 }
 
-    #sign-form .text-input:focus {
-        border-bottom: 2px solid #16a085;
-        color: #16a085;
-        transition: 0.2s ease;
-    }
+#sign-form .text-input::placeholder {
+    color: var(--text-secondary);
+}
+
+#sign-form .text-input:focus {
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--text-primary);
+    background-color: rgba(99, 102, 241, 0.05);
+}
 
 #sign-form input[type="submit"] {
     margin-top: 28px;
-    width: 120px;
-    height: 32px;
-    background: #16a085;
+    width: 140px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border: none;
-    border-radius: 2px;
-    color: #FFF;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    border-radius: 8px;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-weight: 600;
     text-transform: uppercase;
-    transition: 0.1s ease;
+    transition: var(--transition);
     cursor: pointer;
+    box-shadow: var(--shadow-md);
 }
 
-    #sign-form input[type="submit"]:hover,
-    #sign-form input[type="submit"]:focus {
-        opacity: 0.8;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        transition: 0.1s ease;
-    }
+#sign-form input[type="submit"]:hover,
+#sign-form input[type="submit"]:focus {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
 
-    #sign-form input[type="submit"]:active {
-        opacity: 1;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        transition: 0.1s ease;
-    }
+#sign-form input[type="submit"]:active {
+    transform: translateY(0);
+}
 
 .or {
     width: 40px;

@@ -1,4 +1,5 @@
 import React, { createRef, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import './game.css'
 import minus from './../../../static/minus.svg';
 import plus from './../../../static/plus.svg';
@@ -21,6 +22,7 @@ export const paymentType = {
 }
 
 const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const [games, setGames] = useState([]);
@@ -140,7 +142,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             )
                 :
                 <>
-                    <h4 className="text-muted">Ви ще нічого не додали до кошику!</h4>
+                    <h4 style={{ color: 'var(--text-secondary)' }}>Ви ще нічого не додали до кошику!</h4>
                     <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>Продовжити покупки</button>
                 </>
 
@@ -153,9 +155,9 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             const promise = subscribeOnGame(game.id, email.current.value);
 
             toast.promise(promise, {
-                pending: "Зачекайте...",
-                error: "Сталась помилка.",
-                success: "Ми повідомимо коли з'являться копії!"
+                pending: t('cart.pendingSubscribe'),
+                error: t('cart.errorSubscribe'),
+                success: t('cart.successSubscribe')
             })
 
         }
@@ -277,7 +279,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     return (
         <div className="d-flex flex-wrap-reverse gap-3 shopping-cart-container" style={{ maxWidth: "1500px" }}>
             <div className="card-container col mx-auto">
-                <h3><b>Ваш кошик</b></h3>
+                <h3><b>{t('cart.title')}</b></h3>
                 {!isLoading ?
                     memoRenderGames
                     : 
@@ -287,23 +289,23 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                     games.length !== 0 ?
                         <>
                             <hr />
-                            <h2 className="text-end"><span>До сплати: </span><span ref={total}></span>$</h2>
+                            <h2 className="text-end"><span>{t('cart.toPay')} </span><span ref={total}></span>$</h2>
                         </>
                         : ''
                 }
             </div>
             <div className="order-container">
-                <h3><b>Оформлення замовлення</b></h3>
+                <h3><b>{t('cart.paymentLabel')}</b></h3>
                 <div className="order-form bg-white">
                     <form onSubmit={(e) => submitForm(e)}>
                         <div className="form-group required">
-                            <label htmlFor="email" className="control-label">Електронна пошта</label>
+                            <label htmlFor="email" className="control-label">{t('payment.email')}</label>
                             <input ref={email} id="email" className="form-control rounded-0" type="email"
-                                placeholder="Електронна пошта" onChange={(e) => e.target.value} required />
+                                placeholder={t('payment.email')} onChange={(e) => e.target.value} required />
                         </div>
                         <fieldset className="form-group required">
                             <div className="row">
-                                <legend className="col-form-label col-sm-2 pt-0">Оплата</legend>
+                                <legend className="col-form-label col-sm-2 pt-0">{t('payment.billingAddress')}</legend>
                                 <div className="col-sm-10">
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="payment" id="gridRadios1"
@@ -333,11 +335,11 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             <div ref={modal} className="modal">
                 <div className="modal-content rounded-0">
                     <div className="modal-header rounded-0 d-block p-3">
-                        <h3 className="text-center">У вашому кошику жодної гри!
+                        <h3 className="text-center">{t('cart.empty')}
                             <span id="close-modal" className="close-modal float-end" onClick={() => modal.current.style.display = 'none'}>&times;</span></h3>
                     </div>
                     <div className="modal-body p-2 text-center m-3">
-                        <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>Продовжити покупки</button>
+                        <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>{t('orders.continueShopping')}</button>
                     </div>
                 </div>
             </div>

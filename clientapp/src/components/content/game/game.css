@@ -1,14 +1,33 @@
 :root {
     --crement-width: 20px;
+    --primary-color: #6366f1;
+    --primary-dark: #4f46e5;
+    --accent-warm: #f97316;
+    --accent-pink: #ec4899;
+    --accent-purple: #a855f7;
+    --bg-dark: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-color: #475569;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .img-link {
     cursor: pointer;
-    transition: .3s;
+    transition: var(--transition);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .img-link:hover {
-    transform: scale(105%);
+    transform: scale(1.08);
+    box-shadow: var(--shadow-xl);
 }
 
 .flex-container {
@@ -32,7 +51,9 @@
 .game-image>img {
     width: inherit;
     max-width: inherit;
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
 }
 
 .game-info {
@@ -49,9 +70,11 @@
 
 .game-info-img>img {
     width: inherit;
-    border-radius: 5px;
+    border-radius: 8px;
     width: 50px;
     height: 50px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
 }
 
 .game-type {
@@ -123,10 +146,18 @@
 }
 
 .my-card {
-    box-shadow: 0 3px 10px black;
-    border: none;
-    border-radius: 0;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     display: flex;
+    background-color: var(--bg-secondary);
+    transition: var(--transition);
+}
+
+.my-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
 }
 
 .card-container {
@@ -141,8 +172,11 @@
 }
 
 .order-form {
-    padding: 10px;
-    box-shadow: 0 5px 10px black;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border-radius: 12px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .product-list img {
@@ -169,13 +203,13 @@
 }
 
 .bg-price {
-    background: linear-gradient(45deg, #0050ac, #0666a5, #387ad1);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     width: 60px;
     text-align: center;
 }
 
 .bg-discount {
-    background: green;
+    background: linear-gradient(135deg, #10b981, #059669);
 }
 
 .bg-discount-red {

@@ -16,7 +16,7 @@ const Footer = () => {
     }
 
     return (
-        <footer className="text-center text-lg-start text-muted footer">
+        <footer className="text-center text-lg-start footer">
             <section className="d-flex justify-content-center p-4 border-bottom">
                 <div className="me-3 d-none d-lg-block">
                     <span>{t('footer.joinUs')}</span>
@@ -73,7 +73,7 @@ const Footer = () => {
                                 <FontAwesomeIcon icon={faBox} /> {t('footer.productsTitle')}
                             </h6>
                             <p>
-                                <a href={AppPaths.gameCatalog} className="text-dark nav-link"><FontAwesomeIcon icon={faGamepad} /> {t('footer.products.games')}</a>
+                                <a href={AppPaths.gameCatalog} className="text-reset nav-link"><FontAwesomeIcon icon={faGamepad} /> {t('footer.products.games')}</a>
                             </p>
                         </div>
                         <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -81,7 +81,7 @@ const Footer = () => {
                                 <FontAwesomeIcon icon={faLink} /> {t('footer.linksTitle')}
                             </h6>
                             <p>
-                                <a href="#" className="text-dark nav-link">FAQ</a>
+                                <a href="#" className="text-reset nav-link">FAQ</a>
                             </p>
                             <p>
                                 <button className="btn text-dark nav-link w-100 text-start" onClick={manager}>{t('footer.links.manager')}</button>
@@ -91,10 +91,10 @@ const Footer = () => {
                             <h6 className="text-uppercase fw-bold mb-4">Контакти</h6>
                             <p><FontAwesomeIcon icon={faHome} /><span className="ms-1"> {t('footer.contacts.address')}</span></p>
                             <p>
-                                <a href="mailto:namerek.inc@gmail.com" className="text-dark"><FontAwesomeIcon icon={faEnvelope} /><span className="ms-1"> namerek.inc@gmail.com</span></a>
+                                <a href="mailto:namerek.inc@gmail.com" className="text-reset"><FontAwesomeIcon icon={faEnvelope} /><span className="ms-1"> namerek.inc@gmail.com</span></a>
                             </p>
                             <p>
-                                <a href="tel:+380639737449" className="text-dark"><FontAwesomeIcon icon={faPhone} /><span className="ms-1">{t('footer.contacts.phone')}</span></a>
+                                <a href="tel:+380639737449" className="text-reset"><FontAwesomeIcon icon={faPhone} /><span className="ms-1">{t('footer.contacts.phone')}</span></a>
                             </p>
                         </div>
                     </div>

@@ -52,7 +52,7 @@ const Price = ({ item, priceClassName, discountClassName, vertical }) => {
                         item.discountPrice ?
                             <>
                                 <span className={"bg-discount p-2 text-white " + discountClassName} 
-                                    style={{backgroundColor: `rgb(0, 128, 0, ${getDiscountPercentageDouble()})`}}>
+                                    style={{backgroundColor: `rgba(16, 185, 129, ${getDiscountPercentageDouble()})`}}>
                                     {
                                         getDiscountPercentage()
                                     }

@@ -38,7 +38,7 @@ const Home = (props) => {
     return (
         games.length !== 0 ?
             <div id='home'>
-                <div className='bg-black'>
+                <div className='bg-dark'>
                     <div>
                         <Carousel games={copies} />
                     </div>

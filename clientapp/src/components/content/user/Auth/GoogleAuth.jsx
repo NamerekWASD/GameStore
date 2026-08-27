@@ -11,6 +11,7 @@ const GoogleAuth = ({ sendToServer }) => {
         LoadScript(src)
             .then(() => {
                 /*global google*/
+                console.log(process.env.REACT_APP_GOOGLE_OAUTH2_CLIENT_ID);
                 google.accounts.id.initialize({
                     client_id: process.env.REACT_APP_GOOGLE_OAUTH2_CLIENT_ID,
                     callback: handleCredentialResponse
@@ -20,6 +21,7 @@ const GoogleAuth = ({ sendToServer }) => {
                     {
                         theme: 'outline',
                         size: 'medium',
+                        locale: 'en',
                     }
                 )
             })

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import { GetGamesByFilters } from "../../../utils/ApiRequests";
 import { orderOptions } from "../../../utils/Constants";
@@ -22,6 +23,7 @@ export const processHeader = (count) => {
 }
 
 const GameCatalog = () => {
+    const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const genreRef = useRef(null);
     const [searchFilters, setSearchFilters] = useState({ genreIds: [], regionIds: [], platformIds: [] });
@@ -69,7 +71,7 @@ const GameCatalog = () => {
             <div>
                 <h1 ref={genreRef} className="fw-bolder">Каталог</h1>
                 <div className="d-flex flex-row">
-                    <div className="fw-bold">Знайдено {count !== 0 ? processHeader(count) : 'жодної гри'}</div>
+                    <div className="fw-bold">{t('search.found')} {count !== 0 ? processHeader(count) : t('search.noGames')}</div>
                     <div className="ms-5 w-25">
                         <Select className="" id="order-list"
                             options={orderOptions()}

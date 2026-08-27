@@ -1,6 +1,7 @@
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { GetGamesByFilters } from "../../../../utils/ApiRequests";
 import { AppPaths } from "../../../../utils/AppPaths";
 import { POSTER } from "../../../../utils/Constants";
@@ -11,6 +12,7 @@ import Price from "../../game/parts/Price";
 import { FilterSearch } from "../../game/parts/filter/FilterSearch";
 
 const ExtendedGameList = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [searchFilters, setSearchFilters] = useState();
 
@@ -67,7 +69,7 @@ const ExtendedGameList = () => {
                     onClick={createGame}>Створити продукт</button>
             </div>
             <div>
-                <h3>Знайдено {count ? processHeader(count) : ''}</h3>
+                <h3>{t('search.found')} {count ? processHeader(count) : ''}</h3>
             </div>
             <div className="my-3">
                 <FilterSearch searchFilters={searchFilters}
@@ -109,7 +111,7 @@ const ExtendedGameList = () => {
                                 </tbody>
                             </table>
                             :
-                            <h2>За вашим запитом не знайдено жодної гри!</h2>
+                            <h2>{t('search.notFoundForQuery')}</h2>
                     }
                     {
                         !isMax ?

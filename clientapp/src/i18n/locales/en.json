@@ -6,7 +6,7 @@
     },
     "order": {
         "title": "Order",
-        "orderNumber": "Order #{{number}}",
+        "orderNumber": "#{{number}}",
         "created": "Created: {{date}}",
         "image": "Image",
         "game": "Game",
@@ -28,6 +28,7 @@
         "cart": "Cart"
     },
     "payment": {
+        "email": "Email",
         "billingAddress": "Billing address",
         "firstName": "First name",
         "lastName": "Last name",
@@ -133,5 +134,20 @@
         "addToCart": "Add to cart",
         "notifyWhenAvailable": "Notify me when available",
         "description": "Description"
+    },
+    "search": {
+        "found": "Found",
+        "noGames": "no games",
+        "notFoundForQuery": "No games found for your query!"
+    },
+    "cart": {
+        "title": "Your cart",
+        "empty": "Your cart is empty!",
+        "toPay": "To pay:",
+        "paymentLabel": "Checkout Order",
+        "subscribe": "Subscribe to updates",
+        "pendingSubscribe": "Please wait...",
+        "successSubscribe": "We will notify you when copies become available!",
+        "errorSubscribe": "An error occurred."
     }
 }

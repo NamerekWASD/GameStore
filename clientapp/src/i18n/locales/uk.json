@@ -28,6 +28,7 @@
         "cart": "Кошик"
     },
     "payment": {
+        "email": "Електронна пошта",
         "billingAddress": "Платіжна адреса",
         "firstName": "Ім'я",
         "lastName": "Призвіще",
@@ -133,5 +134,20 @@
         "addToCart": "Додати у кошик",
         "notifyWhenAvailable": "Повідомити коли з'явиться у продажу",
         "description": "Опис"
+    },
+    "search": {
+        "found": "Знайдено",
+        "noGames": "жодної гри",
+        "notFoundForQuery": "За вашим запитом не знайдено жодної гри!"
+    },
+    "cart": {
+        "title": "Ваш кошик",
+        "empty": "У вашому кошику жодної гри!",
+        "toPay": "До сплати:",
+        "paymentLabel": "Оформлення замовлення",
+        "subscribe": "Підписатись на оновлення",
+        "pendingSubscribe": "Зачекайте...",
+        "successSubscribe": "Ми повідомимо коли з'являться копії!",
+        "errorSubscribe": "Сталась помилка."
     }
 }

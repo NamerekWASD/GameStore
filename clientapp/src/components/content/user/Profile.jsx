@@ -135,8 +135,8 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                     {
                         user ?
                             <>
-                                <img width="130px" src={!user.imageURL || user.imageURL.length !== 0 ? newUser : user.imageURL} alt="User" />
-                                <span className="text-black-50 mt-2">{user.userName}</span>
+                                <img width="130px" src={user.imageURL && user.imageURL.length !== 0 ? user.imageURL : newUser} alt="User" />
+                                <span className="mt-2" style={{ color: 'var(--text-secondary)' }}>{user.userName}</span>
                             </>
                             : ''
                     }

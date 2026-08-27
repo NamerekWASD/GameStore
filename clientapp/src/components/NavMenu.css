@@ -2,21 +2,29 @@
     white-space: normal;
     text-align: center;
     word-break: break-all;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-left: 20px;
-    color: white;
-    transition: 0.3s;
+    color: var(--text-primary);
+    transition: var(--transition);
+    background: linear-gradient(90deg, var(--accent-warm), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .dropdown-menu {
-    background-color: #222;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-xl);
 }
 
 .navbar-toggler {
     max-width: 50px;
+    border-color: var(--border-color);
 }
 
 .box-shadow {
@@ -25,16 +33,19 @@
 
 .header {
     z-index: 99;
-    border-bottom: inset 1px black;
-    transition: 1s;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
     color: white !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #222;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 100%);
     position: fixed;
     top: 0;
     width: 100%;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(8px);
+    background-color: rgba(15, 23, 42, 0.95);
 }
 
 .navbar {
@@ -47,23 +58,40 @@
 
 .nav-link {
     border: 0;
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: none;
-    color: #fff;
-    padding: 10px;
+    color: var(--text-secondary);
+    padding: 10px 16px;
     height: 100%;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
+    border-radius: 6px;
+    transition: var(--transition);
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-warm), var(--accent-pink));
+    transition: var(--transition);
 }
 
 a.navbar-brand:hover {
-    color: gray;
+    opacity: 0.8;
+    transform: scale(1.02);
 }
 
 .nav-link:hover {
-    border-radius: 0;
-    background-color: #fff;
-    color: #222;
+    color: var(--text-primary);
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 
@@ -76,24 +104,36 @@ a.navbar-brand:hover {
 }
 
 .counter {
-    font-size: 16px;
+    font-size: 12px;
+    font-weight: 700;
     position: absolute;
+    top: -2px;
+    right: -2px;
     color: white;
-    display: inline-block;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 50%;
     text-align: center;
-    bottom: 9px;
-    right: 23px;
     transition: .2s ease-out all;
 }
 
 .counter-container {
+    position: relative;
     border-radius: 0;
     border: transparent 2px solid;
 }
 
+.counter-container:hover {
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
 .counter-container:hover>.counter {
-    color: #222;
-    transform: scale(2.5) translateY(-8%);
+    transform: scale(1.15);
 }
 
 .formAnimation-container{
@@ -102,20 +142,29 @@ a.navbar-brand:hover {
 }
 
 .formAnimation {
-    background-image: linear-gradient(to left, #222, white 50%, white 50%, white);
+    background-image: linear-gradient(to left, rgba(99, 102, 241, 0.05), var(--bg-tertiary) 50%, var(--bg-tertiary) 50%, var(--bg-tertiary));
     background-size: 200% 100%;
     background-position: 100% 0;
     transition: background-position 0.5s ease;
-    color: #222;
+    color: var(--text-primary);
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 8px 12px;
 }
-
 
 .formAnimation>input{
     width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    outline: none;
 }
+
+.formAnimation>input::placeholder {
+    color: var(--text-secondary);
+}
+
 .formAnimation.focused, .formAnimation:hover {
     background-position: 0 0;
     color: white;
@@ -130,6 +179,49 @@ a.navbar-brand:hover {
 }
 
 .bg-gray {
-    background-color: rgb(85, 85, 85);
-    color: white;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Language switcher styles */
+.language-switcher .language-toggle {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    min-width: 56px;
+    justify-content: center;
+}
+
+.language-switcher .language-toggle:hover {
+    background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    color: #fff;
+}
+
+.language-switcher .language-menu {
+    background-color: #1f1f1f;
+    border: 1px solid rgba(255,255,255,0.06);
+    min-width: 160px;
+    padding: 6px 0;
+}
+
+.language-switcher .dropdown-item {
+    color: #eee;
+    padding: 8px 14px;
+    transition: background .15s ease, color .15s ease;
+}
+
+.language-switcher .dropdown-item:hover {
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+}
+
+.language-switcher .dropdown-item.active {
+    background: linear-gradient(90deg, rgba(32,165,32,0.12), rgba(32,165,32,0.06));
+    color: #dfffe0;
+}
+
+.language-switcher span[aria-hidden] {
+    font-size: 1.15em;
 }

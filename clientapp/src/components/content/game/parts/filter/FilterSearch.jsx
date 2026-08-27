@@ -4,7 +4,7 @@ export const FilterSearch = ({ searchFilters, setSearchFilter, searchQuery, setP
     const { t } = useTranslation();
     return (
         <div>
-            <input type="text" className="form-control w-100 rounded-0"
+            <input type="text" className="form-control w-100 rounded-25"
                 name="search-query" id="search-query" defaultValue={searchQuery}
                 onChange={(e) => {
                     const value = e.target.value;

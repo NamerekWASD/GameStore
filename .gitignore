@@ -406,3 +406,6 @@ API/ClientApp/.env.development
 
 **/.env.development
 /API/appsettings.json
+
+.temp/
+.playwright-mcp/
