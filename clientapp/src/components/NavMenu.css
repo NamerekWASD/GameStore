@@ -94,6 +94,12 @@ a.navbar-brand:hover {
     width: 100%;
 }
 
+.nav-link:focus-visible {
+    color: var(--text-primary);
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
 
 .highlight-green {
     border-color: rgb(32, 165, 32) !important;
