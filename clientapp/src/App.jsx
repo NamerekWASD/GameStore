@@ -51,6 +51,10 @@ const App = () => {
             element: <Profile isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
         },
         {
+            path: AppPaths.accountOrders,
+            element: <Profile isAuthenticated={isAuthenticated} refreshAuth={refreshAuth}/>
+        },
+        {
             path: AppPaths.gameDetails,
             element: <GameDetails isAuthenticated ={isAuthenticated} refreshAuth={refreshAuth}/>
         },

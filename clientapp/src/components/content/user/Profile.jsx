@@ -1,17 +1,20 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AppPaths } from "../../../utils/AppPaths";
-import newUser from './newUser.png'
 import Orders from "../order/Orders";
 import { GetUserData } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import { useTranslation } from 'react-i18next';
+import LoadingCircle from "../../../utils/LoadingCircle";
 
 const Profile = ({ isAuthenticated, refreshAuth }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation();
 
     const [user, setUser] = useState();
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated === false) {
@@ -27,12 +30,18 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
             })
                 .then(result => {
                     setUser(result);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                    toast.error(t('profile.loadError'));
                 });
         }
     }, [refreshAuth]);
 
     const onSubmit = (e) => {
         e.preventDefault();
+        setSaving(true);
         const requestInfo = `api/account/update`;
         const requestInit = {
             method: 'POST',
@@ -45,7 +54,7 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
 
         fetch(requestInfo, requestInit).then(response => {
             processResponse(response)
-        })
+        }).finally(() => setSaving(false))
     }
 
     async function processResponse(response) {
@@ -61,16 +70,25 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
         settings: "settings",
         orders: "orders",
     }
-    const [optionType, setOptionType] = useState(option.settings);
+    const optionType = location.pathname === AppPaths.accountOrders ? option.orders : option.settings;
+    const tabOrder = [option.settings, option.orders];
+    const settingsTabRef = useRef(null);
+    const ordersTabRef = useRef(null);
+    const tabRefs = { [option.settings]: settingsTabRef, [option.orders]: ordersTabRef };
 
-    const handleTabClick = (e) => {
-        const borderBottom = "border-bottom-0"
-        const otherTabs = document.getElementsByClassName('nav-tab-item');
-        Array.from(otherTabs).forEach(element => {
-            element.classList.remove(borderBottom);
-        });
-        e.target.classList.add(borderBottom);
-        setOptionType(e.target.value);
+    const handleTabClick = (value) => {
+        navigate(value === option.orders ? AppPaths.accountOrders : AppPaths.profile);
+    }
+
+    const handleTabsKeyDown = (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        const currentIndex = tabOrder.indexOf(optionType);
+        const nextIndex = e.key === 'ArrowRight'
+            ? (currentIndex + 1) % tabOrder.length
+            : (currentIndex - 1 + tabOrder.length) % tabOrder.length;
+        const nextTab = tabOrder[nextIndex];
+        handleTabClick(nextTab);
+        tabRefs[nextTab].current?.focus();
     }
 
     const renderOption = () => {
@@ -79,38 +97,38 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                 return (
                     <div>
                         <form className="row profile-form" onSubmit={onSubmit}>
-                            <div className="p-3">
+                            <div className="profile-form-names">
                                 <div className="form-group">
                                     <label className="labels" htmlFor="fname">{t('profile.firstName')}</label>
                                     <input
                                         type="text" id="fname" name="fname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.firstName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value }))} />
+                                        value={user?.firstName ?? ''} onChange={(e) => setUser(prevData => ({ ...prevData, firstName: e.target.value }))} />
                                 </div>
                                 <div className="form-group">
                                     <label className="labels" htmlFor="lname">{t('profile.lastName')}</label>
                                     <input
                                         type="text" id="lname" name="lname"
                                         className="form-control rounded-0"
-                                        defaultValue={user ? user.lastName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value }))} />
+                                        value={user?.lastName ?? ''} onChange={(e) => setUser(prevData => ({ ...prevData, lastName: e.target.value }))} />
                                 </div>
-                                <div className="form-group required">
-                                    <label className="labels" htmlFor="username">{t('profile.username')}</label>
-                                    <input
-                                        type="text" id="username" name="username"
-                                        className="form-control rounded-0" required minLength={3}
-                                        defaultValue={user ? user.userName : ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value }))} />
-                                </div>
-                                <div className="form-group required">
-                                    <label className="labels" htmlFor="email">{t('profile.email')}</label>
-                                    <input
-                                        type="email" id="email" name="email"
-                                        className="form-control rounded-0" required disabled={user && user.provider}
-                                        defaultValue={user ? user.email : ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value }))} />
-                                </div>
-                                <div className="text-center">
-                                    <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" value={t('profile.saveChanges')} />
-                                </div>
+                            </div>
+                            <div className="form-group required">
+                                <label className="labels" htmlFor="username">{t('profile.username')}</label>
+                                <input
+                                    type="text" id="username" name="username"
+                                    className="form-control rounded-0" required minLength={3}
+                                    value={user?.userName ?? ''} onChange={(e) => setUser(prevData => ({ ...prevData, userName: e.target.value }))} />
+                            </div>
+                            <div className="form-group required">
+                                <label className="labels" htmlFor="email">{t('profile.email')}</label>
+                                <input
+                                    type="email" id="email" name="email"
+                                    className="form-control rounded-0" required disabled={user && user.provider}
+                                    value={user?.email ?? ''} onChange={(e) => setUser(prevData => ({ ...prevData, email: e.target.value }))} />
+                            </div>
+                            <div className="profile-form-actions">
+                                <input type="submit" className="btn btn-outline-success rounded-0 btn-75px" disabled={saving} value={saving ? t('profile.saving') : t('profile.saveChanges')} />
                             </div>
                         </form>
                     </div>
@@ -126,32 +144,59 @@ const Profile = ({ isAuthenticated, refreshAuth }) => {
                 )
         }
     }
-    const memoOption = useMemo(renderOption, [user, optionType, option]);
+    const memoOption = useMemo(renderOption, [user, optionType, option, saving]);
+
+    if (loading) {
+        return (
+            <div id="profile" className="profile-card profile-card-loading">
+                <LoadingCircle />
+            </div>
+        )
+    }
 
     return (
-        <div id="profile" className="d-flex flex-row bg-white mx-auto my-5 flex-wrap justify-content-center" style={{ maxWidth: "1200px" }}>
-            <div className="border-right flex-fill">
+        <div id="profile" className="profile-card">
+            <div className="border-end profile-avatar-col">
                 <div className="d-flex flex-column h-100 align-items-center justify-content-center">
                     {
                         user ?
                             <>
-                                <img width="130px" src={user.imageURL && user.imageURL.length !== 0 ? user.imageURL : newUser} alt="User" />
+                                {
+                                    user.imageURL && user.imageURL.length !== 0 ?
+                                        <img className="profile-avatar" src={user.imageURL} alt="User" />
+                                        :
+                                        <div className="profile-avatar profile-avatar-placeholder">
+                                            {(user.userName || '?').charAt(0).toUpperCase()}
+                                        </div>
+                                }
                                 <span className="mt-2" style={{ color: 'var(--text-secondary)' }}>{user.userName}</span>
                             </>
                             : ''
                     }
                 </div>
             </div>
-            <div className="border-right" style={{ minWidth: '40vw' }}>
-                <ul className="nav nav-tabs gap-2 flex-nowrap">
-                    <li className="nav-item ms-2">
-                        <button className="btn btn-outline-dark rounded-0 border-bottom-0 nav-tab-item" onClick={handleTabClick} value={option.settings}>{t('profile.tabs.settings')}</button>
-                    </li>
-                    <li className="nav-item">
-                        <button className="btn btn-outline-dark rounded-0 nav-tab-item" onClick={handleTabClick} value={option.orders}>{t('profile.tabs.orders')}</button>
-                    </li>
-                </ul>
-                <div style={{minHeight: '50vh'}}>
+            <div className="border-end profile-tabs-col">
+                <div role="tablist" className="profile-tabs" onKeyDown={handleTabsKeyDown}>
+                    <button
+                        ref={settingsTabRef}
+                        role="tab"
+                        id={`tab-${option.settings}`}
+                        aria-selected={optionType === option.settings}
+                        aria-controls={`panel-${option.settings}`}
+                        tabIndex={optionType === option.settings ? 0 : -1}
+                        className={`btn rounded-0 nav-tab-item ${optionType === option.settings ? 'active' : ''}`}
+                        onClick={() => handleTabClick(option.settings)}>{t('profile.tabs.settings')}</button>
+                    <button
+                        ref={ordersTabRef}
+                        role="tab"
+                        id={`tab-${option.orders}`}
+                        aria-selected={optionType === option.orders}
+                        aria-controls={`panel-${option.orders}`}
+                        tabIndex={optionType === option.orders ? 0 : -1}
+                        className={`btn rounded-0 nav-tab-item ${optionType === option.orders ? 'active' : ''}`}
+                        onClick={() => handleTabClick(option.orders)}>{t('profile.tabs.orders')}</button>
+                </div>
+                <div role="tabpanel" id={`panel-${optionType}`} aria-labelledby={`tab-${optionType}`} className="profile-panel">
                     {memoOption}
                 </div>
             </div>

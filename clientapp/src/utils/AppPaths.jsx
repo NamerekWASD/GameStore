@@ -2,6 +2,7 @@ export const AppPaths = {
     home: '/',
     authorization: '/account/authorize',
     profile: '/account/profile',
+    accountOrders: '/account/orders',
     gameDetails: '/game/details',
     shoppingCart: '/cart',
     gameSearch: '/game/search',

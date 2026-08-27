@@ -108,6 +108,127 @@
     transform: translateY(0);
 }
 
+.profile-card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    overflow: hidden;
+}
+
+.profile-card.profile-card-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.profile-card .border-end {
+    border-color: rgba(255, 255, 255, .08) !important;
+}
+
+.profile-card .labels {
+    color: var(--text-secondary);
+}
+
+.profile-avatar-col {
+    padding: 24px;
+}
+
+.profile-avatar,
+.profile-avatar-placeholder {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.profile-avatar {
+    object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+    background: var(--primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.profile-tabs-col {
+    padding: 24px;
+}
+
+.profile-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.nav-tab-item {
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.nav-tab-item:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+}
+
+.nav-tab-item.active {
+    background: var(--bg-secondary);
+    color: #fff;
+    border-bottom-color: var(--bg-secondary);
+}
+
+.nav-tab-item:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.profile-panel {
+    padding-top: 24px;
+}
+
+.profile-panel .responsive-table tr {
+    background-color: rgba(255, 255, 255, .04);
+}
+
+.profile-panel .responsive-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, .08);
+}
+
+.profile-form-names {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.profile-form .form-group {
+    margin-bottom: 16px;
+}
+
+.profile-form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-form-names {
+        grid-template-columns: 1fr;
+    }
+}
+
 .or {
     width: 40px;
     height: 40px;

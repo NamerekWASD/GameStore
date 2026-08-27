@@ -108,6 +108,8 @@
         "username": "Username",
         "email": "Email",
         "saveChanges": "Save changes",
+        "saving": "Saving...",
+        "loadError": "Failed to load profile data.",
         "tabs": {
             "settings": "Settings",
             "orders": "My orders"
