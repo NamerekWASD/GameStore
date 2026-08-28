@@ -21,11 +21,16 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      # Restore/build target Tests.csproj directly rather than GameStore.sln:
+      # the .sln also lists clientapp.esproj (a Visual Studio-only SPA proxy
+      # project) which always resolves to net472 and fails on Linux runners
+      # (missing .NET Framework reference assemblies). Tests.csproj already
+      # pulls in API/BLL/DAL/Exceptions via ProjectReference.
       - name: Restore
-        run: dotnet restore GameStore.sln
+        run: dotnet restore Tests/Tests.csproj
 
       - name: Build
-        run: dotnet build GameStore.sln --configuration Release --no-restore
+        run: dotnet build Tests/Tests.csproj --configuration Release --no-restore
 
       - name: Test
         run: dotnet test Tests/Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
