@@ -67,7 +67,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BLL\BLL.csproj" />
-		<ProjectReference Include="..\clientapp\clientapp.esproj">
+		<ProjectReference Include="..\clientapp\clientapp.esproj" Condition="'$(OS)' == 'Windows_NT'">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
 	</ItemGroup>
