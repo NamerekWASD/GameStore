@@ -46,28 +46,28 @@
 	<ItemGroup>
 	  <Compile Remove="obj\**" />
 	  <EmbeddedResource Remove="obj\**" />
-	  <None Remove="..\ClientApp\obj\**" />
-	  <None Remove="..\ClientApp\public\**" />
-	  <None Remove="..\ClientApp\src\**" />
+	  <None Remove="..\clientapp\obj\**" />
+	  <None Remove="..\clientapp\public\**" />
+	  <None Remove="..\clientapp\src\**" />
 	  <None Remove="obj\**" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="..\ClientApp\.env" />
-	  <None Remove="..\ClientApp\.env.development" />
-	  <None Remove="..\ClientApp\.env.development.local" />
-	  <None Remove="..\ClientApp\.gitignore" />
-	  <None Remove="..\ClientApp\aspnetcore-https.js" />
-	  <None Remove="..\ClientApp\aspnetcore-react.js" />
-	  <None Remove="..\ClientApp\clientapp.esproj" />
-	  <None Remove="..\ClientApp\clientapp.esproj.user" />
-	  <None Remove="..\ClientApp\nuget.config" />
-	  <None Remove="..\ClientApp\package-lock.json" />
-	  <None Remove="..\ClientApp\package.json" />
-	  <None Remove="..\ClientApp\README.md" />
+	  <None Remove="..\clientapp\.env" />
+	  <None Remove="..\clientapp\.env.development" />
+	  <None Remove="..\clientapp\.env.development.local" />
+	  <None Remove="..\clientapp\.gitignore" />
+	  <None Remove="..\clientapp\aspnetcore-https.js" />
+	  <None Remove="..\clientapp\aspnetcore-react.js" />
+	  <None Remove="..\clientapp\clientapp.esproj" />
+	  <None Remove="..\clientapp\clientapp.esproj.user" />
+	  <None Remove="..\clientapp\nuget.config" />
+	  <None Remove="..\clientapp\package-lock.json" />
+	  <None Remove="..\clientapp\package.json" />
+	  <None Remove="..\clientapp\README.md" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BLL\BLL.csproj" />
-		<ProjectReference Include="..\ClientApp\clientapp.esproj">
+		<ProjectReference Include="..\clientapp\clientapp.esproj">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
 	</ItemGroup>
