@@ -110,7 +110,7 @@ const Carousel = ({ games }) => {
                                 : <></>
                         }
                         <img className="width-inherit height-inherit responsive-image"
-                            src={game.images.find(value => value.type.name === POSTER).path}
+                            src={game.images.find(value => value.type.name === POSTER)?.path}
                             alt={game.title}
                             style={isMobile || !isPanorama ? { width: containerSize.width + 'px', height: containerSize.height + 'px' } : {}} />
                     </div>
