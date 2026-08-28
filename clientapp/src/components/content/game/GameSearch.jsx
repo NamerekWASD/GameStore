@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { GetGamesByFilters } from "../../../utils/ApiRequests";
-import { processHeader } from "./GameCatalog";
 import { FilterSearch } from "./parts/filter/FilterSearch";
 import GameList from "./parts/GameList";
 import './GameSearch.css';
@@ -60,7 +59,7 @@ const GameSearch = () => {
             <div id="search-bar-game-search-page" className="search-header">
                 <div className="d-flex flex-row align-items-center gap-3">
                     <h3 className="fw-bold m-0">
-                        {t('search.found')} {count !== 0 ? processHeader(count) : t('search.noGames')}
+                        {t('search.found')} {count !== 0 ? t('catalog.gamesCount', { count }) : t('search.noGames')}
                     </h3>
                 </div>
                 <div className="search-filters mt-3">

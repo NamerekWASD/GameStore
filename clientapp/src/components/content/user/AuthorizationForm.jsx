@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Account.css';
 import GoogleAuth from './Auth/GoogleAuth';
 import { toast } from 'react-toastify';
@@ -8,6 +9,7 @@ import { SendLoginData } from '../../../utils/ApiRequests';
 import PreLoader from '../../../utils/PreLoader';
 
 const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams()
     const RefEmail = useRef(null);
@@ -65,7 +67,7 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
 
         if (processResponse(response)) {
             refreshAuth();
-            toast.success("Вітаємо")
+            toast.success(t('auth.welcome'))
         }
     }
     const after = () => {
@@ -85,12 +87,12 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
                             <div id="sign-form" className='bg-white'>
                                 <form onSubmit={sendConfirmation}>
                                     <div className="my-card-left">
-                                        <h1>Авторизація</h1>
+                                        <h1>{t('auth.title')}</h1>
                                         <input
                                             className='text-input'
                                             type="text"
                                             name="email"
-                                            placeholder="Електронна пошта"
+                                            placeholder={t('payment.email')}
                                             required
                                             ref={RefEmail}
                                             onChange={(e) => e.target.value} />
@@ -102,15 +104,15 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
                                                 checked={rememberMe}
                                                 onChange={() => setRememberMe(!rememberMe)} />
                                             <label className='remember' htmlFor='checkbox-rect1'>
-                                                Запам'ятати мене
+                                                {t('auth.rememberMe')}
                                             </label>
                                         </div>
                                         <input type="submit"
                                             name="signin_submit"
-                                            value="Увійти" />
+                                            value={t('auth.signIn')} />
                                     </div>
                                 </form>
-                                <div className='or'>Або</div>
+                                <div className='or'>{t('auth.or')}</div>
                                 <div className="my-card-right">
                                     <GoogleAuth sendToServer={sendAsExternalLogin} />
                                 </div>

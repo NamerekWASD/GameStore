@@ -40,7 +40,8 @@
         "continue": "Continue",
         "pending": "Pending...",
         "success": "Done!",
-        "error": "An error occurred"
+        "error": "An error occurred",
+        "methodUnavailable": "Unfortunately, this payment method is unavailable"
     },
     "subscribe": {
         "title": "Subscribe to game",
@@ -67,6 +68,7 @@
         "links": {
             "manager": "For managers"
         },
+        "contactsTitle": "Contacts",
         "contacts": {
             "address": "Yaroslavska St, 56A, Kyiv, 04071",
             "phone": "+38(063)973-74-49"
@@ -90,7 +92,54 @@
     },
     "manager": {
         "createSuccess": "Game successfully added!",
-        "editSuccess": "Game successfully updated!"
+        "editSuccess": "Game successfully updated!",
+        "deleteTitle": "Delete product",
+        "confirm": "Confirm",
+        "cancelDelete": "I changed my mind...",
+        "deleteSuccess": "Product successfully deleted!",
+        "copyAddSuccess": "Copy successfully added!",
+        "createProduct": "Create product",
+        "errors": {
+            "posterRequired": "The product must have at least one image named \"{{poster}}\""
+        },
+        "form": {
+            "editTitle": "Update game data",
+            "createTitle": "Create game",
+            "title": "Title",
+            "generalInfo": "General information",
+            "developer": "Developer",
+            "publisher": "Publisher",
+            "genre": "Genre",
+            "tags": "Tags",
+            "releaseDate": "Release date",
+            "hotOffer": "Hot offer",
+            "availableForSale": "Available for sale",
+            "copies": "Copies",
+            "copyType": "Copy type",
+            "platform": "Platform",
+            "availableRegions": "Available regions",
+            "createOtherCopyType": "Create another copy type",
+            "price": "Price",
+            "discountPrice": "Discount price",
+            "cancelDiscount": "Cancel discount",
+            "applyDiscount": "Apply discount",
+            "images": "Images",
+            "imageType": "Image type",
+            "addLink": "Add link",
+            "attach": "Attach",
+            "uploadToServer": "Upload to server",
+            "addImage": "Add image",
+            "description": "Description",
+            "descriptionPreview": "Description preview on the page",
+            "fillCopyData": "Fill in the copy data",
+            "uploadCopy": "Upload copy"
+        },
+        "table": {
+            "titleGenres": "Title (genres)",
+            "copyType": "Copy type",
+            "copyCount": "Copies count",
+            "price": "Price"
+        }
     },
     "orders": {
         "table": {
@@ -142,6 +191,28 @@
         "noGames": "no games",
         "notFoundForQuery": "No games found for your query!"
     },
+    "catalog": {
+        "title": "Catalog",
+        "sortPlaceholder": "Sort by",
+        "gamesCount_one": "{{count}} game",
+        "gamesCount_other": "{{count}} games"
+    },
+    "filter": {
+        "genres": "Genres",
+        "availableRegions": "Available regions",
+        "platforms": "Platforms",
+        "tags": "Tags",
+        "developer": "Developer",
+        "publisher": "Publisher",
+        "price": "Price",
+        "releaseDate": "Release date",
+        "from": "From",
+        "to": "To",
+        "discounted": "Discounted",
+        "available": "Available for sale",
+        "hotOffers": "Hot offers",
+        "reset": "Reset to default"
+    },
     "cart": {
         "title": "Your cart",
         "empty": "Your cart is empty!",
@@ -150,6 +221,27 @@
         "subscribe": "Subscribe to updates",
         "pendingSubscribe": "Please wait...",
         "successSubscribe": "We will notify you when copies become available!",
-        "errorSubscribe": "An error occurred."
+        "errorSubscribe": "An error occurred.",
+        "noCopiesLeft": "Unfortunately, no copies of this game are left",
+        "notifyWhenAvailable": "Notify me when this game becomes available",
+        "noItemsAdded": "You haven't added anything to your cart yet!",
+        "someCopiesUnavailable": "Some games in your cart are out of stock!",
+        "emailConfirmed": "Email confirmed",
+        "confirmDataCorrect": "I confirm that the data is correct",
+        "confirm": "Confirm"
+    },
+    "auth": {
+        "title": "Authorization",
+        "welcome": "Welcome",
+        "rememberMe": "Remember me",
+        "signIn": "Sign in",
+        "or": "Or",
+        "confirmEmailTitle": "Confirm your email",
+        "emailConfirmed": "Email confirmed!",
+        "code": "Code"
+    },
+    "home": {
+        "novelties": "New releases",
+        "availableSoon": "Coming soon"
     }
 }

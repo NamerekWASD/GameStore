@@ -6,7 +6,6 @@ import { GetGamesByFilters } from "../../../../utils/ApiRequests";
 import { AppPaths } from "../../../../utils/AppPaths";
 import { POSTER } from "../../../../utils/Constants";
 import LoadingCircle from "../../../../utils/LoadingCircle";
-import { processHeader } from "../../game/GameCatalog";
 import FilterTable from "../../game/parts/filter/FilterTable";
 import Price from "../../game/parts/Price";
 import { FilterSearch } from "../../game/parts/filter/FilterSearch";
@@ -66,10 +65,10 @@ const ExtendedGameList = () => {
         <div className="container">
             <div className="py-3">
                 <button className="btn btn-outline-success rounded-0 w-100" style={{ height: '4rem' }}
-                    onClick={createGame}>Створити продукт</button>
+                    onClick={createGame}>{t('manager.createProduct')}</button>
             </div>
             <div>
-                <h3>{t('search.found')} {count ? processHeader(count) : ''}</h3>
+                <h3>{t('search.found')} {count ? t('catalog.gamesCount', { count }) : ''}</h3>
             </div>
             <div className="my-3">
                 <FilterSearch searchFilters={searchFilters}
@@ -87,10 +86,10 @@ const ExtendedGameList = () => {
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Назва (жанри)</th>
-                                        <th>Тип копії</th>
-                                        <th>Кількість копій</th>
-                                        <th>Ціна</th>
+                                        <th>{t('manager.table.titleGenres')}</th>
+                                        <th>{t('manager.table.copyType')}</th>
+                                        <th>{t('manager.table.copyCount')}</th>
+                                        <th>{t('manager.table.price')}</th>
                                     </tr>
                                 </thead>
                                 <tbody ref={listContainer}>

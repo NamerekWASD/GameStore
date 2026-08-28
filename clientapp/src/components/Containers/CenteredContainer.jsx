@@ -1,7 +1,7 @@
 import React from 'react';
 import './Container.css';
 
-const CenteredContainer = ({ children }) => { // батькіський елемент має бути position relative в більшості випадках
+const CenteredContainer = ({ children }) => { // parent element usually needs position: relative
 	return (
 		<div className="centered-container">
 			{children}

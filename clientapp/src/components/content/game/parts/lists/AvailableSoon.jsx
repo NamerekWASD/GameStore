@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next";
 import { GetGamesByFilters } from "../../../../../utils/ApiRequests"
 import GameList from "../GameList";
 
 export const AvailableSoon = () => {
+    const { t } = useTranslation();
     const [games, setGames] = useState([]);
     useEffect(() => {
         GetGamesByFilters({ orderBy: 1, dateFrom: new Date() }, 1).then(result => {
@@ -16,7 +18,7 @@ export const AvailableSoon = () => {
             <div className='bg-gray-gradient-top w-100' style={{ height: '20px' }}></div>
 
             <div className="bg-dark p-1 py-5">
-                <h1 className="text-center text-white">Скоро у продажі</h1>
+                <h1 className="text-center text-white">{t('home.availableSoon')}</h1>
                 <div className="d-flex justify-content-center">
                     <GameList games={games} isMax isVertical noNeedPagination cardClassName={"bg-dark border border-white"} />
                 </div>

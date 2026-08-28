@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GetFilterData } from "../../../../../utils/ApiRequests";
 import FieldCheckBoxSet from "./FieldCheckBoxSet";
 import $ from 'jquery'
@@ -6,6 +7,7 @@ import { scrollToTop } from "../../../../Layout";
 import Select from 'react-select';
 
 const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) => {
+    const { t } = useTranslation();
     const minPrice = useRef(null);
     const maxPrice = useRef(null);
     const minDate = useRef(null);
@@ -66,7 +68,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             {
                 showGenre ?
                 <FieldCheckBoxSet
-                fieldName={"Жанри"}
+                fieldName={t('filter.genres')}
                 propertyName={"genreIds"}
                 array={filterData.genres}
                 processInput={processInput}
@@ -75,21 +77,21 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             : ''
             }
             <FieldCheckBoxSet
-                fieldName={"Доступні регіони"}
+                fieldName={t('filter.availableRegions')}
                 propertyName={"regionIds"}
                 array={filterData.availableRegions}
                 processInput={processInput}
                 searchFilters={searchFilters}
             />
             <FieldCheckBoxSet
-                fieldName={"Платформи"}
+                fieldName={t('filter.platforms')}
                 propertyName={"platformIds"}
                 array={filterData.platforms}
                 processInput={processInput}
                 searchFilters={searchFilters}
             />
             <div className="mb-1 bg-gray p-3">
-                <h5 className="text-center p-1">Мітки</h5>
+                <h5 className="text-center p-1">{t('filter.tags')}</h5>
                 <div>
                     <Select className="rounded-all-0 text-dark"
                         isMulti
@@ -105,7 +107,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                 </div>
             </div>
             <div className="mb-1 bg-gray p-3">
-                <h5 className="text-center p-1">Розробник</h5>
+                <h5 className="text-center p-1">{t('filter.developer')}</h5>
                 <div>
                     <Select className="rounded-all-0 text-dark"
                         isClearable
@@ -121,7 +123,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                 </div>
             </div>
             <div className="mb-1 bg-gray p-3">
-                <h5 className="text-center p-1">Видавець</h5>
+                <h5 className="text-center p-1">{t('filter.publisher')}</h5>
                 <div>
                     <Select className="rounded-all-0 text-dark"
                         isClearable
@@ -137,10 +139,10 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                 </div>
             </div>
             <div className="mb-1 bg-gray p-3">
-                <h5 className="text-center p-1">Ціна</h5>
+                <h5 className="text-center p-1">{t('filter.price')}</h5>
                 <div className="p-3 d-flex justify-content-around gap-2">
                     <div className="bg-white">
-                        <span className="px-1 text-dark">Від</span>
+                        <span className="px-1 text-dark">{t('filter.from')}</span>
                         <input ref={minPrice}
                             className="border-0 price no-outline min-input" type="number"
                             min={0} max={100} step=".5"
@@ -158,7 +160,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                         />
                     </div>
                     <div className="bg-white">
-                        <span className="px-1 text-dark">До</span>
+                        <span className="px-1 text-dark">{t('filter.to')}</span>
                         <input ref={maxPrice}
                             className="border-0 price no-outline max-input" type="number"
                             min={0} max={100} step=".5"
@@ -178,10 +180,10 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                 </div>
             </div>
             <div className="mb-1 bg-gray p-3">
-                <h5 className="text-center p-1">Дата виходу</h5>
+                <h5 className="text-center p-1">{t('filter.releaseDate')}</h5>
                 <div className="p-3 d-flex justify-content-around gap-2">
                     <div className="bg-white">
-                        <span className="px-1 text-dark">Від</span>
+                        <span className="px-1 text-dark">{t('filter.from')}</span>
                         <input ref={minDate}
                             className="border-0 no-outline min-input" type="number" min={1990} max={2100} step="1"
                             defaultValue={searchFilters && searchFilters.dateFrom ? searchFilters.dateFrom.getFullYear() : 1990}
@@ -195,7 +197,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                         />
                     </div>
                     <div className="bg-white">
-                        <span className="px-1 text-dark">До</span>
+                        <span className="px-1 text-dark">{t('filter.to')}</span>
                         <input ref={maxDate}
                             className="border-0 no-outline " type="number" min={1990} max={2100} step="1"
                             defaultValue={searchFilters && searchFilters.dateTo ? searchFilters.dateTo.getFullYear() : 2100}
@@ -221,7 +223,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                             setPage(0);
                         }}
                     />
-                    <label htmlFor="isDiscounted">Зі знижкою</label>
+                    <label htmlFor="isDiscounted">{t('filter.discounted')}</label>
                 </div>
                 <div className="form-group checkbox-unique">
                     <input id="isAvailable" type="checkbox" name="isAvailable"
@@ -233,7 +235,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                             setPage(0);
                         }}
                     />
-                    <label htmlFor="isAvailable">Доступні до продажу</label>
+                    <label htmlFor="isAvailable">{t('filter.available')}</label>
                 </div>
                 <div className="form-group checkbox-unique">
                     <input id="isHotOffer" type="checkbox" name="isHotOffer"
@@ -245,10 +247,10 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                             setPage(0);
                         }}
                     />
-                    <label htmlFor="isHotOffer">Гарячі пропозиції</label>
+                    <label htmlFor="isHotOffer">{t('filter.hotOffers')}</label>
                 </div>
             </div>
-            <button type="button" className="btn rounded-0 btn-outline-danger w-100 mb-1" onClick={() => reset()}>За замовчуванням</button>
+            <button type="button" className="btn rounded-0 btn-outline-danger w-100 mb-1" onClick={() => reset()}>{t('filter.reset')}</button>
         </div>
     )
 }

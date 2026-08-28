@@ -40,7 +40,8 @@
         "continue": "Продовжити",
         "pending": "Ще трохи...",
         "success": "Готово!",
-        "error": "Сталась помилка"
+        "error": "Сталась помилка",
+        "methodUnavailable": "Нажаль цей метод оплати недоступний"
     },
     "subscribe": {
         "title": "Підписатись на гру",
@@ -67,6 +68,7 @@
         "links": {
             "manager": "Менеджеру"
         },
+        "contactsTitle": "Контакти",
         "contacts": {
             "address": "вул. Ярославська, 56А, Київ, 04071",
             "phone": "+38(063)973-74-49"
@@ -90,7 +92,54 @@
     },
     "manager": {
         "createSuccess": "Гра успішно додана!",
-        "editSuccess": "Гра успішно змінена!"
+        "editSuccess": "Гра успішно змінена!",
+        "deleteTitle": "Видалити продукт",
+        "confirm": "Підтвердити",
+        "cancelDelete": "Я передумав...",
+        "deleteSuccess": "Продукт успішно видалений!",
+        "copyAddSuccess": "Ви успішно додали копію!",
+        "createProduct": "Створити продукт",
+        "errors": {
+            "posterRequired": "В продукті має бути хоча б одне зображення із назвою \"{{poster}}\""
+        },
+        "form": {
+            "editTitle": "Оновити дані гри",
+            "createTitle": "Створити гру",
+            "title": "Назва",
+            "generalInfo": "Загальна інформація",
+            "developer": "Розробник",
+            "publisher": "Видавець",
+            "genre": "Жанр",
+            "tags": "Мітки",
+            "releaseDate": "Дата релізу",
+            "hotOffer": "Гаряча пропозиція",
+            "availableForSale": "Доступно до продажу",
+            "copies": "Копії",
+            "copyType": "Тип копії",
+            "platform": "Платформа",
+            "availableRegions": "Доступні регіони",
+            "createOtherCopyType": "Створити інший тип копії",
+            "price": "Ціна",
+            "discountPrice": "Ціна зі знижкою",
+            "cancelDiscount": "Скасувати знижку",
+            "applyDiscount": "Застосувати знижку",
+            "images": "Зображення",
+            "imageType": "Тип зображення",
+            "addLink": "Додати посилання",
+            "attach": "Прикріпити",
+            "uploadToServer": "Завантажити на сервер",
+            "addImage": "Додати зображення",
+            "description": "Опис",
+            "descriptionPreview": "Вигляд опису на сторінці",
+            "fillCopyData": "Заповніть поле даними копії",
+            "uploadCopy": "Завантажити копію"
+        },
+        "table": {
+            "titleGenres": "Назва (жанри)",
+            "copyType": "Тип копії",
+            "copyCount": "Кількість копій",
+            "price": "Ціна"
+        }
     },
     "orders": {
         "table": {
@@ -142,6 +191,30 @@
         "noGames": "жодної гри",
         "notFoundForQuery": "За вашим запитом не знайдено жодної гри!"
     },
+    "catalog": {
+        "title": "Каталог",
+        "sortPlaceholder": "Упорядкувати",
+        "gamesCount_one": "{{count}} гра",
+        "gamesCount_few": "{{count}} гри",
+        "gamesCount_many": "{{count}} ігор",
+        "gamesCount_other": "{{count}} ігор"
+    },
+    "filter": {
+        "genres": "Жанри",
+        "availableRegions": "Доступні регіони",
+        "platforms": "Платформи",
+        "tags": "Мітки",
+        "developer": "Розробник",
+        "publisher": "Видавець",
+        "price": "Ціна",
+        "releaseDate": "Дата виходу",
+        "from": "Від",
+        "to": "До",
+        "discounted": "Зі знижкою",
+        "available": "Доступні до продажу",
+        "hotOffers": "Гарячі пропозиції",
+        "reset": "За замовчуванням"
+    },
     "cart": {
         "title": "Ваш кошик",
         "empty": "У вашому кошику жодної гри!",
@@ -150,6 +223,27 @@
         "subscribe": "Підписатись на оновлення",
         "pendingSubscribe": "Зачекайте...",
         "successSubscribe": "Ми повідомимо коли з'являться копії!",
-        "errorSubscribe": "Сталась помилка."
+        "errorSubscribe": "Сталась помилка.",
+        "noCopiesLeft": "Нажаль копій цієї гри не залишилось",
+        "notifyWhenAvailable": "Повідомити мене коли з'явиться гра",
+        "noItemsAdded": "Ви ще нічого не додали до кошику!",
+        "someCopiesUnavailable": "У вас присутні ігри, копії яких скінчились!",
+        "emailConfirmed": "Пошту підтвердженно",
+        "confirmDataCorrect": "Я впевненений у коректності даних",
+        "confirm": "Підтвердити"
+    },
+    "auth": {
+        "title": "Авторизація",
+        "welcome": "Вітаємо",
+        "rememberMe": "Запам'ятати мене",
+        "signIn": "Увійти",
+        "or": "Або",
+        "confirmEmailTitle": "Підтвердіть електронну пошту",
+        "emailConfirmed": "Пошту підтверджено!",
+        "code": "Код"
+    },
+    "home": {
+        "novelties": "Новинки",
+        "availableSoon": "Скоро у продажі"
     }
 }

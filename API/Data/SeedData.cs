@@ -26,81 +26,81 @@ namespace API.Data
 
             Tag openWorld = new()
             {
-                Name = "Відкритий світ"
+                Name = "Open World"
             };
 
             Tag firstPersonShooter = new()
             {
-                Name = "Шутер від першої особи"
+                Name = "First-Person Shooter"
             };
 
             Tag stealth = new()
             {
-                Name = "Стелс"
+                Name = "Stealth"
             };
 
             Tag actionAdventure = new()
             {
-                Name = "Екшн-пригода"
+                Name = "Action-Adventure"
             };
 
             Tag postApocalyptic = new()
             {
-                Name = "Післяапокаліптика"
+                Name = "Post-Apocalyptic"
             };
 
             Tag multiplayer = new()
             {
-                Name = "Багатокористувацький"
+                Name = "Multiplayer"
             };
 
             Tag rolePlaying = new()
             {
-                Name = "Рольова гра"
+                Name = "Role-Playing"
             };
 
             Tag openWorldSandbox = new()
             {
-                Name = "Відкритий світ / Пісочниця"
+                Name = "Open World / Sandbox"
             };
 
             Tag scienceFiction = new()
             {
-                Name = "Наукова фантастика"
+                Name = "Science Fiction"
             };
 
             Tag fantasy = new()
             {
-                Name = "Фентезі"
+                Name = "Fantasy"
             };
 
             Tag crime = new()
             {
-                Name = "Кримінальний"
+                Name = "Crime"
             };
 
             Tag racing = new()
             {
-                Name = "Гонки"
+                Name = "Racing"
             };
 
             Tag survival = new()
             {
-                Name = "Виживання"
+                Name = "Survival"
             };
 
             Tag horror = new()
             {
-                Name = "Жахи"
+                Name = "Horror"
             };
 
             Tag puzzle = new()
             {
-                Name = "Головоломки"
+                Name = "Puzzle"
             };
             Tag tactical = new()
             {
-                Name = "Тактика"
+                Name = "Tactical"
             };
 
             Developer fromSoftware = new()
@@ -120,19 +120,19 @@ namespace API.Data
 
             Genre action = new()
             {
-                Name = "Бойовик"
+                Name = "Action"
             };
 
             var EastEurope = new List<Region>()
             {
                 new Region()
                 {
-                    Name = "Східна Європа"
+                    Name = "Eastern Europe"
                 }
             };
             CopyType key = new()
             {
-                Name = "Ключ",
+                Name = "Key",
                 Platform = steam,
                 AvailableRegions = EastEurope,
             };
@@ -162,16 +162,16 @@ namespace API.Data
             {
                 Title = "Elden Ring",
                 Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/7/7c/Elden_Ring_-_cover.jpg" } },
-                Description = "Elden Ring — це рольова гра-екшн 2022 року, розроблена FromSoftware " +
-                "і видана Bandai Namco Entertainment. Elden Ring представлено через перспективу від " +
-                "третьої особи, де гравці вільно блукають інтерактивним відкритим світом. Шість основних " +
-                "територій можна пересувати, використовуючи скакуна Torrent як основний вид транспорту, " +
-                "а лінійні приховані підземелля можна досліджувати, щоб знайти корисні предмети. Бій полегшується " +
-                "кількома типами зброї та магічними заклинаннями, включно з непрямим боєм, увімкнутим механікою скритності. " +
-                "Контрольно-пропускні пункти, розташовані по всьому відкритому світу, дозволяють гравцеві покращувати свої " +
-                "атрибути за допомогою внутрішньоігрової валюти під назвою Руни, а також діють як локації, що дозволяють швидко " +
-                "подорожувати. У Elden Ring є багатокористувацька онлайн-гра, у якій гравці можуть приєднуватися один до одного " +
-                "для кооперації та бою між гравцями.",
+                Description = "Elden Ring is a 2022 action role-playing game developed by FromSoftware " +
+                "and published by Bandai Namco Entertainment. Elden Ring is presented from a " +
+                "third-person perspective, with players freely roaming its interactive open world. Six main " +
+                "areas can be traversed using the steed Torrent as the primary mode of transportation, " +
+                "while linear, hidden dungeons can be explored to find useful items. Combat is aided " +
+                "by several types of weapons and magic spells, including stealth mechanics for indirect combat. " +
+                "Checkpoints scattered across the open world let the player improve their " +
+                "attributes using an in-game currency called Runes, and also act as locations for fast " +
+                "travel. Elden Ring features online multiplayer, letting players join one another " +
+                "for cooperative play and player-versus-player combat.",
                 Released = new DateTime(2022, 2, 25),
                 Genres = new List<Genre>() { action, RPG },
                 Tags = new() { openWorld, actionAdventure, rolePlaying, fantasy },
@@ -217,11 +217,11 @@ namespace API.Data
             {
                 Title = "Doom Eternal",
                 Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/8/8c/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Doom_Eternal.jpg" } },
-                Description = "Doom Eternal — це шутер від першої особи, розроблений компанією id Software " +
-                "та опублікований Bethesda Softworks. Продовження гри Doom (2016) і сьома гра серії Doom, випущена 20 березня 2020 року. " +
-                "Сюжет розгортається через деякий час після подій гри 2016 року. Історія знову розповідає " +
-                "про Doom Slayer, який виконує місію припинити поглинання Землі Пеклом і зірвати плани інопланетян " +
-                "Майкрсів щодо знищення людства.",
+                Description = "Doom Eternal is a first-person shooter developed by id Software " +
+                "and published by Bethesda Softworks. It is a sequel to Doom (2016) and the seventh entry in the Doom series, released on March 20, 2020. " +
+                "The story picks up some time after the events of the 2016 game. It once again follows " +
+                "the Doom Slayer, who sets out to stop Hell's invasion of Earth and thwart the alien " +
+                "Maykrs' plans to destroy humanity.",
                 Released = new DateTime(2020, 3, 20),
                 Genres = new List<Genre>() { FPS },
                 Tags = new() { firstPersonShooter, actionAdventure, scienceFiction },
@@ -247,12 +247,12 @@ namespace API.Data
 
             Genre tacticalShooter = new()
             {
-                Name = "Тактичний шутер",
+                Name = "Tactical Shooter",
             };
 
             CopyType account = new()
             {
-                Name = "Акаунт",
+                Name = "Account",
                 Platform = steam,
                 AvailableRegions = EastEurope,
             };
@@ -274,14 +274,14 @@ namespace API.Data
             {
                 Title = "Tom Clancy's Rainbow Six Siege",
                 Images = new() { new() { Type = poster, Path = "https://cdn1.epicgames.com/offer/carnation/Carousel_BoxArt_1200x1600_1200x1600-6888b9d57181d8fcfb3472a7f70ecc49" } },
-                Description = "Tom Clancy's Rainbow Six Siege — тактична онлайнова відеогра-шутер, " +
-                "розроблена Ubisoft Montreal і видана Ubisoft. У грі велика увага приділяється " +
-                "руйнуванню навколишнього середовища та співпраці між гравцями. Кожен гравець бере " +
-                "на себе контроль над нападником або захисником у різних режимах гри, таких як порятунок " +
-                "заручника, знешкодження бомби та контроль над об’єктом у кімнаті. У назві немає кампанії, але містить " +
-                "серію коротких офлайн-місій, які називаються «ситуаціями», які можна виконувати поодинці. Ці місії мають " +
-                "вільний наратив, зосереджений на новобранцях, які проходять навчання, щоб підготувати їх до майбутніх зіткнень " +
-                "з «Білими масками», терористичною групою, яка загрожує безпеці світу",
+                Description = "Tom Clancy's Rainbow Six Siege is a tactical online shooter " +
+                "developed by Ubisoft Montreal and published by Ubisoft. The game places a strong emphasis on " +
+                "environmental destruction and cooperation between players. Each player takes " +
+                "control of an attacker or defender in various game modes, such as hostage " +
+                "rescue, bomb defusal, and securing an area within a room. The title has no campaign, but includes " +
+                "a series of short offline missions called \"situations\" that can be played solo. These missions have " +
+                "a loose narrative centered on recruits undergoing training to prepare them for future clashes " +
+                "with the White Masks, a terrorist group that threatens global security.",
                 Released = new DateTime(2015, 12, 1),
                 Genres = new List<Genre>() { FPS, tacticalShooter },
                 Tags = new() { multiplayer, firstPersonShooter, tactical },
@@ -307,7 +307,7 @@ namespace API.Data
 
             Region Global = new()
             {
-                Name = "Глобальний"
+                Name = "Global"
             };
 
             Platform epicGames = new()
@@ -317,7 +317,7 @@ namespace API.Data
 
             Genre adventure = new()
             {
-                Name = "Пригодницький",
+                Name = "Adventure",
             };
 
             Genre TPS = new()
@@ -327,7 +327,7 @@ namespace API.Data
 
             CopyType accountEpicGames = new()
             {
-                Name = "Акаунт",
+                Name = "Account",
                 AvailableRegions = new() { Global },
                 Platform = epicGames,
             };
@@ -346,16 +346,16 @@ namespace API.Data
             {
                 Title = "Grand Theft Auto V",
                 Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg" } },
-                Description = "Grand Theft Auto V (скор. GTA V) — це пригодницька відеогра 2013 року, розроблена " +
-                "Rockstar North та видана компанією Rockstar Games. Події відбуваються у вигаданому штаті Сан-Андреас, " +
-                "що заснований на південній Каліфорнії. Сюжетна історія слідує за трьома злочинцями, " +
-                "які перебувають під тиском урядового відомства та авторитетних кримінальних фігур. Дизайн відкритого світу " +
-                "дозволяє гравцям вільно переміщуватися по місцевості Сан-Андреаса та вигаданому місту Лос-Сантос, на базі Лос-Анджелеса." +
-                "\r\n\r\nГра відбувається з виглядом від третьої, або першої особи, а її світом подорожують пішки або на транспорті. " +
-                "Гравці керують трьома головними героями протягом однокористувацької гри та перемикаються між ними, як під час місій, " +
-                "так і поза ними. Історія зосереджена на послідовних крадіжках, а багато місій передбачають стрілянину та керування транспортом. " +
-                "Система «розшуку» регулює агресію правоохоронців на злочини які вчинив гравець. Grand Theft Auto Online — онлайн мультиплеєр, " +
-                "дозволяє до 30 гравцям брати участь у різноманітних кооперативних та конкурентних режимах гри.",
+                Description = "Grand Theft Auto V (GTA V for short) is a 2013 action-adventure game developed " +
+                "by Rockstar North and published by Rockstar Games. It takes place in the fictional state of San Andreas, " +
+                "based on Southern California. The story follows three criminals " +
+                "as they attempt to cope with pressure from a government agency and powerful criminal figures. The open-world design " +
+                "lets players freely roam the San Andreas countryside and the fictional city of Los Santos, based on Los Angeles." +
+                "\r\n\r\nThe game is played from either a third-person or first-person perspective, and its world is navigated on foot or by vehicle. " +
+                "Players control three lead protagonists throughout the single-player mode and switch between them, both during " +
+                "and outside missions. The story is centered around heists, and many missions involve shooting and vehicle driving. " +
+                "A \"wanted\" system governs law enforcement's response to crimes committed by the player. Grand Theft Auto Online is an online multiplayer mode " +
+                "that allows up to 30 players to take part in a variety of cooperative and competitive game modes.",
                 Released = new DateTime(2015, 4, 14),
                 Genres = new List<Genre>() { action, adventure, TPS },
                 Tags = new() { openWorld, crime, racing, multiplayer },
@@ -414,15 +414,15 @@ namespace API.Data
             {
                 Title = "Cyberpunk 2077",
                 Images = new() { new() { Type = poster, Path = "https://m.media-amazon.com/images/M/MV5BMGU4ODVkZDYtYjNiNS00YmFiLWFmOWQtODM2NDRjZDAxNzliXkEyXkFqcGdeQXVyMTI0MzA4NTgw._V1_FMjpg_UX1000_.jpg" } },
-                Description = "«Cyberpunk 2077» (укр. «Кіберпанк 2077») — відеогра в жанрі action RPG в стилі кіберпанку, розроблена польською студією CD Projekt RED на ігровому рушії REDengine 4. " +
-                "Гра є адаптацією настільної рольової гри Cyberpunk 2020, " +
-                "її події відбуваються на п'ятдесят сім років пізніше у вигаданому місті " +
-                "Найт-Сіті, Каліфорнія, надаючи відкритий світ з шістьма різними регіонами. " +
-                "Гравці беруть на себе роль найманця Ві, стать і зовнішність якого налаштовуються " +
-                "за бажанням. На одному з завдань Ві стає мимовільним свідком убивства глави корпорації, " +
-                "що створила чип для перенесення свідомості. Вину за вбивство покладають на Ві та застрелюють. " +
-                "Але завдяки чипу Ві виживає і береться відновити справедливість, разом з тим шукаючи спосіб позбутися " +
-                "несподіваних побічних ефектів від носіння чипа.",
+                Description = "Cyberpunk 2077 is an action RPG set in the cyberpunk genre, developed by the Polish studio CD Projekt RED on the REDengine 4 game engine. " +
+                "The game is an adaptation of the Cyberpunk 2020 tabletop role-playing game, " +
+                "set fifty-seven years later in the fictional " +
+                "Night City, California, featuring an open world with six distinct regions. " +
+                "Players take on the role of V, a mercenary whose gender and appearance are fully " +
+                "customizable. On one job, V becomes an unwilling witness to the murder of the head of a corporation " +
+                "that created a chip capable of transferring consciousness. V is framed for the murder and shot. " +
+                "But thanks to the chip, V survives and sets out to restore justice, all while searching for a way to get rid of " +
+                "the unexpected side effects of carrying the chip.",
                 Released = new DateTime(2020, 12, 10),
                 Genres = new List<Genre>() { action, adventure, RPG },
                 Tags = new() { openWorld, rolePlaying, scienceFiction },
@@ -459,7 +459,7 @@ namespace API.Data
 
             CopyType accountPSStore = new()
             {
-                Name = "Акаунт",
+                Name = "Account",
                 AvailableRegions = new() { Global },
                 Platform = PS5,
             };
@@ -474,15 +474,15 @@ namespace API.Data
                         Path = "https://upload.wikimedia.org/wikipedia/ru/2/21/The_Last_of_Us_Part_I_-_%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0.png"
                     }
                 },
-                Description = "The Last of Us Part I — відеогра в жанрі пригодницького бойовика, " +
-                "розроблена Naughty Dog і видана Sony Interactive Entertainment для PlayStation 5 " +
-                "у вересні 2022 року. Порт для Microsoft Windows буде випущено в березні 2023 року. " +
-                "Вона є римейком The Last of Us (2013) та має перероблений ігровий процес, включно з покращеними " +
-                "бойовою механікою та дослідженням середовища, а також розширені спеціальні можливості. Сюжетна історія " +
-                "оповідає про Джоела[en], який має супроводжувати дівчину-підлітка Еллі через постапокаліптичні Сполучені Штати " +
-                "та захищатися від канібалістичних істот, заражених штамом вірусу грибка кордицепс, що мутував. Гра включає доповнення " +
-                "The Last of Us: Left Behind[en], яке оповідає про Еллі та її кращу подругу Райлі. Багатокористувацький режим з оригінальної " +
-                "гри не було додано до римейку.",
+                Description = "The Last of Us Part I is an action-adventure game " +
+                "developed by Naughty Dog and published by Sony Interactive Entertainment for PlayStation 5 " +
+                "in September 2022. A Microsoft Windows port followed in March 2023. " +
+                "It is a remake of The Last of Us (2013) featuring a reworked gameplay experience, including improved " +
+                "combat mechanics and environmental exploration, as well as expanded accessibility options. The story " +
+                "follows Joel, who must escort a teenage girl, Ellie, across a post-apocalyptic United States " +
+                "and defend her from cannibalistic creatures infected by a mutated strain of the cordyceps fungus. The game includes " +
+                "the Left Behind DLC, which tells the story of Ellie and her best friend Riley. The original game's multiplayer mode " +
+                "was not included in the remake.",
                 Released = new DateTime(2022, 9, 2),
                 Genres = new List<Genre>() { action, adventure },
                 Tags = new() { actionAdventure, postApocalyptic, horror, survival, puzzle },
@@ -498,14 +498,14 @@ namespace API.Data
 
             Tag sciFi = new()
             {
-                Name = "наукова фантастика"
+                Name = "Science Fiction"
             };
             Tag femaleProtagonist = new()
             {
-                Name = "Жінка-протагоніст"
+                Name = "Female Protagonist"
             }; Tag thirdPerson = new()
             {
-                Name = "Від третьої особи"
+                Name = "Third-Person"
             };
 
             Copy copy20 = new()
@@ -519,12 +519,12 @@ namespace API.Data
 
             Region Asia = new()
             {
-                Name = "Азія"
+                Name = "Asia"
             };
 
             CopyType PS4Account = new()
             {
-                Name = "Акаунт",
+                Name = "Account",
                 Platform = PS4,
                 AvailableRegions = new() { Asia, EastEurope.First() },
             };
@@ -538,11 +538,11 @@ namespace API.Data
             {
                 Title = "Horizon Zero Dawn",
                 Images = new() { new() { Type = poster, Path = "https://static.posters.cz/image/750/%D0%9F%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%B8/horizon-zero-dawn-key-art-i34856.jpg" } },
-                Description = "Horizon Zero Dawn — відеогра в жанрі action RPG, розроблена студією Guerrilla Games " +
-                    "та видана Sony Interactive Entertainment для PlayStation 4 у 2017 році, а для PC у 2020 році. Гра відбувається " +
-                    "у відкритому світі, де гравець бере на себе роль Алой, юної мисливця із племені Нора. Сюжет розповідає про " +
-                    "походження Алой, яка живе в світі, де роботи панують, а людство зійшло з доріг. Її задача досліджувати світ, " +
-                    "боротися з роботами та знаходити відповіді на складні питання.",
+                Description = "Horizon Zero Dawn is an action RPG developed by Guerrilla Games " +
+                    "and published by Sony Interactive Entertainment for PlayStation 4 in 2017, and for PC in 2020. The game takes place " +
+                    "in an open world where the player takes on the role of Aloy, a young hunter from the Nora tribe. The story follows " +
+                    "Aloy's origins as she lives in a world ruled by machines, where humanity has fallen from its former path. Her task is to explore the world, " +
+                    "fight the machines, and find answers to difficult questions.",
                 Released = new DateTime(2017, 2, 28),
                 Genres = new List<Genre>() { action, RPG },
                 Tags = new() { openWorld, postApocalyptic, sciFi, femaleProtagonist, thirdPerson },
@@ -558,15 +558,15 @@ namespace API.Data
 
             Tag medieval = new()
             {
-                Name = "Cередньовічний"
+                Name = "Medieval"
             };
             Tag mature = new()
             {
-                Name = "Зрілий"
+                Name = "Mature"
             };
             Tag violence = new()
             {
-                Name = "Насильство"
+                Name = "Violence"
             };
             Copy copy21 = new()
             {
@@ -577,13 +577,13 @@ namespace API.Data
                 Title = "The Witcher 3: Wild Hunt",
                 Images = new() { new() { Type = poster, Path = "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81nBSbgcxFL._SY679_.jpg" },
                     new() { Type = poster, Path = "https://image.api.playstation.com/vulcan/ap/rnd/202211/0711/kh4MUIuMmHlktOHar3lVl6rY.png" } },
-                Description = "The Witcher 3: Wild Hunt - це рольова гра з відкритим світом, " +
-                    "розроблена польською студією CD Projekt RED. Гравці беруть на себе роль відьмака Ґеральта з Рівії, який мандрує " +
-                    "по світу, виконуючи завдання, збираючи ресурси і розблоковуючи нові можливості. " +
-                    "Гра має багато сюжетних ліній, які можуть впливати на розвиток історії, а також має велику кількість " +
-                    "побічних завдань та активностей. В The Witcher 3: Wild Hunt також присутня система бою з мечем і магією, " +
-                    "а також можливості розвивати навички і збирати різні ресурси. Гра отримала численні нагороди від критиків " +
-                    "та гравців, зокрема, була названа кращою грою 2015 року за версією багатьох видань.",
+                Description = "The Witcher 3: Wild Hunt is an open-world role-playing game " +
+                    "developed by the Polish studio CD Projekt RED. Players take on the role of witcher Geralt of Rivia, who travels " +
+                    "across the world completing quests, gathering resources, and unlocking new abilities. " +
+                    "The game features many storylines that can affect how the plot unfolds, as well as a large number of " +
+                    "side quests and activities. The Witcher 3: Wild Hunt also features a sword-and-magic combat system, " +
+                    "along with the ability to develop skills and gather various resources. The game received numerous awards from critics " +
+                    "and players alike, including being named Game of the Year for 2015 by many publications.",
                 Released = new DateTime(2015, 5, 19),
                 Genres = new List<Genre>() { RPG, action },
                 Tags = new() { openWorld, fantasy, medieval, mature, violence },
@@ -605,15 +605,15 @@ namespace API.Data
 
             Tag storyRich = new()
             {
-                Name = "Насичена історія"
+                Name = "Story Rich"
             };
             Tag shooter = new()
             {
-                Name = "Шутер"
+                Name = "Shooter"
             };
             Tag characterCustomization = new()
             {
-                Name = "Персоналізація персонажа"
+                Name = "Character Customization"
             };
             Developer bioware = new()
             {
@@ -662,7 +662,7 @@ namespace API.Data
                             Path = "https://assets.rpgsite.net/images/images/000/099/752/original/mass_effect_2_best_bonus_power_powers.jpg"
                         }
                     },
-                Description = "Mass Effect 2 є відеогрою у жанрі рольової гри з видом від третьої особи, розробленої компанією BioWare та виданою Electronic Arts. Це друга гра в серії Mass Effect. Сюжет гри розповідає про зусилля головного героя, командира Шепарда, збирати свою нову команду для боротьби з загрозою реперів. Гра була випущена для Xbox 360 та Microsoft Windows у 2010 році, а пізніше для PlayStation 3 у 2011 році.",
+                Description = "Mass Effect 2 is a third-person role-playing game developed by BioWare and published by Electronic Arts. It is the second game in the Mass Effect series. The story follows the efforts of the protagonist, Commander Shepard, to assemble a new team to fight the threat of the Reapers. The game was released for Xbox 360 and Microsoft Windows in 2010, and later for PlayStation 3 in 2011.",
                 Released = new DateTime(2010, 1, 26),
                 Genres = new List<Genre>() { RPG, action },
                 Tags = new() { sciFi, storyRich, shooter, characterCustomization },
@@ -679,7 +679,7 @@ namespace API.Data
 
             Tag historical = new()
             {
-                Name = "Історичний"
+                Name = "Historical"
             };
             Copy copy23 = new()
             {
@@ -699,14 +699,14 @@ namespace API.Data
                         Path = "https://upload.wikimedia.org/wikipedia/ru/2/26/AC_Valhalla_standard_edition.jpg"
                     }
                 },
-                Description = "Assassin's Creed Valhalla - відеогра в жанрі action-adventure та " +
-                    "стелс-ем'юлятор, розроблена і видана компанією Ubisoft для Microsoft Windows, " +
-                    "PlayStation 4, PlayStation 5, Xbox One, Xbox Series X та Series S. Гра є дванадцятим " +
-                    "основним випуском серії Assassin's Creed. Гравець контролює Ейвора Волкодава, вікінга " +
-                    "з Норвегії, який у 873 році н.е. вирушає в Англію з метою здобуття влади і створення " +
-                    "власного клану на території Англії. Історія гри пов'язана з легендами про вікінгів, а також " +
-                    "історичними подіями того періоду, такими як Велика Данська армія, завоювання та розширення " +
-                    "королівства Весексу, відомого сагою про Короля Артура, та іншими.",
+                Description = "Assassin's Creed Valhalla is an action-adventure game with " +
+                    "stealth elements, developed and published by Ubisoft for Microsoft Windows, " +
+                    "PlayStation 4, PlayStation 5, Xbox One, Xbox Series X, and Series S. It is the twelfth " +
+                    "main installment in the Assassin's Creed series. The player controls Eivor Wolf-Kissed, a Viking " +
+                    "from Norway who, in 873 AD, journeys to England seeking power and to build " +
+                    "a clan of his own on English soil. The story is tied to Viking legends, as well as " +
+                    "historical events of the period, such as the Great Heathen Army, the conquest and expansion of " +
+                    "the Kingdom of Wessex, famed in the legend of King Arthur, and others.",
                 Released = new DateTime(2020, 11, 10),
                 Genres = new List<Genre>() { action, adventure, RPG },
                 Tags = new() { openWorld, historical, stealth },
@@ -722,15 +722,15 @@ namespace API.Data
             };
             Genre indie = new()
             {
-                Name = "Інді"
+                Name = "Indie"
             };
             Tag sandbox = new()
             {
-                Name = "Пісочниця"
+                Name = "Sandbox"
             };
             Tag crafting = new()
             {
-                Name = "Крафтинг"
+                Name = "Crafting"
             };
             Developer reLogic = new()
             {
@@ -762,13 +762,13 @@ namespace API.Data
                         Path = "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71k0BMp4U1L._AC_UF894,1000_QL80_.jpg"
                     }
                 },
-                Description = "Terraria - 2D-пісочниця з відкритим світом в жанрі пригодницької відеогри. " +
-                    "Гра була розроблена Re-Logic та випущена на Microsoft Windows у травні 2011 року. Пізніше гра була " +
-                    "випущена на інші операційні системи, такі як macOS, Linux, Android, iOS, PlayStation 3, PlayStation 4, " +
-                    "PlayStation Vita, Xbox 360, Xbox One, Nintendo 3DS, Wii U та Nintendo Switch. Гравці можуть досліджувати " +
-                    "випадково згенеровані світи, збирати ресурси, виготовляти предмети та боротися зі злом. В грі є " +
-                    "денний/ночевий цикл, зміна погоди та різні події, які можуть відбутися у грі. Гра також має " +
-                    "багатокористувацький режим.",
+                Description = "Terraria is a 2D open-world sandbox adventure game. " +
+                    "It was developed by Re-Logic and released on Microsoft Windows in May 2011. The game was later " +
+                    "released on other platforms, including macOS, Linux, Android, iOS, PlayStation 3, PlayStation 4, " +
+                    "PlayStation Vita, Xbox 360, Xbox One, Nintendo 3DS, Wii U, and Nintendo Switch. Players can explore " +
+                    "randomly generated worlds, gather resources, craft items, and fight evil. The game features a " +
+                    "day/night cycle, changing weather, and various events that can occur during play. It also has a " +
+                    "multiplayer mode.",
                 Released = new DateTime(2011, 5, 16),
                 Genres = new List<Genre>() { adventure, indie },
                 Tags = new() { openWorld, sandbox, game2d, crafting, survival },
@@ -784,7 +784,7 @@ namespace API.Data
             };
             Tag arcade = new()
             {
-                Name = "Аркада"
+                Name = "Arcade"
             };
             Developer npixel = new()
             {
@@ -796,7 +796,7 @@ namespace API.Data
             };
             Tag competitive = new()
             {
-                Name = "Змагання"
+                Name = "Competitive"
             };
             Developer capcom = new()
             {
@@ -810,12 +810,12 @@ namespace API.Data
             {
                 Title = "Street Fighter 6",
                 Images = new() { new() { Type = poster, Path = "https://pbs.twimg.com/media/FUgPIkWXoAASe3Y.jpg:large" } },
-                Description = "Street Fighter 6 - це очікувана файтинг гра, яка розробляється компанією Capcom. Гра буде наступником " +
-                    "Street Fighter V і буде мати більш епічні бої, оновлену графіку та багато нових персонажів. Будуть представлені " +
-                    "нові режими гри, зокрема, онлайн-турніри та режим гри на виживання. У грі також будуть нові механіки бою, які " +
-                    "дозволять гравцям виконувати більш складні комбо та спеціальні прийоми. Завдяки вдосконаленій системі онлайн-ігор, " +
-                    "Street Fighter 6 дозволить гравцям з усього світу змагатися між собою в захоплюючих боях.",
-                Released = new DateTime(2024, 6, 30),
+                Description = "Street Fighter 6 is a highly anticipated fighting game being developed by Capcom. It is the successor to " +
+                    "Street Fighter V and will feature more epic battles, updated graphics, and many new characters. It will introduce " +
+                    "new game modes, including online tournaments and a survival mode. The game will also feature new combat mechanics that " +
+                    "let players pull off more complex combos and special moves. Thanks to an improved online system, " +
+                    "Street Fighter 6 will let players from around the world compete against each other in thrilling battles.",
+                Released = DateTime.UtcNow.AddMonths(3),
                 Genres = new List<Genre>() { action },
                 Tags = new() { multiplayer, arcade, competitive },
                 Developer = capcom,
@@ -829,7 +829,7 @@ namespace API.Data
             };
             Tag singlePlayer = new()
             {
-                Name = "Одиночна гра",
+                Name = "Single Player",
             };
             Developer larianStudios = new()
             {
@@ -843,14 +843,14 @@ namespace API.Data
             {
                 Title = "Baldur's Gate 3",
                 Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/uk/c/c7/%D0%9E%D0%B1%D0%BA%D0%BB%D0%B0%D0%B4%D0%B8%D0%BD%D0%BA%D0%B0_%D0%B2%D1%96%D0%B4%D0%B5%D0%BE%D0%B3%D1%80%D0%B8_Baldur%27s_Gate_III.png" } },
-                Description = "Baldur's Gate 3 - очікувана рольова гра, яка розробляється компанією Larian Studios. Гра є третьою частиною " +
-                    "в серії Baldur's Gate та продовжує історію світу Forgotten Realms. Гравці зможуть обрати один з численних класів героїв " +
-                    "та зануритися у світ фантастичної пригоди. В Baldur's Gate 3 гравці зможуть зустрітися з новими персонажами, " +
-                    "виконувати завдання та боротися зі своїми ворогами. Гра матиме нові механіки, які дозволять гравцям виконувати " +
-                    "більш складні дії, такі як взаємодія з оточуючим світом та використання магії. Будуть представлені нові режими " +
-                    "гри, включаючи мультиплеєр та режим гри на виживання. Завдяки вдосконаленій системі генерації ігрового світу, " +
-                    "Baldur's Gate 3 дозволить гравцям досліджувати світ, який ніколи не повторюється.",
-                Released = new DateTime(2023, 12, 31),
+                Description = "Baldur's Gate 3 is a highly anticipated role-playing game being developed by Larian Studios. It is the third installment " +
+                    "in the Baldur's Gate series and continues the story of the Forgotten Realms world. Players will be able to choose from numerous hero classes " +
+                    "and immerse themselves in a world of fantastical adventure. In Baldur's Gate 3, players will be able to meet new characters, " +
+                    "complete quests, and fight their enemies. The game will feature new mechanics that let players perform " +
+                    "more complex actions, such as interacting with the surrounding world and using magic. New game modes will be introduced, " +
+                    "including multiplayer and a survival mode. Thanks to an improved world-generation system, " +
+                    "Baldur's Gate 3 will let players explore a world that never repeats itself.",
+                Released = DateTime.UtcNow.AddMonths(6),
                 Genres = new List<Genre>() { RPG, adventure },
                 Tags = new() { singlePlayer, fantasy, storyRich },
                 Developer = larianStudios,
@@ -870,13 +870,13 @@ namespace API.Data
             {
                 Title = "Assassin's Creed Mirage",
                 Images = new() { new() { Type = poster, Path = "https://cdna.artstation.com/p/assets/images/images/053/877/092/large/red-clown-mirage-w-logo.jpg?1663234039" } },
-                Description = "Assassin's Creed Mirage - це нова гра у серії Assassin's Creed, що розробляється студією Ubisoft. Гравець зможе " +
-                    "побачити нову епоху - час Великого Степу, відвідати знакові міста та місцевості, такі як Самарканд та Хива, та " +
-                    "стати частиною світу, що належить кочівникам. В Assassin's Creed Mirage буде представлено багато нових персонажів, які " +
-                    "зможуть допомогти гравцеві в його пригодах. Гравець зможе відчути вільну та відкриту гру, в якій можна виконувати " +
-                    "багато завдань та місій. Крім того, будуть доступні різноманітні види бойової техніки та знарядь для виконання місій. " +
-                    "Assassin's Creed Mirage - це ідеальна гра для тих, хто любить історію, бойові мистецтва та пригоди.",
-                Released = new DateTime(2023, 11, 15),
+                Description = "Assassin's Creed Mirage is a new entry in the Assassin's Creed series, being developed by Ubisoft. Players will be able " +
+                    "to experience a new era - the time of the Great Steppe - and visit iconic cities and locations such as Samarkand and Khiva, " +
+                    "becoming part of a world that belongs to nomads. Assassin's Creed Mirage will introduce many new characters who " +
+                    "will help the player on their adventures. Players will be able to enjoy a free and open game in which they can complete " +
+                    "many quests and missions. In addition, a variety of combat gear and tools will be available for completing missions. " +
+                    "Assassin's Creed Mirage is the perfect game for those who love history, martial arts, and adventure.",
+                Released = DateTime.UtcNow.AddMonths(9),
                 Genres = new List<Genre>() { action, adventure },
                 Tags = new() { singlePlayer, openWorld, historical },
                 Developer = ubisoft,
@@ -885,6 +885,29 @@ namespace API.Data
                 CopyType = null,
                 IsAvailable = false,
                 IsHotOffer = false,
+                Copies = new List<Copy>() { },
+                SoldCopies = 0,
+            };
+
+            Game gta6 = new()
+            {
+                Title = "Grand Theft Auto VI",
+                Images = new() { new() { Type = poster, Path = "https://upload.wikimedia.org/wikipedia/en/4/46/Grand_Theft_Auto_VI.png" } },
+                Description = "Grand Theft Auto VI is an upcoming action-adventure game developed by Rockstar North " +
+                    "and published by Rockstar Games. It returns to the state of Leonida, including a fictionalized " +
+                    "version of Miami, and follows the story of Lucia and her partner as they pursue the American dream " +
+                    "through a life of crime. The game continues the series' open-world design, letting players freely " +
+                    "explore its world on foot or by vehicle, and is expected to feature the series' largest and most " +
+                    "detailed world to date.",
+                Released = DateTime.UtcNow.AddMonths(12),
+                Genres = new List<Genre>() { action, adventure, TPS },
+                Tags = new() { openWorld, crime, multiplayer },
+                Developer = rockStar,
+                Publisher = rockstarGames,
+                Price = 69.9M,
+                CopyType = null,
+                IsAvailable = false,
+                IsHotOffer = true,
                 Copies = new List<Copy>() { },
                 SoldCopies = 0,
             };
@@ -901,7 +924,8 @@ namespace API.Data
                           terraria,
                           streetFighter6,
                           baldursGate3,
-                          assassinCreedMirage);
+                          assassinCreedMirage,
+                          gta6);
 
 
 

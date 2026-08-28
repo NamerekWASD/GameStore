@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Creatable from 'react-select/creatable';
 import Select from 'react-select';
 import { deleteGame, GetFilterData, GetGameModel, sendCopyData, uploadImageToServer } from "../../../../utils/ApiRequests";
@@ -13,6 +14,7 @@ import ModalDelete from "./ModalDelete";
 import { AppPaths } from "../../../../utils/AppPaths";
 
 const GameForm = ({ saveChanges }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [needNewCopyType, setNeedNewCopyType] = useState(false);
@@ -120,7 +122,7 @@ const GameForm = ({ saveChanges }) => {
         e.preventDefault();
         const image = game.images.some(value => value.type.name === POSTER)
         if (!image) {
-            toast.error(`В продукті має бути хоча б одне зображення із назвою "${POSTER}"`);
+            toast.error(t('manager.errors.posterRequired', { poster: POSTER }));
             return;
         }
 
@@ -137,14 +139,14 @@ const GameForm = ({ saveChanges }) => {
         return (
             <div className=" bg-secondary p-3">
                 <div className="form-group required">
-                    <label className="control-label text-white">Тип копії</label>
+                    <label className="control-label text-white">{t('manager.form.copyType')}</label>
                     <input className="form-control rounded-0" type="text" id="copyTypeName" name="copyTypeName" onChange={(e) => setCopyType(prevState => ({
                         ...prevState,
                         name: e.target.value,
                     }))} />
                 </div>
                 <div className="form-group required">
-                    <label className="control-label text-white">Платформа</label>
+                    <label className="control-label text-white">{t('manager.form.platform')}</label>
                     <Creatable className="rounded-all-0"
                         options={filterData ? filterData.platforms : undefined}
                         onChange={(value) => setCopyType(prevState => ({
@@ -158,7 +160,7 @@ const GameForm = ({ saveChanges }) => {
                     />
                 </div>
                 <div className="form-group required">
-                    <label className="control-label text-white">Доступні регіони</label>
+                    <label className="control-label text-white">{t('manager.form.availableRegions')}</label>
                     <Creatable className="rounded-all-0"
                         isMulti
                         options={filterData ? filterData.availableRegions : undefined}
@@ -232,7 +234,7 @@ const GameForm = ({ saveChanges }) => {
             toast.error(await response.text());
             return;
         }
-        toast.success("Продукт успішно видалений!");
+        toast.success(t('manager.deleteSuccess'));
         navigate(AppPaths.manager);
     }
     const copyData = useRef(null);
@@ -241,11 +243,11 @@ const GameForm = ({ saveChanges }) => {
         const data = { id: 0, data: copyData.current.value, gameId: game.id, game: undefined };
         const response = await sendCopyData(data);
         if (response.status === 200) {
-            toast.success("Ви успішно додали копію!");
+            toast.success(t('manager.copyAddSuccess'));
             copyData.current.value = '';
             return;
         }
-        toast.error("Сталась помилка...");
+        toast.error(t('messages.errorOccurred'));
     }
 
     return (
@@ -253,21 +255,21 @@ const GameForm = ({ saveChanges }) => {
             {
                 game ?
                     <form onSubmit={submit} className="bg-white p-3">
-                        <h2 className="text-center">{game && game.id !== 0 ? "Оновити дані гри" : "Створити гру"}</h2>
+                        <h2 className="text-center">{game && game.id !== 0 ? t('manager.form.editTitle') : t('manager.form.createTitle')}</h2>
                         <div className="form-group required">
                             <label className="control-label" htmlFor="id">ID</label>
                             <input className="form-control rounded-0" type="text" id="id" name="id" readOnly defaultValue={game ? game.id : 0} required />
                         </div>
                         <div className="form-group required">
-                            <label className="control-label" htmlFor="title">Назва</label>
+                            <label className="control-label" htmlFor="title">{t('manager.form.title')}</label>
                             <input className="form-control rounded-0" type="text" id="title" name="title" defaultValue={game ? game.title : ''}
                                 onChange={(e) => setGame(prevState => ({ ...prevState, title: e.target.value }))} required />
                         </div>
                         <div className="game-form grid-3 ">
                             <div className="border p-2">
-                                <h4>Загальна інформація</h4>
+                                <h4>{t('manager.form.generalInfo')}</h4>
                                 <div className="form-group required">
-                                    <label className="control-label">Розробник</label>
+                                    <label className="control-label">{t('manager.form.developer')}</label>
                                     <Creatable className="rounded-all-0"
                                         options={filterData ? filterData.developers : undefined}
                                         onChange={(value) => setGame(prevState => ({
@@ -282,7 +284,7 @@ const GameForm = ({ saveChanges }) => {
                                         required />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="control-label">Видавець</label>
+                                    <label className="control-label">{t('manager.form.publisher')}</label>
                                     <Creatable className="rounded-all-0"
                                         options={filterData ? filterData.publishers : undefined}
                                         onChange={(value) => setGame(prevState => ({
@@ -300,7 +302,7 @@ const GameForm = ({ saveChanges }) => {
                                         required />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="control-label">Жанр</label>
+                                    <label className="control-label">{t('manager.form.genre')}</label>
                                     <Creatable className="rounded-all-0"
                                         isMulti
                                         options={filterData ? filterData.genres : undefined}
@@ -313,7 +315,7 @@ const GameForm = ({ saveChanges }) => {
                                         required />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="control-label">Мітки</label>
+                                    <label className="control-label">{t('manager.form.tags')}</label>
                                     <Creatable className="rounded-all-0"
                                         isMulti
                                         options={filterData ? filterData.tags : undefined}
@@ -326,7 +328,7 @@ const GameForm = ({ saveChanges }) => {
                                         required />
                                 </div>
                                 <div className="form-group required">
-                                    <label className="control-label" htmlFor="released">Дата релізу</label>
+                                    <label className="control-label" htmlFor="released">{t('manager.form.releaseDate')}</label>
                                     <input type="date" name="released" id="released" className="form-control"
                                         onChange={(e) => setGame(prevState => ({ ...prevState, released: new Date(e.target.value).toISOString() }))}
                                         defaultValue={game && game.id !== 0 ? parseGameReleased() : ''} />
@@ -335,23 +337,23 @@ const GameForm = ({ saveChanges }) => {
                                     <input type="checkbox" name="isHotOffer" id="isHotOffer"
                                         defaultChecked={game ? game.isHotOffer : false}
                                         onChange={(e) => setGame(prevState => ({ ...prevState, isHotOffer: e.target.checked }))} />
-                                    <label className="control-label fw-bold" htmlFor="isHotOffer">Гаряча пропозиція</label>
+                                    <label className="control-label fw-bold" htmlFor="isHotOffer">{t('manager.form.hotOffer')}</label>
                                 </div>
                                 <div className="form-group checkbox-unique">
                                     <input type="checkbox" name="isAvailable" id="isAvailable"
                                         defaultChecked={game ? game.isAvailable : false}
                                         onChange={(e) => setGame(prevState => ({ ...prevState, isAvailable: e.target.checked }))} />
-                                    <label className="control-label fw-bold" htmlFor="isAvailable">Доступно до продажу</label>
+                                    <label className="control-label fw-bold" htmlFor="isAvailable">{t('manager.form.availableForSale')}</label>
                                 </div>
                             </div>
                             <div className="border p-2">
-                                <h4>Копії</h4>
+                                <h4>{t('manager.form.copies')}</h4>
                                 {
                                     needNewCopyType ?
                                         renderCreateCopy()
                                         :
                                         <div className="form-group ">
-                                            <label className="control-label">Тип копії</label>
+                                            <label className="control-label">{t('manager.form.copyType')}</label>
                                             <Select className="rounded-all-0"
                                                 isClearable
                                                 options={filterData ? filterData.copyTypes : undefined}
@@ -380,10 +382,10 @@ const GameForm = ({ saveChanges }) => {
                                 <button type="button"
                                     className="btn btn-outline-primary rounded-0 w-100 mb-3"
                                     onClick={() => setNeedNewCopyType(!needNewCopyType)} >
-                                    {!needNewCopyType ? 'Створити інший тип копії' : 'Я передумав...'}
+                                    {!needNewCopyType ? t('manager.form.createOtherCopyType') : t('manager.cancelDelete')}
                                 </button>
                                 <div className="form-group required">
-                                    <label className="control-label" htmlFor="gamePrice">Ціна</label>
+                                    <label className="control-label" htmlFor="gamePrice">{t('manager.form.price')}</label>
                                     <div className="d-flex border border-1">
                                         <span className="my-auto ms-2">$</span>
                                         <input type="number" name="gamePrice" id="gamePrice"
@@ -395,7 +397,7 @@ const GameForm = ({ saveChanges }) => {
                                 {
                                     isDiscounted ?
                                         <div className="form-group required">
-                                            <label className="control-label" htmlFor="gamePrice">Ціна зі знижкою</label>
+                                            <label className="control-label" htmlFor="gamePrice">{t('manager.form.discountPrice')}</label>
                                             <div className="d-flex border border-1">
                                                 <span className="my-auto ms-2">$</span>
                                                 <input type="number" name="gamePrice" id="gamePrice"
@@ -418,18 +420,18 @@ const GameForm = ({ saveChanges }) => {
                                                     ))
 
                                                     setDiscounted(!isDiscounted);
-                                                }}>Скасувати знижку</button>
+                                                }}>{t('manager.form.cancelDiscount')}</button>
                                         </div>
                                         :
                                         <button type="button" className="btn btn-outline-primary w-100 rounded-0"
                                             onClick={() => {
                                                 setGame(prevState => ({ ...prevState, discountPrice: game.price }));
                                                 setDiscounted(!isDiscounted);
-                                            }}>Застосувати знижку</button>
+                                            }}>{t('manager.form.applyDiscount')}</button>
                                 }
                             </div>
                             <div className="border p-2">
-                                <h4>Зображення</h4>
+                                <h4>{t('manager.form.images')}</h4>
                                 <div id="scroll-to-bottom" className="border border-1 border-dark overflow-scroll hide-scrollbar" style={{ height: '50vh' }}>
                                     {
                                         game && game.images ? game.images.map((image, index) => {
@@ -461,7 +463,7 @@ const GameForm = ({ saveChanges }) => {
                                     addImage ?
                                         <div>
                                             <div className="form-group required">
-                                                <label className="control-label" htmlFor="pic-name">Тип зображення</label>
+                                                <label className="control-label" htmlFor="pic-name">{t('manager.form.imageType')}</label>
                                                 <Creatable className="rounded-all-0"
                                                     options={filterData ? filterData.imageTypes : undefined}
                                                     onChange={(value) => {
@@ -479,14 +481,14 @@ const GameForm = ({ saveChanges }) => {
                                             </div>
                                             <hr />
                                             <div className="form-group required">
-                                                <label className="control-label" htmlFor="add-hyperlink">Додати посилання</label>
+                                                <label className="control-label" htmlFor="add-hyperlink">{t('manager.form.addLink')}</label>
                                                 <input type="text" name="add-hyperlink" id="game-image-h" className="rounded-0 form-control"
                                                     placeholder={'https://content.com/...'} onChange={(e) => setNewImage(prevState => ({ ...prevState, path: e.target.value }))} />
                                             </div>
-                                            <button type="button" className="btn btn-outline-success rounded-0 w-100 mb-2" onClick={() => insertImage()}>Прикріпити</button>
-                                            <div className="or">Або</div>
+                                            <button type="button" className="btn btn-outline-success rounded-0 w-100 mb-2" onClick={() => insertImage()}>{t('manager.form.attach')}</button>
+                                            <div className="or">{t('auth.or')}</div>
                                             <div className="form-group">
-                                                <label className="control-label" htmlFor="upload-on-server">Завантажити на сервер</label>
+                                                <label className="control-label" htmlFor="upload-on-server">{t('manager.form.uploadToServer')}</label>
                                                 <input type="file" name="upload-on-server" id="game-image" className="rounded-0 form-control"
                                                     accept="image/*" onChange={(e) => uploadImage(e)} disabled={game && game.id === 0} />
                                             </div>
@@ -494,14 +496,14 @@ const GameForm = ({ saveChanges }) => {
                                         :
 
                                         <button type="button" className="btn btn-outline-secondary w-100 rounded-0"
-                                            onClick={() => setAddImage(true)}>Додати зображення</button>
+                                            onClick={() => setAddImage(true)}>{t('manager.form.addImage')}</button>
                                 }
                             </div>
                         </div>
 
                         <div className="d-flex gap-3 mb-3">
                             <div className="form-group required w-100">
-                                <h4 className="control-label fw-bold">Опис</h4>
+                                <h4 className="control-label fw-bold">{t('manager.form.description')}</h4>
                                 <textarea
                                     className=" form-control rounded-0"
                                     name="description"
@@ -512,9 +514,9 @@ const GameForm = ({ saveChanges }) => {
                                 </textarea>
                             </div>
                             <div className="w-100">
-                                <h4 className="control-label fw-bold">Вигляд опису на сторінці</h4>
+                                <h4 className="control-label fw-bold">{t('manager.form.descriptionPreview')}</h4>
                                 <div className="text-white bg-dark p-3">
-                                    <h2>Опис</h2>
+                                    <h2>{t('manager.form.description')}</h2>
                                     <div dangerouslySetInnerHTML={description ? { __html: description } : { __html: '' }}>
 
                                     </div>
@@ -524,21 +526,21 @@ const GameForm = ({ saveChanges }) => {
                         {
                             game && game.id !== 0 ?
                                 <div>
-                                    <h3>Заповніть поле даними копії</h3>
+                                    <h3>{t('manager.form.fillCopyData')}</h3>
                                     <div>
                                         <textarea ref={copyData} className="form-control rounded-0" name="copy-data" id="copy-data" rows="3"></textarea>
                                     </div>
-                                    <button type="button" className="btn btn-outline-primary rounded-0 w-100" onClick={insertCopy}>Завантажити копію</button>
+                                    <button type="button" className="btn btn-outline-primary rounded-0 w-100" onClick={insertCopy}>{t('manager.form.uploadCopy')}</button>
                                 </div>
                                 : ''
                         }
                         <hr />
-                        <button className="btn btn-outline-success rounded-0 w-100" type="submit">{"Зберегти зміни"}</button>
+                        <button className="btn btn-outline-success rounded-0 w-100" type="submit">{t('profile.saveChanges')}</button>
                         {
                             game && game.id !== 0 ?
                                 <>
                                     <hr />
-                                    <button type="button" className="btn btn-outline-danger rounded-0 w-100" onClick={() => handleDelete()}>Видалити продукт</button>
+                                    <button type="button" className="btn btn-outline-danger rounded-0 w-100" onClick={() => handleDelete()}>{t('manager.deleteTitle')}</button>
                                     <ModalDelete refModal={modalRef} onAcceptDelete={acceptDelete} game={game} />
                                 </>
                                 :

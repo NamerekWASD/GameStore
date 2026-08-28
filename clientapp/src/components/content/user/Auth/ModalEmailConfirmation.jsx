@@ -1,8 +1,10 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { SendEmailConfirmationCode } from "../../../../utils/ApiRequests";
 
 const ModalEmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
+    const { t } = useTranslation();
     const ConfirmationCode = useRef();
 
     const confirmEmail = async (e) => {
@@ -18,7 +20,7 @@ const ModalEmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
             toast.error(await response.text());
             return;
         }
-        toast.success("Пошту підтверджено!")
+        toast.success(t('auth.emailConfirmed'))
         if (after) after(response)
     };
 
@@ -26,12 +28,12 @@ const ModalEmailConfirmation = ({ refModal, refEmail, RememberMe, after }) => {
         <div ref={refModal} className="modal">
             <div className="modal-content rounded-0">
                 <div className="modal-header rounded-0 d-block p-3">
-                    <h3 className="text-center">Підтведіть електрону пошту
+                    <h3 className="text-center">{t('auth.confirmEmailTitle')}
                         <span id="close-modal" className="close-modal float-end" onClick={() => refModal.current.style.display = 'none'}>&times;</span>
                     </h3>
                 </div>
                 <form className='text-center' onSubmit={confirmEmail}>
-                    <h1 className="fw-bold mb-1">Код</h1>
+                    <h1 className="fw-bold mb-1">{t('auth.code')}</h1>
                     <div className="form-group text-center">
                         <input ref={ConfirmationCode} type="text" className='text-input text-center fs-1 mb-3 form-control rounded-0 mx-auto border border-2 border-dark shadow-none'
                             minLength={5} maxLength={5} style={{ height: '70px', width: '150px' }}

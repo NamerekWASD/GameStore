@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next";
 import { GetGamesByFilters } from "../../../../../utils/ApiRequests"
 import GameList from "../GameList";
 
 export const Novelties = () => {
+    const { t } = useTranslation();
     const [games, setGames] = useState([]);
     useEffect(() => {
         GetGamesByFilters({ orderBy: 1, dateTo: new Date() }, 1).then(result => {
@@ -13,7 +15,7 @@ export const Novelties = () => {
 
     return (
         <div className="bg-dark p-1">
-            <h3 className="text-center text-white">Новинки</h3>
+            <h3 className="text-center text-white">{t('home.novelties')}</h3>
             <div className="text-center">
                 <GameList games={games} isColumn isMax isVertical noNeedPagination cardClassName={"bg-dark border border-white"} />
             </div>

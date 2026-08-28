@@ -22,7 +22,7 @@ export const paymentType = {
 }
 
 const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const [games, setGames] = useState([]);
@@ -39,7 +39,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
     const countRefs = useRef([]);
     countRefs.current = games.map((_, index) => countRefs.current[index] ?? createRef());
 
-    const memoRenderGames = useMemo(() => renderGames(), [games])
+    const memoRenderGames = useMemo(() => renderGames(), [games, i18n.language])
 
     useEffect(() => {
         if (localStorage.games && localStorage.games.length !== 0) {
@@ -129,8 +129,8 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                     </div>
                                     :
                                     <div className="text-center my-auto">
-                                        <h5>Нажаль копій цієї гри не залишилось</h5>
-                                        <button className="btn btn-outline-dark responsive-btn rounded-0" onClick={() => subscribe(game)}>Повідомити мене коли з'явиться гра</button>
+                                        <h5>{t('cart.noCopiesLeft')}</h5>
+                                        <button className="btn btn-outline-dark responsive-btn rounded-0" onClick={() => subscribe(game)}>{t('cart.notifyWhenAvailable')}</button>
                                     </div>
                             }
                         </div>
@@ -142,8 +142,8 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             )
                 :
                 <>
-                    <h4 style={{ color: 'var(--text-secondary)' }}>Ви ще нічого не додали до кошику!</h4>
-                    <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>Продовжити покупки</button>
+                    <h4 style={{ color: 'var(--text-secondary)' }}>{t('cart.noItemsAdded')}</h4>
+                    <button className="btn btn-outline-success rounded-0 w-100" onClick={() => navigate(AppPaths.gameCatalog)}>{t('orders.continueShopping')}</button>
                 </>
 
         )
@@ -213,7 +213,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         }
 
         if (games.some(game => game.copyCount === 0)) {
-            toast.info("У вас присутні ігри, копії яких скінчились!");
+            toast.info(t('cart.someCopiesUnavailable'));
             return
         }
 
@@ -270,7 +270,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         if (!await processResponse(response)) {
             return false;
         }
-        toast.success("Пошту підтвердженно");
+        toast.success(t('cart.emailConfirmed'));
         refreshAuth();
         modalConfirm.current.style.display = 'none'
         boxData();
@@ -326,9 +326,9 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                         </fieldset>
                         <div className="form-group checkbox-unique">
                             <input id="callback" type="checkbox" name="callback" required />
-                            <label className="form-check-label" htmlFor="callback">Я впевненений у коректності даних</label>
+                            <label className="form-check-label" htmlFor="callback">{t('cart.confirmDataCorrect')}</label>
                         </div>
-                        <button type="submit" className="btn btn-primary w-100 rounded-0">Підтвердити</button>
+                        <button type="submit" className="btn btn-primary w-100 rounded-0">{t('cart.confirm')}</button>
                     </form>
                 </div>
             </div>

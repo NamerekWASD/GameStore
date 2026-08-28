@@ -9,21 +9,8 @@ import FilterTable from "./parts/filter/FilterTable";
 import GameList from "./parts/GameList";
 import { findUnique } from "../Home";
 
-export const processHeader = (count) => {
-    switch (true) {
-        case (count === 1):
-            return count + ' гра';
-        case (count >= 2 && count < 5):
-            return count + ' гри';
-        case (count >= 5):
-            return count + ' ігор';
-        default:
-            return count + ' ігор';
-    }
-}
-
 const GameCatalog = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [searchParams] = useSearchParams();
     const genreRef = useRef(null);
     const [searchFilters, setSearchFilters] = useState({ genreIds: [], regionIds: [], platformIds: [] });
@@ -34,7 +21,7 @@ const GameCatalog = () => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        genreRef.current.textContent = searchParams.get('genre') ?? 'Каталог';
+        genreRef.current.textContent = searchParams.get('genre') ?? t('catalog.title');
         setPage(0);
         if (searchParams.get('id')) {
             setSearchFilters(prevState => ({
@@ -47,7 +34,7 @@ const GameCatalog = () => {
                 genreIds: []
             }))
         }
-    }, [searchParams])
+    }, [searchParams, i18n.language, t])
 
     useEffect(() => {
         if (page <= 0) {
@@ -69,9 +56,9 @@ const GameCatalog = () => {
     return (
         <div className="h-100 m-4">
             <div>
-                <h1 ref={genreRef} className="fw-bolder">Каталог</h1>
+                <h1 ref={genreRef} className="fw-bolder">{t('catalog.title')}</h1>
                 <div className="d-flex flex-row">
-                    <div className="fw-bold">{t('search.found')} {count !== 0 ? processHeader(count) : t('search.noGames')}</div>
+                    <div className="fw-bold">{t('search.found')} {count !== 0 ? t('catalog.gamesCount', { count }) : t('search.noGames')}</div>
                     <div className="ms-5 w-25">
                         <Select className="" id="order-list"
                             options={orderOptions()}
@@ -83,7 +70,7 @@ const GameCatalog = () => {
                                 }))
                                 setPage(0);
                             }}
-                            placeholder="Упорядкувати"
+                            placeholder={t('catalog.sortPlaceholder')}
                         />
                     </div>
                 </div>

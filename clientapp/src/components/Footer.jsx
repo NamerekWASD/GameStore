@@ -88,7 +88,7 @@ const Footer = () => {
                             </p>
                         </div>
                         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <h6 className="text-uppercase fw-bold mb-4">Контакти</h6>
+                            <h6 className="text-uppercase fw-bold mb-4">{t('footer.contactsTitle')}</h6>
                             <p><FontAwesomeIcon icon={faHome} /><span className="ms-1"> {t('footer.contacts.address')}</span></p>
                             <p>
                                 <a href="mailto:namerek.inc@gmail.com" className="text-reset"><FontAwesomeIcon icon={faEnvelope} /><span className="ms-1"> namerek.inc@gmail.com</span></a>
