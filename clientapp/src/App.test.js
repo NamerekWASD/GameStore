@@ -1,15 +1,25 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import App from './App';
 import '@testing-library/jest-dom';
+import App from './App';
+
+// Plain functions, not jest.fn(): CRA's jest config sets resetMocks: true,
+// which wipes mockImplementation() before each test runs.
+jest.mock('./utils/ApiRequests', () => ({
+  ...jest.requireActual('./utils/ApiRequests'),
+  CheckAuthenticated: () => Promise.resolve(false),
+  GetGenres: () => Promise.resolve([]),
+}));
 
 it('renders without crashing', async () => {
-  const div = document.createElement('div');
-  const root = createRoot(div);
-  root.render(
+  render(
     <MemoryRouter>
       <App />
-    </MemoryRouter>);
-  await new Promise(resolve => setTimeout(resolve, 1000));
+    </MemoryRouter>
+  );
+
+  await waitFor(() => {
+    expect(document.getElementById('myHeader')).toBeInTheDocument();
+  });
 });

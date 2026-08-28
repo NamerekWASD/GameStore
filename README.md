@@ -1,5 +1,7 @@
 # Game Store
 
+![CI](https://github.com/NamerekWASD/GameStore/actions/workflows/ci.yml/badge.svg)
+
 GameStore is an online game store that allows users to buy and sell copies, and create games for selling. It provides a platform to interact with existing games as well as create and edit new ones. Ukrainian localization is used in the project.
 
 ### Technologies
