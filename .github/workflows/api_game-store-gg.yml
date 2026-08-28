@@ -1,13 +1,13 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
+#
+# Deploy is disabled: the Azure subscription is inactive, so azure/login
+# and webapps-deploy would fail on every run. Manual trigger only.
+# Re-enable by setting the repository variable AZURE_DEPLOY_ENABLED to 'true'.
 
-name: Build and deploy ASP.Net Core app to Azure Web App - game-store-gg
+name: Deploy to Azure (manual)
 
 on:
-  push:
-    branches:
-      - workflow-test
-      - API
   workflow_dispatch:
 
 jobs:
@@ -29,11 +29,11 @@ jobs:
         with:
           node-version: '20'  # или 18 LTS, зависит от react-scripts
           cache: 'npm'
-          cache-dependency-path: 'ClientApp/package-lock.json'
+          cache-dependency-path: 'clientapp/package-lock.json'
 
       - name: Install npm dependencies
         run: npm ci
-        working-directory: ClientApp
+        working-directory: clientapp
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -52,6 +52,7 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
+    if: ${{ vars.AZURE_DEPLOY_ENABLED == 'true' }}
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
