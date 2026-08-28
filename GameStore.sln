@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj
 		{8B4188F3-C869-4E75-8CBA-F831027BF0AD} = {8B4188F3-C869-4E75-8CBA-F831027BF0AD}
 	EndProjectSection
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "clientapp", "ClientApp\clientapp.esproj", "{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "clientapp", "clientapp\clientapp.esproj", "{F484B85A-6F8B-4C6F-A5E9-D1EB13369846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
