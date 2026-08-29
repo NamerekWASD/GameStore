@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import '../../../../i18n/i18n';
 import Carousel from './Carousel';
 
 beforeEach(() => {
@@ -40,7 +41,7 @@ test('renders the expected number of slides and bullets for 6 games', async () =
 
   // 6 games chunked by 3 => 2 slides.
   expect(container.querySelectorAll('.my-carousel-item')).toHaveLength(2);
-  expect(container.querySelectorAll('.my-carousel-bullet')).toHaveLength(2);
+  expect(container.querySelectorAll('.carousel-bullet')).toHaveLength(2);
 });
 
 test('does not crash with an empty games array', async () => {
@@ -61,7 +62,7 @@ test('renders every game across slides for 20 games, not capped at 5 slides', as
 
   // 20 games chunked by 3 => 7 slides (6 full + 1 partial), not the old hard cap of 5.
   expect(container.querySelectorAll('.my-carousel-item')).toHaveLength(7);
-  expect(container.querySelectorAll('.my-carousel-bullet')).toHaveLength(7);
+  expect(container.querySelectorAll('.carousel-bullet')).toHaveLength(7);
 });
 
 test.each([0, 1, 2, 3])('does not crash and renders correct slide count for %i games', async (count) => {
@@ -97,6 +98,88 @@ test('renders a hero card and two side cards per desktop slide', async () => {
   expect(container.querySelectorAll('.carousel-card-title')).toHaveLength(3);
 });
 
+test('renders navigation arrows with accessible labels and they change the active slide', async () => {
+  const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+  const { container, getByLabelText } = renderCarousel(games);
+  await flushEffects();
+
+  const track = container.querySelector('.carousel-track');
+  fireEvent.click(getByLabelText('Next slide'));
+  await flushEffects();
+  expect(track.style.transform).toBe('translateX(-100%)');
+
+  fireEvent.click(getByLabelText('Previous slide'));
+  await flushEffects();
+  expect(track.style.transform).toBe('translateX(-0%)');
+});
+
+test('exposes carousel region and bullet ARIA attributes', async () => {
+  const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+  const { container, getByLabelText } = renderCarousel(games);
+  await flushEffects();
+
+  const region = container.querySelector('[role="region"]');
+  expect(region).not.toBeNull();
+  expect(region).toHaveAttribute('aria-roledescription', 'carousel');
+  expect(region).toHaveAttribute('tabIndex', '0');
+
+  expect(getByLabelText('Go to slide 1')).toHaveAttribute('aria-current', 'true');
+});
+
+test('ArrowRight/ArrowLeft keys move the slide when the carousel region has focus', async () => {
+  const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+  const { container } = renderCarousel(games);
+  await flushEffects();
+
+  const region = container.querySelector('[role="region"]');
+  const track = container.querySelector('.carousel-track');
+
+  fireEvent.keyDown(region, { key: 'ArrowRight' });
+  await flushEffects();
+  expect(track.style.transform).toBe('translateX(-100%)');
+
+  fireEvent.keyDown(region, { key: 'ArrowLeft' });
+  await flushEffects();
+  expect(track.style.transform).toBe('translateX(-0%)');
+});
+
+test('a left swipe advances to the next slide', async () => {
+  const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+  const { container } = renderCarousel(games);
+  await flushEffects();
+
+  const wrapper = container.querySelector('.carousel-viewport-wrapper');
+  const track = container.querySelector('.carousel-track');
+
+  fireEvent.touchStart(wrapper, { touches: [{ clientX: 300 }] });
+  fireEvent.touchEnd(wrapper, { changedTouches: [{ clientX: 200 }] });
+  await flushEffects();
+
+  expect(track.style.transform).toBe('translateX(-100%)');
+});
+
+test('autoplay pauses on mouse enter and resumes on mouse leave', async () => {
+  jest.useFakeTimers();
+  try {
+    const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+    const { container } = renderCarousel(games);
+    await act(async () => { await Promise.resolve(); });
+
+    const region = container.querySelector('[role="region"]');
+    const track = container.querySelector('.carousel-track');
+
+    fireEvent.mouseEnter(region);
+    act(() => { jest.advanceTimersByTime(6000); });
+    expect(track.style.transform).toBe('translateX(-0%)');
+
+    fireEvent.mouseLeave(region);
+    act(() => { jest.advanceTimersByTime(5000); });
+    expect(track.style.transform).toBe('translateX(-100%)');
+  } finally {
+    jest.useRealTimers();
+  }
+});
+
 test('moves the track via CSS transform instead of jQuery, and updates it on bullet click', async () => {
   const games = Array.from({ length: 9 }, (_, i) => makeGame(i + 1));
   const { container } = renderCarousel(games);
@@ -107,7 +190,7 @@ test('moves the track via CSS transform instead of jQuery, and updates it on bul
   expect(track.style.transform).toBe('translateX(-0%)');
   expect(container.querySelectorAll('.my-carousel-item[style*="left"]')).toHaveLength(0);
 
-  const bullets = container.querySelectorAll('.my-carousel-bullet');
+  const bullets = container.querySelectorAll('.carousel-bullet');
   fireEvent.click(bullets[2]);
   await flushEffects();
 

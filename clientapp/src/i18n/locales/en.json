@@ -243,5 +243,11 @@
     "home": {
         "novelties": "New releases",
         "availableSoon": "Coming soon"
+    },
+    "carousel": {
+        "regionLabel": "Featured games carousel",
+        "previousSlide": "Previous slide",
+        "nextSlide": "Next slide",
+        "goToSlide": "Go to slide {{number}}"
     }
 }

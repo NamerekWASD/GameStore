@@ -245,5 +245,11 @@
     "home": {
         "novelties": "Новинки",
         "availableSoon": "Скоро у продажі"
+    },
+    "carousel": {
+        "regionLabel": "Карусель ігор",
+        "previousSlide": "Попередній слайд",
+        "nextSlide": "Наступний слайд",
+        "goToSlide": "Перейти до слайду {{number}}"
     }
 }
