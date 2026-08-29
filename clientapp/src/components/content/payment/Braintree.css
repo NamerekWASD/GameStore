@@ -32,3 +32,39 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* braintree-web-drop-in ships a light theme with no dark-mode option.
+   Its chrome is regular DOM we can restyle; the actual card/CVV/expiry
+   inputs render in a Braintree-origin iframe and are themed separately
+   via the `styles` override passed to dropin.create(). */
+#braintree-drop-in-div .braintree-upper-container:before,
+#braintree-drop-in-div .braintree-sheet,
+#braintree-drop-in-div .braintree-option,
+#braintree-drop-in-div .braintree-method {
+    background-color: var(--surface-2) !important;
+    border-color: var(--border) !important;
+}
+
+#braintree-drop-in-div .braintree-option:hover {
+    background-color: var(--surface) !important;
+}
+
+#braintree-drop-in-div .braintree-sheet__header,
+#braintree-drop-in-div .braintree-form__field-group .braintree-form__field .braintree-form__hosted-field {
+    border-color: var(--border) !important;
+}
+
+#braintree-drop-in-div .braintree-sheet__text,
+#braintree-drop-in-div .braintree-sheet__label,
+#braintree-drop-in-div .braintree-form__label,
+#braintree-drop-in-div .braintree-option__label {
+    color: var(--text-primary) !important;
+}
+
+#braintree-drop-in-div .braintree-form__field .braintree-form__hosted-field:hover {
+    border-color: var(--accent) !important;
+}
+
+#braintree-drop-in-div .braintree-form__field .braintree-form__hosted-field.braintree-form__field--valid {
+    border-color: var(--success) !important;
+}

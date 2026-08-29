@@ -40,6 +40,22 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
                     authorization: clientToken,
                     container: '#braintree-drop-in-div',
                     preselectVaultedPaymentMethod: true,
+                    // Hosted Fields render in a Braintree-origin iframe, so our stylesheet
+                    // can't reach them - color values must be literal, matching
+                    // --text-primary/--text-muted from index.css.
+                    card: {
+                        overrides: {
+                            styles: {
+                                input: {
+                                    color: '#f1f5f9',
+                                    'font-size': '15px',
+                                },
+                                '::placeholder': {
+                                    color: '#94a3b8',
+                                },
+                            },
+                        },
+                    },
                 }, function (error, instance) {
                     if (error) {
 
