@@ -93,7 +93,28 @@ const Carousel = ({ games }) => {
                 <img className="width-inherit height-inherit responsive-image"
                     src={poster.path}
                     alt={game.title}
-                    style={isMobile || !isPanorama ? { width: containerSize.width + 'px', height: containerSize.height + 'px' } : {}} />
+                    style={{ width: containerSize.width + 'px', height: containerSize.height + 'px' }} />
+            </div>
+        )
+    }
+
+    function renderCard(game, extraClassName = '') {
+        if (!game) return null;
+        const poster = game.images?.find(value => value.type?.name === POSTER);
+        if (!poster) return null;
+        return (
+            <div className={`pointer carousel-card ${extraClassName}`.trim()}
+                onClick={() => navigateToDetails(game, navigate)}>
+                <img className="carousel-card-image" src={poster.path} alt={game.title} />
+                <div className="carousel-card-gradient" />
+                <div className="carousel-card-info">
+                    <h5 className="carousel-card-title">{game.title}</h5>
+                    {
+                        game.discountPrice ?
+                            <Price item={game} priceClassName="p-1" discountClassName="p-1" />
+                            : null
+                    }
+                </div>
             </div>
         )
     }
@@ -114,7 +135,7 @@ const Carousel = ({ games }) => {
                             {
                                 slides.map((slide, index) => {
                                     return (
-                                        <div key={index} className="d-flex flex-row my-carousel-item carousel-slide" style={isMobile || !isPanorama ? {} : { height: '600px' }}>
+                                        <div key={index} className={isMobile || !isPanorama ? "d-flex flex-row my-carousel-item carousel-slide" : "d-flex flex-row my-carousel-item carousel-slide carousel-hero-row"}>
                                             {
                                                 isMobile || !isPanorama ?
                                                     <div className="overflow-hidden position-relative my-carousel-content" style={{ height: '500px' }}>
@@ -122,16 +143,10 @@ const Carousel = ({ games }) => {
                                                     </div>
                                                     :
                                                     <>
-                                                        <div className="d-flex flex-column">
-                                                            <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                                {renderGame(slide[0])}
-                                                            </div>
-                                                            <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                                {renderGame(slide[1])}
-                                                            </div>
-                                                        </div>
-                                                        <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '500px' }}>
-                                                            {renderGame(slide[2])}
+                                                        {renderCard(slide[0], 'carousel-hero-main')}
+                                                        <div className="carousel-hero-side">
+                                                            {renderCard(slide[1])}
+                                                            {renderCard(slide[2])}
                                                         </div>
                                                     </>
                                             }

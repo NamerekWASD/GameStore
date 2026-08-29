@@ -86,6 +86,17 @@ test('a game without a poster is skipped instead of crashing on undefined.path',
   expect(container.querySelectorAll('img[alt="Game 2"]')).toHaveLength(1);
 });
 
+test('renders a hero card and two side cards per desktop slide', async () => {
+  const games = Array.from({ length: 3 }, (_, i) => makeGame(i + 1));
+  const { container } = renderCarousel(games);
+  await flushEffects();
+
+  expect(container.querySelectorAll('.carousel-hero-main')).toHaveLength(1);
+  expect(container.querySelectorAll('.carousel-hero-side .carousel-card')).toHaveLength(2);
+  expect(container.querySelectorAll('.carousel-card-gradient')).toHaveLength(3);
+  expect(container.querySelectorAll('.carousel-card-title')).toHaveLength(3);
+});
+
 test('moves the track via CSS transform instead of jQuery, and updates it on bullet click', async () => {
   const games = Array.from({ length: 9 }, (_, i) => makeGame(i + 1));
   const { container } = renderCarousel(games);
