@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { navigateToDetails } from "../../../../utils/Navigation";
-import $ from 'jquery'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import Price from "./Price";
@@ -10,11 +9,11 @@ import { isMobile } from 'react-device-detect';
 import { VideoContainer } from "./VideoContainer";
 
 const emptyArray = [1, 2, 3, 4, 5];
-const timeout = { current: null };
 
 const Carousel = ({ games }) => {
     const carousel = useRef(null);
     const container = useRef(null);
+    const timeoutRef = useRef(null);
     const [isPanorama, setIsPanorama] = useState(window.innerWidth > 800);
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
     const navigate = useNavigate();
@@ -39,28 +38,15 @@ const Carousel = ({ games }) => {
     }, [])
 
     const clearTimeOut = () => {
-        if (typeof timeout.current !== "undefined") {
-            clearTimeout(timeout.current);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
         }
     }
 
     const startCarousel = () => {
-        if (typeof timeout.current !== "undefined") {
-            clearTimeout(timeout.current);
-        }
-        const totalWidth = carousel.current.offsetWidth;
-        const items =  $('.my-carousel-item')
-        items.stop();
-        if (sliderIndex >= maxItems.current / 3) {
-            items.animate({ left: `0px` }, 500);
-            setSliderIndex(0);
-            return;
-        }
-        items.animate({ left: `-${totalWidth * sliderIndex}px` }, 500);
-        $('.my-carousel-bullet').css({ 'color': 'gray' })
-        $('.my-carousel-bullet').eq(sliderIndex).css({ 'color': 'white' })
-        timeout.current = setTimeout(() => {
-            setSliderIndex(sliderIndex + 1);
+        clearTimeOut();
+        timeoutRef.current = setTimeout(() => {
+            setSliderIndex(prevIndex => prevIndex + 1 >= maxItems.current / 3 ? 0 : prevIndex + 1);
         }, 5000);
     }
 
@@ -80,6 +66,7 @@ const Carousel = ({ games }) => {
 
     useEffect(() => {
         startCarousel()
+        return () => clearTimeOut();
     }, [sliderIndex])
 
     useEffect(() => {
@@ -133,43 +120,49 @@ const Carousel = ({ games }) => {
                         />
                 }
                 <div ref={container} className="d-flex flex-column justify-content-center align-items-center content bg-dark px-3" style={{ maxWidth: '100vw', height: '80vh' }}>
-                    <div ref={carousel} className="d-flex flex-row overflow-hidden content" style={isMobile || !isPanorama ? { width: '80%', height: '70%' } : { maxWidth: '750px' }}>
-                        {
-                            emptyArray.slice(0, maxItems.current / 3).map((_, index) => {
-                                return (
-                                    <div key={index} className="d-flex flex-row my-carousel-item" style={isMobile || !isPanorama ? {} : { height: '600px' }}>
-                                        {
-                                            isMobile || !isPanorama ?
-                                                <div className="overflow-hidden position-relative my-carousel-content" style={{ height: '500px' }}>
-                                                    {renderGame()}
-                                                </div>
-                                                :
-                                                <>
-                                                    <div className="d-flex flex-column">
-                                                        <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                            {renderGame()}
-                                                        </div>
-                                                        <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                            {renderGame()}
-                                                        </div>
-                                                    </div>
-                                                    <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '500px' }}>
+                    <div ref={carousel} className="overflow-hidden content" style={isMobile || !isPanorama ? { width: '80%', height: '70%' } : { maxWidth: '750px' }}>
+                        <div className="carousel-track d-flex flex-row" style={{ transform: `translateX(-${sliderIndex * 100}%)` }}>
+                            {
+                                emptyArray.slice(0, maxItems.current / 3).map((_, index) => {
+                                    return (
+                                        <div key={index} className="d-flex flex-row my-carousel-item carousel-slide" style={isMobile || !isPanorama ? {} : { height: '600px' }}>
+                                            {
+                                                isMobile || !isPanorama ?
+                                                    <div className="overflow-hidden position-relative my-carousel-content" style={{ height: '500px' }}>
                                                         {renderGame()}
                                                     </div>
-                                                </>
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
-
+                                                    :
+                                                    <>
+                                                        <div className="d-flex flex-column">
+                                                            <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
+                                                                {renderGame()}
+                                                            </div>
+                                                            <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
+                                                                {renderGame()}
+                                                            </div>
+                                                        </div>
+                                                        <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '500px' }}>
+                                                            {renderGame()}
+                                                        </div>
+                                                    </>
+                                            }
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
 
                     <div className="d-flex justify-content-center">
                         {
                             emptyArray.slice(0, maxItems.current / 3).map((_, index) => {
                                 return (
-                                    <div key={index} className="pointer mx-2"><FontAwesomeIcon className="my-carousel-bullet" icon={faCircleDot} color="white" onClick={() => setSliderIndex(index)} /></div>
+                                    <div key={index} className="pointer mx-2">
+                                        <FontAwesomeIcon
+                                            className={index === sliderIndex ? 'my-carousel-bullet active' : 'my-carousel-bullet'}
+                                            icon={faCircleDot}
+                                            onClick={() => setSliderIndex(index)} />
+                                    </div>
                                 )
                             })
                         }

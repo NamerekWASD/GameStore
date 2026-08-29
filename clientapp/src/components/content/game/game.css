@@ -225,6 +225,29 @@
     gap: 10px;
 }
 
+.carousel-track {
+    transition: transform .5s ease;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+}
+
+.my-carousel-bullet {
+    color: gray;
+    cursor: pointer;
+}
+
+.my-carousel-bullet.active {
+    color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+        transition: none;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .game-info {
         font-size: smaller;

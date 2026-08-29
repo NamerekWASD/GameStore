@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Carousel from './Carousel';
 
@@ -51,4 +51,23 @@ test('does not crash when a game has no poster image', async () => {
   const games = [{ id: 1, title: 'No poster', price: 10, isAvailable: false, images: [] }];
   expect(() => renderCarousel(games)).not.toThrow();
   await flushEffects();
+});
+
+test('moves the track via CSS transform instead of jQuery, and updates it on bullet click', async () => {
+  const games = Array.from({ length: 6 }, (_, i) => makeGame(i + 1));
+  const { container } = renderCarousel(games);
+  await flushEffects();
+
+  const track = container.querySelector('.carousel-track');
+  expect(track).not.toBeNull();
+  expect(track.style.transform).toBe('translateX(-0%)');
+  expect(container.querySelectorAll('.my-carousel-item[style*="left"]')).toHaveLength(0);
+
+  const bullets = container.querySelectorAll('.my-carousel-bullet');
+  fireEvent.click(bullets[2]);
+  await flushEffects();
+
+  expect(track.style.transform).toBe('translateX(-200%)');
+  expect(bullets[2].classList.contains('active')).toBe(true);
+  expect(bullets[0].classList.contains('active')).toBe(false);
 });
