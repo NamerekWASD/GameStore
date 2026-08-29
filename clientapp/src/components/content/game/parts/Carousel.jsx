@@ -166,7 +166,7 @@ const Carousel = ({ games }) => {
                 <div
                     ref={container}
                     className="d-flex flex-column justify-content-center align-items-center content bg-dark px-3"
-                    style={{ maxWidth: '100vw', height: '80vh' }}
+                    style={{ maxWidth: '100%', height: '80vh' }}
                     role="region"
                     aria-roledescription="carousel"
                     aria-label={t('carousel.regionLabel')}
@@ -179,7 +179,7 @@ const Carousel = ({ games }) => {
                 >
                     <div
                         className="carousel-viewport-wrapper"
-                        style={isMobileLayout ? { width: '80%', height: '70%' } : { width: 'min(750px, 100%)' }}
+                        style={isMobileLayout ? { width: '80%', height: '70%' } : { width: 'min(750px, 100%)', aspectRatio: '750 / 253', minHeight: 0 }}
                         onTouchStart={handleTouchStart}
                         onTouchEnd={handleTouchEnd}
                     >

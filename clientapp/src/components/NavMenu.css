@@ -207,9 +207,17 @@ a.navbar-brand:hover {
 }
 
 /* Language switcher styles */
+.language-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .language-toggle {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 6px 10px;
     border-radius: 999px;
