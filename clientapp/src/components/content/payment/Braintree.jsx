@@ -8,6 +8,7 @@ import countryList from 'react-select-country-list'
 import Select from 'react-select'
 import { toast } from "react-toastify";
 import { useTranslation } from 'react-i18next';
+import "./Braintree.css";
 
 const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
     const { t } = useTranslation();
@@ -133,46 +134,44 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
         onSuccess(result);
     };
     return (
-        <div className="bg-gray p-3 m-2 text-black">
-            <div>
-                <div className="col bg-surface p-3 min-200">
-                    <h3>{t('payment.billingAddress')}</h3>
-                    <input ref={billingAddressId} type="number" hidden defaultValue={0} />
+        <div className="payment-layout">
+            <div className="payment-card">
+                <h3>{t('payment.billingAddress')}</h3>
+                <input ref={billingAddressId} type="number" hidden defaultValue={0} />
+                <div className="form-group rounded-0 required">
+                    <label className="control-label" htmlFor="fname"><FontAwesomeIcon icon={faUser} />{t('payment.firstName')}</label>
+                    <input ref={firstName} className="form-control rounded-0" type="text" id="fname" name="firstname" required />
+                </div>
+                <div className="form-group rounded-0 required">
+                    <label className="control-label" htmlFor="lname"><FontAwesomeIcon icon={faUser} />{t('payment.lastName')}</label>
+                    <input ref={lastName} className="form-control rounded-0" type="text" id="lname" name="lastname" required />
+                </div>
+                <div className="form-group rounded-0 required">
+                    <label className="control-label" htmlFor="adr"><FontAwesomeIcon icon={faHome} />{t('payment.address')}</label>
+                    <input ref={streetAddress} className="form-control rounded-0" type="text" id="adr" name="address" required />
+                </div>
+                <div id="z-index-top" className="form-group rounded-0 required">
+                    <label className="control-label" htmlFor="adr"><FontAwesomeIcon icon={faGlobe} />{t('payment.country')}</label>
+                    <Select classNamePrefix="rs" options={countries} value={country} onChange={(value) => changeHandler(value)} />
+                </div>
+                <div className="d-flex justify-content-between payment-region-postal">
                     <div className="form-group rounded-0 required">
-                        <label className="control-label" htmlFor="fname"><FontAwesomeIcon icon={faUser} />{t('payment.firstName')}</label>
-                        <input ref={firstName} className="form-control rounded-0" type="text" id="fname" name="firstname" required />
+                        <label className="control-label" htmlFor="region">{t('payment.region')}</label>
+                        <input ref={region} className="form-control rounded-0" type="text" id="region" name="region" required />
                     </div>
                     <div className="form-group rounded-0 required">
-                        <label className="control-label" htmlFor="lname"><FontAwesomeIcon icon={faUser} />{t('payment.lastName')}</label>
-                        <input ref={lastName} className="form-control rounded-0" type="text" id="lname" name="lastname" required />
-                    </div>
-                    <div className="form-group rounded-0 required">
-                        <label className="control-label" htmlFor="adr"><FontAwesomeIcon icon={faHome} />{t('payment.address')}</label>
-                        <input ref={streetAddress} className="form-control rounded-0" type="text" id="adr" name="address" required />
-                    </div>
-                    <div id="z-index-top" className="form-group rounded-0 required">
-                        <label className="control-label" htmlFor="adr"><FontAwesomeIcon icon={faGlobe} />{t('payment.country')}</label>
-                        <Select classNamePrefix="rs" options={countries} value={country} onChange={(value) => changeHandler(value)} />
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <div className="form-group rounded-0 required">
-                            <label className="control-label" htmlFor="region">{t('payment.region')}</label>
-                            <input ref={region} className="form-control rounded-0" type="text" id="region" name="region" required />
-                        </div>
-                        <div className="form-group rounded-0 required">
-                            <label className="control-label" htmlFor="postalCode">{t('payment.postalCode')}</label>
-                            <input ref={postalCode} className="form-control rounded-0" type="text" id="postalCode" name="postalCode" required />
-                        </div>
+                        <label className="control-label" htmlFor="postalCode">{t('payment.postalCode')}</label>
+                        <input ref={postalCode} className="form-control rounded-0" type="text" id="postalCode" name="postalCode" required />
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="payment-card">
+                <h3>{t('payment.payWithCard')}</h3>
                 {
                     !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ?
-                        <div>
-
-                            <h3>{t('payment.testCard')}</h3>
-                            <h5>5555555555554444</h5>
+                        <div className="payment-test-card">
+                            <h5>{t('payment.testCard')}</h5>
+                            <p>5555555555554444</p>
                         </div>
                         :
                         ''

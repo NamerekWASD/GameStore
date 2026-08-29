@@ -30,6 +30,7 @@
     "payment": {
         "email": "Електронна пошта",
         "billingAddress": "Платіжна адреса",
+        "payWithCard": "Оплата карткою",
         "firstName": "Ім'я",
         "lastName": "Призвіще",
         "address": "Адреса",

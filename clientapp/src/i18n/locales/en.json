@@ -30,6 +30,7 @@
     "payment": {
         "email": "Email",
         "billingAddress": "Billing address",
+        "payWithCard": "Pay with card",
         "firstName": "First name",
         "lastName": "Last name",
         "address": "Address",
