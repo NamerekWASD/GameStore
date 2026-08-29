@@ -93,7 +93,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.tags')}</h5>
                 <div>
-                    <Select className="rounded-all-0"
+                    <Select className="rounded-all-0" classNamePrefix="rs"
                         isMulti
                         options={filterData ? filterData.tags : undefined}
                         onChange={(value) => {
@@ -109,7 +109,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.developer')}</h5>
                 <div>
-                    <Select className="rounded-all-0"
+                    <Select className="rounded-all-0" classNamePrefix="rs"
                         isClearable
                         options={filterData ? filterData.developers : undefined}
                         onChange={(value) => {
@@ -125,7 +125,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.publisher')}</h5>
                 <div>
-                    <Select className="rounded-all-0"
+                    <Select className="rounded-all-0" classNamePrefix="rs"
                         isClearable
                         options={filterData ? filterData.publishers : undefined}
                         onChange={(value) => {

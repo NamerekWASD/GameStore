@@ -828,6 +828,65 @@ input[type="checkbox"]:checked+label:before {
     color: var(--text-secondary) !important;
 }
 
+/* react-select (classNamePrefix="rs") ships its own white control/menu by
+   default, which reads as invisible or mismatched against the dark theme */
+.rs__control {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.rs__control--is-focused {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25), var(--shadow-md) !important;
+}
+
+.rs__single-value,
+.rs__input-container,
+.rs__input {
+    color: var(--text-primary) !important;
+}
+
+.rs__placeholder {
+    color: var(--text-secondary) !important;
+}
+
+.rs__menu {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.rs__option {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+.rs__option--is-focused {
+    background-color: var(--bg-tertiary) !important;
+}
+
+.rs__option--is-selected {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.rs__multi-value {
+    background-color: var(--bg-tertiary) !important;
+}
+
+.rs__multi-value__label {
+    color: var(--text-primary) !important;
+}
+
+.rs__indicator-separator {
+    background-color: var(--border-color) !important;
+}
+
+.rs__indicator {
+    color: var(--text-secondary) !important;
+}
+
 /* Form Check (Checkboxes & Radios) */
 .form-check-input {
     background-color: var(--bg-tertiary) !important;

@@ -152,7 +152,7 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
                     </div>
                     <div id="z-index-top" className="form-group rounded-0 required">
                         <label className="control-label" htmlFor="adr"><FontAwesomeIcon icon={faGlobe} />{t('payment.country')}</label>
-                        <Select options={countries} value={country} onChange={(value) => changeHandler(value)} />
+                        <Select classNamePrefix="rs" options={countries} value={country} onChange={(value) => changeHandler(value)} />
                     </div>
                     <div className="d-flex justify-content-between">
                         <div className="form-group rounded-0 required">

@@ -354,7 +354,7 @@ const GameForm = ({ saveChanges }) => {
                                         :
                                         <div className="form-group ">
                                             <label className="control-label">{t('manager.form.copyType')}</label>
-                                            <Select className="rounded-all-0"
+                                            <Select className="rounded-all-0" classNamePrefix="rs"
                                                 isClearable
                                                 options={filterData ? filterData.copyTypes : undefined}
                                                 onChange={(value) => {

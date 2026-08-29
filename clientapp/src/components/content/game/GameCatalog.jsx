@@ -60,7 +60,7 @@ const GameCatalog = () => {
                 <div className="d-flex flex-row">
                     <div className="fw-bold">{t('search.found')} {count !== 0 ? t('catalog.gamesCount', { count }) : t('search.noGames')}</div>
                     <div className="ms-5 w-25">
-                        <Select className="" id="order-list"
+                        <Select className="" classNamePrefix="rs" id="order-list"
                             options={orderOptions()}
                             defaultValue={orderOptions()[0]}
                             onChange={(e) => {
