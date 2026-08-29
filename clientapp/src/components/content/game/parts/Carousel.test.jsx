@@ -87,6 +87,17 @@ test('a game without a poster is skipped instead of crashing on undefined.path',
   expect(container.querySelectorAll('img[alt="Game 2"]')).toHaveLength(1);
 });
 
+function mockMobileLayout() {
+  const original = window.matchMedia;
+  window.matchMedia = jest.fn().mockImplementation(query => ({
+    matches: query === '(max-width: 800px)',
+    media: query,
+    addEventListener: () => { },
+    removeEventListener: () => { },
+  }));
+  return () => { window.matchMedia = original; };
+}
+
 test('renders a hero card and two side cards per desktop slide', async () => {
   const games = Array.from({ length: 3 }, (_, i) => makeGame(i + 1));
   const { container } = renderCarousel(games);
@@ -197,4 +208,37 @@ test('moves the track via CSS transform instead of jQuery, and updates it on bul
   expect(track.style.transform).toBe('translateX(-200%)');
   expect(bullets[2].classList.contains('active')).toBe(true);
   expect(bullets[0].classList.contains('active')).toBe(false);
+});
+
+test('mobile slide renders one full-width card with no JS-measured inline sizes', async () => {
+  const restoreLayout = mockMobileLayout();
+  try {
+    const games = Array.from({ length: 3 }, (_, i) => makeGame(i + 1));
+    const { container } = renderCarousel(games);
+    await flushEffects();
+
+    const cards = container.querySelectorAll('.carousel-slide .carousel-card');
+    expect(cards).toHaveLength(3);
+    expect(cards[0].classList.contains('carousel-mobile-main')).toBe(true);
+
+    const image = cards[0].querySelector('img');
+    expect(image.style.width).toBe('');
+    expect(image.style.height).toBe('');
+  } finally {
+    restoreLayout();
+  }
+});
+
+test('mobile layout puts one game per slide so no game is unreachable', async () => {
+  const restoreLayout = mockMobileLayout();
+  try {
+    const games = Array.from({ length: 4 }, (_, i) => makeGame(i + 1));
+    const { container } = renderCarousel(games);
+    await flushEffects();
+
+    expect(container.querySelectorAll('.my-carousel-item')).toHaveLength(4);
+    expect(container.querySelectorAll('.carousel-bullet')).toHaveLength(4);
+  } finally {
+    restoreLayout();
+  }
 });

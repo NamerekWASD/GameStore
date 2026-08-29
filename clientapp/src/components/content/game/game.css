@@ -283,6 +283,13 @@
     right: 8px;
 }
 
+.carousel-bullets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+}
+
 .carousel-bullet {
     width: 24px;
     height: 24px;
@@ -311,6 +318,19 @@
     border-color: white;
 }
 
+@media screen and (max-width: 800px) {
+    .carousel-bullet {
+        width: 16px;
+        height: 16px;
+        margin: 0 1px;
+    }
+
+    .carousel-bullet::before {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .carousel-track {
         transition: none;
@@ -336,6 +356,13 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+}
+
+.carousel-mobile-main {
+    flex: 1 1 100%;
     min-width: 0;
     min-height: 0;
     height: 100%;
