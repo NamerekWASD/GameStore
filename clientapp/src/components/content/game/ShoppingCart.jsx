@@ -134,7 +134,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                     </div>
                             }
                         </div>
-                        <img className="pe-2 pointer ms-2" src={remove} onClick={() => removeGameFromShoppingBasket(game.id)} alt="remove" />
+                        <img className="pe-2 pointer ms-2 icon-theme" src={remove} onClick={() => removeGameFromShoppingBasket(game.id)} alt="remove" />
                     </div>
 
                 )

@@ -126,8 +126,16 @@
     width: inherit;
 }
 
+/* minus/plus/close-cross ship as solid black artwork; invert them so they
+   stay visible against the dark theme's surfaces */
+.btn-crement>img,
+.icon-theme {
+    filter: invert(1);
+}
+
 .count-input {
     width: calc(var(--crement-width) * 2);
+    color: var(--text-primary);
 }
 
 .my-card {
