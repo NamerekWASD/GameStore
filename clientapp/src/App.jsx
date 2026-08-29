@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import './index.css';
 import './custom.css';
 
 import Layout, { scrollToTop } from './components/Layout';

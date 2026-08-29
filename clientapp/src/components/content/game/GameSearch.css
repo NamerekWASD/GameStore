@@ -1,10 +1,10 @@
 /* GameSearch Component Styling */
 
 #search-bar-game-search-page {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
     border-radius: 12px;
     padding: 2rem;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--accent);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -18,7 +18,7 @@
     color: var(--text-primary);
     font-size: 1.75rem;
     margin-bottom: 0;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-pink));
+    background: linear-gradient(90deg, var(--accent), var(--accent-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
