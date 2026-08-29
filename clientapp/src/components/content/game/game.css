@@ -227,14 +227,18 @@
 
 .carousel-track {
     transition: transform .5s ease;
+    height: 100%;
 }
 
 .carousel-slide {
     flex: 0 0 100%;
+    height: 100%;
+    min-height: 0;
 }
 
 .carousel-viewport-wrapper {
     position: relative;
+    min-height: 0;
 }
 
 .carousel-arrow {
@@ -316,19 +320,25 @@
 .carousel-hero-row {
     gap: 12px;
     align-items: stretch;
+    height: 100%;
+    min-height: 0;
 }
 
 .carousel-hero-main {
-    flex: 0 0 60%;
-    aspect-ratio: 16 / 9;
+    flex: 0 0 calc(60% - 6px);
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
 }
 
 .carousel-hero-side {
-    flex: 1 1 40%;
+    flex: 1 1 calc(40% - 6px);
     display: flex;
     flex-direction: column;
     gap: 12px;
     min-width: 0;
+    min-height: 0;
+    height: 100%;
 }
 
 .carousel-hero-side .carousel-card {
@@ -347,6 +357,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
     transition: transform .2s;
 }
