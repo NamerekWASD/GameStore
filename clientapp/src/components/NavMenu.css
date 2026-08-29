@@ -52,7 +52,10 @@
     display: flex;
     width: 100%;
     gap: 10px;
-    margin-right: 20px;
+}
+
+.navbar>.container-fluid {
+    padding-right: 0;
 }
 
 
@@ -194,7 +197,7 @@ a.navbar-brand:hover {
     width: 1px;
     align-self: stretch;
     background-color: var(--border-color);
-    margin: 8px 4px;
+    margin: 8px 0 8px 4px;
 }
 
 @media (max-width: 575.98px) {
@@ -204,12 +207,29 @@ a.navbar-brand:hover {
         align-self: auto;
         margin: 8px 0;
     }
+
+    .language-switcher {
+        align-self: stretch;
+        min-width: 0;
+        padding: 4px 0;
+    }
 }
 
 /* Language switcher styles */
+/* Fills the strip between the divider and the page edge so the toggle sits in its middle */
+.language-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    flex: 0 0 auto;
+    min-width: 100px;
+}
+
 .language-toggle {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 6px 10px;
     border-radius: 999px;

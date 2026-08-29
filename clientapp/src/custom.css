@@ -517,25 +517,6 @@ input[type="checkbox"]:checked+label:before {
     display: none;
 }
 
-.my-carousel-content .responsive-carousel-title {
-    background-color: #343a3f;
-    opacity: 0;
-    transition: .3s;
-    z-index: 1;
-    transform: translateY(-30px);
-}
-
-.my-carousel-content:hover .responsive-carousel-title {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.carousel-item-price {
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-}
-
 .z-index-top * {
     z-index: 10000;
 }
