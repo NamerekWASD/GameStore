@@ -135,7 +135,7 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
     return (
         <div className="bg-gray p-3 m-2 text-black">
             <div>
-                <div className="col bg-white p-3 min-200">
+                <div className="col bg-surface p-3 min-200">
                     <h3>{t('payment.billingAddress')}</h3>
                     <input ref={billingAddressId} type="number" hidden defaultValue={0} />
                     <div className="form-group rounded-0 required">

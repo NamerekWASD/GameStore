@@ -50,7 +50,7 @@ const GameDropList = ({ searchQuery, refresh, isVisible }) => {
     }
 
     return (
-        <div ref={gameDropList} className="drop-list text-dark">
+        <div ref={gameDropList} className="drop-list">
             <div ref={cardContainer}>
                 <div style={{width: "500px"}}>
 

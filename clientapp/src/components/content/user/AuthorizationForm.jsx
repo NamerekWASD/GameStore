@@ -84,7 +84,7 @@ const AuthorizationForm = ({ refreshAuth, isAuthenticated }) => {
             {
                 isAuthenticated === false ?
                     <>
-                            <div id="sign-form" className='bg-white'>
+                            <div id="sign-form" className='bg-surface'>
                                 <form onSubmit={sendConfirmation}>
                                     <div className="my-card-left">
                                         <h1>{t('auth.title')}</h1>

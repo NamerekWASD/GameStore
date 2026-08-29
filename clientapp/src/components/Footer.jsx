@@ -84,7 +84,7 @@ const Footer = () => {
                                 <a href="#" className="text-reset nav-link">FAQ</a>
                             </p>
                             <p>
-                                <button className="btn text-dark nav-link w-100 text-start" onClick={manager}>{t('footer.links.manager')}</button>
+                                <button className="btn text-reset nav-link w-100 text-start" onClick={manager}>{t('footer.links.manager')}</button>
                             </p>
                         </div>
                         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

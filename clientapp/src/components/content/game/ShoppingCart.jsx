@@ -99,7 +99,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
         return (
             games.length !== 0 ? games.map((game, index) => {
                 return (
-                    <div key={game.id} className="mb-3 my-card bg-white">
+                    <div key={game.id} className="mb-3 my-card bg-surface">
                         <div className="overflow-hidden" style={{ width: '150px' }}>
                             <img src={game.image.path} alt={game.title} className="pointer width-inherit" onClick={() => navigateToDetails(game, navigate)} />
                         </div>
@@ -118,7 +118,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                                     onClick={() => changeCopiesCount(game, index, -1)}>
                                                     <img src={minus} alt="minus" />
                                                 </button>
-                                                <input ref={countRefs.current[index]} className="count-input fs-4 text-center border-0 bg-white" type='text'
+                                                <input ref={countRefs.current[index]} className="count-input fs-4 text-center border-0 bg-surface" type='text'
                                                     value={game.count} min="1" max={game.copyCount <= 5 ? game.copyCount : 5} disabled></input>
                                                 <button className="p-0 btn btn-crement text-center"
                                                     onClick={() => changeCopiesCount(game, index, 1)}>
@@ -130,7 +130,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
                                     :
                                     <div className="text-center my-auto">
                                         <h5>{t('cart.noCopiesLeft')}</h5>
-                                        <button className="btn btn-outline-dark responsive-btn rounded-0" onClick={() => subscribe(game)}>{t('cart.notifyWhenAvailable')}</button>
+                                        <button className="btn btn-outline-light responsive-btn rounded-0" onClick={() => subscribe(game)}>{t('cart.notifyWhenAvailable')}</button>
                                     </div>
                             }
                         </div>
@@ -296,7 +296,7 @@ const ShoppingCart = ({ isAuthenticated, refreshAuth }) => {
             </div>
             <div className="order-container">
                 <h3><b>{t('cart.paymentLabel')}</b></h3>
-                <div className="order-form bg-white">
+                <div className="order-form bg-surface">
                     <form onSubmit={(e) => submitForm(e)}>
                         <div className="form-group required">
                             <label htmlFor="email" className="control-label">{t('payment.email')}</label>

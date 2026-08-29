@@ -254,7 +254,7 @@ const GameForm = ({ saveChanges }) => {
         <div className="container">
             {
                 game ?
-                    <form onSubmit={submit} className="bg-white p-3">
+                    <form onSubmit={submit} className="bg-surface p-3">
                         <h2 className="text-center">{game && game.id !== 0 ? t('manager.form.editTitle') : t('manager.form.createTitle')}</h2>
                         <div className="form-group required">
                             <label className="control-label" htmlFor="id">ID</label>

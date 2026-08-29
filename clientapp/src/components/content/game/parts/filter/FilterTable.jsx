@@ -93,7 +93,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.tags')}</h5>
                 <div>
-                    <Select className="rounded-all-0 text-dark"
+                    <Select className="rounded-all-0"
                         isMulti
                         options={filterData ? filterData.tags : undefined}
                         onChange={(value) => {
@@ -109,7 +109,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.developer')}</h5>
                 <div>
-                    <Select className="rounded-all-0 text-dark"
+                    <Select className="rounded-all-0"
                         isClearable
                         options={filterData ? filterData.developers : undefined}
                         onChange={(value) => {
@@ -125,7 +125,7 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.publisher')}</h5>
                 <div>
-                    <Select className="rounded-all-0 text-dark"
+                    <Select className="rounded-all-0"
                         isClearable
                         options={filterData ? filterData.publishers : undefined}
                         onChange={(value) => {
@@ -141,8 +141,8 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.price')}</h5>
                 <div className="p-3 d-flex justify-content-around gap-2">
-                    <div className="bg-white">
-                        <span className="px-1 text-dark">{t('filter.from')}</span>
+                    <div className="bg-surface">
+                        <span className="px-1">{t('filter.from')}</span>
                         <input ref={minPrice}
                             className="border-0 price no-outline min-input" type="number"
                             min={0} max={100} step=".5"
@@ -159,8 +159,8 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                             }}
                         />
                     </div>
-                    <div className="bg-white">
-                        <span className="px-1 text-dark">{t('filter.to')}</span>
+                    <div className="bg-surface">
+                        <span className="px-1">{t('filter.to')}</span>
                         <input ref={maxPrice}
                             className="border-0 price no-outline max-input" type="number"
                             min={0} max={100} step=".5"
@@ -182,8 +182,8 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
             <div className="mb-1 bg-gray p-3">
                 <h5 className="text-center p-1">{t('filter.releaseDate')}</h5>
                 <div className="p-3 d-flex justify-content-around gap-2">
-                    <div className="bg-white">
-                        <span className="px-1 text-dark">{t('filter.from')}</span>
+                    <div className="bg-surface">
+                        <span className="px-1">{t('filter.from')}</span>
                         <input ref={minDate}
                             className="border-0 no-outline min-input" type="number" min={1990} max={2100} step="1"
                             defaultValue={searchFilters && searchFilters.dateFrom ? searchFilters.dateFrom.getFullYear() : 1990}
@@ -196,8 +196,8 @@ const FilterTable = ({ setPage, setSearchFilters, searchFilters, showGenre }) =>
                             }}
                         />
                     </div>
-                    <div className="bg-white">
-                        <span className="px-1 text-dark">{t('filter.to')}</span>
+                    <div className="bg-surface">
+                        <span className="px-1">{t('filter.to')}</span>
                         <input ref={maxDate}
                             className="border-0 no-outline " type="number" min={1990} max={2100} step="1"
                             defaultValue={searchFilters && searchFilters.dateTo ? searchFilters.dateTo.getFullYear() : 2100}

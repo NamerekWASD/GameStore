@@ -13,7 +13,7 @@ const ModalDelete = ({ refModal, onAcceptDelete, game }) => {
 
                     <button type="button" className="w-100 btn btn-outline-success rounded-0" onClick={onAcceptDelete}>{t('manager.confirm')}</button>
                     <hr />
-                    <button type="button" className="w-100 btn btn-outline-dark rounded-0" onClick={() => refModal.current.style.display = 'none'}>{t('manager.cancelDelete')}</button>
+                    <button type="button" className="w-100 btn btn-outline-light rounded-0" onClick={() => refModal.current.style.display = 'none'}>{t('manager.cancelDelete')}</button>
                 </div>
             </div>
         </div>
