@@ -189,45 +189,66 @@ a.navbar-brand:hover {
     color: var(--text-primary);
 }
 
+/* Vertical divider before the language switcher, last item in the header */
+.nav-divider {
+    width: 1px;
+    align-self: stretch;
+    background-color: var(--border-color);
+    margin: 8px 4px;
+}
+
+@media (max-width: 575.98px) {
+    .nav-divider {
+        width: 100%;
+        height: 1px;
+        align-self: auto;
+        margin: 8px 0;
+    }
+}
+
 /* Language switcher styles */
-.language-switcher .language-toggle {
+.language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     padding: 6px 10px;
-    border-radius: 6px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-    min-width: 56px;
-    justify-content: center;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
 }
 
-.language-switcher .language-toggle:hover {
-    background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-    color: #fff;
+.language-toggle:hover,
+.language-toggle:focus {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
-.language-switcher .language-menu {
-    background-color: #1f1f1f;
-    border: 1px solid rgba(255,255,255,0.06);
-    min-width: 160px;
+.language-flag {
+    width: 20px;
+    height: 14px;
+    border-radius: 2px;
+    object-fit: cover;
+    display: block;
+}
+
+.language-menu {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    min-width: 180px;
     padding: 6px 0;
 }
 
-.language-switcher .dropdown-item {
-    color: #eee;
+.language-menu-item {
+    color: var(--text-primary);
     padding: 8px 14px;
-    transition: background .15s ease, color .15s ease;
+    gap: 8px;
 }
 
-.language-switcher .dropdown-item:hover {
-    background: rgba(255,255,255,0.04);
-    color: #fff;
-}
-
-.language-switcher .dropdown-item.active {
-    background: linear-gradient(90deg, rgba(32,165,32,0.12), rgba(32,165,32,0.06));
-    color: #dfffe0;
-}
-
-.language-switcher span[aria-hidden] {
-    font-size: 1.15em;
+.language-menu-item:hover {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
 }

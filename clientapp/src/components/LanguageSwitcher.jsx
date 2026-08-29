@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import i18n from 'i18next';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import gbFlag from '../static/flags/gb.svg';
+import uaFlag from '../static/flags/ua.svg';
 
 const availableLangs = [
-  { code: 'en', label: 'EN', name: 'English', emoji: '🇬🇧' },
-  { code: 'uk', label: 'UK', name: 'Українська', emoji: '🇺🇦' }
+  { code: 'en', label: 'EN', name: 'English', flag: gbFlag },
+  { code: 'uk', label: 'UK', name: 'Українська', flag: uaFlag }
 ];
 
 const LanguageSwitcher = () => {
@@ -27,17 +31,20 @@ const LanguageSwitcher = () => {
     setOpen(false);
   };
 
+  const activeLang = availableLangs.find(l => l.code === current) || availableLangs[0];
+
   return (
-    <Dropdown isOpen={open} toggle={toggle} className="language-switcher ms-2">
-      <DropdownToggle caret color="link" className="text-white btn-sm rounded-0 language-toggle d-flex align-items-center">
-        <span className="me-2" aria-hidden>{(availableLangs.find(l => l.code === current) || availableLangs[0]).emoji}</span>
-        <span className="fw-bold">{current ? current.toUpperCase() : 'EN'}</span>
+    <Dropdown isOpen={open} toggle={toggle} className="language-switcher">
+      <DropdownToggle color="link" className="language-toggle d-flex align-items-center">
+        <img src={activeLang.flag} alt="" className="language-flag" />
+        <span className="fw-bold">{activeLang.label}</span>
       </DropdownToggle>
       <DropdownMenu end className="language-menu">
         {availableLangs.map(lang => (
-          <DropdownItem key={lang.code} onClick={() => changeLang(lang.code)} active={lang.code === current} className="d-flex align-items-center">
-            <span className="me-2">{lang.emoji}</span>
-            <span>{lang.name}</span>
+          <DropdownItem key={lang.code} onClick={() => changeLang(lang.code)} className="d-flex align-items-center language-menu-item">
+            <img src={lang.flag} alt="" className="language-flag me-2" />
+            <span className="flex-fill">{lang.name}</span>
+            {lang.code === current ? <FontAwesomeIcon icon={faCheck} className="ms-2" /> : null}
           </DropdownItem>
         ))}
       </DropdownMenu>

@@ -164,7 +164,6 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                         <div className='flex-fill'>
 
                         </div>
-                        <LanguageSwitcher />
                         <NavItem className='position-relative'>
                             <NavLink tag={Link} to="cart" className='counter-container p-1'>
                                 <img src={cart} alt="" width={42} height={42} />
@@ -190,6 +189,8 @@ const NavMenu = ({ isAuthenticated, refreshAuth }) => {
                                     </NavItem>
                                 </>
                         }
+                        <div className='nav-divider' aria-hidden='true'></div>
+                        <LanguageSwitcher />
                     </ul>
                 </Collapse>
             </Navbar>
