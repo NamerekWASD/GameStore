@@ -42,7 +42,11 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
                     preselectVaultedPaymentMethod: true,
                     // Hosted Fields render in a Braintree-origin iframe, so our stylesheet
                     // can't reach them - color values must be literal, matching
-                    // --text-primary/--text-muted from index.css.
+                    // --text-primary/--text-muted from index.css. Every key here mirrors
+                    // one of drop-in's own default style keys (see its card-view.js) -
+                    // the default ':focus' color is a separate rule from 'input' and
+                    // wins while typing, so it must be overridden too or typed text
+                    // stays black-on-dark while a field is focused.
                     card: {
                         overrides: {
                             styles: {
@@ -50,7 +54,19 @@ const Braintree = ({ sCartData, onSuccess, setSended, onError }) => {
                                     color: '#f1f5f9',
                                     'font-size': '15px',
                                 },
-                                '::placeholder': {
+                                ':focus': {
+                                    color: '#f1f5f9',
+                                },
+                                '::-webkit-input-placeholder': {
+                                    color: '#94a3b8',
+                                },
+                                ':-moz-placeholder': {
+                                    color: '#94a3b8',
+                                },
+                                '::-moz-placeholder': {
+                                    color: '#94a3b8',
+                                },
+                                ':-ms-input-placeholder': {
                                     color: '#94a3b8',
                                 },
                             },
