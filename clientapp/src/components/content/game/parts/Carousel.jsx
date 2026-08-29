@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { navigateToDetails } from "../../../../utils/Navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,13 @@ import { POSTER } from "../../../../utils/Constants";
 import { isMobile } from 'react-device-detect';
 import { VideoContainer } from "./VideoContainer";
 
-const emptyArray = [1, 2, 3, 4, 5];
+function chunk(array, size) {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+    }
+    return result;
+}
 
 const Carousel = ({ games }) => {
     const carousel = useRef(null);
@@ -18,8 +24,7 @@ const Carousel = ({ games }) => {
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
     const navigate = useNavigate();
     const [sliderIndex, setSliderIndex] = useState(0);
-    const maxItems = { current: 15 };
-    const itemIndex = { current: -1 };
+    const slides = useMemo(() => chunk(games, 3), [games]);
 
     useEffect(() => {
         window.addEventListener('resize', checkIsPanorama)
@@ -46,23 +51,13 @@ const Carousel = ({ games }) => {
     const startCarousel = () => {
         clearTimeOut();
         timeoutRef.current = setTimeout(() => {
-            setSliderIndex(prevIndex => prevIndex + 1 >= maxItems.current / 3 ? 0 : prevIndex + 1);
+            setSliderIndex(prevIndex => prevIndex + 1 >= slides.length ? 0 : prevIndex + 1);
         }, 5000);
     }
 
     useEffect(() => {
-        async function updateMaxItems() {
-            await calculateMaxItems();
-            startCarousel();
-        }
-        updateMaxItems();
-    }, [games.length, calculateMaxItems, startCarousel])
-
-    async function calculateMaxItems() {
-        itemIndex.current = -1;
-        const reducer = (games.length % 3);
-        maxItems.current = Math.min(games.length - reducer, maxItems.current);
-    }
+        setSliderIndex(0);
+    }, [slides.length])
 
     useEffect(() => {
         startCarousel()
@@ -82,30 +77,24 @@ const Carousel = ({ games }) => {
         }
     }, [])
 
-    function renderGame() {
-        itemIndex.current++;
-        const game = games[itemIndex.current];
+    function renderGame(game) {
+        if (!game) return null;
+        const poster = game.images?.find(value => value.type?.name === POSTER);
+        if (!poster) return null;
         return (
-            <>
+            <div className="pointer width-inherit height-inherit"
+                onClick={() => navigateToDetails(game, navigate)} >
+                <h5 className="position-absolute text-white p-2 m-2 responsive-carousel-title">{game.title}</h5>
                 {
-                    game ? <div className="pointer width-inherit height-inherit"
-                        onClick={() => navigateToDetails(game, navigate)} >
-                        <h5 className="position-absolute text-white p-2 m-2 responsive-carousel-title">{game.title}</h5>
-                        {
-                            game.discountPrice ?
-                                <div className="position-absolute text-white m-2 carousel-item-price"><Price item={game} priceClassName="p-1" discountClassName="p-1" /></div>
-                                : <></>
-                        }
-                        <img className="width-inherit height-inherit responsive-image"
-                            src={game.images.find(value => value.type.name === POSTER)?.path}
-                            alt={game.title}
-                            style={isMobile || !isPanorama ? { width: containerSize.width + 'px', height: containerSize.height + 'px' } : {}} />
-                    </div>
-                        :
-                        ""
+                    game.discountPrice ?
+                        <div className="position-absolute text-white m-2 carousel-item-price"><Price item={game} priceClassName="p-1" discountClassName="p-1" /></div>
+                        : <></>
                 }
-            </>
-
+                <img className="width-inherit height-inherit responsive-image"
+                    src={poster.path}
+                    alt={game.title}
+                    style={isMobile || !isPanorama ? { width: containerSize.width + 'px', height: containerSize.height + 'px' } : {}} />
+            </div>
         )
     }
     return (
@@ -123,26 +112,26 @@ const Carousel = ({ games }) => {
                     <div ref={carousel} className="overflow-hidden content" style={isMobile || !isPanorama ? { width: '80%', height: '70%' } : { maxWidth: '750px' }}>
                         <div className="carousel-track d-flex flex-row" style={{ transform: `translateX(-${sliderIndex * 100}%)` }}>
                             {
-                                emptyArray.slice(0, maxItems.current / 3).map((_, index) => {
+                                slides.map((slide, index) => {
                                     return (
                                         <div key={index} className="d-flex flex-row my-carousel-item carousel-slide" style={isMobile || !isPanorama ? {} : { height: '600px' }}>
                                             {
                                                 isMobile || !isPanorama ?
                                                     <div className="overflow-hidden position-relative my-carousel-content" style={{ height: '500px' }}>
-                                                        {renderGame()}
+                                                        {renderGame(slide[0])}
                                                     </div>
                                                     :
                                                     <>
                                                         <div className="d-flex flex-column">
                                                             <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                                {renderGame()}
+                                                                {renderGame(slide[0])}
                                                             </div>
                                                             <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '250px' }}>
-                                                                {renderGame()}
+                                                                {renderGame(slide[1])}
                                                             </div>
                                                         </div>
                                                         <div className="overflow-hidden position-relative my-carousel-content" style={{ width: '500px' }}>
-                                                            {renderGame()}
+                                                            {renderGame(slide[2])}
                                                         </div>
                                                     </>
                                             }
@@ -155,7 +144,7 @@ const Carousel = ({ games }) => {
 
                     <div className="d-flex justify-content-center">
                         {
-                            emptyArray.slice(0, maxItems.current / 3).map((_, index) => {
+                            slides.map((_, index) => {
                                 return (
                                     <div key={index} className="pointer mx-2">
                                         <FontAwesomeIcon
