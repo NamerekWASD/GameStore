@@ -409,3 +409,4 @@ API/ClientApp/.env.development
 
 .temp/
 .playwright-mcp/
+CLAUDE.md
